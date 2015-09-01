@@ -1,0 +1,7 @@
+{
+  "name": "",
+  "version": "1.0.0",
+  "dependencies": {
+                "gulp" : "3.9.0"
+  }
+}

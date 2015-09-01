@@ -1,0 +1,16 @@
+{
+  "name": "<%= name %>",
+  "version": "1.0.0",
+  "dependencies": {
+    <% if (css_preprocessor === 'sass') { -%>
+        "gulp-sass": "^1.0.0",
+    <% } -%>
+    <% if (css_preprocessor === 'less') { -%>
+        "gulp-less": "^1.0.0",
+    <% } -%>
+    <% if (css_preprocessor === 'stylus') { -%>
+        "gulp-stylus": "^1.0.0",
+    <% } -%>
+    "gulp" : "3.9.0"
+  }
+}
