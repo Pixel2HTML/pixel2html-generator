@@ -2,7 +2,6 @@
 
 var generators = require('yeoman-generator');
 var chalk = require('chalk');
-var wiredep = require('wiredep');
 var mkdirp = require('mkdirp');
 var _s = require('underscore.string');
 var _ = require('underscore');
@@ -12,10 +11,16 @@ module.exports = generators.Base.extend({
 
     generators.Base.apply(this, arguments);
 
-    this.option('skip-welcome-message', {
+    this.option('skip_welcome_message', {
       desc: 'Skips the welcome message',
       type: Boolean
     });
+
+    this.option('projectName', {
+      desc: 'Sets the project name',
+      type: String
+    });
+
     this.fs.delete('demo');
     mkdirp('demo');
     this.destinationRoot('demo');
@@ -36,15 +41,15 @@ module.exports = generators.Base.extend({
     }
 
      var prompts = [
-     {
-      type    : 'input',
-      name    : 'project_name',
-      message : 'Your project name',
-      required: true
-    },
+      {
+        type    : 'input',
+        name    : 'projectName',
+        message : 'Your project name',
+        required: true
+      },
       {
         type: 'list',
-        name: 'css_preprocessor',
+        name: 'cssPreprocessor',
         message: 'What preprocessor would you like to use? Pick one',
         choices: [
           {
@@ -61,7 +66,7 @@ module.exports = generators.Base.extend({
       },
       {
         type: 'list',
-        name: 'css_framework',
+        name: 'cssFramework',
         message: 'What CSS Framework do you like to include?',
         choices: [{
             name: 'BassCss',
@@ -95,9 +100,9 @@ module.exports = generators.Base.extend({
 
     this.prompt(prompts, function (answers) {
 
-      this.project_name     = answers.project_name;
-      this.css_preprocessor = answers.css_preprocessor;
-      this.css_framework    = answers.css_framework;
+      this.projectName     = answers.projectName;
+      this.cssPreprocessor = answers.cssPreprocessor;
+      this.cssFramework    = answers.cssFramework;
       this.jquery           = answers.jquery;
       this.parsley          = answers.parsley;
       this.modernizr        = answers.modernizr;
@@ -109,12 +114,12 @@ module.exports = generators.Base.extend({
 
   paths: function() {
     this.paths = {
-      src_fonts:    "assets/src/fonts",
-      src_icons:    "assets/src/icons",
-      src_images:   "assets/src/images",
-      src_vendors:  "assets/src/vendor",
-      src_js:       "assets/src/js",
-      src_css_preprocessor: "assets/src/"+this.css_preprocessor
+      srcFonts:    'assets/src/fonts',
+      srcIcons:    'assets/src/icons',
+      srcImages:   'assets/src/images',
+      srcVendors:  'assets/src/vendor',
+      srcJs:       'assets/src/js',
+      srcCssPreprocessor: 'assets/src/'+this.cssPreprocessor
     };
   },
 
@@ -123,7 +128,7 @@ module.exports = generators.Base.extend({
     createFolders: function() {
       console.log(chalk.yellow('Creating directories.'));
 
-      mkdirp("assets");
+      mkdirp('assets');
 
       _.each(this.paths, function(path){
         mkdirp(path);
@@ -147,8 +152,8 @@ module.exports = generators.Base.extend({
         this.templatePath('base/_package.json'),
         this.destinationPath('package.json'),
         {
-          project_name    : this.project_name,
-          css_preprocessor: this.css_preprocessor
+          projectName    : this.projectName,
+          cssPreprocessor: this.cssPreprocessor
         }
       );
     },
@@ -176,14 +181,14 @@ module.exports = generators.Base.extend({
       console.log(chalk.yellow('Adding some bower magic.'));
 
       var bowerJson = {
-        prooject_name: 'pixel2html-'+_s.slugify(this.project_name),
+        projectName: 'pixel2html-'+_s.slugify(this.projectName),
         private: true,
         dependencies: {}
       };
 
-      switch(this.css_framework) {
+      switch(this.cssFramework) {
         case 'bootstrap':
-          switch(this.css_preprocessor){
+          switch(this.cssPreprocessor){
             case 'sass':
               bowerJson.dependencies['bootstrap-sass'] = '~3.3.*';
             break; //sass
@@ -197,7 +202,7 @@ module.exports = generators.Base.extend({
         break; //bootstrap
 
         case 'basscss':
-          switch(this.css_preprocessor){
+          switch(this.cssPreprocessor){
             case 'sass':
               bowerJson.dependencies['basscss-sass'] = '~3.0.*';
             break; //sass
@@ -212,7 +217,7 @@ module.exports = generators.Base.extend({
         break;
 
         case 'foundation':
-          switch(this.css_preprocessor){
+          switch(this.cssPreprocessor){
             case 'sass':
               bowerJson.dependencies['foundation'] = '~5.5.*';
             break; //sass
@@ -270,54 +275,42 @@ module.exports = generators.Base.extend({
     },
 
     styles: function () {
-      var css_file = 'main';
-      switch(this.css_preprocessor){
+      var cssFile = 'main';
+      switch(this.cssPreprocessor){
         case 'sass':
-          css_file += '.scss';
+          cssFile += '.scss';
         break; //sass
         case 'less':
-          css_file += '.less';
+          cssFile += '.less';
         break; //less
         case 'stylus':
-          css_file += '.styl';
+          cssFile += '.styl';
         break; //stylus
       }
 
       this.fs.copyTpl(
-        this.templatePath('styles/'+css_file),
-        this.destinationPath(this.paths.src_css_preprocessor + '/' +css_file)
+        this.templatePath('styles/'+cssFile),
+        this.destinationPath(this.paths.srcCssPreprocessor + '/' +cssFile)
       );
     },
 
     scripts: function () {
       this.fs.copy(
         this.templatePath('scripts/main.js'),
-        this.destinationPath(this.paths.src_js+'/main.js')
+        this.destinationPath(this.paths.srcJs+'/main.js')
       );
     },
 
     html: function () {
-      var bsPath;
-
-      // path prefix for Bootstrap JS files
-      if (this.includeBootstrap) {
-        bsPath = this.paths.src_vendor;
-
-        if (this.css_preprocessor ==='sass') {
-          bsPath += 'bootstrap-sass/assets/javascripts/bootstrap/';
-        } else {
-          bsPath += 'bootstrap/js/';
-        }
-      }
 
       this.fs.copyTpl(
         this.templatePath('layouts/index.html'),
         this.destinationPath('index.html'),
         {
-          project_name: this.project_name,
+          projectName: this.projectName,
           modernizr: this.modernizr,
-          css_preprocessor: this.css_preprocessor,
-          css_framework: this.css_framework,
+          cssPreprocessor: this.cssPreprocessor,
+          cssFramework: this.cssFramework,
           jquery: this.jquery
         }
       );
@@ -336,8 +329,8 @@ module.exports = generators.Base.extend({
 
     var howToInstall =
       '\nAfter running ' +
-      chalk.yellow.bold('npm install & bower install') + '\n'
-      + '\n\n Happy coding :)';
+      chalk.yellow.bold('npm install & bower install') + '\n' +
+      '\n\n Happy coding :)';
 
     if (this.options['skip-install']) {
       this.log(howToInstall);
