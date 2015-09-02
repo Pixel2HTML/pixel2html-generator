@@ -58,7 +58,7 @@ Generator.prototype.welcome = function welcome() {
   }
 };
 
-Generator.prototype.askForProjectName = function askForProjectName(){
+Generator.prototype.askForProjectName = function askForProjectName() {
 
   var cb = this.async();
 
@@ -69,7 +69,7 @@ Generator.prototype.askForProjectName = function askForProjectName(){
       required: true,
       message: 'Give me the Project Name!'
     }],
-    function (props) {
+    function(props) {
       this.projectName = props.projectName;
 
       cb();
@@ -77,7 +77,7 @@ Generator.prototype.askForProjectName = function askForProjectName(){
   );
 };
 
-Generator.prototype.askForQtyPages = function askForQtyPages(){
+Generator.prototype.askForQtyPages = function askForQtyPages() {
 
   var cb = this.async();
 
@@ -87,7 +87,7 @@ Generator.prototype.askForQtyPages = function askForQtyPages(){
       name: 'qtyPages',
       message: 'How many pages to will code?'
     }],
-    function (props) {
+    function(props) {
       this.qtyPages = props.qtyPages;
 
       cb();
@@ -101,11 +101,10 @@ Generator.prototype.projectType = function projectType() {
 
 
   this.prompt([{
-    type: 'list',
-    name: 'projectType',
-    message: 'What type of page you will code? Pick one',
-    choices: [
-      {
+      type: 'list',
+      name: 'projectType',
+      message: 'What type of page you will code? Pick one',
+      choices: [{
         name: 'Desktop',
         value: 'desktop',
       }, {
@@ -114,13 +113,12 @@ Generator.prototype.projectType = function projectType() {
       }, {
         name: 'Mobile',
         value: 'mobile',
-      }
-    ]
-  }],
-  function (props) {
-    this.projectType = props.projectType;
-    cb();
-  }.bind(this));
+      }]
+    }],
+    function(props) {
+      this.projectType = props.projectType;
+      cb();
+    }.bind(this));
 };
 
 Generator.prototype.askForCssPreprocessor = function askForCssPreprocessor() {
@@ -129,11 +127,10 @@ Generator.prototype.askForCssPreprocessor = function askForCssPreprocessor() {
   var cb = this.async();
 
   this.prompt([{
-    type: 'list',
-    name: 'cssPreprocessor',
-    message: 'What preprocessor would you like to use? Pick one',
-    choices: [
-      {
+      type: 'list',
+      name: 'cssPreprocessor',
+      message: 'What preprocessor would you like to use? Pick one',
+      choices: [{
         name: 'Sass',
         value: 'sass',
       }, {
@@ -142,39 +139,37 @@ Generator.prototype.askForCssPreprocessor = function askForCssPreprocessor() {
       }, {
         name: 'Stylus',
         value: 'stylus',
-      }
-    ]
-  }],
-  function (props) {
-    this.cssPreprocessor = props.cssPreprocessor;
-    cb();
-  }.bind(this));
+      }]
+    }],
+    function(props) {
+      this.cssPreprocessor = props.cssPreprocessor;
+      cb();
+    }.bind(this));
 };
 
-Generator.prototype.askForFramework = function askForFramework(){
+Generator.prototype.askForFramework = function askForFramework() {
   var cssPreprocessor = this.cssPreprocessor;
   var cb = this.async();
 
-   this.prompt([{
+  this.prompt([{
       type: 'list',
       name: 'cssFramework',
       message: 'What CSS Framework do you like to include?',
       choices: [{
-          name: 'BassCss',
-          value: 'basscss',
-        }, {
-          name: 'Bootstrap',
-          value: 'bootstrap',
-        }, {
-          name: 'Foundation',
-          value: 'foundation',
-        }
-      ]
-  }],
-  function (props) {
-    this.cssPreprocessor = props.cssPreprocessor;
-    cb();
-  }.bind(this));
+        name: 'BassCss',
+        value: 'basscss',
+      }, {
+        name: 'Bootstrap',
+        value: 'bootstrap',
+      }, {
+        name: 'Foundation',
+        value: 'foundation',
+      }]
+    }],
+    function(props) {
+      this.cssPreprocessor = props.cssPreprocessor;
+      cb();
+    }.bind(this));
 };
 
 Generator.prototype.askForjQuery = function askForjQuery() {
@@ -186,10 +181,10 @@ Generator.prototype.askForjQuery = function askForjQuery() {
     name: 'jquery',
     message: 'Would you like to use jQuery?',
     default: true,
-    when: function () {
+    when: function() {
       return cssFramework;
     }
-  }], function (props) {
+  }], function(props) {
     this.jquery = props.jquery;
     cb();
   }.bind(this));
@@ -199,78 +194,73 @@ Generator.prototype.askForJsModules = function askForJsModules() {
   var cb = this.async();
   var jquery = this.jquery;
 
-  var prompts = [
-  {
+  var prompts = [{
     type: 'checkbox',
     name: 'jsModules',
     message: 'Which modules would you like to include?',
-    choices: [
-      {
-        value: 'parsleyjs',
-        name: 'Form validation with Parsley.js',
-        checked: true
-      }, {
-        value: 'slider',
-        name: 'Slider.js',
-        checked: false
-      }, {
-        value: 'tabs',
-        name: 'tabs.js',
-        checked: false
-      }
-    ],
-    when: function (jquery) {
+    choices: [{
+      value: 'parsleyjs',
+      name: 'Form validation with Parsley.js',
+      checked: true
+    }, {
+      value: 'slider',
+      name: 'Slider.js',
+      checked: false
+    }, {
+      value: 'tabs',
+      name: 'tabs.js',
+      checked: false
+    }],
+    when: function(jquery) {
       return jquery;
     }
-  }
-  ];
+  }];
 
-  this.prompt(prompts, function(props){
+  this.prompt(prompts, function(props) {
 
-    var hasMod = function (mod) {
+    var hasMod = function(mod) {
       return _.contains(props.jsModules, mod);
     };
 
-    this.parsleyjs  = hasMod('parsleyjs');
-    this.slider     = hasMod('slider');
-    this.tabs       = hasMod('tabs');
+    this.parsleyjs = hasMod('parsleyjs');
+    this.slider = hasMod('slider');
+    this.tabs = hasMod('tabs');
 
     cb();
   }.bind(this));
 };
 
-Generator.prototype.packageFiles = function packageFiles(){
+Generator.prototype.packageFiles = function packageFiles() {
 
-    this.log(chalk.yellow('Copying gulpfile.'));
-    this.fs.copyTpl(
-      this.templatePath('gulp/_gulpfile.js'),
-      this.destinationPath('gulpfile.js')
-    );
+  this.log(chalk.yellow('Copying gulpfile.'));
+  this.fs.copyTpl(
+    this.templatePath('gulp/_gulpfile.js'),
+    this.destinationPath('gulpfile.js')
+  );
 
-    this.log(chalk.yellow('Copying package.json file and adding dependencies.'));
-    this.fs.copyTpl(
-      this.templatePath('base/_package.json'),
-      this.destinationPath('package.json'),
-      {
-        projectName    : this.projectName,
-        cssPreprocessor: this.cssPreprocessor
-      }
-    );
+  this.log(chalk.yellow('Copying package.json file and adding dependencies.'));
+  this.fs.copyTpl(
+    this.templatePath('base/_package.json'),
+    this.destinationPath('package.json'), {
+      projectName: this.projectName,
+      cssPreprocessor: this.cssPreprocessor
+    }
+  );
 
-    this.log(chalk.yellow('Copying jshintrc file.'));
-    this.fs.copy(
-      this.templatePath('base/jshintrc'),
-      this.destinationPath('.jshintrc')
-    );
+  this.log(chalk.yellow('Copying jshintrc file.'));
+  this.fs.copy(
+    this.templatePath('base/jshintrc'),
+    this.destinationPath('.jshintrc')
+  );
 
-    this.log(chalk.yellow('Copying git files.'));
-    this.fs.copy(
-      this.templatePath('git/gitignore'),
-      this.destinationPath('.gitignore')
-    );
+  this.log(chalk.yellow('Copying git files.'));
+  this.fs.copy(
+    this.templatePath('git/gitignore'),
+    this.destinationPath('.gitignore')
+  );
 
-    this.fs.copy(
-      this.templatePath('git/gitattributes'),
-      this.destinationPath('.gitattributes')
-    );
+  this.fs.copy(
+    this.templatePath('git/gitattributes'),
+    this.destinationPath('.gitattributes')
+  );
 };
