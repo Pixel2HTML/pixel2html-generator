@@ -72,6 +72,7 @@ Generator.prototype.askForProjectName = function askForProjectName(){
     [{
       type: 'input',
       name: 'projectName',
+      required: true,
       message: 'Give me the Project Name!'
     }],
     function (props) {
@@ -249,8 +250,7 @@ Generator.prototype.packageFiles = function packageFiles(){
     this.log(chalk.yellow('Copying gulpfile.'));
     this.fs.copyTpl(
       this.templatePath('gulp/_gulpfile.js'),
-      this.destinationPath(
-          path.join(this.appPath, 'gulpfile.js'))
+      this.destinationPath('gulpfile.js')
     );
 
     this.log(chalk.yellow('Copying package.json file and adding dependencies.'));
