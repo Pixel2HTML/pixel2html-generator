@@ -243,11 +243,6 @@ Generator.prototype.askForJsModules = function askForJsModules() {
 
 Generator.prototype.packageFiles = function packageFiles() {
 
-  this.log(chalk.yellow('Copying gulpfile.'));
-  this.fs.copyTpl(
-    this.templatePath('gulp/_gulpfile.js'),
-    this.destinationPath('gulpfile.js')
-  );
 
   this.log(chalk.yellow('Copying package.json file and adding dependencies.'));
   this.fs.copyTpl(
@@ -276,6 +271,15 @@ Generator.prototype.packageFiles = function packageFiles() {
   );
 };
 
+Generator.prototype.gulpFiles = function gulpFiles() {
+
+  this.log(chalk.yellow('Copying gulpfile.'));
+  this.fs.copyTpl(
+    this.templatePath('gulp/_gulpfile.js'),
+    this.destinationPath('gulpfile.js')
+  );
+
+}
 
 Generator.prototype.createFolder = function createFolder() {
   this.log(chalk.yellow('Creating directories.'));
