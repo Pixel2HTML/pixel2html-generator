@@ -5,10 +5,15 @@ var chalk = require('chalk');
 var mkdirp = require('mkdirp');
 var _s = require('underscore.string');
 var _ = require('underscore');
+var optionOrPrompt = require('yeoman-option-or-prompt');
+
 
 module.exports = generators.Base.extend({
-  constructor: function () {
 
+  // _optionOrPrompt: optionOrPrompt,
+
+
+  constructor: function () {
     generators.Base.apply(this, arguments);
 
     this.option('skip_welcome_message', {
@@ -16,25 +21,31 @@ module.exports = generators.Base.extend({
       type: Boolean
     });
 
-    this.option('projectName', {
-      desc: 'Sets the project name',
-      type: String
-    });
+    this.argument('projectName', { type: String, required: true });
+    this.projectName = _.camelCase(this.projectName);
+
 
     this.fs.delete('demo');
     mkdirp('demo');
-    this.destinationRoot('demo');
-
+      this.destinationRoot('demo');
   },
 
-
-
-  initializing: function () {
-    this.pkg = require('../package.json');
-  },
+  // initializing: function () {
+  //   this.pkg = require('../package.json');
+  // },
 
   prompting: function () {
     var done = this.async();
+    // this.optionOrPrompt({
+    //   type    : 'input',
+    //   name    : 'projectName',
+    //   message : 'Your project name',
+    //   // default : this.appname // Default to current folder name
+    // }, function (answers) {
+    //   this.projectName     = answers.projectName;
+    //   done();
+    // }.bind(this));
+
 
     if (!this.options['skip-welcome-message']) {
       this.log(chalk.white.bgRed.bold('Welcome to Pixel2HTML Boilerplate Generator'));
@@ -46,72 +57,74 @@ module.exports = generators.Base.extend({
         name    : 'projectName',
         message : 'Your project name',
         required: true
-      }];
-    //   ,
-    //   {
-    //     type: 'list',
-    //     name: 'cssPreprocessor',
-    //     message: 'What preprocessor would you like to use? Pick one',
-    //     choices: [
-    //       {
-    //         name: 'Sass',
-    //         value: 'sass',
-    //       }, {
-    //         name: 'Less',
-    //         value: 'less',
-    //       }, {
-    //         name: 'Stylus',
-    //         value: 'stylus',
-    //       }
-    //     ]
-    //   },
-    //   {
-    //     type: 'list',
-    //     name: 'cssFramework',
-    //     message: 'What CSS Framework do you like to include?',
-    //     choices: [{
-    //         name: 'BassCss',
-    //         value: 'basscss',
-    //       }, {
-    //         name: 'Bootstrap',
-    //         value: 'bootstrap',
-    //       }, {
-    //         name: 'Foundation',
-    //         value: 'foundation',
-    //       }
-    //     ]
-    //   },
-    //   {
-    //     type: 'confirm',
-    //     name: 'jquery',
-    //     message: 'Would you like to include jQuery?',
-    //     default: true,
-    //    },
-    //    {
-    //     type: 'confirm',
-    //     name: 'parsley',
-    //     message: 'Do you have forms to validate? Include Parsley!',
-    //    },
-    //    {
-    //     type: 'confirm',
-    //     name: 'modernizer',
-    //     message: 'Do you want to add Modernizr?',
-    //    }
-    // ];
+      },
+      {
+        type: 'list',
+        name: 'cssPreprocessor',
+        message: 'What preprocessor would you like to use? Pick one',
+        choices: [
+          {
+            name: 'Sass',
+            value: 'sass',
+          }, {
+            name: 'Less',
+            value: 'less',
+          }, {
+            name: 'Stylus',
+            value: 'stylus',
+          }
+        ]
+      },
+      {
+        type: 'list',
+        name: 'cssFramework',
+        message: 'What CSS Framework do you like to include?',
+        choices: [{
+            name: 'BassCss',
+            value: 'basscss',
+          }, {
+            name: 'Bootstrap',
+            value: 'bootstrap',
+          }, {
+            name: 'Foundation',
+            value: 'foundation',
+          }
+        ]
+      },
+      {
+        type: 'confirm',
+        name: 'jquery',
+        message: 'Would you like to include jQuery?',
+        default: true,
+       },
+       {
+        type: 'confirm',
+        name: 'parsley',
+        message: 'Do you have forms to validate? Include Parsley!',
+        when:
+       },
+       {
+        type: 'confirm',
+        name: 'modernizer',
+        message: 'Do you want to add Modernizr?',
+       }
+    ];
 
     console.log(prompts);
 
-    this.prompt(prompts, function (answers) {
 
-      this.projectName     = answers.projectName;
-      this.cssPreprocessor = answers.cssPreprocessor;
-      this.cssFramework    = answers.cssFramework;
-      this.jquery           = answers.jquery;
-      this.parsley          = answers.parsley;
-      this.modernizr        = answers.modernizr;
 
-      done();
-    }.bind(this));
+    // this.prompt(prompts, function (answers) {
+
+
+    //   this.cssPreprocessor = answers.cssPreprocessor;
+    //   this.cssFramework    = answers.cssFramework;
+    //   this.jquery           = answers.jquery;
+    //   this.parsley          = answers.parsley;
+    //   this.modernizr        = answers.modernizr;
+
+    //   done();
+    // }.bind(this));
   },
 
 
@@ -129,7 +142,7 @@ module.exports = generators.Base.extend({
   writing: {
 
     createFolders: function() {
-      console.log(chalk.yellow('Creating directories.'));
+      this.log(chalk.yellow('Creating directories.'));
 
       mkdirp('assets');
 
@@ -140,7 +153,7 @@ module.exports = generators.Base.extend({
 
 
     gulpfile: function () {
-      console.log(chalk.yellow('Copying gulpfile.'));
+      this.log(chalk.yellow('Copying gulpfile.'));
       this.fs.copyTpl(
         this.templatePath('gulp/_gulpfile.js'),
         this.destinationPath('gulpfile.js')
@@ -150,7 +163,7 @@ module.exports = generators.Base.extend({
     },
 
     packageJSON: function () {
-      console.log(chalk.yellow('Copying package.json file and adding dependencies.'));
+      this.log(chalk.yellow('Copying package.json file and adding dependencies.'));
       this.fs.copyTpl(
         this.templatePath('base/_package.json'),
         this.destinationPath('package.json'),
@@ -162,7 +175,7 @@ module.exports = generators.Base.extend({
     },
 
     jshint: function () {
-      console.log(chalk.yellow('Copying jshintrc file.'));
+      this.log(chalk.yellow('Copying jshintrc file.'));
       this.fs.copy(
         this.templatePath('base/jshintrc'),
         this.destinationPath('.jshintrc')
@@ -170,7 +183,7 @@ module.exports = generators.Base.extend({
     },
 
     git: function () {
-      console.log(chalk.yellow('Copying git files.'));
+      this.log(chalk.yellow('Copying git files.'));
       this.fs.copy(
         this.templatePath('git/gitignore'),
         this.destinationPath('.gitignore'));
@@ -181,7 +194,7 @@ module.exports = generators.Base.extend({
     },
 
     bower: function () {
-      console.log(chalk.yellow('Adding some bower magic.'));
+      this.log(chalk.yellow('Adding some bower magic.'));
 
       var bowerJson = {
         projectName: 'pixel2html-'+_s.slugify(this.projectName),
@@ -253,7 +266,7 @@ module.exports = generators.Base.extend({
     },
 
     editorConfig: function () {
-      console.log(chalk.yellow('Copying editorconfig file.'));
+      this.log(chalk.yellow('Copying editorconfig file.'));
       this.fs.copy(
         this.templatePath('base/editorconfig'),
         this.destinationPath('.editorconfig')
@@ -261,7 +274,7 @@ module.exports = generators.Base.extend({
     },
 
     misc: function () {
-      console.log(chalk.yellow('Copying misc files.'));
+      this.log(chalk.yellow('Copying misc files.'));
       // this.fs.copy(
       //   this.templatePath('misc/favicon.ico'),
       //   this.destinationPath('assets/src/icons/favicon.ico')
