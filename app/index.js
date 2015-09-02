@@ -5,7 +5,6 @@ var chalk = require('chalk');
 var mkdirp = require('mkdirp');
 var _s = require('underscore.string');
 var _ = require('underscore');
-var optionOrPrompt = require('yeoman-option-or-prompt');
 var util = require('util');
 var path = require('path');
 
@@ -15,9 +14,7 @@ var Generator = module.exports = function Generator(args, options) {
 
   this.destinationRoot('demo');
 
-
   //Options to set thru CLI
-
   this.option('projectName', {
     desc: 'Sets the project name i.e.: 3845',
     type: String,
@@ -47,9 +44,6 @@ var Generator = module.exports = function Generator(args, options) {
     type: String,
     required: false
   });
-
-  console.log(this);
-
 };
 
 util.inherits(Generator, yeoman.generators.Base);
