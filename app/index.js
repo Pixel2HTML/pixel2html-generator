@@ -13,8 +13,11 @@ var Generator = module.exports = function Generator(args, options) {
 
   yeoman.generators.Base.apply(this, arguments);
 
+  this.destinationRoot('demo');
+
   this.argument('projectName', { type: String, required: false });
   this.projectName = _s.camelize(_s.slugify(_s.humanize(this.projectName)));
+
 
 };
 
@@ -28,6 +31,27 @@ Generator.prototype.welcome = function welcome() {
       )
     );
   }
+};
+
+Generator.prototype.askForProjectName = function askForProjectName(){
+
+  var cb = this.async();
+
+  if(this.projectName){
+    return;
+  }
+
+  this.prompt(
+    [{
+      type: 'input',
+      name: 'projectName',
+      message: 'Give me the Project Name!',
+    }],
+    function (props) {
+      this.projectName = props.projectName;
+      cb();
+    }.bind(this)
+  );
 };
 
 Generator.prototype.pageType = function pageType() {
