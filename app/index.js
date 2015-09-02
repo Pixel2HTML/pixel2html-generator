@@ -46,57 +46,60 @@ module.exports = generators.Base.extend({
         name    : 'projectName',
         message : 'Your project name',
         required: true
-      },
-      {
-        type: 'list',
-        name: 'cssPreprocessor',
-        message: 'What preprocessor would you like to use? Pick one',
-        choices: [
-          {
-            name: 'Sass',
-            value: 'sass',
-          }, {
-            name: 'Less',
-            value: 'less',
-          }, {
-            name: 'Stylus',
-            value: 'stylus',
-          }
-        ]
-      },
-      {
-        type: 'list',
-        name: 'cssFramework',
-        message: 'What CSS Framework do you like to include?',
-        choices: [{
-            name: 'BassCss',
-            value: 'basscss',
-          }, {
-            name: 'Bootstrap',
-            value: 'bootstrap',
-          }, {
-            name: 'Foundation',
-            value: 'foundation',
-          }
-        ]
-      },
-      {
-        type: 'confirm',
-        name: 'jquery',
-        message: 'Would you like to include jQuery?',
-        default: true,
-       },
-       {
-        type: 'confirm',
-        name: 'parsley',
-        message: 'Do you have forms to validate? Include Parsley!',
-       },
-       {
-        type: 'confirm',
-        name: 'modernizer',
-        message: 'Do you want to add Modernizr?',
-       }
-    ];
+      }];
+    //   ,
+    //   {
+    //     type: 'list',
+    //     name: 'cssPreprocessor',
+    //     message: 'What preprocessor would you like to use? Pick one',
+    //     choices: [
+    //       {
+    //         name: 'Sass',
+    //         value: 'sass',
+    //       }, {
+    //         name: 'Less',
+    //         value: 'less',
+    //       }, {
+    //         name: 'Stylus',
+    //         value: 'stylus',
+    //       }
+    //     ]
+    //   },
+    //   {
+    //     type: 'list',
+    //     name: 'cssFramework',
+    //     message: 'What CSS Framework do you like to include?',
+    //     choices: [{
+    //         name: 'BassCss',
+    //         value: 'basscss',
+    //       }, {
+    //         name: 'Bootstrap',
+    //         value: 'bootstrap',
+    //       }, {
+    //         name: 'Foundation',
+    //         value: 'foundation',
+    //       }
+    //     ]
+    //   },
+    //   {
+    //     type: 'confirm',
+    //     name: 'jquery',
+    //     message: 'Would you like to include jQuery?',
+    //     default: true,
+    //    },
+    //    {
+    //     type: 'confirm',
+    //     name: 'parsley',
+    //     message: 'Do you have forms to validate? Include Parsley!',
+    //    },
+    //    {
+    //     type: 'confirm',
+    //     name: 'modernizer',
+    //     message: 'Do you want to add Modernizr?',
+    //    }
+    // ];
+
+    console.log(prompts);
 
     this.prompt(prompts, function (answers) {
 
