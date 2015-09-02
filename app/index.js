@@ -15,9 +15,38 @@ var Generator = module.exports = function Generator(args, options) {
 
   this.destinationRoot('demo');
 
-  this.argument('projectName', { type: String, required: false });
-  this.projectName = _s.camelize(_s.slugify(_s.humanize(this.projectName)));
 
+  //Options to set thru CLI
+
+  this.option('projectName', {
+    desc: 'Sets the project name i.e.: 3845',
+    type: String,
+    required: false
+  });
+
+  this.option('qtyPages', {
+    desc: 'Sets the quantity of pages have the project i.e. 5 (1 homepage, 4 inners)',
+    type: Number,
+    required: false
+  });
+
+  this.option('projectType', {
+    desc: 'Sets the type of project [desktop, responsive, mobile]',
+    type: String,
+    required: false
+  });
+
+  this.option('cssPreprocessor', {
+    desc: 'Sets the CSS Preprocessor [sass, less, stylus]',
+    type: String,
+    required: false
+  });
+
+
+
+
+
+  console.log(this);
 
 };
 
@@ -37,43 +66,62 @@ Generator.prototype.askForProjectName = function askForProjectName(){
 
   var cb = this.async();
 
-  if(this.projectName){
-    return;
-  }
-
   this.prompt(
     [{
       type: 'input',
       name: 'projectName',
-      message: 'Give me the Project Name!',
+      message: 'Give me the Project Name!'
     }],
     function (props) {
       this.projectName = props.projectName;
+
       cb();
     }.bind(this)
   );
 };
 
-Generator.prototype.pageType = function pageType() {
+Generator.prototype.askForQtyPages = function askForQtyPages(){
+
+  var cb = this.async();
+
+  this.prompt(
+    [{
+      type: 'input',
+      name: 'qtyPages',
+      message: 'How many pages to will code?'
+    }],
+    function (props) {
+      this.qtyPages = props.qtyPages;
+
+      cb();
+    }.bind(this)
+  );
+};
+
+Generator.prototype.projectType = function projectType() {
+
+  var cb = this.async();
+
+
   this.prompt([{
     type: 'list',
-    name: 'pageType',
+    name: 'projectType',
     message: 'What type of page you will code? Pick one',
     choices: [
       {
+        name: 'Desktop',
+        value: 'desktop',
+      }, {
         name: 'Responsive',
         value: 'responsive',
       }, {
         name: 'Mobile',
         value: 'mobile',
-      }, {
-        name: 'Newsletter',
-        value: 'newsletter',
       }
     ]
   }],
   function (props) {
-    this.cssPreprocessor = props.cssPreprocessor;
+    this.projectType = props.projectType;
     cb();
   }.bind(this));
 }
