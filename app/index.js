@@ -42,9 +42,11 @@ var Generator = module.exports = function Generator(args, options) {
     required: false
   });
 
-
-
-
+  this.option('framework', {
+    desc: 'Sets the framework of choice [basscss, bootstrap, foundation]',
+    type: String,
+    required: false
+  });
 
   console.log(this);
 
@@ -124,9 +126,10 @@ Generator.prototype.projectType = function projectType() {
     this.projectType = props.projectType;
     cb();
   }.bind(this));
-}
+};
 
 Generator.prototype.askForCssPreprocessor = function askForCssPreprocessor() {
+
   var gulp = true;
   var cb = this.async();
 
