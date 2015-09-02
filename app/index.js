@@ -12,6 +12,17 @@ var Generator = module.exports = function Generator(args, options) {
 
   yeoman.generators.Base.apply(this, arguments);
 
+
+  this.paths = {
+    src: 'assets/src',
+    srcFonts: 'assets/src/fonts',
+    srcIcons: 'assets/src/icons',
+    srcImages: 'assets/src/images',
+    srcVendors: 'assets/src/vendor',
+    srcJs: 'assets/src/js'
+  };
+
+
   this.destinationRoot('demo');
 
   //Options to set thru CLI
@@ -264,3 +275,15 @@ Generator.prototype.packageFiles = function packageFiles() {
     this.destinationPath('.gitattributes')
   );
 };
+
+
+Generator.prototype.createFolder = function createFolder() {
+  this.log(chalk.yellow('Creating directories.'));
+
+  mkdirp('assets');
+
+  _.each(this.paths, function(path) {
+    mkdirp(path);
+  });
+
+}
