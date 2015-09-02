@@ -1,17 +1,17 @@
 {
-  "name": "pixel2html-<%= project_name %>",
+  "name": "pixel2html-<%= projectName %>",
   "version": "1.0.0",
   "dependencies": {
     "del": "^2.0.0",
     "gulp" : "3.9.0",
 
-  <% if (css_preprocessor === 'sass') { -%>
+  <% if (cssPreprocessor === 'sass') { -%>
     "gulp-sass": "^1.3.3",
   <% } -%>
-  <% if (css_preprocessor === 'less') { -%>
+  <% if (cssPreprocessor === 'less') { -%>
     "gulp-less": "^3.0.3",
   <% } -%>
-  <% if (css_preprocessor === 'stylus') { -%>
+  <% if (cssPreprocessor === 'stylus') { -%>
     "gulp-stylus": "^2.0.6",
   <% } -%>
 
