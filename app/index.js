@@ -71,21 +71,20 @@ Generator.prototype.welcome = function welcome() {
 Generator.prototype.askForProjectName = function askForProjectName() {
 
   var cb = this.async();
-
-  if(this.options['projectName']){
-    return;
-  }
+  var projectName = this.options.projectName;
 
   this.prompt(
     [{
       type: 'input',
       name: 'projectName',
       required: true,
-      message: 'Give me the Project Name!'
+      message: 'Give me the Project Name!',
+      when: function(){
+        return !projectName;
+      }
     }],
     function(props) {
       this.projectName = props.projectName;
-
       cb();
     }.bind(this)
   );
@@ -94,12 +93,16 @@ Generator.prototype.askForProjectName = function askForProjectName() {
 Generator.prototype.askForQtyPages = function askForQtyPages() {
 
   var cb = this.async();
+  var qtyPages = this.options.qtyPages;
 
   this.prompt(
     [{
       type: 'input',
       name: 'qtyPages',
-      message: 'How many pages to will code?'
+      message: 'How many pages to will code?',
+      when: function(){
+        return !qtyPages;
+      }
     }],
     function(props) {
       this.qtyPages = props.qtyPages;
