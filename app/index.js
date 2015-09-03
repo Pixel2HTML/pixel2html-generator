@@ -12,7 +12,6 @@ var Generator = module.exports = function Generator(args, options) {
 
   yeoman.generators.Base.apply(this, arguments);
 
-
   this.paths = {
     src: 'assets/src',
     srcFonts: 'assets/src/fonts',
@@ -26,35 +25,35 @@ var Generator = module.exports = function Generator(args, options) {
   this.destinationRoot('demo');
 
   //Options to set thru CLI
-  this.option('projectName', {
-    desc: 'Sets the project name i.e.: 3845',
-    type: String,
-    required: false
-  });
+   this.option('projectName', {
+     desc: 'Sets the project name i.e.: 3845',
+     type: String,
+     required: false
+   });
 
-  this.option('qtyPages', {
-    desc: 'Sets the quantity of pages have the project i.e. 5 (1 homepage, 4 inners)',
-    type: Number,
-    required: false
-  });
+   this.option('qtyPages', {
+     desc: 'Sets the quantity of pages have the project i.e. 5 (1 homepage, 4 inners)',
+     type: Number,
+     required: false
+   });
 
-  this.option('projectType', {
-    desc: 'Sets the type of project [desktop, responsive, mobile]',
-    type: String,
-    required: false
-  });
+   this.option('projectType', {
+     desc: 'Sets the type of project [desktop, responsive, mobile]',
+     type: String,
+     required: false
+   });
 
-  this.option('cssPreprocessor', {
-    desc: 'Sets the CSS Preprocessor [sass, less, stylus]',
-    type: String,
-    required: false
-  });
+   this.option('cssProcessor', {
+     desc: 'Sets the CSS Preprocessor [sass, less, stylus]',
+     type: String,
+     required: false
+   });
 
-  this.option('framework', {
-    desc: 'Sets the framework of choice [basscss, bootstrap, foundation]',
-    type: String,
-    required: false
-  });
+   this.option('cssFramework', {
+     desc: 'Sets the framework of choice [basscss, bootstrap, foundation]',
+     type: String,
+     required: false
+   });
 };
 
 util.inherits(Generator, yeoman.generators.Base);
@@ -72,6 +71,10 @@ Generator.prototype.welcome = function welcome() {
 Generator.prototype.askForProjectName = function askForProjectName() {
 
   var cb = this.async();
+
+  if(this.options['projectName']){
+    return;
+  }
 
   this.prompt(
     [{
@@ -110,7 +113,6 @@ Generator.prototype.projectType = function projectType() {
 
   var cb = this.async();
 
-
   this.prompt([{
       type: 'list',
       name: 'projectType',
@@ -134,12 +136,11 @@ Generator.prototype.projectType = function projectType() {
 
 Generator.prototype.askForCssPreprocessor = function askForCssPreprocessor() {
 
-  var gulp = true;
   var cb = this.async();
 
   this.prompt([{
       type: 'list',
-      name: 'cssPreprocessor',
+      name: 'cssProcessor',
       message: 'What preprocessor would you like to use? Pick one',
       choices: [{
         name: 'Sass',
@@ -153,13 +154,13 @@ Generator.prototype.askForCssPreprocessor = function askForCssPreprocessor() {
       }]
     }],
     function(props) {
-      this.cssPreprocessor = props.cssPreprocessor;
+      this.cssProcessor = props.cssProcessor;
       cb();
     }.bind(this));
 };
 
 Generator.prototype.askForFramework = function askForFramework() {
-  var cssPreprocessor = this.cssPreprocessor;
+
   var cb = this.async();
 
   this.prompt([{
@@ -175,10 +176,13 @@ Generator.prototype.askForFramework = function askForFramework() {
       }, {
         name: 'Foundation',
         value: 'foundation',
+      }, {
+        name: 'None',
+        value: false,
       }]
     }],
     function(props) {
-      this.cssPreprocessor = props.cssPreprocessor;
+      this.cssFramework = props.cssFramework;
       cb();
     }.bind(this));
 };
@@ -193,7 +197,7 @@ Generator.prototype.askForjQuery = function askForjQuery() {
     message: 'Would you like to use jQuery?',
     default: true,
     when: function() {
-      return cssFramework;
+      return !cssFramework;
     }
   }], function(props) {
     this.jquery = props.jquery;
@@ -242,7 +246,7 @@ Generator.prototype.askForJsModules = function askForJsModules() {
 };
 
 Generator.prototype.packageFiles = function packageFiles() {
-
+  console.log(this);
 
   this.log(chalk.yellow('Copying package.json file and adding dependencies.'));
   this.fs.copyTpl(
