@@ -7,6 +7,7 @@ var _s = require('underscore.string');
 var _ = require('underscore');
 var util = require('util');
 var path = require('path');
+var wiredep = require('wiredep');
 
 var Generator = module.exports = function Generator(args, options) {
 
@@ -38,19 +39,30 @@ var Generator = module.exports = function Generator(args, options) {
   });
 
   this.option('projectType', {
-    desc: 'Sets the type of project [desktop, responsive, mobile]',
+    desc: 'Sets the type of project [desktop, responsive, mobile, email]',
     type: String,
     required: false
   });
 
   this.option('cssProcessor', {
-    desc: 'Sets the CSS Preprocessor [sass, less, stylus]',
+    desc: 'Sets the CSS Preprocessor [sass, less, stylus, none]',
     type: String,
     required: false
   });
 
   this.option('frontEndFramework', {
     desc: 'Sets the framework of choice [basscss, bootstrap, foundation]',
+    type: String,
+    required: false
+  });
+
+  this.option('jQuery', {
+    desc: 'Sets the usage of Font Awesome',
+    type: String,
+    required: false
+  });
+  this.option('fontAwesome', {
+    desc: 'Sets the usage of Font Awesome',
     type: String,
     required: false
   });
@@ -131,6 +143,9 @@ Generator.prototype.projectType = function projectType() {
       }, {
         name: 'Mobile',
         value: 'mobile',
+      }, {
+        name: 'Email Template',
+        value: 'email',
       }],
       when: function() {
         return !projectType;
@@ -160,11 +175,13 @@ Generator.prototype.askForCssProcessor = function askForCssProcessor() {
       }, {
         name: 'Stylus',
         value: 'stylus',
+      }, {
+        name: 'None',
+        value: 'none',
       }],
       when: function() {
         return !cssProcessor;
       }
-
     }],
     function(props) {
       this.cssProcessor = props.cssProcessor;
@@ -204,6 +221,26 @@ Generator.prototype.askForFrontFramework = function askForFrontFramework() {
     }.bind(this));
 };
 
+Generator.prototype.askForFontAwesome = function askForFontAwesome() {
+  var cb = this.async();
+  var fontAwesome = this.fontAwesome;
+
+  this.prompt([{
+    type: 'confirm',
+    name: 'fontAwesome',
+    message: 'Would you like to add Font Awesome?',
+    default: false,
+    when: function() {
+      return !fontAwesome
+    }
+  }], function(props) {
+    this.fontAwesome = props.fontAwesome;
+
+    cb();
+  }.bind(this));
+};
+
+
 Generator.prototype.askForjQuery = function askForjQuery() {
   var cb = this.async();
   var frontEndFramework = this.frontEndFramework;
@@ -219,7 +256,9 @@ Generator.prototype.askForjQuery = function askForjQuery() {
     }
   }], function(props) {
     this.jquery = props.jquery;
-    if()
+    if (typeof this.jquery === 'undefined') {
+      this.jquery = true;
+    }
     cb();
   }.bind(this));
 };
@@ -374,8 +413,11 @@ Generator.prototype.writeBowerFile = function writeBowerFile() {
       }
       break;
   }
-  if (this.jquery) {
+  if (this.jQuery) {
     bowerJson.dependencies['jquery'] = '~2.1.*';
+  }
+  if (this.fontAwesome) {
+    bowerJson.dependencies['font-awesome'] = '~4.4.*';
   }
   if (this.parsley) {
     bowerJson.dependencies['parsleyjs'] = '~2.1.*';
@@ -391,5 +433,80 @@ Generator.prototype.writeBowerFile = function writeBowerFile() {
   );
 };
 
+Generator.prototype.writeStyles = function writeStyles() {
+
+  switch (this.cssProcessor) {
+    case 'sass':
+      fileExt += '.scss';
+      break;
+    case 'less':
+      cssFile += '.less';
+      break;
+    case 'stylus':
+      cssFile += '.styl';
+      break;
+  }
+
+  this.fs.copyTpl(
+    this.templatePath('styles/' + cssFile),
+    this.destinationPath(this.paths.srcCssPreprocessor + '/' + cssFile)
+  );
+}
 
 
+//     scripts: function () {
+//       this.fs.copy(
+//         this.templatePath('scripts/main.js'),
+//         this.destinationPath(this.paths.srcJs+'/main.js')
+//       );
+//     },
+
+//     html: function () {
+
+//       this.fs.copyTpl(
+//         this.templatePath('layouts/index.html'),
+//         this.destinationPath('index.html'),
+//         {
+//           projectName: this.projectName,
+//           modernizr: this.modernizr,
+//           cssPreprocessor: this.cssPreprocessor,
+//           cssFramework: this.cssFramework,
+//           jquery: this.jquery
+//         }
+//       );
+
+//     }
+//   },
+
+
+Generator.prototype.installDependencies = function installDependencies() {
+  var howToInstall =
+    '\nAfter running `npm install & bower install`, inject your front end dependencies into' +
+    '\nyour HTML by running:' +
+    '\n' +
+    chalk.yellow.bold('\n  gulp wiredep');
+
+  if (this.options['skip-install']) {
+    console.log(howToInstall);
+    return;
+  }
+
+  var done = this.async();
+  this.installDependencies({
+    skipMessage: this.options['skip-install-message'],
+    skipInstall: this.options['skip-install'],
+    callback: function() {
+      var bowerJson = JSON.parse(fs.readFileSync('./bower.json'));
+
+      // wire Bower packages to .html
+      wiredep({
+        bowerJson: bowerJson,
+        directory: 'app/bower_components',
+        exclude: ['bootstrap-sass'],
+        src: 'app/layouts/index.html'
+      });
+
+      done();
+    }.bind(this)
+  });
+};
