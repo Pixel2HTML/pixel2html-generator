@@ -25,35 +25,35 @@ var Generator = module.exports = function Generator(args, options) {
   this.destinationRoot('demo');
 
   //Options to set thru CLI
-   this.option('projectName', {
-     desc: 'Sets the project name i.e.: 3845',
-     type: String,
-     required: false
-   });
+  this.option('projectName', {
+    desc: 'Sets the project name i.e.: 3845',
+    type: String,
+    required: false
+  });
 
-   this.option('qtyPages', {
-     desc: 'Sets the quantity of pages have the project i.e. 5 (1 homepage, 4 inners)',
-     type: Number,
-     required: false
-   });
+  this.option('qtyPages', {
+    desc: 'Sets the quantity of pages have the project i.e. 5 (1 homepage, 4 inners)',
+    type: Number,
+    required: false
+  });
 
-   this.option('projectType', {
-     desc: 'Sets the type of project [desktop, responsive, mobile]',
-     type: String,
-     required: false
-   });
+  this.option('projectType', {
+    desc: 'Sets the type of project [desktop, responsive, mobile]',
+    type: String,
+    required: false
+  });
 
-   this.option('cssProcessor', {
-     desc: 'Sets the CSS Preprocessor [sass, less, stylus]',
-     type: String,
-     required: false
-   });
+  this.option('cssProcessor', {
+    desc: 'Sets the CSS Preprocessor [sass, less, stylus]',
+    type: String,
+    required: false
+  });
 
-   this.option('cssFramework', {
-     desc: 'Sets the framework of choice [basscss, bootstrap, foundation]',
-     type: String,
-     required: false
-   });
+  this.option('frontEndFramework', {
+    desc: 'Sets the framework of choice [basscss, bootstrap, foundation]',
+    type: String,
+    required: false
+  });
 };
 
 util.inherits(Generator, yeoman.generators.Base);
@@ -79,7 +79,7 @@ Generator.prototype.askForProjectName = function askForProjectName() {
       name: 'projectName',
       required: true,
       message: 'Give me the Project Name!',
-      when: function(){
+      when: function() {
         return !projectName;
       }
     }],
@@ -100,7 +100,7 @@ Generator.prototype.askForQtyPages = function askForQtyPages() {
       type: 'input',
       name: 'qtyPages',
       message: 'How many pages to will code?',
-      when: function(){
+      when: function() {
         return !qtyPages;
       }
     }],
@@ -115,6 +115,8 @@ Generator.prototype.askForQtyPages = function askForQtyPages() {
 Generator.prototype.projectType = function projectType() {
 
   var cb = this.async();
+  var projectType = this.options.projectType;
+
 
   this.prompt([{
       type: 'list',
@@ -129,7 +131,10 @@ Generator.prototype.projectType = function projectType() {
       }, {
         name: 'Mobile',
         value: 'mobile',
-      }]
+      }],
+      when: function() {
+        return !projectType;
+      }
     }],
     function(props) {
       this.projectType = props.projectType;
@@ -137,9 +142,10 @@ Generator.prototype.projectType = function projectType() {
     }.bind(this));
 };
 
-Generator.prototype.askForCssPreprocessor = function askForCssPreprocessor() {
+Generator.prototype.askForCssProcessor = function askForCssProcessor() {
 
   var cb = this.async();
+  var cssProcessor = this.options.cssProcessor
 
   this.prompt([{
       type: 'list',
@@ -154,7 +160,11 @@ Generator.prototype.askForCssPreprocessor = function askForCssPreprocessor() {
       }, {
         name: 'Stylus',
         value: 'stylus',
-      }]
+      }],
+      when: function() {
+        return !cssProcessor;
+      }
+
     }],
     function(props) {
       this.cssProcessor = props.cssProcessor;
@@ -162,14 +172,15 @@ Generator.prototype.askForCssPreprocessor = function askForCssPreprocessor() {
     }.bind(this));
 };
 
-Generator.prototype.askForFramework = function askForFramework() {
+Generator.prototype.askForFrontFramework = function askForFrontFramework() {
 
   var cb = this.async();
+  var frontEndFramework = this.options.frontEndFramework;
 
   this.prompt([{
       type: 'list',
-      name: 'cssFramework',
-      message: 'What CSS Framework do you like to include?',
+      name: 'frontEndFramework',
+      message: 'What FrontEnd Framework do you like to include?',
       choices: [{
         name: 'BassCss',
         value: 'basscss',
@@ -182,17 +193,21 @@ Generator.prototype.askForFramework = function askForFramework() {
       }, {
         name: 'None',
         value: false,
-      }]
+      }],
+      when: function() {
+        return !frontEndFramework;
+      }
     }],
     function(props) {
-      this.cssFramework = props.cssFramework;
+      this.frontEndFramework = props.frontEndFramework;
       cb();
     }.bind(this));
 };
 
 Generator.prototype.askForjQuery = function askForjQuery() {
   var cb = this.async();
-  var cssFramework = this.cssFramework;
+  var frontEndFramework = this.frontEndFramework;
+  var jquery = this.jquery;
 
   this.prompt([{
     type: 'confirm',
@@ -200,10 +215,11 @@ Generator.prototype.askForjQuery = function askForjQuery() {
     message: 'Would you like to use jQuery?',
     default: true,
     when: function() {
-      return !cssFramework;
+      return !frontEndFramework && !jquery;
     }
   }], function(props) {
     this.jquery = props.jquery;
+    if()
     cb();
   }.bind(this));
 };
@@ -221,12 +237,20 @@ Generator.prototype.askForJsModules = function askForJsModules() {
       name: 'Form validation with Parsley.js',
       checked: true
     }, {
+      value: 'modernizr',
+      name: 'Add modernizr.js',
+      checked: true
+    }, {
       value: 'slider',
-      name: 'Slider.js',
+      name: 'Add Slider.js',
       checked: false
     }, {
       value: 'tabs',
-      name: 'tabs.js',
+      name: 'Add Tabs.js',
+      checked: false
+    }, {
+      value: 'masonry',
+      name: 'Add Masonry',
       checked: false
     }],
     when: function(jquery) {
@@ -243,13 +267,14 @@ Generator.prototype.askForJsModules = function askForJsModules() {
     this.parsleyjs = hasMod('parsleyjs');
     this.slider = hasMod('slider');
     this.tabs = hasMod('tabs');
+    this.modernizr = hasMod('modernizr');
+    this.masonry = hasMod('masonry');
 
     cb();
   }.bind(this));
 };
 
-Generator.prototype.packageFiles = function packageFiles() {
-  console.log(this);
+Generator.prototype.writeProjectFiles = function writeProjectFiles() {
 
   this.log(chalk.yellow('Copying package.json file and adding dependencies.'));
   this.fs.copyTpl(
@@ -278,17 +303,16 @@ Generator.prototype.packageFiles = function packageFiles() {
   );
 };
 
-Generator.prototype.gulpFiles = function gulpFiles() {
+Generator.prototype.writeGulpFiles = function writeGulpFiles() {
 
   this.log(chalk.yellow('Copying gulpfile.'));
   this.fs.copyTpl(
     this.templatePath('gulp/_gulpfile.js'),
     this.destinationPath('gulpfile.js')
   );
+};
 
-}
-
-Generator.prototype.createFolder = function createFolder() {
+Generator.prototype.createFolders = function createFolders() {
   this.log(chalk.yellow('Creating directories.'));
 
   mkdirp('assets');
@@ -296,5 +320,76 @@ Generator.prototype.createFolder = function createFolder() {
   _.each(this.paths, function(path) {
     mkdirp(path);
   });
+};
 
-}
+Generator.prototype.writeBowerFile = function writeBowerFile() {
+
+  var bowerJson = {
+    projectName: 'pixel2html-' + _s.slugify(this.projectName),
+    private: true,
+    dependencies: {}
+  };
+
+  switch (this.frontEndFramework) {
+    case 'bootstrap':
+      switch (this.cssProcessor) {
+        case 'sass':
+          bowerJson.dependencies['bootstrap-sass'] = '~3.3.*';
+          break; //sass
+        case 'less':
+          bowerJson.dependencies['bootstrap'] = '~3.3.*';
+          break; //less
+        case 'stylus':
+          bowerJson.dependencies['bootstrap-stylus'] = '~4.0.*';
+          break; //stylus
+      }
+      break; //bootstrap
+
+    case 'basscss':
+      switch (this.cssProcessor) {
+        case 'sass':
+          bowerJson.dependencies['basscss-sass'] = '~3.0.*';
+          break; //sass
+
+        default:
+        case 'less':
+        case 'stylus':
+          bowerJson.dependencies['basscss'] = '~7.0.*';
+          break; //less
+
+      }
+      break;
+
+    case 'foundation':
+      switch (this.cssProcessor) {
+        case 'sass':
+          bowerJson.dependencies['foundation'] = '~5.5.*';
+          break; //sass
+        case 'less':
+          bowerJson.dependencies['foundation'] = '~5.5.*';
+          break; //less
+        case 'stylus':
+          bowerJson.dependencies['foundation'] = '~5.5.*';
+          break; //stylus
+      }
+      break;
+  }
+  if (this.jquery) {
+    bowerJson.dependencies['jquery'] = '~2.1.*';
+  }
+  if (this.parsley) {
+    bowerJson.dependencies['parsleyjs'] = '~2.1.*';
+  }
+  if (this.modernizr) {
+    bowerJson.dependencies['modernizr'] = '~2.8.*';
+  }
+
+  this.fs.writeJSON('bower.json', bowerJson);
+  this.fs.copy(
+    this.templatePath('bower/bowerrc'),
+    this.destinationPath('.bowerrc')
+  );
+};
+
+
+
