@@ -8,18 +8,19 @@ var _ = require('underscore');
 var util = require('util');
 var path = require('path');
 var wiredep = require('wiredep');
+var fs = require('fs');
 
 var Generator = module.exports = function Generator(args, options) {
 
   yeoman.generators.Base.apply(this, arguments);
 
   this.paths = {
-    src: 'assets/src',
-    srcFonts: 'assets/src/fonts',
-    srcIcons: 'assets/src/icons',
-    srcImages: 'assets/src/images',
+    src:        'assets/src',
+    srcFonts:   'assets/src/fonts',
+    srcIcons:   'assets/src/icons',
+    srcImages:  'assets/src/images',
     srcVendors: 'assets/src/vendor',
-    srcJs: 'assets/src/js'
+    srcJs:      'assets/src/js'
   };
 
 
@@ -61,6 +62,7 @@ var Generator = module.exports = function Generator(args, options) {
     type: String,
     required: false
   });
+
   this.option('fontAwesome', {
     desc: 'Sets the usage of Font Awesome',
     type: String,
@@ -112,16 +114,20 @@ Generator.prototype.askForQtyPages = function askForQtyPages() {
       type: 'input',
       name: 'qtyPages',
       message: 'How many pages to will code?',
+      default: 1,
       when: function() {
         return !qtyPages;
       }
     }],
     function(props) {
       this.qtyPages = props.qtyPages;
+      this.homePageQty = 1;
+      this.innerPagesQty = this.qtyPages - 1;
 
       cb();
     }.bind(this)
   );
+
 };
 
 Generator.prototype.projectType = function projectType() {
@@ -177,7 +183,7 @@ Generator.prototype.askForCssProcessor = function askForCssProcessor() {
         value: 'stylus',
       }, {
         name: 'None',
-        value: 'none',
+        value: 'css',
       }],
       when: function() {
         return !cssProcessor;
@@ -239,7 +245,6 @@ Generator.prototype.askForFontAwesome = function askForFontAwesome() {
     cb();
   }.bind(this));
 };
-
 
 Generator.prototype.askForjQuery = function askForjQuery() {
   var cb = this.async();
@@ -427,30 +432,72 @@ Generator.prototype.writeBowerFile = function writeBowerFile() {
   }
 
   this.fs.writeJSON('bower.json', bowerJson);
+
   this.fs.copy(
     this.templatePath('bower/bowerrc'),
     this.destinationPath('.bowerrc')
   );
+
 };
 
 Generator.prototype.writeStyles = function writeStyles() {
+  var fileExt;
+  var cssProcessor = this.cssProcessor;
+  var srcAssets = 'assets/src/' + cssProcessor;
+
 
   switch (this.cssProcessor) {
     case 'sass':
-      fileExt += '.scss';
+      fileExt = '.scss';
       break;
     case 'less':
-      cssFile += '.less';
+      fileExt = '.less';
       break;
     case 'stylus':
-      cssFile += '.styl';
+      fileExt = '.styl';
+      break;
+    default:
+      fileExt = '.css';
       break;
   }
 
   this.fs.copyTpl(
-    this.templatePath('styles/' + cssFile),
-    this.destinationPath(this.paths.srcCssPreprocessor + '/' + cssFile)
+    this.templatePath('styles/' + cssProcessor + '/main' + fileExt),
+    this.destinationPath(srcAssets + '/main' + fileExt), {
+      projectName: this.projectName
+    }
   );
+
+  mkdirp(srcAssets + '/pages');
+  mkdirp(srcAssets + '/components');
+
+
+  this.fs.copy(
+    this.templatePath('styles/' + cssProcessor + '/components/_header' + fileExt),
+    this.destinationPath(srcAssets + '/components/_header' + fileExt)
+  );
+  this.fs.copy(
+    this.templatePath('styles/' + cssProcessor + '/components/_footer' + fileExt),
+    this.destinationPath(srcAssets + '/components/_footer' + fileExt)
+  );
+  this.fs.copy(
+    this.templatePath('styles/' + cssProcessor + '/components/_nav' + fileExt),
+    this.destinationPath(srcAssets + '/components/_nav' + fileExt)
+  );
+  this.fs.copy(
+    this.templatePath('styles/' + cssProcessor + '/components/_buttons' + fileExt),
+    this.destinationPath(srcAssets + '/components/_buttons' + fileExt)
+  );
+
+
+  _(this.homePageQty).times(function(n) {
+    fs.writeFile(srcAssets + '/pages/home' + fileExt, '// home' + fileExt);
+  });
+
+  _(this.innerPagesQty).times(function(n) {
+    fs.writeFile(srcAssets + '/pages/inner_' + n+1 + fileExt, '// inner_'+ n+1 + fileExt);
+  });
+
 }
 
 
@@ -479,34 +526,34 @@ Generator.prototype.writeStyles = function writeStyles() {
 //   },
 
 
-Generator.prototype.installDependencies = function installDependencies() {
-  var howToInstall =
-    '\nAfter running `npm install & bower install`, inject your front end dependencies into' +
-    '\nyour HTML by running:' +
-    '\n' +
-    chalk.yellow.bold('\n  gulp wiredep');
+// Generator.prototype.installDependencies = function installDependencies() {
+//   var howToInstall =
+//     '\nAfter running `npm install & bower install`, inject your front end dependencies into' +
+//     '\nyour HTML by running:' +
+//     '\n' +
+//     chalk.yellow.bold('\n  gulp wiredep');
 
-  if (this.options['skip-install']) {
-    console.log(howToInstall);
-    return;
-  }
+//   if (this.options['skip-install']) {
+//     console.log(howToInstall);
+//     return;
+//   }
 
-  var done = this.async();
-  this.installDependencies({
-    skipMessage: this.options['skip-install-message'],
-    skipInstall: this.options['skip-install'],
-    callback: function() {
-      var bowerJson = JSON.parse(fs.readFileSync('./bower.json'));
+//   var done = this.async();
+//   this.installDependencies({
+//     skipMessage: this.options['skip-install-message'],
+//     skipInstall: this.options['skip-install'],
+//     callback: function() {
+//       var bowerJson = JSON.parse(fs.readFileSync('./bower.json'));
 
-      // wire Bower packages to .html
-      wiredep({
-        bowerJson: bowerJson,
-        directory: 'app/bower_components',
-        exclude: ['bootstrap-sass'],
-        src: 'app/layouts/index.html'
-      });
+//       // wire Bower packages to .html
+//       wiredep({
+//         bowerJson: bowerJson,
+//         directory: 'app/bower_components',
+//         exclude: ['bootstrap-sass'],
+//         src: 'app/layouts/index.html'
+//       });
 
-      done();
-    }.bind(this)
-  });
-};
+//       done();
+//     }.bind(this)
+//   });
+// };
