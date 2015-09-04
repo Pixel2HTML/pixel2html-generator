@@ -1,0 +1,17 @@
+/**
+* Pixel2HTML - <%= projectName %>
+*/
+
+@import 'variables';
+@import 'mixins';
+
+// pages:start
+@import 'pages/_home.scss';
+// pages:end
+
+// components:start
+@import 'components/_header.scss';
+@import 'components/_footer.scss';
+@import 'components/_nav.scss';
+@import 'components/_buttons.scss';
+// components:end
