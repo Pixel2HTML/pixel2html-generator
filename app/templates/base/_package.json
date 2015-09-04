@@ -1,5 +1,8 @@
 {
   "name": "pixel2html-<%= projectName %>",
+  "description": "pixel2html <%= projectName %>",
+  "license": "MIT",
+  "repository": "http://code.pixel2html.com",
   "version": "1.0.0",
   "dependencies": {
     "del": "^2.0.0",
