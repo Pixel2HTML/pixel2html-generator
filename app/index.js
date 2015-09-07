@@ -12,17 +12,28 @@ var fs = require('fs');
 
 var Generator = module.exports = function Generator(args, options) {
 
+
   yeoman.generators.Base.apply(this, arguments);
 
   this.paths = {
-    src:        'assets/src',
-    srcFonts:   'assets/src/fonts',
-    srcIcons:   'assets/src/icons',
-    srcImages:  'assets/src/images',
-    srcVendors: 'assets/src/vendor',
-    srcJs:      'assets/src/js'
+    'src': {
+      'base': 'assets/src',
+      'fonts': 'assets/src/fonts',
+      'gulp': 'assets/src/gulp',
+      'icons': 'assets/src/icons',
+      'images': 'assets/src/images',
+      'vendors': 'assets/src/vendor',
+      'js': 'assets/src/js'
+    },
+    'dist': {
+      'base': 'assets/dist',
+      'fonts': 'assets/dist/fonts',
+      'icons': 'assets/dist/icons',
+      'images': 'assets/dist/images',
+      'styles': 'assets/dist/css',
+      'js': 'assets/dist/js'
+    }
   };
-
 
   this.destinationRoot('demo');
 
@@ -32,6 +43,8 @@ var Generator = module.exports = function Generator(args, options) {
     type: String,
     required: false
   });
+  this.projectName = options.projectName;
+  console.log(options.projectName);
 
   this.option('qtyPages', {
     desc: 'Sets the quantity of pages have the project i.e. 5 (1 homepage, 4 inners)',
@@ -58,7 +71,7 @@ var Generator = module.exports = function Generator(args, options) {
   });
 
   this.option('jQuery', {
-    desc: 'Sets the usage of Font Awesome',
+    desc: 'Sets de the usage of jQuery',
     type: String,
     required: false
   });
@@ -82,11 +95,16 @@ Generator.prototype.welcome = function welcome() {
   }
 };
 
-Generator.prototype.askForProjectName = function askForProjectName() {
+Generator.prototype.askForProjectName = function() {
 
   var cb = this.async();
+
   var projectName = this.options.projectName;
 
+  if (projectName) {
+    cb();
+    return true;
+  }
   this.prompt(
     [{
       type: 'input',
@@ -98,16 +116,22 @@ Generator.prototype.askForProjectName = function askForProjectName() {
       }
     }],
     function(props) {
-      this.projectName = props.projectName;
+      this.options.projectName = props.projectName;
       cb();
     }.bind(this)
   );
 };
 
-Generator.prototype.askForQtyPages = function askForQtyPages() {
+Generator.prototype.askForQtyPages = function() {
 
   var cb = this.async();
   var qtyPages = this.options.qtyPages;
+
+  if (qtyPages) {
+    cb();
+    return true;
+  }
+
 
   this.prompt(
     [{
@@ -120,21 +144,25 @@ Generator.prototype.askForQtyPages = function askForQtyPages() {
       }
     }],
     function(props) {
-      this.qtyPages = props.qtyPages;
-      this.homePageQty = 1;
-      this.innerPagesQty = this.qtyPages - 1;
+      this.options.qtyPages = props.qtyPages;
+      this.options.homePageQty = 1;
+      this.options.innerPagesQty = this.qtyPages - 1;
 
       cb();
     }.bind(this)
   );
-
 };
 
-Generator.prototype.projectType = function projectType() {
+Generator.prototype.projectType = function() {
 
   var cb = this.async();
   var projectType = this.options.projectType;
 
+  if (projectType) {
+
+    cb();
+    return true;
+  }
 
   this.prompt([{
       type: 'list',
@@ -158,15 +186,20 @@ Generator.prototype.projectType = function projectType() {
       }
     }],
     function(props) {
-      this.projectType = props.projectType;
+      this.options.projectType = props.projectType;
       cb();
     }.bind(this));
 };
 
-Generator.prototype.askForCssProcessor = function askForCssProcessor() {
+Generator.prototype.askForCssProcessor = function() {
 
   var cb = this.async();
   var cssProcessor = this.options.cssProcessor
+
+  if (cssProcessor) {
+    cb();
+    return true;
+  }
 
   this.prompt([{
       type: 'list',
@@ -190,15 +223,20 @@ Generator.prototype.askForCssProcessor = function askForCssProcessor() {
       }
     }],
     function(props) {
-      this.cssProcessor = props.cssProcessor;
+      this.options.cssProcessor = props.cssProcessor;
       cb();
     }.bind(this));
 };
 
-Generator.prototype.askForFrontFramework = function askForFrontFramework() {
+Generator.prototype.askForFrontFramework = function() {
 
   var cb = this.async();
   var frontEndFramework = this.options.frontEndFramework;
+
+  if (frontEndFramework) {
+    cb();
+    return true;
+  }
 
   this.prompt([{
       type: 'list',
@@ -222,14 +260,19 @@ Generator.prototype.askForFrontFramework = function askForFrontFramework() {
       }
     }],
     function(props) {
-      this.frontEndFramework = props.frontEndFramework;
+      this.options.frontEndFramework = props.frontEndFramework;
       cb();
     }.bind(this));
 };
 
-Generator.prototype.askForFontAwesome = function askForFontAwesome() {
+Generator.prototype.askForFontAwesome = function() {
   var cb = this.async();
   var fontAwesome = this.fontAwesome;
+
+  if (fontAwesome) {
+    cb();
+    return true;
+  }
 
   this.prompt([{
     type: 'confirm',
@@ -240,37 +283,39 @@ Generator.prototype.askForFontAwesome = function askForFontAwesome() {
       return !fontAwesome
     }
   }], function(props) {
-    this.fontAwesome = props.fontAwesome;
+    this.options.fontAwesome = props.fontAwesome;
 
     cb();
   }.bind(this));
 };
 
-Generator.prototype.askForjQuery = function askForjQuery() {
+Generator.prototype.askForjQuery = function() {
   var cb = this.async();
-  var frontEndFramework = this.frontEndFramework;
-  var jquery = this.jquery;
+  var jQuery = this.options.jQuery;
+
+  if (jQuery) {
+    cb();
+    return true;
+  }
 
   this.prompt([{
     type: 'confirm',
-    name: 'jquery',
+    name: 'jQuery',
     message: 'Would you like to use jQuery?',
     default: true,
     when: function() {
-      return !frontEndFramework && !jquery;
+      return !jQuery;
     }
   }], function(props) {
-    this.jquery = props.jquery;
-    if (typeof this.jquery === 'undefined') {
-      this.jquery = true;
-    }
+    this.options.jQuery = props.jQuery;
+
     cb();
   }.bind(this));
 };
 
-Generator.prototype.askForJsModules = function askForJsModules() {
+Generator.prototype.askForJsModules = function() {
   var cb = this.async();
-  var jquery = this.jquery;
+  var jQuery = this.options.jQuery;
 
   var prompts = [{
     type: 'checkbox',
@@ -297,8 +342,8 @@ Generator.prototype.askForJsModules = function askForJsModules() {
       name: 'Add Masonry',
       checked: false
     }],
-    when: function(jquery) {
-      return jquery;
+    when: function() {
+      return jQuery;
     }
   }];
 
@@ -308,24 +353,24 @@ Generator.prototype.askForJsModules = function askForJsModules() {
       return _.contains(props.jsModules, mod);
     };
 
-    this.parsleyjs = hasMod('parsleyjs');
-    this.slider = hasMod('slider');
-    this.tabs = hasMod('tabs');
-    this.modernizr = hasMod('modernizr');
-    this.masonry = hasMod('masonry');
+    this.options.parsleyjs = hasMod('parsleyjs');
+    this.options.slider = hasMod('slider');
+    this.options.tabs = hasMod('tabs');
+    this.options.modernizr = hasMod('modernizr');
+    this.options.masonry = hasMod('masonry');
 
     cb();
   }.bind(this));
 };
 
-Generator.prototype.writeProjectFiles = function writeProjectFiles() {
+Generator.prototype.writeProjectFiles = function() {
 
   this.log(chalk.yellow('Copying package.json file and adding dependencies.'));
   this.fs.copyTpl(
     this.templatePath('base/_package.json'),
     this.destinationPath('package.json'), {
-      projectName: this.projectName,
-      cssPreprocessor: this.cssPreprocessor
+      projectName: this.options.projectName,
+      cssProcessor: this.options.cssProcessor
     }
   );
 
@@ -347,26 +392,18 @@ Generator.prototype.writeProjectFiles = function writeProjectFiles() {
   );
 };
 
-Generator.prototype.writeGulpFiles = function writeGulpFiles() {
-
-  this.log(chalk.yellow('Copying gulpfile.'));
-  this.fs.copyTpl(
-    this.templatePath('gulp/_gulpfile.js'),
-    this.destinationPath('gulpfile.js')
-  );
-};
-
-Generator.prototype.createFolders = function createFolders() {
+Generator.prototype.createFolders = function() {
   this.log(chalk.yellow('Creating directories.'));
 
   mkdirp('assets');
 
-  _.each(this.paths, function(path) {
+  //make src paths
+  _.each(this.paths.src, function(path) {
     mkdirp(path);
   });
 };
 
-Generator.prototype.writeBowerFile = function writeBowerFile() {
+Generator.prototype.writeBowerFile = function() {
 
   var bowerJson = {
     projectName: 'pixel2html-' + _s.slugify(this.projectName),
@@ -374,9 +411,9 @@ Generator.prototype.writeBowerFile = function writeBowerFile() {
     dependencies: {}
   };
 
-  switch (this.frontEndFramework) {
+  switch (this.options.frontEndFramework) {
     case 'bootstrap':
-      switch (this.cssProcessor) {
+      switch (this.options.cssProcessor) {
         case 'sass':
           bowerJson.dependencies['bootstrap-sass'] = '~3.3.*';
           break; //sass
@@ -390,7 +427,7 @@ Generator.prototype.writeBowerFile = function writeBowerFile() {
       break; //bootstrap
 
     case 'basscss':
-      switch (this.cssProcessor) {
+      switch (this.options.cssProcessor) {
         case 'sass':
           bowerJson.dependencies['basscss-sass'] = '~3.0.*';
           break; //sass
@@ -405,7 +442,7 @@ Generator.prototype.writeBowerFile = function writeBowerFile() {
       break;
 
     case 'foundation':
-      switch (this.cssProcessor) {
+      switch (this.options.cssProcessor) {
         case 'sass':
           bowerJson.dependencies['foundation'] = '~5.5.*';
           break; //sass
@@ -418,16 +455,16 @@ Generator.prototype.writeBowerFile = function writeBowerFile() {
       }
       break;
   }
-  if (this.jQuery) {
+  if (this.options.jQuery) {
     bowerJson.dependencies['jquery'] = '~2.1.*';
   }
-  if (this.fontAwesome) {
+  if (this.options.fontAwesome) {
     bowerJson.dependencies['font-awesome'] = '~4.4.*';
   }
-  if (this.parsley) {
+  if (this.options.parsley) {
     bowerJson.dependencies['parsleyjs'] = '~2.1.*';
   }
-  if (this.modernizr) {
+  if (this.options.modernizr) {
     bowerJson.dependencies['modernizr'] = '~2.8.*';
   }
 
@@ -437,16 +474,14 @@ Generator.prototype.writeBowerFile = function writeBowerFile() {
     this.templatePath('bower/bowerrc'),
     this.destinationPath('.bowerrc')
   );
-
 };
 
-Generator.prototype.writeStyles = function writeStyles() {
+Generator.prototype.writeStyles = function() {
   var fileExt;
-  var cssProcessor = this.cssProcessor;
+  var cssProcessor = this.options.cssProcessor;
   var srcAssets = 'assets/src/' + cssProcessor;
 
-
-  switch (this.cssProcessor) {
+  switch (this.options.cssProcessor) {
     case 'sass':
       fileExt = '.scss';
       break;
@@ -461,17 +496,26 @@ Generator.prototype.writeStyles = function writeStyles() {
       break;
   }
 
+  this.options.cssMainFile = srcAssets + '/main' + fileExt;
+
   this.fs.copyTpl(
     this.templatePath('styles/' + cssProcessor + '/main' + fileExt),
     this.destinationPath(srcAssets + '/main' + fileExt), {
-      projectName: this.projectName
+      projectName: this.options.projectName
     }
   );
 
   mkdirp(srcAssets + '/pages');
   mkdirp(srcAssets + '/components');
 
-
+  this.fs.copy(
+    this.templatePath('styles/' + cssProcessor + '/variables' + fileExt),
+    this.destinationPath(srcAssets + '/variables' + fileExt)
+  );
+  this.fs.copy(
+    this.templatePath('styles/' + cssProcessor + '/mixins' + fileExt),
+    this.destinationPath(srcAssets + '/mixins' + fileExt)
+  );
   this.fs.copy(
     this.templatePath('styles/' + cssProcessor + '/components/_header' + fileExt),
     this.destinationPath(srcAssets + '/components/_header' + fileExt)
@@ -489,17 +533,45 @@ Generator.prototype.writeStyles = function writeStyles() {
     this.destinationPath(srcAssets + '/components/_buttons' + fileExt)
   );
 
+  // console.log(this.options);
+  // _(this.options.homePageQty).times(function(n) {
+  //   // fs.writeFile(srcAssets + '/pages/home' + fileExt, '/home' + fileExt);
+  //   console.log(n);
+  // });
 
-  _(this.homePageQty).times(function(n) {
-    fs.writeFile(srcAssets + '/pages/home' + fileExt, '// home' + fileExt);
-  });
-
-  _(this.innerPagesQty).times(function(n) {
-    fs.writeFile(srcAssets + '/pages/inner_' + n+1 + fileExt, '// inner_'+ n+1 + fileExt);
-  });
-
+  // _(this.options.innerPagesQty).times(function(n) {
+  //   // fs.writeFile(srcAssets + '/pages/inner_' + n+1 + fileExt, '/inner_'+ n+1 + fileExt);
+  //   console.log(n);
+  // });
 }
 
+
+Generator.prototype.writeGulpFiles = function writeGulpFiles() {
+
+  this.log(chalk.yellow('Copying gulpfile.'));
+  this.fs.copyTpl(
+    this.templatePath('gulp/_gulpfile.js'),
+    this.destinationPath('gulpfile.js')
+  );
+
+  //static
+  this.copy(
+    this.templatePath('gulp/modules/static.js'),
+    this.destinationPath(this.paths.src.gulp + '/static.js')
+  );
+  console.log(this.options);
+  //main css
+  this.fs.copyTpl(
+    this.templatePath('gulp/modules/styles.js'),
+    this.destinationPath(this.paths.src.gulp + '/styles.js'), {
+      cssProcessor: this.options.cssProcessor,
+      cssMainFile: this.options.cssMainFile,
+      paths: this.paths
+    }
+  );
+
+
+};
 
 //     scripts: function () {
 //       this.fs.copy(
