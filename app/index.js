@@ -85,7 +85,7 @@ var Generator = module.exports = function Generator(args, options) {
 
 util.inherits(Generator, yeoman.generators.Base);
 
-Generator.prototype.welcome = function welcome() {
+Generator.prototype.welcome = function() {
   if (!this.options['skip-welcome-message']) {
     this.log(
       chalk.white.bgRed.bold(
@@ -122,12 +122,12 @@ Generator.prototype.askForProjectName = function() {
   );
 };
 
-Generator.prototype.askForQtyPages = function() {
+Generator.prototype.askForQtyScreens = function() {
 
   var cb = this.async();
-  var qtyPages = this.options.qtyPages;
+  var qtyScreens = this.options.qtyScreens;
 
-  if (qtyPages) {
+  if (qtyScreens) {
     cb();
     return true;
   }
@@ -136,18 +136,15 @@ Generator.prototype.askForQtyPages = function() {
   this.prompt(
     [{
       type: 'input',
-      name: 'qtyPages',
-      message: 'How many pages to will code?',
+      name: 'qtyScreens',
+      message: 'How many Screens to will code?',
       default: 1,
       when: function() {
-        return !qtyPages;
+        return !qtyScreens;
       }
     }],
     function(props) {
-      this.options.qtyPages = props.qtyPages;
-      this.options.homePageQty = 1;
-      this.options.innerPagesQty = this.qtyPages - 1;
-
+      this.options.qtyScreens = props.qtyScreens;
       cb();
     }.bind(this)
   );
@@ -543,10 +540,18 @@ Generator.prototype.writeStyles = function() {
   //   // fs.writeFile(srcAssets + '/pages/inner_' + n+1 + fileExt, '/inner_'+ n+1 + fileExt);
   //   console.log(n);
   // });
-}
+};
+
+Generator.prototype.writeScriptsFiles = function() {
+  this.log(chalk.yellow('Copying js main file.'));
+  this.fs.copy(
+    this.templatePath('scripts/main.js'),
+    this.destinationPath(this.paths.src.js)
+  );
+};
 
 
-Generator.prototype.writeGulpFiles = function writeGulpFiles() {
+Generator.prototype.writeGulpFiles = function() {
 
   this.log(chalk.yellow('Copying gulpfile.'));
   this.fs.copyTpl(
@@ -569,15 +574,12 @@ Generator.prototype.writeGulpFiles = function writeGulpFiles() {
       paths: this.paths
     }
   );
-
-
 };
 
+
+
 //     scripts: function () {
-//       this.fs.copy(
-//         this.templatePath('scripts/main.js'),
-//         this.destinationPath(this.paths.srcJs+'/main.js')
-//       );
+
 //     },
 
 //     html: function () {
