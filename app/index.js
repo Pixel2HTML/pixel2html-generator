@@ -534,29 +534,29 @@ Generator.prototype.writeStyles = function() {
     this.destinationPath(srcAssets + '/components/_buttons' + fileExt)
   );
 
-  // console.log(this.options);
-  // _(this.options.homePageQty).times(function(n) {
-  //   // fs.writeFile(srcAssets + '/pages/home' + fileExt, '/home' + fileExt);
-  //   console.log(n);
-  // });
 
-  // _(this.options.innerPagesQty).times(function(n) {
-  //   // fs.writeFile(srcAssets + '/pages/inner_' + n+1 + fileExt, '/inner_'+ n+1 + fileExt);
-  //   console.log(n);
-  // });
+  for(var i=1; i<this.options.qtyScreens+1; i++){
+    this.fs.copyTpl(
+      this.templatePath('styles/' + cssProcessor + '/pages/_screen'+fileExt),
+      this.destinationPath(srcAssets + '/pages/screen_' + i + fileExt),
+      {
+        screen: i
+      }
+    );
+        }
 };
 
 Generator.prototype.writeScriptsFiles = function() {
+
   this.log(chalk.yellow('Copying js main file.'));
-  this.fs.copytpl(
+  this.fs.copyTpl(
     this.templatePath('scripts/main.js'),
-    this.destinationPath(this.paths.src.js+'/main.js'),
+    this.destinationPath(this.paths.src.scripts+'/main.js'),
     {
       projectName: this.options.projectName
     }
   );
 };
-
 
 Generator.prototype.writeGulpFiles = function() {
 
