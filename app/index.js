@@ -23,7 +23,7 @@ var Generator = module.exports = function Generator(args, options) {
       'icons': 'assets/src/icons',
       'images': 'assets/src/images',
       'vendors': 'assets/src/vendor',
-      'js': 'assets/src/js'
+      'scripts': 'assets/src/js'
     },
     'dist': {
       'base': 'assets/dist',
@@ -31,7 +31,7 @@ var Generator = module.exports = function Generator(args, options) {
       'icons': 'assets/dist/icons',
       'images': 'assets/dist/images',
       'styles': 'assets/dist/css',
-      'js': 'assets/dist/js'
+      'scripts': 'assets/dist/js'
     }
   };
 
@@ -46,8 +46,8 @@ var Generator = module.exports = function Generator(args, options) {
   this.projectName = options.projectName;
   console.log(options.projectName);
 
-  this.option('qtyPages', {
-    desc: 'Sets the quantity of pages have the project i.e. 5 (1 homepage, 4 inners)',
+  this.option('qtyScreens', {
+    desc: 'Sets the quantity of screens have the project i.e. 5 (1 homepage, 4 inners)',
     type: Number,
     required: false
   });
@@ -403,7 +403,7 @@ Generator.prototype.createFolders = function() {
 Generator.prototype.writeBowerFile = function() {
 
   var bowerJson = {
-    projectName: 'pixel2html-' + _s.slugify(this.projectName),
+    name: 'pixel2html-' + _s.slugify(this.projectName),
     private: true,
     dependencies: {}
   };
@@ -514,6 +514,10 @@ Generator.prototype.writeStyles = function() {
     this.destinationPath(srcAssets + '/mixins' + fileExt)
   );
   this.fs.copy(
+    this.templatePath('styles/' + cssProcessor + '/pages/_base' + fileExt),
+    this.destinationPath(srcAssets + '/pages/_base' + fileExt)
+  );
+  this.fs.copy(
     this.templatePath('styles/' + cssProcessor + '/components/_header' + fileExt),
     this.destinationPath(srcAssets + '/components/_header' + fileExt)
   );
@@ -544,9 +548,12 @@ Generator.prototype.writeStyles = function() {
 
 Generator.prototype.writeScriptsFiles = function() {
   this.log(chalk.yellow('Copying js main file.'));
-  this.fs.copy(
+  this.fs.copytpl(
     this.templatePath('scripts/main.js'),
-    this.destinationPath(this.paths.src.js)
+    this.destinationPath(this.paths.src.js+'/main.js'),
+    {
+      projectName: this.options.projectName
+    }
   );
 };
 
@@ -564,13 +571,21 @@ Generator.prototype.writeGulpFiles = function() {
     this.templatePath('gulp/modules/static.js'),
     this.destinationPath(this.paths.src.gulp + '/static.js')
   );
-  console.log(this.options);
-  //main css
+
+  //styles:main
   this.fs.copyTpl(
     this.templatePath('gulp/modules/styles.js'),
     this.destinationPath(this.paths.src.gulp + '/styles.js'), {
       cssProcessor: this.options.cssProcessor,
       cssMainFile: this.options.cssMainFile,
+      paths: this.paths
+    }
+  );
+
+  //scripts:main
+  this.fs.copyTpl(
+    this.templatePath('gulp/modules/scripts.js'),
+    this.destinationPath(this.paths.src.gulp + '/scripts.js'), {
       paths: this.paths
     }
   );

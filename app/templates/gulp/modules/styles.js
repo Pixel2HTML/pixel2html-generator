@@ -2,8 +2,18 @@
 
 
 var gulp = require('gulp');
+
+<% if (cssProcessor === 'sass') { -%>
+var sass = require('gulp-sass');
+<% } -%>
+<% if (cssProcessor === 'less') { -%>
 var less = require('gulp-less');
-var minify = require('gulp-minify');
+<% } -%>
+<% if (cssProcessor === 'stylus') { -%>
+var stylus = require('gulp-stylus');
+<% } -%>
+
+var minify = require('gulp-minify-css');
 var plumber = require('gulp-plumber');
 var autoprefixer  = require('gulp-autoprefixer');
 var rename = require('gulp-rename');
@@ -11,7 +21,6 @@ var rename = require('gulp-rename');
 var onError = function(err) {
     console.log(err);
 }
-
 
 gulp.task('styles:main', function() {
   return gulp.src('<%= cssMainFile %>')
