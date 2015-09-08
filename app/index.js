@@ -534,16 +534,30 @@ Generator.prototype.writeStyles = function() {
     this.destinationPath(srcAssets + '/components/_buttons' + fileExt)
   );
 
-
   for(var i=1; i<this.options.qtyScreens+1; i++){
     this.fs.copyTpl(
       this.templatePath('styles/' + cssProcessor + '/pages/_screen'+fileExt),
       this.destinationPath(srcAssets + '/pages/screen_' + i + fileExt),
       {
-        screen: i
+        screenNumber: i,
+        projectName: this.options.projectName
       }
     );
-        }
+  }
+};
+
+Generator.prototype.writeHTMLFiles = function() {
+
+ for(var i=1; i<this.options.qtyScreens+1; i++){
+    this.fs.copyTpl(
+      this.templatePath('html/_screen.html'),
+      this.destinationPath('screen_' + i + '.html'),
+      {
+        screenNumber: i,
+        projectName: this.options.projectName
+      }
+    );
+  }
 };
 
 Generator.prototype.writeScriptsFiles = function() {
@@ -589,7 +603,18 @@ Generator.prototype.writeGulpFiles = function() {
       paths: this.paths
     }
   );
+
+  //html:main
+  this.fs.copyTpl(
+    this.templatePath('gulp/modules/html.js'),
+    this.destinationPath(this.paths.src.gulp + '/html.js'), {
+      paths: this.paths
+    }
+  );
 };
+
+
+
 
 
 

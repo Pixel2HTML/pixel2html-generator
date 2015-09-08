@@ -29,6 +29,10 @@
     "gulp-util": "^3.0.6",
     "gulp-plumber": "^1.0.1",
     "gulp-rename": "^1.2.2",
+
+    "gulp-typeset": "0.0.1",
+
+
     "require-dir": "^0.3.0"
 
 
