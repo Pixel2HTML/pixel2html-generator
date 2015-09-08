@@ -5,8 +5,10 @@
 @import 'variables';
 @import 'mixins';
 
+@import 'pages/_base.scss';
+
 // pages:start
-@import 'pages/_home.scss';
+@import 'pages/_screen1.scss';
 // pages:end
 
 // components:start
