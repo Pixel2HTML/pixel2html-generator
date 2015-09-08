@@ -14,6 +14,7 @@ var stylus = require('gulp-stylus');
 <% } -%>
 
 var minify = require('gulp-minify-css');
+var sourcemaps = require('gulp-sourcemaps');
 var plumber = require('gulp-plumber');
 var autoprefixer  = require('gulp-autoprefixer');
 var rename = require('gulp-rename');
@@ -37,7 +38,9 @@ gulp.task('styles:main', function() {
     <% } -%>
     .pipe(gulp.dest('<%= paths.dist.styles %>'))
     .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
+    .pipe(sourcemaps.init())
     .pipe(minify({keepSpecialComments:0}))
     .pipe(rename({suffix: '.min'}))
+    .pipe(sourcemaps.write())
     .pipe(gulp.dest('<%= paths.dist.styles %>'));
 });
