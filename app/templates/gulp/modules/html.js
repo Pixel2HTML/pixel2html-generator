@@ -3,8 +3,6 @@
 
 var gulp = require('gulp');
 
-var typeset = require('typeset');
-
 var onError = function(err) {
     console.log(err);
 }
