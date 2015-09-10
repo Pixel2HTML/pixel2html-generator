@@ -3,13 +3,13 @@
 
 var gulp = require('gulp');
 
-<% if (cssProcessor === 'sass') { -%>
+<% if (cssProcessor === 'scss') { -%>
 var sass = require('gulp-sass');
 <% } -%>
 <% if (cssProcessor === 'less') { -%>
 var less = require('gulp-less');
 <% } -%>
-<% if (cssProcessor === 'stylus') { -%>
+<% if (cssProcessor === 'styl') { -%>
 var stylus = require('gulp-stylus');
 <% } -%>
 
@@ -27,13 +27,13 @@ gulp.task('styles:main', function() {
   return gulp.src('<%= cssMainFile %>')
     .pipe(plumber({ errorHandler: onError }))
 
-    <% if (cssProcessor === 'sass') { -%>
+    <% if (cssProcessor === 'scss') { -%>
     .pipe(sass())
     <% } -%>
     <% if (cssProcessor === 'less') { -%>
     .pipe(less())
     <% } -%>
-    <% if (cssProcessor === 'stylus') { -%>
+    <% if (cssProcessor === 'styl') { -%>
     .pipe(stylus())
     <% } -%>
     .pipe(gulp.dest('<%= paths.dist.styles %>'))

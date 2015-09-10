@@ -8,13 +8,13 @@
     "del": "^2.0.0",
     "gulp" : "3.9.0",
 
-  <% if (cssProcessor === 'sass') { -%>
+  <% if (cssProcessor === 'scss') { -%>
     "gulp-sass": "^1.3.3",
   <% } -%>
   <% if (cssProcessor === 'less') { -%>
     "gulp-less": "^3.0.3",
   <% } -%>
-  <% if (cssProcessor === 'stylus') { -%>
+  <% if (cssProcessor === 'styl') { -%>
     "gulp-stylus": "^2.0.6",
   <% } -%>
 
@@ -29,9 +29,6 @@
     "gulp-util": "^3.0.6",
     "gulp-plumber": "^1.0.1",
     "gulp-rename": "^1.2.2",
-
-    "gulp-typeset": "0.0.1",
-
 
     "require-dir": "^0.3.0"
 
