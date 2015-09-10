@@ -24,7 +24,7 @@ var onError = function(err) {
 }
 
 
-gulp.task('vendor:bootstrap:css', function() {
+gulp.task('vendor:bootstrap:styles', function() {
 
 <% if (cssProcessor === 'scss') { -%>
 var mainFile = 'assets/src/vendor/bootstrap-sass/assets/stylesheets/_boostrap.scss';
@@ -56,3 +56,15 @@ var mainFile = 'assets/src/vendor/bootstrap-stylus/bootstrap/index.styl';
     .pipe(rename({suffix: '.min'}))
     .pipe(gulp.dest('assets/dist/css'));
 });
+
+
+
+gulp.task('vendor:bootstrap:scripts', function() {
+  //TODO
+});
+
+gulp.task('vendor:boostrap', ['vendor:bootstrap:styles', 'vendor:bootstrap:scripts'])
+
+
+
+
