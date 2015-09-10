@@ -59,7 +59,7 @@ var Generator = module.exports = function Generator(args, options) {
   });
 
   this.option('cssProcessor', {
-    desc: 'Sets the CSS Preprocessor [sass, less, stylus, none]',
+    desc: 'Sets the CSS Preprocessor [scss, less, styl, none]',
     type: String,
     required: false
   });
@@ -204,13 +204,13 @@ Generator.prototype.askForCssProcessor = function() {
       message: 'What preprocessor would you like to use? Pick one',
       choices: [{
         name: 'Sass',
-        value: 'sass',
+        value: 'scss',
       }, {
         name: 'Less',
         value: 'less',
       }, {
-        name: 'Stylus',
-        value: 'stylus',
+        name: 'Styl',
+        value: 'styl',
       }, {
         name: 'None',
         value: 'css',
@@ -400,7 +400,7 @@ Generator.prototype.createFolders = function() {
   });
 };
 
-Generator.prototype.writeBowerFile = function() {
+Generator.prototype.writeBaseBowerFile = function() {
 
   var bowerJson = {
     name: 'pixel2html-' + _s.slugify(this.projectName),
@@ -411,27 +411,27 @@ Generator.prototype.writeBowerFile = function() {
   switch (this.options.frontEndFramework) {
     case 'bootstrap':
       switch (this.options.cssProcessor) {
-        case 'sass':
+        case 'scss':
           bowerJson.dependencies['bootstrap-sass'] = '~3.3.*';
           break; //sass
         case 'less':
           bowerJson.dependencies['bootstrap'] = '~3.3.*';
           break; //less
-        case 'stylus':
+        case 'styl':
           bowerJson.dependencies['bootstrap-stylus'] = '~4.0.*';
-          break; //stylus
+          break; //styl
       }
       break; //bootstrap
 
     case 'basscss':
       switch (this.options.cssProcessor) {
-        case 'sass':
+        case 'scss':
           bowerJson.dependencies['basscss-sass'] = '~3.0.*';
           break; //sass
 
         default:
         case 'less':
-        case 'stylus':
+        case 'styl':
           bowerJson.dependencies['basscss'] = '~7.0.*';
           break; //less
 
@@ -440,13 +440,13 @@ Generator.prototype.writeBowerFile = function() {
 
     case 'foundation':
       switch (this.options.cssProcessor) {
-        case 'sass':
+        case 'scss':
           bowerJson.dependencies['foundation'] = '~5.5.*';
           break; //sass
         case 'less':
           bowerJson.dependencies['foundation'] = '~5.5.*';
           break; //less
-        case 'stylus':
+        case 'styl':
           bowerJson.dependencies['foundation'] = '~5.5.*';
           break; //stylus
       }
@@ -473,31 +473,29 @@ Generator.prototype.writeBowerFile = function() {
   );
 };
 
-Generator.prototype.writeStyles = function() {
-  var fileExt;
+Generator.prototype.writeHTMLFiles = function() {
+
+  for (var i = 1; i < this.options.qtyScreens + 1; i++) {
+    this.fs.copyTpl(
+      this.templatePath('html/_screen.html'),
+      this.destinationPath('screen_' + i + '.html'), {
+        screenNumber: i,
+        projectName: this.options.projectName
+      }
+    );
+  }
+};
+
+Generator.prototype.writeBaseStyles = function() {
+
   var cssProcessor = this.options.cssProcessor;
   var srcAssets = 'assets/src/' + cssProcessor;
 
-  switch (this.options.cssProcessor) {
-    case 'sass':
-      fileExt = '.scss';
-      break;
-    case 'less':
-      fileExt = '.less';
-      break;
-    case 'stylus':
-      fileExt = '.styl';
-      break;
-    default:
-      fileExt = '.css';
-      break;
-  }
-
-  this.options.cssMainFile = srcAssets + '/main' + fileExt;
+  this.options.cssMainFile = srcAssets + '/main.' + cssProcessor;
 
   this.fs.copyTpl(
-    this.templatePath('styles/' + cssProcessor + '/main' + fileExt),
-    this.destinationPath(srcAssets + '/main' + fileExt), {
+    this.templatePath('styles/' + cssProcessor + '/main.' + cssProcessor),
+    this.destinationPath(srcAssets + '/main.' + cssProcessor), {
       projectName: this.options.projectName
     }
   );
@@ -506,39 +504,38 @@ Generator.prototype.writeStyles = function() {
   mkdirp(srcAssets + '/components');
 
   this.fs.copy(
-    this.templatePath('styles/' + cssProcessor + '/variables' + fileExt),
-    this.destinationPath(srcAssets + '/variables' + fileExt)
+    this.templatePath('styles/' + cssProcessor + '/variables.' + cssProcessor),
+    this.destinationPath(srcAssets + '/variables.' + cssProcessor)
   );
   this.fs.copy(
-    this.templatePath('styles/' + cssProcessor + '/mixins' + fileExt),
-    this.destinationPath(srcAssets + '/mixins' + fileExt)
+    this.templatePath('styles/' + cssProcessor + '/mixins.' + cssProcessor),
+    this.destinationPath(srcAssets + '/mixins.' + cssProcessor)
   );
   this.fs.copy(
-    this.templatePath('styles/' + cssProcessor + '/pages/_base' + fileExt),
-    this.destinationPath(srcAssets + '/pages/_base' + fileExt)
+    this.templatePath('styles/' + cssProcessor + '/pages/_base.' + cssProcessor),
+    this.destinationPath(srcAssets + '/pages/_base.' + cssProcessor)
   );
   this.fs.copy(
-    this.templatePath('styles/' + cssProcessor + '/components/_header' + fileExt),
-    this.destinationPath(srcAssets + '/components/_header' + fileExt)
+    this.templatePath('styles/' + cssProcessor + '/components/_header.' + cssProcessor),
+    this.destinationPath(srcAssets + '/components/_header.' + cssProcessor)
   );
   this.fs.copy(
-    this.templatePath('styles/' + cssProcessor + '/components/_footer' + fileExt),
-    this.destinationPath(srcAssets + '/components/_footer' + fileExt)
+    this.templatePath('styles/' + cssProcessor + '/components/_footer.' + cssProcessor),
+    this.destinationPath(srcAssets + '/components/_footer.' + cssProcessor)
   );
   this.fs.copy(
-    this.templatePath('styles/' + cssProcessor + '/components/_nav' + fileExt),
-    this.destinationPath(srcAssets + '/components/_nav' + fileExt)
+    this.templatePath('styles/' + cssProcessor + '/components/_nav.' + cssProcessor),
+    this.destinationPath(srcAssets + '/components/_nav.' + cssProcessor)
   );
   this.fs.copy(
-    this.templatePath('styles/' + cssProcessor + '/components/_buttons' + fileExt),
-    this.destinationPath(srcAssets + '/components/_buttons' + fileExt)
+    this.templatePath('styles/' + cssProcessor + '/components/_buttons.' + cssProcessor),
+    this.destinationPath(srcAssets + '/components/_buttons.' + cssProcessor)
   );
 
-  for(var i=1; i<this.options.qtyScreens+1; i++){
+  for (var i = 1; i < this.options.qtyScreens + 1; i++) {
     this.fs.copyTpl(
-      this.templatePath('styles/' + cssProcessor + '/pages/_screen'+fileExt),
-      this.destinationPath(srcAssets + '/pages/screen_' + i + fileExt),
-      {
+      this.templatePath('styles/' + cssProcessor + '/pages/_screen.' + cssProcessor),
+      this.destinationPath(srcAssets + '/pages/screen_' + i + '.' + cssProcessor), {
         screenNumber: i,
         projectName: this.options.projectName
       }
@@ -546,33 +543,18 @@ Generator.prototype.writeStyles = function() {
   }
 };
 
-Generator.prototype.writeHTMLFiles = function() {
-
- for(var i=1; i<this.options.qtyScreens+1; i++){
-    this.fs.copyTpl(
-      this.templatePath('html/_screen.html'),
-      this.destinationPath('screen_' + i + '.html'),
-      {
-        screenNumber: i,
-        projectName: this.options.projectName
-      }
-    );
-  }
-};
-
-Generator.prototype.writeScriptsFiles = function() {
+Generator.prototype.writeBaseScriptsFiles = function() {
 
   this.log(chalk.yellow('Copying js main file.'));
   this.fs.copyTpl(
     this.templatePath('scripts/main.js'),
-    this.destinationPath(this.paths.src.scripts+'/main.js'),
-    {
+    this.destinationPath(this.paths.src.scripts + '/main.js'), {
       projectName: this.options.projectName
     }
   );
 };
 
-Generator.prototype.writeGulpFiles = function() {
+Generator.prototype.writeBaseGulpFiles = function() {
 
   this.log(chalk.yellow('Copying gulpfile.'));
   this.fs.copyTpl(
@@ -613,31 +595,33 @@ Generator.prototype.writeGulpFiles = function() {
   );
 };
 
+Generator.prototype.writeFrontEndFrameworkFiles = function() {
+  var cssProcessor = this.options.cssProcessor;
+  var frontEndFramework = this.options.frontEndFramework;
+  var srcAssets = 'assets/src/' + cssProcessor;
 
+  if (!this.options.frontEndFramework) {
+    return true;
+  }
 
+  //move vendor styles
+  this.fs.copy(
+    this.templatePath('styles/' + cssProcessor + '/vendor/' + frontEndFramework),
+    this.destinationPath(srcAssets + '/vendor/' + frontEndFramework)
+  );
 
+  //copy gulp file
+  this.fs.copyTpl(
+    this.templatePath('gulp/modules/vendor/' + this.options.frontEndFramework + '.js'),
+    this.destinationPath(this.paths.src.gulp + '/vendor/' + this.options.frontEndFramework + '.js'), {
+      projectName: this.options.projectName,
+      cssProcessor: this.options.cssProcessor,
+      paths: this.paths
+    }
+  );
 
+};
 
-//     scripts: function () {
-
-//     },
-
-//     html: function () {
-
-//       this.fs.copyTpl(
-//         this.templatePath('layouts/index.html'),
-//         this.destinationPath('index.html'),
-//         {
-//           projectName: this.projectName,
-//           modernizr: this.modernizr,
-//           cssPreprocessor: this.cssPreprocessor,
-//           cssFramework: this.cssFramework,
-//           jquery: this.jquery
-//         }
-//       );
-
-//     }
-//   },
 
 
 // Generator.prototype.installDependencies = function installDependencies() {
