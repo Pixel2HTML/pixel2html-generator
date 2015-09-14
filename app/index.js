@@ -563,9 +563,12 @@ Generator.prototype.writeBaseGulpFiles = function() {
   );
 
   //static
-  this.copy(
+  this.fs.copyTpl(
     this.templatePath('gulp/modules/static.js'),
-    this.destinationPath(this.paths.src.gulp + '/static.js')
+    this.destinationPath(this.paths.src.gulp + '/static.js'),
+    {
+      paths: this.paths
+    }
   );
 
   //styles:main
