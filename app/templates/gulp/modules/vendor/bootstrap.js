@@ -63,7 +63,7 @@ gulp.task('vendor:bootstrap:scripts', function() {
   //TODO
 });
 
-gulp.task('vendor:boostrap', ['vendor:bootstrap:styles', 'vendor:bootstrap:scripts'])
+gulp.task('vendor:bootstrap', ['vendor:bootstrap:styles', 'vendor:bootstrap:scripts'])
 
 
 
