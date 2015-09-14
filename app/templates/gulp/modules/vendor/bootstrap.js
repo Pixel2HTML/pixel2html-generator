@@ -33,7 +33,7 @@ var mainFile = 'assets/src/vendor/bootstrap-sass/assets/stylesheets/_boostrap.sc
 var mainFile = 'assets/src/less/vendor/bootstrap/bootstrap.less';
 <% } -%>
 <% if (cssProcessor === 'styl') { -%>
-var mainFile = 'assets/src/vendor/bootstrap-stylus/bootstrap/index.styl';
+var mainFile = 'assets/src/styl/vendor/bootstrap/bootstrap.styl';
 <% } -%>
 
   return gulp.src(mainFile)
@@ -48,6 +48,8 @@ var mainFile = 'assets/src/vendor/bootstrap-stylus/bootstrap/index.styl';
     <% if (cssProcessor === 'styl') { -%>
     .pipe(stylus())
     <% } -%>
+
+    .pipe(rename('bootstrap.css'))
     .pipe(gulp.dest('assets/dist/css'))
     .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
     .pipe(minify({
