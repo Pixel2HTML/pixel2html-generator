@@ -3,15 +3,15 @@
 
 var gulp = require('gulp');
 
-<% if (cssProcessor === 'scss') { -%>
-var sass = require('gulp-sass');
-<% } -%>
-<% if (cssProcessor === 'less') { -%>
+<% if (cssProcessor === 'scss') { %>
+var sass = require('gulp-ruby-sass');
+<% } %>
+<% if (cssProcessor === 'less') { %>
 var less = require('gulp-less');
-<% } -%>
-<% if (cssProcessor === 'styl') { -%>
+<% } %>
+<% if (cssProcessor === 'styl') { %>
 var stylus = require('gulp-stylus');
-<% } -%>
+<% } %>
 
 var minify = require('gulp-minify-css');
 var sourcemaps = require('gulp-sourcemaps');
@@ -27,15 +27,15 @@ gulp.task('styles:main', function() {
   return gulp.src('<%= cssMainFile %>')
     .pipe(plumber({ errorHandler: onError }))
 
-    <% if (cssProcessor === 'scss') { -%>
+    <% if (cssProcessor === 'scss') { %>
     .pipe(sass())
-    <% } -%>
-    <% if (cssProcessor === 'less') { -%>
+    <% } %>
+    <% if (cssProcessor === 'less') { %>
     .pipe(less())
-    <% } -%>
-    <% if (cssProcessor === 'styl') { -%>
+    <% } %>
+    <% if (cssProcessor === 'styl') { %>
     .pipe(stylus())
-    <% } -%>
+    <% } %>
     .pipe(gulp.dest('<%= paths.dist.styles %>'))
     .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
     .pipe(sourcemaps.init())

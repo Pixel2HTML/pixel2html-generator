@@ -3,15 +3,15 @@
 
 var gulp = require('gulp');
 
-<% if (cssProcessor === 'scss') { -%>
-var sass = require('gulp-sass');
-<% } -%>
-<% if (cssProcessor === 'less') { -%>
+<% if (cssProcessor === 'scss') { %>
+var sass = require('gulp-ruby-sass');
+<% } %>
+<% if (cssProcessor === 'less') { %>
 var less = require('gulp-less');
-<% } -%>
-<% if (cssProcessor === 'styl') { -%>
+<% } %>
+<% if (cssProcessor === 'styl') { %>
 var stylus = require('gulp-stylus');
-<% } -%>
+<% } %>
 
 var minify = require('gulp-minify-css');
 var plumber = require('gulp-plumber');
@@ -26,28 +26,20 @@ var onError = function(err) {
 
 gulp.task('vendor:bootstrap:styles', function() {
 
-<% if (cssProcessor === 'scss') { -%>
-var mainFile = 'assets/src/vendor/bootstrap-sass/assets/stylesheets/_boostrap.scss';
-<% } -%>
-<% if (cssProcessor === 'less') { -%>
-var mainFile = 'assets/src/less/vendor/bootstrap/bootstrap.less';
-<% } -%>
-<% if (cssProcessor === 'styl') { -%>
-var mainFile = 'assets/src/styl/vendor/bootstrap/bootstrap.styl';
-<% } -%>
-
-  return gulp.src(mainFile)
+  return gulp.src('assets/src/<%= cssProcessor %>/vendor/bootstrap/bootstrap.<%= cssProcessor %>')
 
     .pipe(plumber({ errorHandler: onError }))
-    <% if (cssProcessor === 'scss') { -%>
-    .pipe(sass())
-    <% } -%>
-    <% if (cssProcessor === 'less') { -%>
+    <% if (cssProcessor === 'scss') { %>
+      .pipe(sass({
+        loadPath: ['<%= paths.src.vendors %>/bootstrap-sass/assets/stylesheets']
+      }))
+    <% } %>
+    <% if (cssProcessor === 'less') { %>
     .pipe(less())
-    <% } -%>
-    <% if (cssProcessor === 'styl') { -%>
+    <% } %>
+    <% if (cssProcessor === 'styl') { %>
     .pipe(stylus())
-    <% } -%>
+    <% } %>
 
     .pipe(rename('bootstrap.css'))
     .pipe(gulp.dest('assets/dist/css'))
