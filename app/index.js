@@ -534,8 +534,8 @@ Generator.prototype.writeBaseStyles = function() {
 
   for (var i = 1; i < this.options.qtyScreens + 1; i++) {
     this.fs.copyTpl(
-      this.templatePath('styles/' + cssProcessor + '/pages/_screen.' + cssProcessor),
-      this.destinationPath(srcAssets + '/pages/screen_' + i + '.' + cssProcessor), {
+      this.templatePath('styles/' + cssProcessor + '/screens/_screen.' + cssProcessor),
+      this.destinationPath(srcAssets + '/screens/screen_' + i + '.' + cssProcessor), {
         screenNumber: i,
         projectName: this.options.projectName
       }
