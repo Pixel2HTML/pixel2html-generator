@@ -31,16 +31,12 @@ gulp.task('vendor:bootstrap:styles', function() {
     .pipe(plumber({ errorHandler: onError }))
     <% if (cssProcessor === 'scss') { %>
       .pipe(sass({
+        style: 'compressed',
         loadPath: ['<%= paths.src.vendors %>/bootstrap-sass/assets/stylesheets']
       }))
     <% } %>
     <% if (cssProcessor === 'less') { %>
     .pipe(less())
-    <% } %>
-    <% if (cssProcessor === 'styl') { %>
-    .pipe(stylus())
-    <% } %>
-
     .pipe(rename('bootstrap.css'))
     .pipe(gulp.dest('assets/dist/css'))
     .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
@@ -48,16 +44,33 @@ gulp.task('vendor:bootstrap:styles', function() {
       keepSpecialComments: 0
     }))
     .pipe(rename({suffix: '.min'}))
+    <% } %>
+    <% if (cssProcessor === 'styl') { %>
+    .pipe(stylus())
+    <% } %>
+
+
     .pipe(gulp.dest('assets/dist/css'));
 });
 
 
 
+gulp.task('vendor:bootstrap:fonts', function() {
+  //TODO
+});
+
 gulp.task('vendor:bootstrap:scripts', function() {
   //TODO
 });
 
-gulp.task('vendor:bootstrap', ['vendor:bootstrap:styles', 'vendor:bootstrap:scripts'])
+gulp.task('vendor:bootstrap',
+    [ 'vendor:bootstrap:styles',
+      'vendor:bootstrap:scripts',
+      'vendor:bootstrap:fonts' ]
+)
+
+
+
 
 
 
