@@ -9,7 +9,7 @@
     "gulp" : "3.9.0",
 
   <% if (cssProcessor === 'scss') { -%>
-    "gulp-ruby-sass": "^2.0.3",
+    "gulp-ruby-sass": "^0.7.1",
   <% } -%>
   <% if (cssProcessor === 'less') { -%>
     "gulp-less": "^3.0.3",
