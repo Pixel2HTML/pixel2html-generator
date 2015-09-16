@@ -462,7 +462,7 @@ Generator.prototype.writeBaseBowerFile = function() {
     bowerJson.dependencies['parsleyjs'] = '~2.1.*';
   }
   if (this.options.modernizr) {
-    bowerJson.dependencies['modernizr'] = '~2.8.*';
+    bowerJson.dependencies['modernizr'] = '~3.0.*';
   }
 
   this.fs.writeJSON('bower.json', bowerJson);
