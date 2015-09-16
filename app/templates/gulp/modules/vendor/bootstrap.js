@@ -26,7 +26,7 @@ var onError = function(err) {
 
 gulp.task('vendor:bootstrap:styles', function() {
 
-  return gulp.src('assets/src/<%= cssProcessor %>/vendor/bootstrap/bootstrap.<%= cssProcessor %>')
+  return gulp.src('assets/src/<%= cssProcessor %>/vendor/bootstrap/index.<%= cssProcessor %>')
 
     .pipe(plumber({ errorHandler: onError }))
     <% if (cssProcessor === 'scss') { %>

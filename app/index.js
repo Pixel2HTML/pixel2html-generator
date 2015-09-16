@@ -512,8 +512,8 @@ Generator.prototype.writeBaseStyles = function() {
     this.destinationPath(srcAssets + '/mixins.' + cssProcessor)
   );
   this.fs.copy(
-    this.templatePath('styles/' + cssProcessor + '/pages/_base.' + cssProcessor),
-    this.destinationPath(srcAssets + '/pages/_base.' + cssProcessor)
+    this.templatePath('styles/' + cssProcessor + '/screens/_base.' + cssProcessor),
+    this.destinationPath(srcAssets + '/screens/_base.' + cssProcessor)
   );
   this.fs.copy(
     this.templatePath('styles/' + cssProcessor + '/components/_header.' + cssProcessor),
