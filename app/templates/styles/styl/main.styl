@@ -2,16 +2,19 @@
 * Pixel2HTML - <%= projectName %>
 */
 
-@import 'variables.styl';
-@import 'mixins.styl';
+@import 'variables';
+@import 'mixins';
 
-// pages:start
-@import 'pages/_home.styl';
-// pages:end
+
+// screens:start
+@import 'screens/_base';
+<% for(var i=1; i<=qtyScreens; i++) {%>
+@import 'screens/screen_<%=i%>';<% } %>
+// screens:end
 
 // components:start
-@import 'components/_header.styl';
-@import 'components/_footer.styl';
-@import 'components/_nav.styl';
-@import 'components/_buttons.styl';
+@import 'components/_header';
+@import 'components/_footer';
+@import 'components/_nav';
+@import 'components/_buttons';
 // components:end

@@ -477,7 +477,8 @@ Generator.prototype.writeBaseStyles = function() {
   this.fs.copyTpl(
     this.templatePath('styles/' + cssProcessor + '/main.' + cssProcessor),
     this.destinationPath(srcAssets + '/main.' + cssProcessor), {
-      projectName: this.options.projectName
+      projectName: this.options.projectName,
+      qtyScreens: this.options.qtyScreens
     }
   );
 
