@@ -5,11 +5,11 @@
 @import 'variables';
 @import 'mixins';
 
-@import 'pages/_base';
-
-// pages:start
-@import 'pages/screen_1';
-// pages:end
+// screens:start
+@import 'screens/_base';
+<% for(var i=1; i<=qtyScreens; i++) {%>
+@import 'screens/screen_<%=i%>';<% } %>
+// screens:end
 
 // components:start
 @import 'components/_header';

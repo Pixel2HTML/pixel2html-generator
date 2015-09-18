@@ -5,9 +5,11 @@
 @import 'variables.less';
 @import 'mixins.less';
 
-// pages:start
-@import 'pages/_home.less';
-// pages:end
+// screens:start
+@import 'screens/_base.less';
+<% for(var i=1; i<=qtyScreens; i++) {%>
+@import 'screens/screen_<%=i%>.less';<% } %>
+// screens:end
 
 // components:start
 @import 'components/_header.less';
