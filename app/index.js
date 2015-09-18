@@ -421,36 +421,17 @@ Generator.prototype.writeBaseBowerFile = function() {
           bowerJson.dependencies['bootstrap-stylus'] = '~4.0.*';
           break; //styl
       }
-      break; //bootstrap
+    break; //bootstrap
 
     case 'basscss':
-      switch (this.options.cssProcessor) {
-        case 'scss':
-          bowerJson.dependencies['basscss-sass'] = '~3.0.*';
-          break; //sass
-
-        default:
-        case 'less':
-        case 'styl':
-          bowerJson.dependencies['basscss'] = '~7.0.*';
-          break; //less
-
-      }
-      break;
+      //only sass version available
+      bowerJson.dependencies['basscss-sass'] = '~3.0.*';
+    break;
 
     case 'foundation':
-      switch (this.options.cssProcessor) {
-        case 'scss':
-          bowerJson.dependencies['foundation'] = '~5.5.*';
-          break; //sass
-        case 'less':
-          bowerJson.dependencies['foundation'] = '~5.5.*';
-          break; //less
-        case 'styl':
-          bowerJson.dependencies['foundation'] = '~5.5.*';
-          break; //stylus
-      }
-      break;
+      //only sass version available
+      bowerJson.dependencies['foundation'] = '~5.5.*';
+    break;
   }
   if (this.options.jQuery) {
     bowerJson.dependencies['jquery'] = '~2.1.*';
