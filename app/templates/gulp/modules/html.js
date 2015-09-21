@@ -4,7 +4,7 @@
 var gulp = require('gulp');
 
 var onError = function(err) {
-    console.log(err);
+  console.log(err);
 }
 
 gulp.task('html:main', function() {

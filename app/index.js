@@ -421,17 +421,17 @@ Generator.prototype.writeBaseBowerFile = function() {
           bowerJson.dependencies['bootstrap-stylus'] = '~4.0.*';
           break; //styl
       }
-    break; //bootstrap
+      break; //bootstrap
 
     case 'basscss':
       //only sass version available
       bowerJson.dependencies['basscss-sass'] = '~3.0.*';
-    break;
+      break;
 
     case 'foundation':
       //only sass version available
       bowerJson.dependencies['foundation'] = '~5.5.*';
-    break;
+      break;
   }
   if (this.options.jQuery) {
     bowerJson.dependencies['jquery'] = '~2.1.*';
@@ -481,9 +481,6 @@ Generator.prototype.writeBaseStyles = function() {
       qtyScreens: this.options.qtyScreens
     }
   );
-
-  mkdirp(srcAssets + '/pages');
-  mkdirp(srcAssets + '/components');
 
   this.fs.copy(
     this.templatePath('styles/' + cssProcessor + '/variables.' + cssProcessor),
@@ -547,8 +544,7 @@ Generator.prototype.writeBaseGulpFiles = function() {
   //static
   this.fs.copyTpl(
     this.templatePath('gulp/modules/static.js'),
-    this.destinationPath(this.paths.src.gulp + '/static.js'),
-    {
+    this.destinationPath(this.paths.src.gulp + '/static.js'), {
       paths: this.paths
     }
   );
