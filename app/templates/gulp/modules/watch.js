@@ -15,4 +15,7 @@ gulp.task('watch', function() {
   //scripts
   gulp.watch("<%= paths.src.scripts %>/**/*.js", ['scripts:main']);
 
+  //styles
+  gulp.watch("<%= paths.src.base %>/<%=cssProcessor%>/**/*.<%=cssProcessor%>", ['styles:main']);
+
 });
