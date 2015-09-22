@@ -80,14 +80,14 @@ screen_*.html
 
 ## Available Gulp Commands
 
-`$ gulp clean` Clean /dist directory
-`$ gulp static` Compile static files (images, fonts, icons)
-`$ gulp images:main` Move & optimize images
-`$ gulp fonts:main` Move fonts
-`$ gulp icons:main` Move icons
-`$ gulp scripts:main` Concat, uglify and move JS files
-`$ gulp styles:main` Compile, concat, autoprefix, minify and move [SCSS, Less, Stylus] files
+* `$ gulp clean` Clean /dist directory
+* `$ gulp static` Compile static files (images, fonts, icons)
+* `$ gulp images:main` Move & optimize images
+* `$ gulp fonts:main` Move fonts
+* `$ gulp icons:main` Move icons
+* `$ gulp scripts:main` Concat, uglify and move JS files
+* `$ gulp styles:main` Compile, concat, autoprefix, minify and move [SCSS, Less, Stylus] files
 
-#### Daemons
-`$ gulp watch` Watch your files and autoexecute gulp directives
-`$ gulp serve` **Watch** your files and **serve** with an HTTP server and **Sync** with your prefered browser _awesome!_ 
+### Daemons
+* `$ gulp watch` Watch your files and autoexecute gulp directives
+* `$ gulp serve` **Watch** your files and **serve** with an HTTP server and **Sync** with your prefered browser _awesome!_ 
