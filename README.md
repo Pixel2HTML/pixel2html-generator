@@ -13,7 +13,7 @@ _voilá_
 
 ## Running the generator by yourself
 
-To generate the *Pixel2HTML* boilerplate go to your project folder and run this command in your shell
+To generate the **Pixel2HTML Boilerplate** go to your project folder and run this command in your shell
 
 ```
 $ cd ~/your/project/folder
@@ -31,7 +31,7 @@ _or you can pass attributes to skip questions that you may know the answer ;)_
 * ```--jQuery``` (*bool*)
 
 ## Installing dependencies & running up
-To work, the *Pixel2HTML Boilerplate* needs to install some dependencies to run the options you select.
+To work, the **Pixel2HTML Boilerplate** needs to install some dependencies to run the options you select.
 For this job, run this command in your shell
 
 ```
