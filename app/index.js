@@ -575,6 +575,14 @@ Generator.prototype.writeBaseGulpFiles = function() {
       paths: this.paths
     }
   );
+
+  //watch
+  this.fs.copyTpl(
+    this.templatePath('gulp/modules/watch.js'),
+    this.destinationPath(this.paths.src.gulp + '/watch.js'), {
+      paths: this.paths
+    }
+  );
 };
 
 Generator.prototype.writeFrontEndFrameworkFiles = function() {
