@@ -35,7 +35,7 @@ var Generator = module.exports = function Generator(args, options) {
     }
   };
 
-  this.destinationRoot('demo');
+  // this.destinationRoot('demo');
 
   //Options to set thru CLI
   this.option('projectName', {
@@ -144,14 +144,15 @@ Generator.prototype.askForQtyScreens = function() {
       }
     }],
     function(props) {
-      this.options.qtyScreens = props.qtyScreens;
+      this.options.qtyScreens = parseInt(props.qtyScreens);
       cb();
     }.bind(this)
   );
+
+
 };
 
 Generator.prototype.projectType = function() {
-
   var cb = this.async();
   var projectType = this.options.projectType;
 
