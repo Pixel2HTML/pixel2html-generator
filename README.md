@@ -80,13 +80,41 @@ screen_*.html
 
 ## Available Gulp Commands
 
+### Helpers
 * `$ gulp clean` Clean /dist directory
+
+### Static Files
 * `$ gulp static` Compile static files (images, fonts, icons)
 * `$ gulp images:main` Move & optimize images
 * `$ gulp fonts:main` Move fonts
 * `$ gulp icons:main` Move icons
+
+### Scripts
 * `$ gulp scripts:main` Concat, uglify and move JS files
+
+### Styles
 * `$ gulp styles:main` Compile, concat, autoprefix, minify and move [SCSS, Less, Stylus] files
+
+### Vendors
+#### Bootstrap
+
+* `$ gulp vendor:bootstrap` Compile & Move all **Bootstrap** files
+* `$ gulp vendor:bootstrap:styles` Compile, concat, autoprefix, minify and move **Bootstrap** files
+* `$ gulp vendor:bootstrap:scripts` Concat, uglify and move **Bootstrap** JS files
+* `$ gulp vendor:bootstrap:fonts` Move **Bootstrap** fonts files
+
+#### Foundation
+* `$ gulp vendor:foundation` Compile & Move all **foundation** files
+* `$ gulp vendor:foundation:styles` Compile, concat, autoprefix, minify and move **foundation** files
+* `$ gulp vendor:foundation:scripts` Concat, uglify and move **foundation** JS files
+* `$ gulp vendor:foundation:fonts` Move **foundation** fonts files
+
+
+#### BassCss
+* `$ gulp vendor:basscss` Compile & Move all **basscss** files
+* `$ gulp vendor:basscss:styles` Compile, concat, autoprefix, minify and move **basscss** files
+* `$ gulp vendor:basscss:scripts` Concat, uglify and move **basscss** JS files
+* `$ gulp vendor:basscss:fonts` Move **basscss** fonts files
 
 ### Daemons
 * `$ gulp watch` Watch your files and autoexecute gulp directives
