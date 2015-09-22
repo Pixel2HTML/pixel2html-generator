@@ -17,7 +17,7 @@ To generate the *Pixel2HTML* boilerplate go to your project folder and run this 
 
 ```
 $ cd ~/your/project/folder
-$ yo pixel2html <params>`
+$ yo pixel2html <params>
 ```
 _or you can pass attributes to skip questions that you may know the answer ;)_
 
