@@ -16,6 +16,15 @@ gulp.task('watch', function() {
   gulp.watch("<%= paths.src.scripts %>/**/*.js", ['scripts:main']);
 
   //styles
-  gulp.watch("<%= paths.src.base %>/<%=cssProcessor%>/**/*.<%=cssProcessor%>", ['styles:main']);
+  gulp.watch([
+    "<%= paths.src.base %>/<%=cssProcessor%>/**/*.<%=cssProcessor%>",
+    "!<%= paths.src.base %>/<%=cssProcessor%>/vendor/**/**.<%=cssProcessor%>",
+  ], ['styles:main']);
+
+
+  <% if (frontEndFramework) { %>
+  gulp.watch("<%= paths.src.base %>/<%=cssProcessor%>/vendor/**/**.<%=cssProcessor%>", ['vendor:<%=frontEndFramework%>:styles']);
+  <% } %>
+
 
 });

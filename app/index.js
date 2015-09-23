@@ -581,7 +581,8 @@ Generator.prototype.writeBaseGulpFiles = function() {
     this.templatePath('gulp/modules/watch.js'),
     this.destinationPath(this.paths.src.gulp + '/watch.js'), {
       paths: this.paths,
-      cssProcessor: this.options.cssProcessor
+      cssProcessor: this.options.cssProcessor,
+      frontEndFramework: this.options.frontEndFramework
     }
   );
 };
@@ -607,6 +608,7 @@ Generator.prototype.writeFrontEndFrameworkFiles = function() {
     this.destinationPath(this.paths.src.gulp + '/vendor/' + this.options.frontEndFramework + '.js'), {
       projectName: this.options.projectName,
       cssProcessor: this.options.cssProcessor,
+      frontEndFramework: this.options.frontEndFramework,
       paths: this.paths
     }
   );
