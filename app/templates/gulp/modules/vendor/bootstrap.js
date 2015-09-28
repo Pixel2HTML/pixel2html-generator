@@ -26,7 +26,7 @@ var onError = function(err) {
 
 gulp.task('vendor:bootstrap:styles', function() {
 
-  return gulp.src('assets/src/<%= cssProcessor %>/vendor/bootstrap/index.<%= cssProcessor %>')
+  return gulp.src('<%= paths.src.base %>/<%= cssProcessor %>/vendor/bootstrap/index.<%= cssProcessor %>')
 
   .pipe(plumber({
     errorHandler: onError
@@ -40,7 +40,7 @@ gulp.task('vendor:bootstrap:styles', function() {
   <% if (cssProcessor === 'less') { %>
   .pipe(less())
     .pipe(rename('bootstrap.css'))
-    .pipe(gulp.dest('assets/dist/css'))
+    .pipe(gulp.dest('<%= paths.dist.styles %>'))
     .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
     .pipe(minify({
       keepSpecialComments: 0
@@ -54,7 +54,7 @@ gulp.task('vendor:bootstrap:styles', function() {
   <% } %>
 
 
-  .pipe(gulp.dest('assets/dist/css'));
+  .pipe(gulp.dest('<%= paths.dist.styles %>'));
 });
 
 
@@ -69,12 +69,33 @@ gulp.task('vendor:bootstrap:fonts', function() {
   <% if (cssProcessor === 'styl') { %>
   var fontDirectory = '<%= paths.src.vendors %>/bootstrap-stylus/fonts/**/*';
   <% } %>
-  return gulp.src('')
-    .pipe(gulp.dest('assets/dist/fonts'));
+  return gulp.src(fontDirectory)
+    .pipe(gulp.dest('<%= paths.dist.fonts %>'));
 });
 
 gulp.task('vendor:bootstrap:scripts', function() {
-  //TODO
+  <% if (cssProcessor === 'scss') { %>
+  var scriptsDirectory = '<%= paths.src.vendors %>/bootstrap-sass/assets/javascripts/bootstrap/*.js';
+
+  <% } %>
+  <% if (cssProcessor === 'less') { %>
+  var scriptsDirectory = '<%= paths.src.vendors %>/bootstrap/js/*.js';
+  <% } %>
+  <% if (cssProcessor === 'styl') { %>
+  var scriptsDirectory = '<%= paths.src.vendors %>/bootstrap-stylus/js/*.js';
+  <% } %>
+
+  return gulp.src(scriptsDirectory)
+    .pipe(plumber())
+    .pipe(concat('bootstrap.js'))
+    .pipe(gulp.dest('<%= paths.dist.scripts %>'))
+    .pipe(uglify({
+      mangle: false
+    }))
+    .pipe(rename({
+      suffix: '.min'
+    }))
+    .pipe(gulp.dest('<%= paths.dist.scripts %>'));
 });
 
 gulp.task('vendor:bootstrap', ['vendor:bootstrap:styles',
