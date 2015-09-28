@@ -19,7 +19,7 @@ var Generator = module.exports = function Generator(args, options) {
     'src': {
       'base': 'assets/src',
       'fonts': 'assets/src/fonts',
-      'gulp': 'assets/src/gulp',
+      'gulp': 'assets/src/.gulp',
       'icons': 'assets/src/icons',
       'images': 'assets/src/images',
       'vendors': 'assets/src/vendor',
@@ -462,7 +462,8 @@ Generator.prototype.writeHTMLFiles = function() {
       this.templatePath('html/_screen.html'),
       this.destinationPath('screen_' + i + '.html'), {
         screenNumber: i,
-        projectName: this.options.projectName
+        projectName: this.options.projectName,
+        frontEndFramework: this.options.frontEndFramework,
       }
     );
   }
@@ -614,37 +615,3 @@ Generator.prototype.writeFrontEndFrameworkFiles = function() {
   );
 
 };
-
-
-
-// Generator.prototype.installDependencies = function installDependencies() {
-//   var howToInstall =
-//     '\nAfter running `npm install & bower install`, inject your front end dependencies into' +
-//     '\nyour HTML by running:' +
-//     '\n' +
-//     chalk.yellow.bold('\n  gulp wiredep');
-
-//   if (this.options['skip-install']) {
-//     console.log(howToInstall);
-//     return;
-//   }
-
-//   var done = this.async();
-//   this.installDependencies({
-//     skipMessage: this.options['skip-install-message'],
-//     skipInstall: this.options['skip-install'],
-//     callback: function() {
-//       var bowerJson = JSON.parse(fs.readFileSync('./bower.json'));
-
-//       // wire Bower packages to .html
-//       wiredep({
-//         bowerJson: bowerJson,
-//         directory: 'app/bower_components',
-//         exclude: ['bootstrap-sass'],
-//         src: 'app/layouts/index.html'
-//       });
-
-//       done();
-//     }.bind(this)
-//   });
-// };
