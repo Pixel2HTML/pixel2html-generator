@@ -36,29 +36,28 @@ gulp.task('vendor:bootstrap:styles', function() {
       errorHandler: onError
     }))
     .pipe(sourcemaps.init())
+    .pipe(rename('bootstrap.css'))
 
   <% if (cssProcessor === 'scss') { %>
-  .pipe(sass({
-    style: 'compressed',
-    loadPath: ['<%= paths.src.vendors %>/bootstrap-sass/assets/stylesheets']
-  }))
+    .pipe(sass({
+      outputStyle: 'expanded',
+      includePaths: ['<%= paths.src.vendors %>/bootstrap-sass/assets/stylesheets']
+    }))
   <% } %>
   <% if (cssProcessor === 'less') { %>
-  .pipe(less())
-    .pipe(rename('bootstrap.css'))
-    .pipe(gulp.dest('<%= paths.dist.styles %>'))
-    .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
-    .pipe(minify({
-      keepSpecialComments: 0
-    }))
-    .pipe(rename({
-      suffix: '.min'
-    }))
+    .pipe(less())
   <% } %>
   <% if (cssProcessor === 'styl') { %>
-  .pipe(stylus())
+    .pipe(stylus())
   <% } %>
-
+  .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
+  .pipe(gulp.dest('<%= paths.dist.styles %>'))
+  .pipe(minify({
+    keepSpecialComments: 0
+  }))
+  .pipe(rename({
+    suffix: '.min'
+  }))
   .pipe(sourcemaps.write())
 
   .pipe(gulp.dest('<%= paths.dist.styles %>'));
