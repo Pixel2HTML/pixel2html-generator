@@ -12,10 +12,14 @@ var less = require('gulp-less');
 <% if (cssProcessor === 'styl') { %>
 var stylus = require('gulp-stylus');
 <% } %>
+var sourcemaps = require('gulp-sourcemaps');
 
 var minify = require('gulp-minify-css');
 var plumber = require('gulp-plumber');
 var autoprefixer = require('gulp-autoprefixer');
+
+var concat = require('gulp-concat');
+var uglify = require('gulp-uglify');
 
 var rename = require('gulp-rename');
 
@@ -29,8 +33,10 @@ gulp.task('vendor:bootstrap:styles', function() {
   return gulp.src('<%= paths.src.base %>/<%= cssProcessor %>/vendor/bootstrap/index.<%= cssProcessor %>')
 
   .pipe(plumber({
-    errorHandler: onError
-  }))
+      errorHandler: onError
+    }))
+    .pipe(sourcemaps.init())
+
   <% if (cssProcessor === 'scss') { %>
   .pipe(sass({
     style: 'compressed',
@@ -53,6 +59,7 @@ gulp.task('vendor:bootstrap:styles', function() {
   .pipe(stylus())
   <% } %>
 
+  .pipe(sourcemaps.write())
 
   .pipe(gulp.dest('<%= paths.dist.styles %>'));
 });
@@ -76,7 +83,6 @@ gulp.task('vendor:bootstrap:fonts', function() {
 gulp.task('vendor:bootstrap:scripts', function() {
   <% if (cssProcessor === 'scss') { %>
   var scriptsDirectory = '<%= paths.src.vendors %>/bootstrap-sass/assets/javascripts/bootstrap/*.js';
-
   <% } %>
   <% if (cssProcessor === 'less') { %>
   var scriptsDirectory = '<%= paths.src.vendors %>/bootstrap/js/*.js';
@@ -87,6 +93,7 @@ gulp.task('vendor:bootstrap:scripts', function() {
 
   return gulp.src(scriptsDirectory)
     .pipe(plumber())
+    .pipe(sourcemaps.init())
     .pipe(concat('bootstrap.js'))
     .pipe(gulp.dest('<%= paths.dist.scripts %>'))
     .pipe(uglify({
@@ -95,7 +102,9 @@ gulp.task('vendor:bootstrap:scripts', function() {
     .pipe(rename({
       suffix: '.min'
     }))
-    .pipe(gulp.dest('<%= paths.dist.scripts %>'));
+    .pipe(sourcemaps.write())
+
+  .pipe(gulp.dest('<%= paths.dist.scripts %>'));
 });
 
 gulp.task('vendor:bootstrap', ['vendor:bootstrap:styles',
