@@ -60,7 +60,17 @@ gulp.task('vendor:bootstrap:styles', function() {
 
 
 gulp.task('vendor:bootstrap:fonts', function() {
-  //TODO
+  <% if (cssProcessor === 'scss') { %>
+  var fontDirectory = '<%= paths.src.vendors %>/bootstrap-sass/assets/fonts/bootstrap/**/*';
+  <% } %>
+  <% if (cssProcessor === 'less') { %>
+  var fontDirectory = '<%= paths.src.vendors %>/bootstrap/fonts/**/*';
+  <% } %>
+  <% if (cssProcessor === 'styl') { %>
+  var fontDirectory = '<%= paths.src.vendors %>/bootstrap-stylus/fonts/**/*';
+  <% } %>
+  return gulp.src('')
+    .pipe(gulp.dest('assets/dist/fonts'));
 });
 
 gulp.task('vendor:bootstrap:scripts', function() {
