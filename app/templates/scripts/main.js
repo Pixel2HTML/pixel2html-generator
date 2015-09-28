@@ -1,7 +1,7 @@
 /**
-* Pixel2HTML - <%= projectName %>
-*/
+ * Pixel2HTML - <%= projectName %>
+ */
 
-$(function () {
+var msg = "Pixel2HTML - <%= projectName %>";
 
-});
+console && console.log(msg);
