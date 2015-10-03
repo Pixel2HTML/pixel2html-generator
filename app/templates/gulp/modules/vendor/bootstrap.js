@@ -3,15 +3,9 @@
 
 var gulp = require('gulp');
 
-<% if (cssProcessor === 'scss') { %>
+
 var sass = require('gulp-sass');
-<% } %>
-<% if (cssProcessor === 'less') { %>
-var less = require('gulp-less');
-<% } %>
-<% if (cssProcessor === 'styl') { %>
-var stylus = require('gulp-stylus');
-<% } %>
+
 var sourcemaps = require('gulp-sourcemaps');
 
 var minify = require('gulp-minify-css');
@@ -30,7 +24,7 @@ var onError = function(err) {
 
 gulp.task('vendor:bootstrap:styles', function() {
 
-  return gulp.src('<%= paths.src.base %>/<%= cssProcessor %>/vendor/bootstrap/index.<%= cssProcessor %>')
+  return gulp.src('<%= paths.src.frontendframework %>/bootstrap/index.scss')
 
   .pipe(plumber({
       errorHandler: onError
@@ -38,18 +32,12 @@ gulp.task('vendor:bootstrap:styles', function() {
     .pipe(sourcemaps.init())
     .pipe(rename('bootstrap.css'))
 
-  <% if (cssProcessor === 'scss') { %>
     .pipe(sass({
       outputStyle: 'expanded',
       includePaths: ['<%= paths.src.vendors %>/bootstrap-sass/assets/stylesheets']
     }))
-  <% } %>
-  <% if (cssProcessor === 'less') { %>
-    .pipe(less())
-  <% } %>
-  <% if (cssProcessor === 'styl') { %>
-    .pipe(stylus())
-  <% } %>
+
+
   .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
   .pipe(gulp.dest('<%= paths.dist.styles %>'))
   .pipe(minify({
@@ -66,31 +54,32 @@ gulp.task('vendor:bootstrap:styles', function() {
 
 
 gulp.task('vendor:bootstrap:fonts', function() {
-  <% if (cssProcessor === 'scss') { %>
-  var fontDirectory = '<%= paths.src.vendors %>/bootstrap-sass/assets/fonts/bootstrap/**/*';
-  <% } %>
-  <% if (cssProcessor === 'less') { %>
-  var fontDirectory = '<%= paths.src.vendors %>/bootstrap/fonts/**/*';
-  <% } %>
-  <% if (cssProcessor === 'styl') { %>
-  var fontDirectory = '<%= paths.src.vendors %>/bootstrap-stylus/fonts/**/*';
-  <% } %>
-  return gulp.src(fontDirectory)
+
+
+
+  return gulp.src('<%= paths.src.vendors %>/bootstrap-sass/assets/fonts/bootstrap/**/*')
     .pipe(gulp.dest('<%= paths.dist.fonts %>'));
 });
 
 gulp.task('vendor:bootstrap:scripts', function() {
-  <% if (cssProcessor === 'scss') { %>
-  var scriptsDirectory = '<%= paths.src.vendors %>/bootstrap-sass/assets/javascripts/bootstrap/*.js';
-  <% } %>
-  <% if (cssProcessor === 'less') { %>
-  var scriptsDirectory = '<%= paths.src.vendors %>/bootstrap/js/*.js';
-  <% } %>
-  <% if (cssProcessor === 'styl') { %>
-  var scriptsDirectory = '<%= paths.src.vendors %>/bootstrap-stylus/js/*.js';
-  <% } %>
 
-  return gulp.src(scriptsDirectory)
+  bootstrapJsModules = [
+    '<%= paths.src.vendors %>/bootstrap-sass/assets/javascripts/bootstrap/affix.js',
+    '<%= paths.src.vendors %>/bootstrap-sass/assets/javascripts/bootstrap/alert.js',
+    '<%= paths.src.vendors %>/bootstrap-sass/assets/javascripts/bootstrap/button.js',
+    '<%= paths.src.vendors %>/bootstrap-sass/assets/javascripts/bootstrap/carousel.js',
+    '<%= paths.src.vendors %>/bootstrap-sass/assets/javascripts/bootstrap/collapse.js',
+    '<%= paths.src.vendors %>/bootstrap-sass/assets/javascripts/bootstrap/dropdown.js',
+    '<%= paths.src.vendors %>/bootstrap-sass/assets/javascripts/bootstrap/tab.js',
+    '<%= paths.src.vendors %>/bootstrap-sass/assets/javascripts/bootstrap/transition.js',
+    '<%= paths.src.vendors %>/bootstrap-sass/assets/javascripts/bootstrap/scrollspy.js',
+    '<%= paths.src.vendors %>/bootstrap-sass/assets/javascripts/bootstrap/modal.js',
+    '<%= paths.src.vendors %>/bootstrap-sass/assets/javascripts/bootstrap/tooltip.js',
+    '<%= paths.src.vendors %>/bootstrap-sass/assets/javascripts/bootstrap/popover.js',
+  ];
+
+
+  return gulp.src(bootstrapJsModules)
     .pipe(plumber())
     .pipe(sourcemaps.init())
     .pipe(concat('bootstrap.js'))

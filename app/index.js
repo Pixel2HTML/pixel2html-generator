@@ -12,7 +12,6 @@ var fs = require('fs');
 
 var Generator = module.exports = function Generator(args, options) {
 
-
   yeoman.generators.Base.apply(this, arguments);
 
   this.paths = {
@@ -23,7 +22,9 @@ var Generator = module.exports = function Generator(args, options) {
       'icons': 'assets/src/icons',
       'images': 'assets/src/images',
       'vendors': 'assets/src/vendor',
-      'scripts': 'assets/src/js'
+      'scripts': 'assets/src/js',
+      'styles': 'assets/src/styles',
+      'frontendframework': 'assets/src/styles/vendor',
     },
     'dist': {
       'base': 'assets/dist',
@@ -31,6 +32,7 @@ var Generator = module.exports = function Generator(args, options) {
       'icons': 'assets/dist/icons',
       'images': 'assets/dist/images',
       'styles': 'assets/dist/css',
+      'frontendframework': 'assets/dist/css/vendor',
       'scripts': 'assets/dist/js'
     }
   };
@@ -148,8 +150,6 @@ Generator.prototype.askForQtyScreens = function() {
       cb();
     }.bind(this)
   );
-
-
 };
 
 Generator.prototype.projectType = function() {
@@ -226,7 +226,7 @@ Generator.prototype.askForCssProcessor = function() {
     }.bind(this));
 };
 
-Generator.prototype.askForFrontFramework = function() {
+Generator.prototype.askForFrontEndFramework = function() {
 
   var cb = this.async();
   var frontEndFramework = this.options.frontEndFramework;
@@ -368,7 +368,8 @@ Generator.prototype.writeProjectFiles = function() {
     this.templatePath('base/_package.json'),
     this.destinationPath('package.json'), {
       projectName: this.options.projectName,
-      cssProcessor: this.options.cssProcessor
+      cssProcessor: this.options.cssProcessor,
+      frontEndFramework: this.options.frontEndFramework
     }
   );
 
@@ -411,26 +412,14 @@ Generator.prototype.writeBaseBowerFile = function() {
 
   switch (this.options.frontEndFramework) {
     case 'bootstrap':
-      switch (this.options.cssProcessor) {
-        case 'scss':
-          bowerJson.dependencies['bootstrap-sass'] = '~3.3.*';
-          break; //sass
-        case 'less':
-          bowerJson.dependencies['bootstrap'] = '~3.3.*';
-          break; //less
-        case 'styl':
-          bowerJson.dependencies['bootstrap-stylus'] = '~4.0.*';
-          break; //styl
-      }
+      bowerJson.dependencies['bootstrap-sass'] = '~3.3.*';
       break; //bootstrap
 
     case 'basscss':
-      //only sass version available
       bowerJson.dependencies['basscss-sass'] = '~3.0.*';
       break;
 
     case 'foundation':
-      //only sass version available
       bowerJson.dependencies['foundation'] = '~5.5.*';
       break;
   }
@@ -472,13 +461,12 @@ Generator.prototype.writeHTMLFiles = function() {
 Generator.prototype.writeBaseStyles = function() {
 
   var cssProcessor = this.options.cssProcessor;
-  var srcAssets = 'assets/src/' + cssProcessor;
 
-  this.options.cssMainFile = srcAssets + '/main.' + cssProcessor;
+  this.options.cssMainFile = this.paths.src.styles + '/main.' + cssProcessor;
 
   this.fs.copyTpl(
     this.templatePath('styles/' + cssProcessor + '/main.' + cssProcessor),
-    this.destinationPath(srcAssets + '/main.' + cssProcessor), {
+    this.destinationPath(this.paths.src.styles + '/main.' + cssProcessor), {
       projectName: this.options.projectName,
       qtyScreens: this.options.qtyScreens
     }
@@ -486,37 +474,37 @@ Generator.prototype.writeBaseStyles = function() {
 
   this.fs.copy(
     this.templatePath('styles/' + cssProcessor + '/variables.' + cssProcessor),
-    this.destinationPath(srcAssets + '/variables.' + cssProcessor)
+    this.destinationPath(this.paths.src.styles + '/variables.' + cssProcessor)
   );
   this.fs.copy(
     this.templatePath('styles/' + cssProcessor + '/mixins.' + cssProcessor),
-    this.destinationPath(srcAssets + '/mixins.' + cssProcessor)
+    this.destinationPath(this.paths.src.styles + '/mixins.' + cssProcessor)
   );
   this.fs.copy(
     this.templatePath('styles/' + cssProcessor + '/screens/_base.' + cssProcessor),
-    this.destinationPath(srcAssets + '/screens/_base.' + cssProcessor)
+    this.destinationPath(this.paths.src.styles + '/screens/_base.' + cssProcessor)
   );
   this.fs.copy(
     this.templatePath('styles/' + cssProcessor + '/components/_header.' + cssProcessor),
-    this.destinationPath(srcAssets + '/components/_header.' + cssProcessor)
+    this.destinationPath(this.paths.src.styles + '/components/_header.' + cssProcessor)
   );
   this.fs.copy(
     this.templatePath('styles/' + cssProcessor + '/components/_footer.' + cssProcessor),
-    this.destinationPath(srcAssets + '/components/_footer.' + cssProcessor)
+    this.destinationPath(this.paths.src.styles + '/components/_footer.' + cssProcessor)
   );
   this.fs.copy(
     this.templatePath('styles/' + cssProcessor + '/components/_nav.' + cssProcessor),
-    this.destinationPath(srcAssets + '/components/_nav.' + cssProcessor)
+    this.destinationPath(this.paths.src.styles + '/components/_nav.' + cssProcessor)
   );
   this.fs.copy(
     this.templatePath('styles/' + cssProcessor + '/components/_buttons.' + cssProcessor),
-    this.destinationPath(srcAssets + '/components/_buttons.' + cssProcessor)
+    this.destinationPath(this.paths.src.styles + '/components/_buttons.' + cssProcessor)
   );
 
   for (var i = 1; i < this.options.qtyScreens + 1; i++) {
     this.fs.copyTpl(
       this.templatePath('styles/' + cssProcessor + '/screens/_screen.' + cssProcessor),
-      this.destinationPath(srcAssets + '/screens/screen_' + i + '.' + cssProcessor), {
+      this.destinationPath(this.paths.src.styles + '/screens/screen_' + i + '.' + cssProcessor), {
         screenNumber: i,
         projectName: this.options.projectName
       }
@@ -586,12 +574,19 @@ Generator.prototype.writeBaseGulpFiles = function() {
       frontEndFramework: this.options.frontEndFramework
     }
   );
+
+  //serve
+  this.fs.copyTpl(
+    this.templatePath('gulp/modules/serve.js'),
+    this.destinationPath(this.paths.src.gulp + '/serve.js'), {
+      paths: this.paths
+    }
+  );
 };
 
 Generator.prototype.writeFrontEndFrameworkFiles = function() {
   var cssProcessor = this.options.cssProcessor;
   var frontEndFramework = this.options.frontEndFramework;
-  var srcAssets = 'assets/src/' + cssProcessor;
 
   if (!this.options.frontEndFramework) {
     return true;
@@ -599,8 +594,8 @@ Generator.prototype.writeFrontEndFrameworkFiles = function() {
 
   //move vendor styles
   this.fs.copy(
-    this.templatePath('styles/' + cssProcessor + '/vendor/' + frontEndFramework),
-    this.destinationPath(srcAssets + '/vendor/' + frontEndFramework)
+    this.templatePath('styles/vendor/' + frontEndFramework),
+    this.destinationPath(this.paths.src.frontendframework + '/' + frontEndFramework)
   );
 
   //copy gulp file
@@ -608,7 +603,6 @@ Generator.prototype.writeFrontEndFrameworkFiles = function() {
     this.templatePath('gulp/modules/vendor/' + this.options.frontEndFramework + '.js'),
     this.destinationPath(this.paths.src.gulp + '/vendor/' + this.options.frontEndFramework + '.js'), {
       projectName: this.options.projectName,
-      cssProcessor: this.options.cssProcessor,
       frontEndFramework: this.options.frontEndFramework,
       paths: this.paths
     }

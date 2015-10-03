@@ -8,7 +8,7 @@
     "del": "^2.0.0",
     "gulp": "3.9.0",
 
-    <% if (cssProcessor === 'scss') { -%>
+    <% if (cssProcessor === 'scss' || frontEndFramework) { -%>
     "gulp-sass": "^2.0.4",
     <% } -%>
     <% if (cssProcessor === 'less') { -%>
