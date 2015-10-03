@@ -23,12 +23,13 @@ gulp.task('vendor:basscss:styles', function() {
   .pipe(plumber({
     errorHandler: onError
   }))
+
   .pipe(sass({
-    style: 'compressed',
-    loadPath: ['<%= paths.src.vendors %>/basscss-sass']
-  }))
+      outputStyle: 'expanded',
+      includePaths: ['<%= paths.src.vendors %>/basscss-sass']
+    }))
     .pipe(rename('basscss.css'))
-  .pipe(gulp.dest('<%= paths.dist.styles %>'))
+    .pipe(gulp.dest('<%= paths.dist.styles %>'))
     .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
     .pipe(minify({
       keepSpecialComments: 0
@@ -42,16 +43,4 @@ gulp.task('vendor:basscss:styles', function() {
 });
 
 
-
-gulp.task('vendor:basscss:fonts', function() {
-  //TODO
-});
-
-gulp.task('vendor:basscss:scripts', function() {
-  //TODO
-});
-
-gulp.task('vendor:basscss', ['vendor:basscss:styles',
-  'vendor:basscss:scripts',
-  'vendor:basscss:fonts'
-])
+gulp.task('vendor:basscss', ['vendor:basscss:styles'])
