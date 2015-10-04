@@ -2,6 +2,11 @@
  * Pixel2HTML - <%= projectName %>
  */
 
-var msg = "Pixel2HTML - <%= projectName %>";
+var msg = 'Pixel2HTML - <%= projectName %>';
 
-console && console.log(msg);
+function printLog(log){
+    'use strict';
+  return console && console.log(log);
+}
+
+printLog(msg);
