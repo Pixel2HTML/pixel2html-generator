@@ -25,19 +25,15 @@ var onError = function(err) {
 gulp.task('vendor:foundation:styles', function() {
 
   return gulp.src('<%= paths.src.frontendframework %>/foundation/index.scss')
-
-  .pipe(plumber({
+    .pipe(plumber({
       errorHandler: onError
     }))
-    .pipe(rename('foundation.css'))
     .pipe(sass({
       outputStyle: 'expanded',
-      includePaths: ['<%= paths.src.vendors %>/foundation/scss/foundation']
+      includePaths: ['<%= paths.src.vendors %>/foundation/scss']
     }))
-
-
-
-  .pipe(gulp.dest('<%= paths.dist.styles %>'))
+    .pipe(rename('foundation.css'))
+    .pipe(gulp.dest('<%= paths.dist.styles %>'))
     .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
     .pipe(minify({
       keepSpecialComments: 0
@@ -45,10 +41,10 @@ gulp.task('vendor:foundation:styles', function() {
     .pipe(rename({
       suffix: '.min'
     }))
-
-  .pipe(gulp.dest('<%= paths.dist.styles %>'));
+    .pipe(gulp.dest('<%= paths.dist.styles %>'));
 });
 
+gulp.task('vendor:foundation:fonts', function() {});
 
 gulp.task('vendor:foundation:scripts', function() {
 
@@ -84,11 +80,12 @@ gulp.task('vendor:foundation:scripts', function() {
       suffix: '.min'
     }))
     .pipe(sourcemaps.write())
-
-  .pipe(gulp.dest('<%= paths.dist.scripts %>'));
+    .pipe(gulp.dest('<%= paths.dist.scripts %>'));
 
 });
 
+
 gulp.task('vendor:foundation', ['vendor:foundation:styles',
+  'vendor:foundation:fonts',
   'vendor:foundation:scripts'
 ])
