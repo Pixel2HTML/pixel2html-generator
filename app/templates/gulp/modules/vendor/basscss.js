@@ -19,12 +19,10 @@ var onError = function(err) {
 gulp.task('vendor:basscss:styles', function() {
 
   return gulp.src('<%= paths.src.frontendframework %>/basscss/index.scss')
-
-  .pipe(plumber({
-    errorHandler: onError
-  }))
-
-  .pipe(sass({
+    .pipe(plumber({
+      errorHandler: onError
+    }))
+    .pipe(sass({
       outputStyle: 'expanded',
       includePaths: ['<%= paths.src.vendors %>/basscss-sass']
     }))
@@ -37,10 +35,11 @@ gulp.task('vendor:basscss:styles', function() {
     .pipe(rename({
       suffix: '.min'
     }))
-
-
-  .pipe(gulp.dest('<%= paths.dist.styles %>'));
+    .pipe(gulp.dest('<%= paths.dist.styles %>'));
 });
 
+gulp.task('vendor:bootstrap:fonts', function() {});
+gulp.task('vendor:bootstrap:scripts', function() {});
 
-gulp.task('vendor:basscss', ['vendor:basscss:styles'])
+
+gulp.task('vendor:basscss', ['vendor:basscss:styles', 'vendor:basscss:scripts', 'vendor:basscss:fonts'])

@@ -25,38 +25,30 @@ var onError = function(err) {
 gulp.task('vendor:bootstrap:styles', function() {
 
   return gulp.src('<%= paths.src.frontendframework %>/bootstrap/index.scss')
-
-  .pipe(plumber({
+    .pipe(plumber({
       errorHandler: onError
     }))
     .pipe(sourcemaps.init())
-    .pipe(rename('bootstrap.css'))
-
     .pipe(sass({
       outputStyle: 'expanded',
       includePaths: ['<%= paths.src.vendors %>/bootstrap-sass/assets/stylesheets']
     }))
-
-
-  .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
-  .pipe(gulp.dest('<%= paths.dist.styles %>'))
-  .pipe(minify({
-    keepSpecialComments: 0
-  }))
-  .pipe(rename({
-    suffix: '.min'
-  }))
-  .pipe(sourcemaps.write())
-
-  .pipe(gulp.dest('<%= paths.dist.styles %>'));
+    .pipe(rename('bootstrap.css'))
+    .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
+    .pipe(gulp.dest('<%= paths.dist.styles %>'))
+    .pipe(minify({
+      keepSpecialComments: 0
+    }))
+    .pipe(rename({
+      suffix: '.min'
+    }))
+    .pipe(sourcemaps.write())
+    .pipe(gulp.dest('<%= paths.dist.styles %>'));
 });
 
 
 
 gulp.task('vendor:bootstrap:fonts', function() {
-
-
-
   return gulp.src('<%= paths.src.vendors %>/bootstrap-sass/assets/fonts/bootstrap/**/*')
     .pipe(gulp.dest('<%= paths.dist.fonts %>'));
 });
@@ -91,8 +83,7 @@ gulp.task('vendor:bootstrap:scripts', function() {
       suffix: '.min'
     }))
     .pipe(sourcemaps.write())
-
-  .pipe(gulp.dest('<%= paths.dist.scripts %>'));
+    .pipe(gulp.dest('<%= paths.dist.scripts %>'));
 });
 
 gulp.task('vendor:bootstrap', ['vendor:bootstrap:styles',
