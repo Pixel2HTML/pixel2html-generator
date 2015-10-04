@@ -18,9 +18,9 @@ var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
 
 var onError = function(err) {
-  console.log(err);
+  console.log(err.toString());
+  this.emit('end');
 }
-
 
 gulp.task('vendor:foundation:styles', function() {
 
