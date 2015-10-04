@@ -17,13 +17,15 @@ gulp.task('watch', function() {
 
   //styles
   gulp.watch([
-    "<%= paths.src.base %>/<%=cssProcessor%>/**/*.<%=cssProcessor%>",
-    "!<%= paths.src.base %>/<%=cssProcessor%>/vendor/**/**.<%=cssProcessor%>",
+    "<%= paths.src.styles %>/**/*.<%=cssProcessor%>",
+    "!<%= paths.src.frontendframework %>/**/*",
   ], ['styles:main']);
 
 
   <% if (frontEndFramework) { %>
-  gulp.watch("<%= paths.src.base %>/<%=cssProcessor%>/vendor/**/**.<%=cssProcessor%>", ['vendor:<%=frontEndFramework%>:styles']);
+  gulp.watch("<%= paths.src.frontendframework %>/**/**.scss", ['vendor:<%=frontEndFramework%>:styles']);
+  gulp.watch("<%= paths.src.frontendframework %>/**/**.js", ['vendor:<%=frontEndFramework%>:scripts']);
+  gulp.watch("<%= paths.src.frontendframework %>/**/fonts/**/*", ['vendor:<%=frontEndFramework%>:fonts']);
   <% } %>
 
 
