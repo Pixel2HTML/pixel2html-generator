@@ -7,19 +7,19 @@ var gulp = require('gulp');
 gulp.task('watch', function() {
 
   //static files
-  gulp.watch("**/*.html", ['html:main']);
-  gulp.watch("<%= paths.src.images %>/**/*", ['images:main']);
-  gulp.watch("<%= paths.src.fonts %>/**/*", ['fonts:main']);
-  gulp.watch("<%= paths.src.icons %>/**/*", ['icons:main']);
+  gulp.watch("**/*.html", ['main:html']);
+  gulp.watch("<%= paths.src.images %>/**/*", ['main:images']);
+  gulp.watch("<%= paths.src.fonts %>/**/*", ['main:fonts']);
+  gulp.watch("<%= paths.src.icons %>/**/*", ['main:icons']);
 
   //scripts
-  gulp.watch("<%= paths.src.scripts %>/**/*.js", ['scripts:main']);
+  gulp.watch("<%= paths.src.scripts %>/**/*.js", ['main:scripts']);
 
   //styles
   gulp.watch([
     "<%= paths.src.styles %>/**/*.<%=cssProcessor%>",
     "!<%= paths.src.frontendframework %>/**/*",
-  ], ['styles:main']);
+  ], ['main:styles']);
 
 
   <% if (frontEndFramework) { %>

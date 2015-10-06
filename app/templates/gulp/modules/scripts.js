@@ -14,7 +14,7 @@ var onError = function(err) {
   this.emit('end');
 }
 
-gulp.task('scripts:main', function() {
+gulp.task('main:scripts', function() {
   return gulp.src('<%= paths.src.scripts %>/main.js')
     .pipe(plumber({
       errorHandler: onError

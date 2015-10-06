@@ -13,7 +13,7 @@ gulp.task('clean', function(cb) {
   del(['<%= paths.dist.base %>'], cb);
 });
 
-gulp.task('images:main', function() {
+gulp.task('main:images', function() {
   return gulp.src('<%= paths.src.images %>/**/*')
     .pipe(plumber({
       errorHandler: onError
@@ -24,7 +24,7 @@ gulp.task('images:main', function() {
     .pipe(gulp.dest('<%= paths.dist.images %>'));
 });
 
-gulp.task('fonts:main', function() {
+gulp.task('main:fonts', function() {
   return gulp.src('<%= paths.src.fonts %>/**/*')
     .pipe(plumber({
       errorHandler: onError
@@ -32,7 +32,7 @@ gulp.task('fonts:main', function() {
     .pipe(gulp.dest('<%= paths.dist.fonts %>'));
 });
 
-gulp.task('icons:main', function() {
+gulp.task('main:icons', function() {
   return gulp.src('<%= paths.src.icons %>/**/*')
     .pipe(plumber({
       errorHandler: onError
@@ -40,4 +40,4 @@ gulp.task('icons:main', function() {
     .pipe(gulp.dest('<%= paths.dist.icons %>'));
 });
 
-gulp.task('static', ['images:main', 'fonts:main', 'icons:main']);
+gulp.task('main:static', ['main:images', 'main:fonts', 'main:icons']);

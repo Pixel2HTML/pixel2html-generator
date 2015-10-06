@@ -84,16 +84,16 @@ screen_*.html
 * `$ gulp clean` Clean /dist directory
 
 ### Static Files
-* `$ gulp static` Compile static files (images, fonts, icons)
-* `$ gulp images:main` Move & optimize images
-* `$ gulp fonts:main` Move fonts
-* `$ gulp icons:main` Move icons
+* `$ gulp main:static` Compile static files (images, fonts, icons)
+* `$ gulp main:static:images` Move & optimize images
+* `$ gulp main:static:fonts` Move fonts
+* `$ gulp main:static:icons` Move icons
 
 ### Scripts
-* `$ gulp scripts:main` Concat, uglify and move JS files
+* `$ gulp main:scripts` Concat, uglify and move JS files
 
 ### Styles
-* `$ gulp styles:main` Compile, concat, autoprefix, minify and move [SCSS, Less, Stylus] files
+* `$ gulp main:styles` Compile, concat, autoprefix, minify and move [SCSS, Less, Stylus] files
 
 ### Vendors
 #### Bootstrap

@@ -8,7 +8,7 @@ var onError = function(err) {
   this.emit('end');
 }
 
-gulp.task('html:main', function() {
+gulp.task('main:html', function() {
   return gulp.src('**/*.html')
     .pipe(plumber({
       errorHandler: onError
