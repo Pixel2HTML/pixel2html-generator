@@ -104,17 +104,20 @@ screen_*.html
 * `$ gulp vendor:bootstrap:fonts` Move **Bootstrap** fonts files
 
 #### Foundation
-* `$ gulp vendor:foundation` Compile & Move all **foundation** files
-* `$ gulp vendor:foundation:styles` Compile, concat, autoprefix, minify and move **foundation** files
-* `$ gulp vendor:foundation:scripts` Concat, uglify and move **foundation** JS files
-* `$ gulp vendor:foundation:fonts` Move **foundation** fonts files
-
+* `$ gulp vendor:foundation` Compile & Move all **Foundation** files
+* `$ gulp vendor:foundation:styles` Compile, concat, autoprefix, minify and move **Foundation** files
+* `$ gulp vendor:foundation:scripts` Concat, uglify and move **Foundation** JS files
+* `$ gulp vendor:foundation:fonts` Move **Foundation** fonts files
 
 #### BassCss
-* `$ gulp vendor:basscss` Compile & Move all **basscss** files
-* `$ gulp vendor:basscss:styles` Compile, concat, autoprefix, minify and move **basscss** files
-* `$ gulp vendor:basscss:scripts` Concat, uglify and move **basscss** JS files
-* `$ gulp vendor:basscss:fonts` Move **basscss** fonts files
+* `$ gulp vendor:basscss` Compile & Move all **BassCss** files
+* `$ gulp vendor:basscss:styles` Compile, concat, autoprefix, minify and move **BassCss** files
+* `$ gulp vendor:basscss:scripts` Concat, uglify and move **BassCss** JS files
+* `$ gulp vendor:basscss:fonts` Move **BassCss** fonts files
+
+#### jQuery
+* `$ gulp vendor:jquery` Compile & move all **jQuery** files
+* `$ gulp vendor:jquery:scripts` Compile, concat, minify and move **jQuery** files
 
 ### Daemons
 * `$ gulp watch` Watch your files and autoexecute gulp directives

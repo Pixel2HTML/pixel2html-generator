@@ -263,30 +263,6 @@ Generator.prototype.askForFrontEndFramework = function() {
     }.bind(this));
 };
 
-Generator.prototype.askForFontAwesome = function() {
-  var cb = this.async();
-  var fontAwesome = this.fontAwesome;
-
-  if (fontAwesome) {
-    cb();
-    return true;
-  }
-
-  this.prompt([{
-    type: 'confirm',
-    name: 'fontAwesome',
-    message: 'Would you like to add Font Awesome?',
-    default: false,
-    when: function() {
-      return !fontAwesome
-    }
-  }], function(props) {
-    this.options.fontAwesome = props.fontAwesome;
-
-    cb();
-  }.bind(this));
-};
-
 Generator.prototype.askForjQuery = function() {
   var cb = this.async();
   var jQuery = this.options.jQuery;
@@ -311,13 +287,13 @@ Generator.prototype.askForjQuery = function() {
   }.bind(this));
 };
 
-Generator.prototype.askForJsModules = function() {
+Generator.prototype.askForModules = function() {
   var cb = this.async();
   var jQuery = this.options.jQuery;
 
   var prompts = [{
     type: 'checkbox',
-    name: 'jsModules',
+    name: 'modules',
     message: 'Which modules would you like to include?',
     choices: [{
       value: 'parsleyjs',
@@ -328,21 +304,14 @@ Generator.prototype.askForJsModules = function() {
       name: 'Add modernizr.js',
       checked: true
     }, {
-      value: 'slider',
-      name: 'Add Slider.js',
-      checked: false
-    }, {
-      value: 'tabs',
-      name: 'Add Tabs.js',
-      checked: false
-    }, {
       value: 'masonry',
-      name: 'Add Masonry',
+      name: 'Add Masonry.js',
+      checked: false
+    }, {
+      value: 'animatecss',
+      name: "Animate.css",
       checked: false
     }],
-    when: function() {
-      return jQuery;
-    }
   }];
 
   this.prompt(prompts, function(props) {
@@ -352,10 +321,9 @@ Generator.prototype.askForJsModules = function() {
     };
 
     this.options.parsleyjs = hasMod('parsleyjs');
-    this.options.slider = hasMod('slider');
-    this.options.tabs = hasMod('tabs');
     this.options.modernizr = hasMod('modernizr');
     this.options.masonry = hasMod('masonry');
+    this.options.animatecss = hasMod('animatecss');
 
     cb();
   }.bind(this));
@@ -453,6 +421,7 @@ Generator.prototype.writeHTMLFiles = function() {
         screenNumber: i,
         projectName: this.options.projectName,
         frontEndFramework: this.options.frontEndFramework,
+        jQuery: this.options.jQuery,
       }
     );
   }
@@ -607,5 +576,18 @@ Generator.prototype.writeFrontEndFrameworkFiles = function() {
       paths: this.paths
     }
   );
-
 };
+
+Generator.prototype.writeJqueryGulpFiles = function() {
+
+  if (!this.options.jQuery) {
+    return true;
+  }
+
+  this.fs.copyTpl(
+    this.templatePath('gulp/modules/vendor/jquery.js'),
+    this.destinationPath(this.paths.src.gulp + '/vendor/jquery.js'), {
+      paths: this.paths
+    }
+  );
+}

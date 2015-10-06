@@ -16,15 +16,25 @@
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
   <link rel="stylesheet" href="assets/dist/css/main.min.css">
+  <% if(frontEndFramework){ %>
   <link rel="stylesheet" href="assets/dist/css/<%= frontEndFramework %>.min.css">
+  <% } %>
 </head>
 
 <body>
   <!--[if lt IE 8]>
       <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
+
+
+  <% if(jQuery){ %>
+  <script src="assets/dist/js/jquery.min.js"></script>
+  <% } %>
+  <% if(frontEndFramework){ %>
   <script src="assets/dist/js/<%= frontEndFramework %>.min.js"></script>
+  <% } %>
   <script src="assets/dist/js/main.min.js"></script>
 </body>
 
