@@ -3,8 +3,6 @@
 var path = require('path');
 var helpers = require('yeoman-generator').test;
 var assert = require('yeoman-assert');
-var fs = require('fs');
-
 
 describe('LESS features', function() {
 
@@ -18,7 +16,7 @@ describe('LESS features', function() {
         projectName: 'test-project',
         qtyScreens: 3,
         projectType: 'responsive',
-        cssProcessor: 'less',
+        cssProcessor: 'less'
       })
       .on('end', done);
   });
