@@ -347,6 +347,12 @@ Generator.prototype.writeProjectFiles = function() {
     this.destinationPath('.jshintrc')
   );
 
+  this.log(chalk.yellow('Copying editorconfig file.'));
+  this.fs.copy(
+    this.templatePath('base/editorconfig'),
+    this.destinationPath('.editorconfig')
+  );
+
   this.log(chalk.yellow('Copying git files.'));
   this.fs.copy(
     this.templatePath('git/gitignore'),
