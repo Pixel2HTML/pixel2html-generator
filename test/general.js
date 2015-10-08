@@ -3,6 +3,7 @@
 var path = require('path');
 var helpers = require('yeoman-generator').test;
 var assert = require('yeoman-assert');
+var fs = require('fs');
 
 describe('general', function() {
 
