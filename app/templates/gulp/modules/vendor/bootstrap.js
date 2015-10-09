@@ -55,7 +55,7 @@ gulp.task('vendor:bootstrap:fonts', function() {
 
 gulp.task('vendor:bootstrap:scripts', function() {
 
-  bootstrapJsModules = [
+  var bootstrapJsModules = [
     '<%= paths.src.vendors %>/bootstrap-sass/assets/javascripts/bootstrap/affix.js',
     '<%= paths.src.vendors %>/bootstrap-sass/assets/javascripts/bootstrap/alert.js',
     '<%= paths.src.vendors %>/bootstrap-sass/assets/javascripts/bootstrap/button.js',
