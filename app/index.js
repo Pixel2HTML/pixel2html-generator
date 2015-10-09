@@ -78,11 +78,13 @@ var Generator = module.exports = function Generator(args, options) {
     required: false
   });
 
-  this.option('fontAwesome', {
-    desc: 'Sets the usage of Font Awesome',
+  this.option('modules', {
+    desc: 'Tells the modules you need',
     type: String,
     required: false
   });
+
+
 };
 
 util.inherits(Generator, yeoman.generators.Base);
@@ -282,7 +284,6 @@ Generator.prototype.askForjQuery = function() {
     }
   }], function(props) {
     this.options.jQuery = props.jQuery;
-
     cb();
   }.bind(this));
 };
@@ -290,43 +291,49 @@ Generator.prototype.askForjQuery = function() {
 Generator.prototype.askForModules = function() {
   var cb = this.async();
   var jQuery = this.options.jQuery;
+  var modules = this.options.modules;
 
-  var prompts = [{
-    type: 'checkbox',
-    name: 'modules',
-    message: 'Which modules would you like to include?',
-    choices: [{
-      value: 'parsleyjs',
-      name: 'Form validation with Parsley.js',
-      checked: true
-    }, {
-      value: 'modernizr',
-      name: 'Add modernizr.js',
-      checked: true
-    }, {
-      value: 'masonry',
-      name: 'Add Masonry.js',
-      checked: false
-    }, {
-      value: 'animatecss',
-      name: "Animate.css",
-      checked: false
+
+
+  this.prompt(
+    [{
+      type: 'checkbox',
+      name: 'modules',
+      message: 'Which modules would you like to include?',
+      choices: [{
+        value: 'parsleyjs',
+        name: 'Form validation with Parsley.js',
+        checked: true
+      }, {
+        value: 'modernizr',
+        name: 'Add modernizr.js',
+        checked: true
+      }, {
+        value: 'masonry',
+        name: 'Add Masonry.js',
+        checked: false
+      }, {
+        value: 'animatecss',
+        name: "Animate.css",
+        checked: false
+      }],
+      when: function(){
+        return !modules;
+      }
     }],
-  }];
 
-  this.prompt(prompts, function(props) {
+    function(props) {
+      var hasMod = function(mod) {
+        return _.contains(props.jsModules, mod);
+      };
 
-    var hasMod = function(mod) {
-      return _.contains(props.jsModules, mod);
-    };
+      this.options.parsleyjs = hasMod('parsleyjs');
+      this.options.modernizr = hasMod('modernizr');
+      this.options.masonry = hasMod('masonry');
+      this.options.animatecss = hasMod('animatecss');
 
-    this.options.parsleyjs = hasMod('parsleyjs');
-    this.options.modernizr = hasMod('modernizr');
-    this.options.masonry = hasMod('masonry');
-    this.options.animatecss = hasMod('animatecss');
-
-    cb();
-  }.bind(this));
+      cb();
+    }.bind(this));
 };
 
 Generator.prototype.writeProjectFiles = function() {
