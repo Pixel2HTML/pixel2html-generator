@@ -91,6 +91,7 @@ Generator.prototype.readConfigFile = function(){
 
   fs.readJson('./.project.conf', function (err,config) {
     if (err) {
+      // return console.log(err);
       cb();
       return true;
     }
@@ -627,7 +628,7 @@ Generator.prototype.writeProjectConfigFile = function() {
       "qtyScreens": this.options.qtyScreens,
       "cssProcessor": this.options.cssProcessor,
       "frontEndFramework": this.options.frontEndFramework,
-      "jQuery": this.options.jquery,
+      "jQuery": this.options.jQuery,
       "modules": this.options.modules,
       "generatedBy": "Pixel2HTML",
       "generatedAt": moment().format()
