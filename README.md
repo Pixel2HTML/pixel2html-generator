@@ -76,7 +76,7 @@ This boilerplate will create a set of files and folders
           /icons
           /images
           /js
-          /css preprocessor [less|scss|styl]
+          /styles
                 /components
                       _buttons.ext
                       _footer.ext
@@ -87,8 +87,8 @@ This boilerplate will create a set of files and folders
                       screen_*.ext
                 /vendor
                       /frontend framework [bootstrap|foundation|basscss]
-                            index.ext
-                            variables.ext
+                            index.scss
+                            variables.scss
                 main.ext
                 mixins.ext
                 variables.ext
@@ -97,6 +97,8 @@ This boilerplate will create a set of files and folders
 .gitattributes
 .gitignore
 .jshintrc
+.editorcofig
+.project.conf
 bower.json
 gulpfile.js
 package.json
