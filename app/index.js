@@ -8,7 +8,7 @@ var _ = require('underscore');
 var util = require('util');
 var path = require('path');
 var wiredep = require('wiredep');
-var fs = require('fs');
+var fs = require('fs-extra');
 
 var Generator = module.exports = function Generator(args, options) {
 
@@ -36,8 +36,6 @@ var Generator = module.exports = function Generator(args, options) {
       'scripts': 'assets/dist/js'
     }
   };
-
-  // this.destinationRoot('demo');
 
   //Options to set thru CLI
   this.option('projectName', {
@@ -83,9 +81,26 @@ var Generator = module.exports = function Generator(args, options) {
     type: String,
     required: false
   });
+
 };
 
 util.inherits(Generator, yeoman.generators.Base);
+
+Generator.prototype.readConfigFile = function(){
+
+  var config = JSON.parse(fs.readFileSync('./.project.conf', 'utf8'));
+
+  if(config){
+      this.options.projectName = config.projectName;
+      this.options.projectType = config.projectType;
+      this.options.qtyScreens = config.qtyScreens;
+      this.options.cssProcessor = config.cssProcessor;
+      this.options.frontEndFramework = config.frontEndFramework;
+      this.options.jQuery = config.jQuery;
+      this.options.modules = config.modules;
+  }
+
+}
 
 Generator.prototype.welcome = function() {
   if (!this.options['skip-welcome-message']) {
@@ -290,11 +305,15 @@ Generator.prototype.askForjQuery = function() {
 Generator.prototype.askForModules = function() {
   var cb = this.async();
   var jQuery = this.options.jQuery;
+  var modules = this.options.modules;
 
   var prompts = [{
     type: 'checkbox',
     name: 'modules',
     message: 'Which modules would you like to include?',
+    when: function(){
+      return !modules;
+    },
     choices: [{
       value: 'parsleyjs',
       name: 'Form validation with Parsley.js',
