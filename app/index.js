@@ -8,7 +8,8 @@ var _ = require('underscore');
 var util = require('util');
 var path = require('path');
 var wiredep = require('wiredep');
-var fs = require('fs');
+var fs = require('fs-extra');
+var moment = require('moment');
 
 var Generator = module.exports = function Generator(args, options) {
 
@@ -37,16 +38,12 @@ var Generator = module.exports = function Generator(args, options) {
     }
   };
 
-  // this.destinationRoot('demo');
-
   //Options to set thru CLI
   this.option('projectName', {
     desc: 'Sets the project name i.e.: 3845',
     type: String,
     required: false
   });
-  this.projectName = options.projectName;
-  console.log(options.projectName);
 
   this.option('qtyScreens', {
     desc: 'Sets the quantity of screens have the project i.e. 5 (1 homepage, 4 inners)',
@@ -88,6 +85,29 @@ var Generator = module.exports = function Generator(args, options) {
 };
 
 util.inherits(Generator, yeoman.generators.Base);
+
+Generator.prototype.readConfigFile = function(){
+  var cb = this.async();
+
+  fs.readJson('./.project.conf', function (err,config) {
+    if (err) {
+      // return console.log(err);
+      cb();
+      return true;
+    }
+
+    this.options.projectName = config.projectName;
+    this.options.projectType = config.projectType;
+    this.options.qtyScreens = config.qtyScreens;
+    this.options.cssProcessor = config.cssProcessor;
+    this.options.frontEndFramework = config.frontEndFramework;
+    this.options.jQuery = config.jQuery;
+    this.options.modules = config.modules;
+
+    cb();
+  }.bind(this));
+
+}
 
 Generator.prototype.welcome = function() {
   if (!this.options['skip-welcome-message']) {
@@ -293,7 +313,32 @@ Generator.prototype.askForModules = function() {
   var jQuery = this.options.jQuery;
   var modules = this.options.modules;
 
-
+  var prompts = [{
+    type: 'checkbox',
+    name: 'modules',
+    message: 'Which modules would you like to include?',
+    when: function(){
+      return !modules;
+    },
+    choices: [{
+      value: 'parsleyjs',
+      name: 'Form validation with Parsley.js',
+      checked: true
+    }, {
+      value: 'modernizr',
+      name: 'Add modernizr.js',
+      checked: true
+    }, {
+      value: 'masonry',
+      name: 'Add Masonry.js',
+      checked: false
+    }, {
+      value: 'animatecss',
+      name: "Animate.css",
+      checked: false
+    }],
+  }];
+>>>>>>> develop
 
   this.prompt(
     [{
@@ -604,3 +649,24 @@ Generator.prototype.writeJqueryGulpFiles = function() {
     }
   );
 }
+
+Generator.prototype.writeProjectConfigFile = function() {
+  //overwrite the default .project.conf file or create the new one.
+  // var generatorData = JSON.parse(fs.readFileSync("./package.json"));
+
+  var configJson = {
+      "projectName": this.options.projectName,
+      "projectType": this.options.projectType,
+      "qtyScreens": this.options.qtyScreens,
+      "cssProcessor": this.options.cssProcessor,
+      "frontEndFramework": this.options.frontEndFramework,
+      "jQuery": this.options.jQuery,
+      "modules": this.options.modules,
+      "generatedBy": "Pixel2HTML",
+      "generatedAt": moment().format()
+    };
+
+    this.fs.writeJSON('./.project.conf', configJson)
+}
+
+

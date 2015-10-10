@@ -19,7 +19,7 @@ To generate the **Pixel2HTML Boilerplate** go to your project folder and run thi
 $ cd ~/your/project/folder
 $ yo pixel2html <params>
 ```
-_or you can pass attributes to skip questions that you may know the answer ;)_
+
 
 ### Available Parameters
 
@@ -29,6 +29,31 @@ _or you can pass attributes to skip questions that you may know the answer ;)_
 * ```--cssProcessor``` (*string*) [scss, less, styl, none]
 * ```--frontEndFramework``` (*string*) [basscss, bootstrap, foundation]
 * ```--jQuery``` (*bool*)
+
+### Available config file
+
+You can create a json file in the root directory of your project.
+Here an example of it's structure
+
+```
+{
+  "projectName": "XXX",
+  "projectType": "responsive",
+  "qtyScreens": 4,
+  "cssProcessor": "less",
+  "frontEndFramework": "bootstrap",
+  "jQuery": true,
+  "modules": [
+    "animatecss"
+  ],
+  "generatedBy": "Pixel2HTML",
+  "generatedAt": "2015-10-09T21:55:20-03:00"
+}
+```
+Once you created this file, run 
+```
+$ yo pixel2html
+```
 
 ## Installing dependencies & running up
 To work, the **Pixel2HTML Boilerplate** needs to install some dependencies to run the options you select.
@@ -51,7 +76,7 @@ This boilerplate will create a set of files and folders
           /icons
           /images
           /js
-          /css preprocessor [less|scss|styl]
+          /styles
                 /components
                       _buttons.ext
                       _footer.ext
@@ -62,8 +87,8 @@ This boilerplate will create a set of files and folders
                       screen_*.ext
                 /vendor
                       /frontend framework [bootstrap|foundation|basscss]
-                            index.ext
-                            variables.ext
+                            index.scss
+                            variables.scss
                 main.ext
                 mixins.ext
                 variables.ext
@@ -72,6 +97,8 @@ This boilerplate will create a set of files and folders
 .gitattributes
 .gitignore
 .jshintrc
+.editorcofig
+.project.conf
 bower.json
 gulpfile.js
 package.json
