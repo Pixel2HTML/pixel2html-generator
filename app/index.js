@@ -386,7 +386,7 @@ Generator.prototype.createFolders = function() {
 Generator.prototype.writeBaseBowerFile = function() {
 
   var bowerJson = {
-    name: 'pixel2html-' + _s.slugify(this.projectName),
+    name: 'pixel2html-' + _s.slugify(this.options.projectName),
     private: true,
     dependencies: {}
   };
