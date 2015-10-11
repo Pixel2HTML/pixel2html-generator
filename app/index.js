@@ -91,7 +91,6 @@ Generator.prototype.readConfigFile = function(){
 
   fs.readJson('./.project.conf', function (err,config) {
     if (err) {
-      // return console.log(err);
       cb();
       return true;
     }
@@ -508,6 +507,10 @@ Generator.prototype.writeBaseStyles = function() {
     this.destinationPath(this.paths.src.styles + '/mixins.' + cssProcessor)
   );
   this.fs.copy(
+    this.templatePath('styles/' + cssProcessor + '/_reset.' + cssProcessor),
+    this.destinationPath(this.paths.src.styles + '/_reset.' + cssProcessor)
+  );
+  this.fs.copy(
     this.templatePath('styles/' + cssProcessor + '/screens/_base.' + cssProcessor),
     this.destinationPath(this.paths.src.styles + '/screens/_base.' + cssProcessor)
   );
@@ -522,6 +525,10 @@ Generator.prototype.writeBaseStyles = function() {
   this.fs.copy(
     this.templatePath('styles/' + cssProcessor + '/components/_nav.' + cssProcessor),
     this.destinationPath(this.paths.src.styles + '/components/_nav.' + cssProcessor)
+  );
+  this.fs.copy(
+    this.templatePath('styles/' + cssProcessor + '/components/_forms.' + cssProcessor),
+    this.destinationPath(this.paths.src.styles + '/components/_forms.' + cssProcessor)
   );
   this.fs.copy(
     this.templatePath('styles/' + cssProcessor + '/components/_buttons.' + cssProcessor),

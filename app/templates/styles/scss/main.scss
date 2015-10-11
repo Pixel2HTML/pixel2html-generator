@@ -4,6 +4,7 @@
 
 @import 'variables';
 @import 'mixins';
+@import 'reset';
 
 // screens:start
 @import 'screens/_base';
@@ -15,5 +16,6 @@
 @import 'components/_header';
 @import 'components/_footer';
 @import 'components/_nav';
+@import 'components/_forms';
 @import 'components/_buttons';
 // components:end
