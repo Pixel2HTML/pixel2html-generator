@@ -51,12 +51,6 @@ var Generator = module.exports = function Generator(args, options) {
     required: false
   });
 
-  this.option('projectType', {
-    desc: 'Sets the type of project [desktop, responsive, mobile, email]',
-    type: String,
-    required: false
-  });
-
   this.option('cssProcessor', {
     desc: 'Sets the CSS Preprocessor [scss, less, styl, none]',
     type: String,
@@ -96,7 +90,6 @@ Generator.prototype.readConfigFile = function(){
     }
 
     this.options.projectName = config.projectName;
-    this.options.projectType = config.projectType;
     this.options.qtyScreens = config.qtyScreens;
     this.options.cssProcessor = config.cssProcessor;
     this.options.frontEndFramework = config.frontEndFramework;
@@ -171,43 +164,6 @@ Generator.prototype.askForQtyScreens = function() {
       cb();
     }.bind(this)
   );
-};
-
-Generator.prototype.projectType = function() {
-  var cb = this.async();
-  var projectType = this.options.projectType;
-
-  if (projectType) {
-
-    cb();
-    return true;
-  }
-
-  this.prompt([{
-      type: 'list',
-      name: 'projectType',
-      message: 'What type of page you will code? Pick one',
-      choices: [{
-        name: 'Desktop',
-        value: 'desktop',
-      }, {
-        name: 'Responsive',
-        value: 'responsive',
-      }, {
-        name: 'Mobile',
-        value: 'mobile',
-      }, {
-        name: 'Email Template',
-        value: 'email',
-      }],
-      when: function() {
-        return !projectType;
-      }
-    }],
-    function(props) {
-      this.options.projectType = props.projectType;
-      cb();
-    }.bind(this));
 };
 
 Generator.prototype.askForCssProcessor = function() {
@@ -311,33 +267,6 @@ Generator.prototype.askForModules = function() {
   var cb = this.async();
   var jQuery = this.options.jQuery;
   var modules = this.options.modules;
-
-  var prompts = [{
-    type: 'checkbox',
-    name: 'modules',
-    message: 'Which modules would you like to include?',
-    when: function(){
-      return !modules;
-    },
-    choices: [{
-      value: 'parsleyjs',
-      name: 'Form validation with Parsley.js',
-      checked: true
-    }, {
-      value: 'modernizr',
-      name: 'Add modernizr.js',
-      checked: true
-    }, {
-      value: 'masonry',
-      name: 'Add Masonry.js',
-      checked: false
-    }, {
-      value: 'animatecss',
-      name: "Animate.css",
-      checked: false
-    }],
-  }];
->>>>>>> develop
 
   this.prompt(
     [{
@@ -659,11 +588,9 @@ Generator.prototype.writeJqueryGulpFiles = function() {
 
 Generator.prototype.writeProjectConfigFile = function() {
   //overwrite the default .project.conf file or create the new one.
-  // var generatorData = JSON.parse(fs.readFileSync("./package.json"));
 
   var configJson = {
       "projectName": this.options.projectName,
-      "projectType": this.options.projectType,
       "qtyScreens": this.options.qtyScreens,
       "cssProcessor": this.options.cssProcessor,
       "frontEndFramework": this.options.frontEndFramework,

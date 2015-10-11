@@ -20,15 +20,15 @@ $ cd ~/your/project/folder
 $ yo pixel2html <params>
 ```
 
-
 ### Available Parameters
 
 * ```--projectName``` (*string*)
 * ```--qtyScreens``` (*int*)
-* ```--projectType``` (*string*) [desktop, responsive, mobile, email]
 * ```--cssProcessor``` (*string*) [scss, less, styl, none]
 * ```--frontEndFramework``` (*string*) [basscss, bootstrap, foundation]
 * ```--jQuery``` (*bool*)
+* ```--modules``` (*array*)
+
 
 ### Available config file
 
@@ -38,7 +38,6 @@ Here an example of it's structure
 ```
 {
   "projectName": "XXX",
-  "projectType": "responsive",
   "qtyScreens": 4,
   "cssProcessor": "less",
   "frontEndFramework": "bootstrap",
@@ -50,6 +49,7 @@ Here an example of it's structure
   "generatedAt": "2015-10-09T21:55:20-03:00"
 }
 ```
+
 Once you created this file, run 
 ```
 $ yo pixel2html
