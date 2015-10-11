@@ -2,7 +2,7 @@
 
 var gulp = require('gulp');
 
-gulp.task('watch', function() {
+gulp.task('watch', ['default'], function() {
 
   //static files
   gulp.watch("**/*.html", ['main:html']);

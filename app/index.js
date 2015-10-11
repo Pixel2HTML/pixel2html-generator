@@ -502,6 +502,14 @@ Generator.prototype.writeBaseGulpFiles = function() {
     this.destinationPath('gulpfile.js')
   );
 
+  //default
+  this.fs.copyTpl(
+    this.templatePath('gulp/modules/default.js'),
+    this.destinationPath(this.paths.src.gulp + '/default.js'), {
+      paths: this.paths
+    }
+  );
+
   //static
   this.fs.copyTpl(
     this.templatePath('gulp/modules/static.js'),
