@@ -16,7 +16,6 @@ describe('general', function() {
       .withPrompts({
         projectName: 'test-project',
         qtyScreens: 6,
-        projectType: 'responsive',
         cssProcessor: 'less',
       })
       .on('end', done);

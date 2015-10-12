@@ -15,7 +15,6 @@ describe('Stylus features', function() {
       .withPrompts({
         projectName: 'test-project',
         qtyScreens: 3,
-        projectType: 'responsive',
         cssProcessor: 'styl',
       })
       .on('end', done);
