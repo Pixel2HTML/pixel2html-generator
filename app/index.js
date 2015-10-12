@@ -80,10 +80,10 @@ var Generator = module.exports = function Generator(args, options) {
 
 util.inherits(Generator, yeoman.generators.Base);
 
-Generator.prototype.readConfigFile = function(){
+Generator.prototype.readConfigFile = function() {
   var cb = this.async();
 
-  fs.readJson('./.project.conf', function (err,config) {
+  fs.readJson('./.project.conf', function(err, config) {
     if (err) {
       cb();
       return true;
@@ -290,7 +290,7 @@ Generator.prototype.askForModules = function() {
         name: "Animate.css",
         checked: false
       }],
-      when: function(){
+      when: function() {
         return !modules;
       }
     }],
@@ -608,17 +608,15 @@ Generator.prototype.writeProjectConfigFile = function() {
   //overwrite the default .project.conf file or create the new one.
 
   var configJson = {
-      "projectName": this.options.projectName,
-      "qtyScreens": this.options.qtyScreens,
-      "cssProcessor": this.options.cssProcessor,
-      "frontEndFramework": this.options.frontEndFramework,
-      "jQuery": this.options.jQuery,
-      "modules": this.options.modules,
-      "generatedBy": "Pixel2HTML",
-      "generatedAt": moment().format()
-    };
+    "projectName": this.options.projectName,
+    "qtyScreens": this.options.qtyScreens,
+    "cssProcessor": this.options.cssProcessor,
+    "frontEndFramework": this.options.frontEndFramework,
+    "jQuery": this.options.jQuery,
+    "modules": this.options.modules,
+    "generatedBy": "Pixel2HTML",
+    "generatedAt": moment().format()
+  };
 
-    this.fs.writeJSON('./.project.conf', configJson)
+  this.fs.writeJSON('./.project.conf', configJson)
 }
-
-
