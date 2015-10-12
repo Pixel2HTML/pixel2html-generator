@@ -411,6 +411,14 @@ Generator.prototype.writeHTMLFiles = function() {
       }
     );
   }
+
+  this.fs.copyTpl(
+    this.templatePath('html/index.html'),
+    this.destinationPath('index.html'), {
+      projectName: this.options.projectName,
+      qtyScreens: this.options.qtyScreens
+    }
+  );
 };
 
 Generator.prototype.writeBaseStyles = function() {
@@ -492,6 +500,16 @@ Generator.prototype.writeBaseGulpFiles = function() {
   this.fs.copyTpl(
     this.templatePath('gulp/_gulpfile.js'),
     this.destinationPath('gulpfile.js')
+  );
+
+  //default
+  this.fs.copyTpl(
+    this.templatePath('gulp/modules/default.js'),
+    this.destinationPath(this.paths.src.gulp + '/default.js'), {
+      paths: this.paths,
+      frontEndFramework: this.options.frontEndFramework,
+      jQuery: this.options.jQuery
+    }
   );
 
   //static

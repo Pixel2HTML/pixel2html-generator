@@ -17,7 +17,6 @@ describe('LESS features', function() {
       .withPrompts({
         projectName: 'test-project',
         qtyScreens: 3,
-        projectType: 'responsive',
         cssProcessor: 'less',
       })
       .on('end', done);

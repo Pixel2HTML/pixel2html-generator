@@ -14,8 +14,10 @@ var autoprefixer = require('gulp-autoprefixer');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 
-
 var rename = require('gulp-rename');
+
+var browserSync = require('browser-sync');
+
 
 var onError = function(err) {
   console.log(err.toString());
@@ -41,7 +43,8 @@ gulp.task('vendor:foundation:styles', function() {
     .pipe(rename({
       suffix: '.min'
     }))
-    .pipe(gulp.dest('<%= paths.dist.styles %>'));
+    .pipe(gulp.dest('<%= paths.dist.styles %>'))
+    .pipe(browserSync.reload({stream:true}))
 });
 
 gulp.task('vendor:foundation:fonts', function() {});
@@ -80,7 +83,8 @@ gulp.task('vendor:foundation:scripts', function() {
       suffix: '.min'
     }))
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest('<%= paths.dist.scripts %>'));
+    .pipe(gulp.dest('<%= paths.dist.scripts %>'))
+    .pipe(browserSync.reload({stream:true}))
 
 });
 

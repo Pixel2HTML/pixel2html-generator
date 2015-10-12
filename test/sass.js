@@ -15,7 +15,6 @@ describe('SCSS features', function() {
       .withPrompts({
         projectName: 'test-project',
         qtyScreens: 3,
-        projectType: 'responsive',
         cssProcessor: 'scss',
       })
       .on('end', done);

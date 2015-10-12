@@ -11,6 +11,8 @@ var autoprefixer = require('gulp-autoprefixer');
 
 var rename = require('gulp-rename');
 
+var browserSync = require('browser-sync');
+
 var onError = function(err) {
   console.log(err.toString());
   this.emit('end');
@@ -35,7 +37,8 @@ gulp.task('vendor:basscss:styles', function() {
     .pipe(rename({
       suffix: '.min'
     }))
-    .pipe(gulp.dest('<%= paths.dist.styles %>'));
+    .pipe(gulp.dest('<%= paths.dist.styles %>'))
+    .pipe(browserSync.reload({stream:true}))
 });
 
 gulp.task('vendor:bootstrap:fonts', function() {});

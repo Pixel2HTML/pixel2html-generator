@@ -3,6 +3,12 @@
 var gulp = require('gulp');
 var del = require('del');
 var imagemin = require('gulp-imagemin');
+var cache = require('gulp-cache');
+var plumber = require('gulp-plumber');
+
+var browserSync = require('browser-sync');
+
+
 
 var onError = function(err) {
   console.log(err.toString());
@@ -18,10 +24,9 @@ gulp.task('main:images', function() {
     .pipe(plumber({
       errorHandler: onError
     }))
-    .pipe(imagemin({
-      optimizationLevel: 5
-    }))
-    .pipe(gulp.dest('<%= paths.dist.images %>'));
+    .pipe(cache(imagemin({ optimizationLevel: 3, progressive: true, interlaced: true })))
+    .pipe(gulp.dest('<%= paths.dist.images %>'))
+    .pipe(browserSync.reload({stream:true}))
 });
 
 gulp.task('main:fonts', function() {
@@ -29,7 +34,8 @@ gulp.task('main:fonts', function() {
     .pipe(plumber({
       errorHandler: onError
     }))
-    .pipe(gulp.dest('<%= paths.dist.fonts %>'));
+    .pipe(gulp.dest('<%= paths.dist.fonts %>'))
+    .pipe(browserSync.reload({stream:true}))
 });
 
 gulp.task('main:icons', function() {
@@ -37,7 +43,8 @@ gulp.task('main:icons', function() {
     .pipe(plumber({
       errorHandler: onError
     }))
-    .pipe(gulp.dest('<%= paths.dist.icons %>'));
+    .pipe(gulp.dest('<%= paths.dist.icons %>'))
+    .pipe(browserSync.reload({stream:true}))
 });
 
 gulp.task('main:static', ['main:images', 'main:fonts', 'main:icons']);
