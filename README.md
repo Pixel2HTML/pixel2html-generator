@@ -1,5 +1,7 @@
 # Pixel2HTML Boilerplate Generator
 
+![https://travis-ci.org/j0an/pixel2html-generator.svg?branch=master]
+
 We aim to generate a boilerplate for projects when we know the specs.
 
 ## How to install
