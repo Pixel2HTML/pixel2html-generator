@@ -380,11 +380,14 @@ Generator.prototype.writeBaseBowerFile = function() {
   if (this.options.jQuery) {
     bowerJson.dependencies['jquery'] = '~2.1.*';
   }
-  if (this.options.fontAwesome) {
-    bowerJson.dependencies['font-awesome'] = '~4.4.*';
+  if (this.options.animatecss) {
+    bowerJson.dependencies['animate.css'] = '~3.4.*';
   }
   if (this.options.parsley) {
     bowerJson.dependencies['parsleyjs'] = '~2.1.*';
+  }
+  if (this.options.masonry) {
+    bowerJson.dependencies['masonry'] = '~3.3.*';
   }
   if (this.options.modernizr) {
     bowerJson.dependencies['modernizr'] = '~2.8.*';
