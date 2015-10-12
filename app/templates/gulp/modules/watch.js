@@ -2,8 +2,6 @@
 
 var gulp = require('gulp');
 
-
-
 gulp.task('watch', function() {
 
   //static files

@@ -18,7 +18,6 @@ describe('Bootstrap features', function() {
       .withPrompts({
         projectName: 'test-project',
         qtyScreens: 3,
-        projectType: 'responsive',
         cssProcessor: 'less',
         frontEndFramework: 'bootstrap',
       })

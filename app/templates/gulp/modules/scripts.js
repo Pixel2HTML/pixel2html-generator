@@ -9,6 +9,9 @@ var uglify = require('gulp-uglify');
 
 var jshint = require('gulp-jshint');
 
+var browserSync = require('browser-sync');
+
+
 var onError = function(err) {
   console.log(err.toString());
   this.emit('end');
@@ -24,5 +27,6 @@ gulp.task('main:scripts', function() {
     .pipe(gulp.dest('<%= paths.dist.scripts %>'))
     .pipe(concat('main.min.js'))
     .pipe(uglify())
-    .pipe(gulp.dest('<%= paths.dist.scripts %>'));
+    .pipe(gulp.dest('<%= paths.dist.scripts %>'))
+    .pipe(browserSync.reload({stream:true}))
 });

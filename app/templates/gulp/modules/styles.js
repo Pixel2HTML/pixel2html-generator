@@ -11,12 +11,15 @@ var plumber = require('gulp-plumber');
 var autoprefixer = require('gulp-autoprefixer');
 var rename = require('gulp-rename');
 
+var browserSync = require('browser-sync');
+
+
 var onError = function(err) {
   console.log(err.toString());
   this.emit('end');
 }
 
-gulp.task('styles:main', function() {
+gulp.task('main:styles', function() {
   return gulp.src('<%= cssMainFile %>')
     .pipe(plumber({
       errorHandler: onError
@@ -37,5 +40,7 @@ gulp.task('styles:main', function() {
       suffix: '.min'
     }))
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest('<%= paths.dist.styles %>'));
+    .pipe(gulp.dest('<%= paths.dist.styles %>'))
+    .pipe(browserSync.reload({stream:true}))
+
 });

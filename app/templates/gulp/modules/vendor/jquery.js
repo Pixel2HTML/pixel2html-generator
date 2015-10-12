@@ -7,6 +7,8 @@ var plumber = require('gulp-plumber');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 
+var browserSync = require('browser-sync');
+
 
 var onError = function(err) {
   console.log(err.toString());
@@ -22,7 +24,8 @@ gulp.task('vendor:jquery:scripts', function() {
     .pipe(gulp.dest('<%= paths.dist.scripts %>'))
     .pipe(concat('jquery.min.js'))
     .pipe(uglify())
-    .pipe(gulp.dest('<%= paths.dist.scripts %>'));
+    .pipe(gulp.dest('<%= paths.dist.scripts %>'))
+    .pipe(browserSync.reload({stream:true}))
 });
 
 

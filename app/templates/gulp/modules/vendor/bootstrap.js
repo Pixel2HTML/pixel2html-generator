@@ -17,6 +17,8 @@ var uglify = require('gulp-uglify');
 
 var rename = require('gulp-rename');
 
+var browserSync = require('browser-sync');
+
 var onError = function(err) {
   console.log(err.toString());
   this.emit('end');
@@ -43,14 +45,16 @@ gulp.task('vendor:bootstrap:styles', function() {
       suffix: '.min'
     }))
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest('<%= paths.dist.styles %>'));
+    .pipe(gulp.dest('<%= paths.dist.styles %>'))
+    .pipe(browserSync.reload({stream:true}))
 });
 
 
 
 gulp.task('vendor:bootstrap:fonts', function() {
   return gulp.src('<%= paths.src.vendors %>/bootstrap-sass/assets/fonts/bootstrap/**/*')
-    .pipe(gulp.dest('<%= paths.dist.fonts %>'));
+    .pipe(gulp.dest('<%= paths.dist.fonts %>'))
+    .pipe(browserSync.reload({stream:true}))
 });
 
 gulp.task('vendor:bootstrap:scripts', function() {
@@ -83,7 +87,8 @@ gulp.task('vendor:bootstrap:scripts', function() {
       suffix: '.min'
     }))
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest('<%= paths.dist.scripts %>'));
+    .pipe(gulp.dest('<%= paths.dist.scripts %>'))
+    .pipe(browserSync.reload({stream:true}))
 });
 
 gulp.task('vendor:bootstrap', ['vendor:bootstrap:styles',
