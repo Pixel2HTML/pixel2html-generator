@@ -31,12 +31,14 @@ describe('Stylus features', function() {
     it('should exists base Stylus file', function() {
       assert.file([
         'assets/src/styles/main.styl',
+        'assets/src/styles/_reset.styl',
         'assets/src/styles/mixins.styl',
         'assets/src/styles/variables.styl',
         'assets/src/styles/screens/_base.styl',
         'assets/src/styles/components/_buttons.styl',
         'assets/src/styles/components/_footer.styl',
         'assets/src/styles/components/_header.styl',
+        'assets/src/styles/components/_forms.styl',
         'assets/src/styles/components/_nav.styl',
       ]);
     });

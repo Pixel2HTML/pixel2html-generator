@@ -31,12 +31,14 @@ describe('SCSS features', function() {
     it('should exists base SCSS file', function() {
       assert.file([
         'assets/src/styles/main.scss',
+        'assets/src/styles/_reset.scss',
         'assets/src/styles/mixins.scss',
         'assets/src/styles/variables.scss',
         'assets/src/styles/screens/_base.scss',
         'assets/src/styles/components/_buttons.scss',
         'assets/src/styles/components/_footer.scss',
         'assets/src/styles/components/_header.scss',
+        'assets/src/styles/components/_forms.scss',
         'assets/src/styles/components/_nav.scss',
       ]);
     });

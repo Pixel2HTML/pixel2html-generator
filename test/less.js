@@ -33,12 +33,14 @@ describe('LESS features', function() {
     it('should exists base LESS file', function() {
       assert.file([
         'assets/src/styles/main.less',
+        'assets/src/styles/_reset.less',
         'assets/src/styles/mixins.less',
         'assets/src/styles/variables.less',
         'assets/src/styles/screens/_base.less',
         'assets/src/styles/components/_buttons.less',
         'assets/src/styles/components/_footer.less',
         'assets/src/styles/components/_header.less',
+        'assets/src/styles/components/_forms.less',
         'assets/src/styles/components/_nav.less',
       ]);
     });
