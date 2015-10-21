@@ -1,12 +1,7 @@
-sudo: false
+stages:
+  - test
 
-language: node_js
+test:
+  stage: test
+  script: npm test
 
-node_js:
-  - 'iojs'
-  - '0.12'
-  - '0.10'
-
-cache:
-  directories:
-    - node_modules
