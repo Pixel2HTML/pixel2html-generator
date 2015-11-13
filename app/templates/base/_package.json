@@ -35,7 +35,8 @@
     "gulp-imagemin": "^2.3.0",
     "gulp-cache": "0.2.8",
 
-    "require-dir": "^0.3.0"
+    "require-dir": "^0.3.0",
+    "gulp-zip": "^3.0.2"
 
 
   }

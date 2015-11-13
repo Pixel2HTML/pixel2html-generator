@@ -35,6 +35,9 @@ var Generator = module.exports = function Generator(args, options) {
       'styles': 'assets/dist/css',
       'frontendframework': 'assets/dist/css/vendor',
       'scripts': 'assets/dist/js'
+    },
+    'releases': {
+      'base': 'releases'
     }
   };
 
@@ -354,7 +357,31 @@ Generator.prototype.createFolders = function() {
   _.each(this.paths.src, function(path) {
     mkdirp(path);
   });
+  _.each(this.paths.releases, function(path) {
+    mkdirp(path);
+  });
 };
+
+Generator.prototype.copyGitKeepFiles = function() {
+
+   this.fs.copy(
+      this.templatePath('base/gitkeep'),
+      this.destinationPath(this.paths.releases.base+'/.gitkeep')
+   );
+   this.fs.copy(
+      this.templatePath('base/gitkeep'),
+      this.destinationPath(this.paths.src.fonts+'/.gitkeep')
+   );
+   this.fs.copy(
+      this.templatePath('base/gitkeep'),
+      this.destinationPath(this.paths.src.icons+'/.gitkeep')
+   );
+    this.fs.copy(
+      this.templatePath('base/gitkeep'),
+      this.destinationPath(this.paths.src.images+'/.gitkeep')
+   );
+
+}
 
 Generator.prototype.writeBaseBowerFile = function() {
 
@@ -564,6 +591,15 @@ Generator.prototype.writeBaseGulpFiles = function() {
     this.templatePath('gulp/modules/serve.js'),
     this.destinationPath(this.paths.src.gulp + '/serve.js'), {
       paths: this.paths
+    }
+  );
+
+  //serve
+  this.fs.copyTpl(
+    this.templatePath('gulp/modules/build.js'),
+    this.destinationPath(this.paths.src.gulp + '/build.js'), {
+      paths: this.paths,
+      cssProcessor: this.options.cssProcessor,
     }
   );
 };

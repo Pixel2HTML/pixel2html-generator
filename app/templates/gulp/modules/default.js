@@ -4,7 +4,6 @@ var gulp = require('gulp');
 
 
 var defaultGulp = [
-  'clean',
   'main:static',
   'main:styles',
   'main:scripts',

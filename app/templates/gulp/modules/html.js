@@ -2,6 +2,7 @@
 
 
 var gulp = require('gulp');
+var plumber = require('gulp-plumber');
 
 var browserSync = require('browser-sync');
 
@@ -12,7 +13,7 @@ var onError = function(err) {
 }
 
 gulp.task('main:html', function() {
-  return gulp.src('**/*.html')
+  return gulp.src('*.html')
     .pipe(plumber({
       errorHandler: onError
     }))
