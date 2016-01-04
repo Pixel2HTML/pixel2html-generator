@@ -16,7 +16,8 @@ describe('Bootstrap features', function() {
         'skip-install': true
       })
       .withPrompts({
-        projectName: 'test-project',
+        clientId: '0987',
+        projectName: '1234',
         qtyScreens: 3,
         cssProcessor: 'less',
         frontEndFramework: 'bootstrap',

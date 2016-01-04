@@ -14,7 +14,8 @@ describe('general', function() {
         'skip-install': true
       })
       .withPrompts({
-        projectName: 'test-project',
+        clientId: '0987',
+        projectName: '1234',
         qtyScreens: 6,
         cssProcessor: 'less',
       })
@@ -50,7 +51,7 @@ describe('general', function() {
   });
 
   it('should have the project name on package.json', function() {
-    assert.fileContent('package.json',  /"name": "pixel2html-test-project"/);
+    assert.fileContent('package.json',  /"name": "pixel2html-0987-1234"/);
   });
 
 
