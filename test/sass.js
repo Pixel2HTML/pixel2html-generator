@@ -33,8 +33,8 @@ describe('SCSS features', function() {
       assert.file([
         'assets/src/styles/main.scss',
         'assets/src/styles/_reset.scss',
-        'assets/src/styles/mixins.scss',
-        'assets/src/styles/variables.scss',
+        'assets/src/styles/_mixins.scss',
+        'assets/src/styles/_variables.scss',
         'assets/src/styles/screens/_base.scss',
         'assets/src/styles/components/_buttons.scss',
         'assets/src/styles/components/_footer.scss',

@@ -35,8 +35,8 @@ describe('LESS features', function() {
       assert.file([
         'assets/src/styles/main.less',
         'assets/src/styles/_reset.less',
-        'assets/src/styles/mixins.less',
-        'assets/src/styles/variables.less',
+        'assets/src/styles/_mixins.less',
+        'assets/src/styles/_variables.less',
         'assets/src/styles/screens/_base.less',
         'assets/src/styles/components/_buttons.less',
         'assets/src/styles/components/_footer.less',

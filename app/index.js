@@ -504,12 +504,12 @@ Generator.prototype.writeBaseStyles = function() {
   );
 
   this.fs.copy(
-    this.templatePath('styles/' + cssProcessor + '/variables.' + cssProcessor),
-    this.destinationPath(this.paths.src.styles + '/variables.' + cssProcessor)
+    this.templatePath('styles/' + cssProcessor + '/_variables.' + cssProcessor),
+    this.destinationPath(this.paths.src.styles + '/_variables.' + cssProcessor)
   );
   this.fs.copy(
-    this.templatePath('styles/' + cssProcessor + '/mixins.' + cssProcessor),
-    this.destinationPath(this.paths.src.styles + '/mixins.' + cssProcessor)
+    this.templatePath('styles/' + cssProcessor + '/_mixins.' + cssProcessor),
+    this.destinationPath(this.paths.src.styles + '/_mixins.' + cssProcessor)
   );
   this.fs.copy(
     this.templatePath('styles/' + cssProcessor + '/_reset.' + cssProcessor),
