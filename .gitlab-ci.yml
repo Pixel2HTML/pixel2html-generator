@@ -1,7 +1,6 @@
-stages:
-  - test
+before_script:
+   - npm-cache install
 
-test:
-  stage: test
-  script: npm test
-
+job:
+  script:
+    - npm test
