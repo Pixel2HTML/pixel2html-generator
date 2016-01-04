@@ -10,7 +10,6 @@ var path = require('path');
 var wiredep = require('wiredep');
 var fs = require('fs-extra');
 var moment = require('moment');
-var sprintf = require("sprintf-js").sprintf;
 
 var Generator = module.exports = function Generator(args, options) {
 
