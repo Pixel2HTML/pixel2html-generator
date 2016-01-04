@@ -10,6 +10,7 @@ var path = require('path');
 var wiredep = require('wiredep');
 var fs = require('fs-extra');
 var moment = require('moment');
+var sprintf = require("sprintf-js").sprintf;
 
 var Generator = module.exports = function Generator(args, options) {
 
@@ -681,6 +682,19 @@ Generator.prototype.writeJqueryGulpFiles = function() {
     }
   );
 }
+
+
+Generator.prototype.writeGitlabCIFiles = function() {
+
+  this.fs.copyTpl(
+    this.templatePath('base/_.gitlab-ci.yml'),
+    this.destinationPath('.gitlab-ci.yml'), {
+      clientId: '000'+this.options.clientId,
+      projectName: '000'+this.options.projectName
+    }
+  );
+}
+
 
 Generator.prototype.writeProjectConfigFile = function() {
   //overwrite the default .project.conf file or create the new one.

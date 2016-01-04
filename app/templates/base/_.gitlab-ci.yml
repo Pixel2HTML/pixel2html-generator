@@ -1,0 +1,7 @@
+before_script:
+   - npm-cache install
+job:
+   script:
+      - gulp
+      - gulp build:zip
+      - rsync -pva --exclude 'node_modules' --exclude 'assets/src' --exclude '.*' --exclude '.*/' ./ deployer@demos.pixel2html.com:/home/deployer/www/demos/<%= clientId %>/<%= projectName %>/
