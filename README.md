@@ -135,7 +135,7 @@ screen_*.html
 #### Foundation
 * `$ gulp vendor:foundation` Compile & Move all **Foundation** files
 * `$ gulp vendor:foundation:styles` Compile, concat, autoprefix, minify and move **Foundation** files
-* `$ gulp vendor:foundation:scripts` Concat, uglify and move **Foundation** JS files
+* `$ gulp vendor:foundation:scripts` Move **Foundation** JS files
 * `$ gulp vendor:foundation:fonts` Move **Foundation** fonts files
 
 #### BassCss
@@ -149,5 +149,8 @@ screen_*.html
 * `$ gulp vendor:jquery:scripts` Compile, concat, minify and move **jQuery** files
 
 ### Daemons
-* `$ gulp watch` Watch your files and autoexecute gulp directives
+* `$ gulp watch` **Watch** your files and autoexecute gulp directives
 * `$ gulp serve` **Watch** your files and **serve** with an HTTP server and **Sync** with your prefered browser _awesome!_ 
+
+### Delivery
+ * `$gulp build` Execute all the gulp directives and makes a `.zip` file with the latest code.

@@ -1,6 +1,6 @@
 {
-  "name": "pixel2html-<%= projectName %>",
-  "description": "pixel2html <%= projectName %>",
+  "name": "pixel2html-<%= projectName %>-<%= clientId %>",
+  "description": "pixel2html <%= clientId %>/<%= projectName %>",
   "license": "MIT",
   "repository": "http://code.pixel2html.com",
   "version": "1.0.0",
