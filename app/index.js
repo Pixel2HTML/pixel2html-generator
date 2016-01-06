@@ -436,7 +436,7 @@ Generator.prototype.writeBaseBowerFile = function() {
       break;
 
     case 'foundation':
-      bowerJson.dependencies['foundation'] = '~5.5.*';
+      bowerJson.dependencies['foundation-sites'] = '~6.0.*';
       break;
   }
   if (this.options.jQuery) {

@@ -26,7 +26,7 @@ var onError = function(err) {
 
 gulp.task('vendor:foundation:styles', function() {
 
-  return gulp.src('<%= paths.src.frontendframework %>/foundation/index.scss')
+  return gulp.src('<%= paths.src.frontendframework %>/foundation-sites/index.scss')
     .pipe(plumber({
       errorHandler: onError
     }))
@@ -52,8 +52,8 @@ gulp.task('vendor:foundation:fonts', function() {});
 gulp.task('vendor:foundation:scripts', function() {
 
   var foundationJs = [
-    '<%= paths.src.vendors %>/foundation/js/foundation.js',
-    '<%= paths.src.vendors %>/foundation/js/foundation.min.js'
+    '<%= paths.src.vendors %>/foundation-sites/dist/foundation.js',
+    '<%= paths.src.vendors %>/foundation-sites/dist/foundation.min.js'
   ];
 
 
