@@ -478,14 +478,6 @@ Generator.prototype.writeHTMLFiles = function() {
     );
   }
 
-  this.fs.copyTpl(
-    this.templatePath('html/index.html'),
-    this.destinationPath('index.html'), {
-      clientId: this.options.clientId,
-      projectName: this.options.projectName,
-      qtyScreens: this.options.qtyScreens
-    }
-  );
 };
 
 Generator.prototype.writeBaseStyles = function() {
