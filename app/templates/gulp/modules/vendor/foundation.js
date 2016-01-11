@@ -36,7 +36,7 @@ gulp.task('vendor:foundation:styles', function() {
     }))
     .pipe(rename('foundation.css'))
     .pipe(gulp.dest('<%= paths.dist.styles %>'))
-    .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
+    .pipe(autoprefixer('last 2 versions', 'ie >= 9', 'and_chr >= 2.3'))
     .pipe(minify({
       keepSpecialComments: 0
     }))
