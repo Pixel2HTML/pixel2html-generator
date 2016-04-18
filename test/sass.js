@@ -31,24 +31,24 @@ describe('SCSS features', function() {
 
     it('should exists base SCSS file', function() {
       assert.file([
-        'assets/src/styles/main.scss',
-        'assets/src/styles/_reset.scss',
-        'assets/src/styles/_mixins.scss',
-        'assets/src/styles/_variables.scss',
-        'assets/src/styles/screens/_base.scss',
-        'assets/src/styles/components/_buttons.scss',
-        'assets/src/styles/components/_footer.scss',
-        'assets/src/styles/components/_header.scss',
-        'assets/src/styles/components/_forms.scss',
-        'assets/src/styles/components/_nav.scss',
+        'src/assets/styles/main.scss',
+        'src/assets/styles/_reset.scss',
+        'src/assets/styles/_mixins.scss',
+        'src/assets/styles/_variables.scss',
+        'src/assets/styles/screens/_base.scss',
+        'src/assets/styles/components/_buttons.scss',
+        'src/assets/styles/components/_footer.scss',
+        'src/assets/styles/components/_header.scss',
+        'src/assets/styles/components/_forms.scss',
+        'src/assets/styles/components/_nav.scss',
       ]);
     });
 
     it('should exists screens SCSS files', function() {
       assert.file([
-        'assets/src/styles/screens/screen_1.scss',
-        'assets/src/styles/screens/screen_2.scss',
-        'assets/src/styles/screens/screen_3.scss',
+        'src/assets/styles/screens/screen_1.scss',
+        'src/assets/styles/screens/screen_2.scss',
+        'src/assets/styles/screens/screen_3.scss',
       ]);
     });
 

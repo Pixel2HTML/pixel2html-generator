@@ -31,24 +31,24 @@ describe('Stylus features', function() {
 
     it('should exists base Stylus file', function() {
       assert.file([
-        'assets/src/styles/main.styl',
-        'assets/src/styles/_reset.styl',
-        'assets/src/styles/_mixins.styl',
-        'assets/src/styles/_variables.styl',
-        'assets/src/styles/screens/_base.styl',
-        'assets/src/styles/components/_buttons.styl',
-        'assets/src/styles/components/_footer.styl',
-        'assets/src/styles/components/_header.styl',
-        'assets/src/styles/components/_forms.styl',
-        'assets/src/styles/components/_nav.styl',
+        'src/assets/styles/main.styl',
+        'src/assets/styles/_reset.styl',
+        'src/assets/styles/_mixins.styl',
+        'src/assets/styles/_variables.styl',
+        'src/assets/styles/screens/_base.styl',
+        'src/assets/styles/components/_buttons.styl',
+        'src/assets/styles/components/_footer.styl',
+        'src/assets/styles/components/_header.styl',
+        'src/assets/styles/components/_forms.styl',
+        'src/assets/styles/components/_nav.styl',
       ]);
     });
 
     it('should exists screens Stylus files', function() {
       assert.file([
-        'assets/src/styles/screens/screen_1.styl',
-        'assets/src/styles/screens/screen_2.styl',
-        'assets/src/styles/screens/screen_3.styl',
+        'src/assets/styles/screens/screen_1.styl',
+        'src/assets/styles/screens/screen_2.styl',
+        'src/assets/styles/screens/screen_3.styl',
       ]);
     });
 

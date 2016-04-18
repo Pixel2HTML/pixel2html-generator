@@ -38,8 +38,8 @@ describe('Bootstrap features', function() {
 
     it('should exists bootstrap\'s user config files', function() {
       assert.file([
-        'assets/src/styles/vendor/bootstrap/index.scss',
-        'assets/src/styles/vendor/bootstrap/variables.scss',
+        'src/assets/styles/vendor/bootstrap/index.scss',
+        'src/assets/styles/vendor/bootstrap/variables.scss',
       ]);
     });
 

@@ -38,8 +38,8 @@ describe('Foundation features', function() {
 
     it('should exists bootstrap\'s user config files', function() {
       assert.file([
-        'assets/src/styles/vendor/foundation/index.scss',
-        'assets/src/styles/vendor/foundation/variables.scss',
+        'src/assets/styles/vendor/foundation/index.scss',
+        'src/assets/styles/vendor/foundation/variables.scss',
       ]);
     });
 

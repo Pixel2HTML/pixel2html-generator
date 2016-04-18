@@ -33,24 +33,24 @@ describe('LESS features', function() {
 
     it('should exists base LESS file', function() {
       assert.file([
-        'assets/src/styles/main.less',
-        'assets/src/styles/_reset.less',
-        'assets/src/styles/_mixins.less',
-        'assets/src/styles/_variables.less',
-        'assets/src/styles/screens/_base.less',
-        'assets/src/styles/components/_buttons.less',
-        'assets/src/styles/components/_footer.less',
-        'assets/src/styles/components/_header.less',
-        'assets/src/styles/components/_forms.less',
-        'assets/src/styles/components/_nav.less',
+        'src/assets/styles/main.less',
+        'src/assets/styles/_reset.less',
+        'src/assets/styles/_mixins.less',
+        'src/assets/styles/_variables.less',
+        'src/assets/styles/screens/_base.less',
+        'src/assets/styles/components/_buttons.less',
+        'src/assets/styles/components/_footer.less',
+        'src/assets/styles/components/_header.less',
+        'src/assets/styles/components/_forms.less',
+        'src/assets/styles/components/_nav.less',
       ]);
     });
 
     it('should exists screens LESS files', function() {
       assert.file([
-        'assets/src/styles/screens/screen_1.less',
-        'assets/src/styles/screens/screen_2.less',
-        'assets/src/styles/screens/screen_3.less',
+        'src/assets/styles/screens/screen_1.less',
+        'src/assets/styles/screens/screen_2.less',
+        'src/assets/styles/screens/screen_3.less',
       ]);
     });
   });
