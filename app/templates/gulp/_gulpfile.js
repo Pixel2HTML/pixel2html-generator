@@ -1,4 +1,4 @@
 var gulp = require('gulp');
 
-require('require-dir')('assets/src/.gulp');
-require('require-dir')('assets/src/.gulp/vendor');
+require('require-dir')('<%= paths.src.gulp %>');
+require('require-dir')('<%= paths.src.gulp %>/vendor');

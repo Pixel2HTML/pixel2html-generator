@@ -5,7 +5,7 @@ var gulp = require('gulp');
 <% if (cssProcessor === 'scss') { %>var sass = require('gulp-sass');<% } %>
 <% if (cssProcessor === 'less') { %>var less = require('gulp-less');<% } %>
 <% if (cssProcessor === 'styl') { %>var stylus = require('gulp-stylus');<% } %>
-var minify = require('gulp-minify-css');
+var minify = require('gulp-clean-css');
 var sourcemaps = require('gulp-sourcemaps');
 var plumber = require('gulp-plumber');
 var autoprefixer = require('gulp-autoprefixer');

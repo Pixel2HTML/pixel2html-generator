@@ -2,5 +2,5 @@ node_modules
 dist
 .tmp
 bower_components
-/assets/src/vendor
+<%= paths.src.vendors %>
 /releases/*

@@ -5,7 +5,7 @@ var gulp = require('gulp');
 gulp.task('watch', function() {
 
   //static files
-  gulp.watch("**/*.html", ['main:html']);
+  gulp.watch("<%= paths.src.html %>/*.html", ['main:html']);
   gulp.watch("<%= paths.src.images %>/**/*", ['main:images']);
   gulp.watch("<%= paths.src.fonts %>/**/*", ['main:fonts']);
   gulp.watch("<%= paths.src.icons %>/**/*", ['main:icons']);

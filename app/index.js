@@ -17,24 +17,26 @@ var Generator = module.exports = function Generator(args, options) {
 
   this.paths = {
     'src': {
-      'base': 'assets/src',
-      'fonts': 'assets/src/fonts',
-      'gulp': 'assets/src/.gulp',
-      'icons': 'assets/src/icons',
-      'images': 'assets/src/images',
-      'vendors': 'assets/src/vendor',
-      'scripts': 'assets/src/js',
-      'styles': 'assets/src/styles',
-      'frontendframework': 'assets/src/styles/vendor',
+      'assets': 'src/assets',
+      'fonts': 'src/assets/fonts',
+      'gulp': 'src/assets/.gulp',
+      'icons': 'src/assets/icons',
+      'images': 'src/assets/images',
+      'vendors': 'src/assets/vendor',
+      'scripts': 'src/assets/js',
+      'styles': 'src/assets/styles',
+      'html': 'src',
+      'frontendframework': 'src/assets/styles/vendor',
     },
     'dist': {
-      'base': 'assets/dist',
-      'fonts': 'assets/dist/fonts',
-      'icons': 'assets/dist/icons',
-      'images': 'assets/dist/images',
-      'styles': 'assets/dist/css',
-      'frontendframework': 'assets/dist/css/vendor',
-      'scripts': 'assets/dist/js'
+      'assets': 'dist/assets',
+      'fonts': 'dist/assets/fonts',
+      'icons': 'dist/assets/icons',
+      'images': 'dist/assets/images',
+      'scripts': 'dist/assets/js',
+      'styles': 'dist/assets/css',
+      'html': 'dist',
+      'frontendframework': 'dist/assets/css/vendor',
     },
     'releases': {
       'base': 'releases'
@@ -313,11 +315,11 @@ Generator.prototype.askForModules = function() {
       choices: [{
         value: 'parsleyjs',
         name: 'Form validation with Parsley.js',
-        checked: true
+        checked: false
       }, {
         value: 'modernizr',
         name: 'Add modernizr.js',
-        checked: true
+        checked: false
       }, {
         value: 'masonry',
         name: 'Add Masonry.js',
@@ -372,9 +374,11 @@ Generator.prototype.writeProjectFiles = function() {
   );
 
   this.log(chalk.yellow('Copying git files.'));
-  this.fs.copy(
+  this.fs.copyTpl(
     this.templatePath('git/gitignore'),
-    this.destinationPath('.gitignore')
+    this.destinationPath('.gitignore'), {
+      paths: this.paths
+    }
   );
 
   this.fs.copy(
@@ -457,9 +461,11 @@ Generator.prototype.writeBaseBowerFile = function() {
 
   this.fs.writeJSON('bower.json', bowerJson);
 
-  this.fs.copy(
+  this.fs.copyTpl(
     this.templatePath('bower/bowerrc'),
-    this.destinationPath('.bowerrc')
+    this.destinationPath('.bowerrc'), {
+       paths: this.paths
+    }
   );
 };
 
@@ -468,7 +474,7 @@ Generator.prototype.writeHTMLFiles = function() {
   for (var i = 1; i < this.options.qtyScreens + 1; i++) {
     this.fs.copyTpl(
       this.templatePath('html/_screen.html'),
-      this.destinationPath('screen_' + i + '.html'), {
+      this.destinationPath(this.paths.src.html+'/screen_' + i + '.html'), {
         screenNumber: i,
         clientId: this.options.clientId,
         projectName: this.options.projectName,
@@ -561,7 +567,9 @@ Generator.prototype.writeBaseGulpFiles = function() {
   this.log(chalk.yellow('Copying gulpfile.'));
   this.fs.copyTpl(
     this.templatePath('gulp/_gulpfile.js'),
-    this.destinationPath('gulpfile.js')
+    this.destinationPath('gulpfile.js'), {
+      paths: this.paths
+    }
   );
 
   //default

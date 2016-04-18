@@ -13,10 +13,10 @@ var onError = function(err) {
 }
 
 gulp.task('main:html', function() {
-  return gulp.src('*.html')
+  return gulp.src('<%= paths.src.html %>/*.html')
     .pipe(plumber({
       errorHandler: onError
     }))
-    .pipe(gulp.dest('<%= paths.dist.base %>'))
+    .pipe(gulp.dest('<%= paths.dist.html %>'))
     .pipe(browserSync.reload({stream:true}))
 });
