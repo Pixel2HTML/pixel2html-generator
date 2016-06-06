@@ -1,18 +1,13 @@
-'use strict'
+'use strict';
 
 
 var gulp = require('gulp');
 
 var sass = require('gulp-sass');
 
-var sourcemaps = require('gulp-sourcemaps');
-
 var minify = require('gulp-minify-css');
 var plumber = require('gulp-plumber');
 var autoprefixer = require('gulp-autoprefixer');
-
-var concat = require('gulp-concat');
-var uglify = require('gulp-uglify');
 
 var rename = require('gulp-rename');
 
@@ -22,7 +17,7 @@ var browserSync = require('browser-sync');
 var onError = function(err) {
   console.log(err.toString());
   this.emit('end');
-}
+};
 
 gulp.task('vendor:foundation:styles', function() {
 
@@ -44,7 +39,7 @@ gulp.task('vendor:foundation:styles', function() {
       suffix: '.min'
     }))
     .pipe(gulp.dest('<%= paths.dist.styles %>'))
-    .pipe(browserSync.reload({stream:true}))
+    .pipe(browserSync.reload({stream:true}));
 });
 
 gulp.task('vendor:foundation:fonts', function() {});
@@ -60,11 +55,11 @@ gulp.task('vendor:foundation:scripts', function() {
   return gulp.src(foundationJs)
     .pipe(plumber())
     .pipe(gulp.dest('<%= paths.dist.scripts %>'))
-    .pipe(browserSync.reload({stream:true}))
+    .pipe(browserSync.reload({stream:true}));
 
 });
 
 gulp.task('vendor:foundation', ['vendor:foundation:styles',
   'vendor:foundation:fonts',
   'vendor:foundation:scripts'
-])
+]);

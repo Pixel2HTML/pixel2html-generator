@@ -1,14 +1,14 @@
-'use strict'
+'use strict';
 
 
 var gulp = require('gulp');
 var plumber = require('gulp-plumber');
-var zip  = require('gulp-zip')
+var zip  = require('gulp-zip');
 
 var onError = function(err) {
   console.log(err.toString());
   this.emit('end');
-}
+};
 
 gulp.task('build:zip', function() {
 
@@ -21,7 +21,7 @@ gulp.task('build:zip', function() {
     <% } %>
   ];
 
-  return gulp.src(distFiles, {base: "."})
+  return gulp.src(distFiles, {base: '.'})
     .pipe(plumber({
       errorHandler: onError
     }))

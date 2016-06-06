@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 var gulp = require('gulp');
 var del = require('del');
@@ -13,7 +13,7 @@ var browserSync = require('browser-sync');
 var onError = function(err) {
   console.log(err.toString());
   this.emit('end');
-}
+};
 
 gulp.task('clean', function(cb) {
   del(['<%= paths.dist.base %>'], cb);
@@ -26,7 +26,7 @@ gulp.task('main:images', function() {
     }))
     .pipe(cache(imagemin({ optimizationLevel: 3, progressive: true, interlaced: true })))
     .pipe(gulp.dest('<%= paths.dist.images %>'))
-    .pipe(browserSync.reload({stream:true}))
+    .pipe(browserSync.reload({stream:true}));
 });
 
 gulp.task('main:fonts', function() {
@@ -35,7 +35,7 @@ gulp.task('main:fonts', function() {
       errorHandler: onError
     }))
     .pipe(gulp.dest('<%= paths.dist.fonts %>'))
-    .pipe(browserSync.reload({stream:true}))
+    .pipe(browserSync.reload({stream:true}));
 });
 
 gulp.task('main:icons', function() {
@@ -44,7 +44,7 @@ gulp.task('main:icons', function() {
       errorHandler: onError
     }))
     .pipe(gulp.dest('<%= paths.dist.icons %>'))
-    .pipe(browserSync.reload({stream:true}))
+    .pipe(browserSync.reload({stream:true}));
 });
 
 gulp.task('main:static', ['main:images', 'main:fonts', 'main:icons']);

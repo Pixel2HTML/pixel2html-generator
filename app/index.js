@@ -17,7 +17,6 @@ var Generator = module.exports = function Generator(args, options) {
 
   this.paths = {
     'src': {
-      'assets': 'src/assets',
       'fonts': 'src/assets/fonts',
       'gulp': 'src/assets/.gulp',
       'icons': 'src/assets/icons',

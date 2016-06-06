@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 
 var gulp = require('gulp');
@@ -22,7 +22,7 @@ var browserSync = require('browser-sync');
 var onError = function(err) {
   console.log(err.toString());
   this.emit('end');
-}
+};
 
 gulp.task('vendor:bootstrap:styles', function() {
 
@@ -46,7 +46,7 @@ gulp.task('vendor:bootstrap:styles', function() {
     }))
     .pipe(sourcemaps.write())
     .pipe(gulp.dest('<%= paths.dist.styles %>'))
-    .pipe(browserSync.reload({stream:true}))
+    .pipe(browserSync.reload({stream:true}));
 });
 
 
@@ -54,7 +54,7 @@ gulp.task('vendor:bootstrap:styles', function() {
 gulp.task('vendor:bootstrap:fonts', function() {
   return gulp.src('<%= paths.src.vendors %>/bootstrap-sass/assets/fonts/bootstrap/**/*')
     .pipe(gulp.dest('<%= paths.dist.fonts %>'))
-    .pipe(browserSync.reload({stream:true}))
+    .pipe(browserSync.reload({stream:true}));
 });
 
 gulp.task('vendor:bootstrap:scripts', function() {
@@ -88,10 +88,10 @@ gulp.task('vendor:bootstrap:scripts', function() {
     }))
     .pipe(sourcemaps.write())
     .pipe(gulp.dest('<%= paths.dist.scripts %>'))
-    .pipe(browserSync.reload({stream:true}))
+    .pipe(browserSync.reload({stream:true}));
 });
 
 gulp.task('vendor:bootstrap', ['vendor:bootstrap:styles',
   'vendor:bootstrap:scripts',
   'vendor:bootstrap:fonts'
-])
+]);

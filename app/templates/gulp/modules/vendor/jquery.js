@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 var gulp = require('gulp');
 
@@ -13,7 +13,7 @@ var browserSync = require('browser-sync');
 var onError = function(err) {
   console.log(err.toString());
   this.emit('end');
-}
+};
 
 gulp.task('vendor:jquery:scripts', function() {
 
@@ -25,7 +25,7 @@ gulp.task('vendor:jquery:scripts', function() {
     .pipe(concat('jquery.min.js'))
     .pipe(uglify())
     .pipe(gulp.dest('<%= paths.dist.scripts %>'))
-    .pipe(browserSync.reload({stream:true}))
+    .pipe(browserSync.reload({stream:true}));
 });
 
 
