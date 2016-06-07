@@ -29,7 +29,7 @@ gulp.task('main:styles', function() {
     <% if (cssProcessor === 'less') { %>.pipe(less())<% } %>
     <% if (cssProcessor === 'styl') { %>.pipe(stylus())<% } %>
     .pipe(autoprefixer({
-      browsers: ['last 2 versions'],
+      browsers: ['last 2 versions', 'iOS 8'],
       cascade: false
     }))
     .pipe(gulp.dest('<%= paths.dist.styles %>'))

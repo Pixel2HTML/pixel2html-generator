@@ -36,7 +36,7 @@ gulp.task('vendor:bootstrap:styles', function() {
       includePaths: ['<%= paths.src.vendors %>/bootstrap-sass/assets/stylesheets']
     }))
     .pipe(rename('bootstrap.css'))
-    .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
+    .pipe(autoprefixer('last 2 version', 'iOS 8'))
     .pipe(gulp.dest('<%= paths.dist.styles %>'))
     .pipe(minify({
       keepSpecialComments: 0
