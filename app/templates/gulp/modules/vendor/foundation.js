@@ -5,7 +5,8 @@ var gulp = require('gulp');
 
 var sass = require('gulp-sass');
 
-var minify = require('gulp-minify-css');
+var cssnano = require('gulp-cssnano');
+
 var plumber = require('gulp-plumber');
 var autoprefixer = require('gulp-autoprefixer');
 
@@ -32,9 +33,7 @@ gulp.task('vendor:foundation:styles', function() {
     .pipe(rename('foundation.css'))
     .pipe(gulp.dest('<%= paths.dist.styles %>'))
     .pipe(autoprefixer('last 2 versions', 'iOS 8'))
-    .pipe(minify({
-      keepSpecialComments: 0
-    }))
+    .pipe(cssnano())
     .pipe(rename({
       suffix: '.min'
     }))
