@@ -191,7 +191,7 @@ Generator.prototype.askForQtyScreens = function() {
     [{
       type: 'input',
       name: 'qtyScreens',
-      message: 'How many Screens to will code?',
+      message: 'How many screens do you need to code?',
       default: 1,
       when: function() {
         return !qtyScreens;
@@ -225,7 +225,7 @@ Generator.prototype.askForCssProcessor = function() {
         name: 'Less',
         value: 'less',
       }, {
-        name: 'Styl',
+        name: 'Stylus',
         value: 'styl',
       }, {
         name: 'None',
