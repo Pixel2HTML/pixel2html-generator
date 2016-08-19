@@ -2,10 +2,7 @@
 
 var gulp = require('gulp');
 var del = require('del');
-var imagemin = require('gulp-imagemin');
-var cache = require('gulp-cache');
 var plumber = require('gulp-plumber');
-
 var browserSync = require('browser-sync');
 
 
@@ -24,7 +21,6 @@ gulp.task('main:images', function() {
     .pipe(plumber({
       errorHandler: onError
     }))
-    .pipe(cache(imagemin({ optimizationLevel: 3, progressive: true, interlaced: true })))
     .pipe(gulp.dest('<%= paths.dist.images %>'))
     .pipe(browserSync.reload({stream:true}));
 });
