@@ -34,6 +34,7 @@ var Generator = module.exports = function Generator(args, options) {
       'images': 'dist/assets/images',
       'scripts': 'dist/assets/js',
       'styles': 'dist/assets/css',
+      'base': 'dist',
       'html': 'dist',
       'frontendframework': 'dist/assets/css/vendor',
     },
@@ -387,20 +388,19 @@ Generator.prototype.writeBaseBowerFile = function() {
 
   switch (this.options.frontEndFramework) {
     case 'bootstrap':
-      bowerJson.dependencies['bootstrap-sass'] = '~3.3.*';
+      bowerJson.dependencies['bootstrap-sass'] = '^3.3.*';
       break; //bootstrap
 
     case 'basscss':
-      bowerJson.dependencies['basscss-sass'] = '~3.0.*';
+      bowerJson.dependencies['basscss-sass'] = '~4.0.*';
       break;
 
     case 'foundation':
-      bowerJson.dependencies['foundation-sites'] = '~6.0.*';
+      bowerJson.dependencies['foundation-sites'] = '~6.2.*';
       break;
   }
   if (this.options.jQuery) {
-    bowerJson.dependencies['jquery'] = '~2.1.*';
-  }
+    bowerJson.dependencies['jquery'] = '~3.1.*';
   }
 
   this.fs.writeJSON('bower.json', bowerJson);
