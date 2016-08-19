@@ -24,12 +24,12 @@ $ yo pixel2html <params>
 
 ### Available Parameters
 
+* ```--clientId``` (*string*)
 * ```--projectName``` (*string*)
 * ```--qtyScreens``` (*int*)
 * ```--cssProcessor``` (*string*) [scss, less, styl, none]
-* ```--frontEndFramework``` (*string*) [basscss, bootstrap, foundation]
+* ```--frontEndFramework``` (*string*) [basscss, bootstrap, foundation, none]
 * ```--jQuery``` (*bool*)
-* ```--modules``` (*array*)
 
 
 ### Available config file
@@ -39,14 +39,12 @@ Here an example of it's structure
 
 ```
 {
+  "clientId": "XXX",
   "projectName": "XXX",
   "qtyScreens": 4,
   "cssProcessor": "less",
   "frontEndFramework": "bootstrap",
   "jQuery": true,
-  "modules": [
-    "animatecss"
-  ],
   "generatedBy": "Pixel2HTML",
   "generatedAt": "2015-10-09T21:55:20-03:00"
 }
@@ -154,4 +152,4 @@ package.json
 * `$ gulp serve` **Watch** your files and **serve** with an HTTP server and **Sync** with your prefered browser _awesome!_ 
 
 ### Delivery
- * `$gulp build` Execute all the gulp directives and makes a `.zip` file with the latest code.
+ * `$ gulp build` Execute all the gulp directives and makes a `.zip` file with the latest code.
