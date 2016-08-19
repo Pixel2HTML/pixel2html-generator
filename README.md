@@ -62,7 +62,7 @@ To work, the **Pixel2HTML Boilerplate** needs to install some dependencies to ru
 For this job, run this command in your shell
 
 ```
-$ npm install && bower install && gulp serve
+$ npm run start
 ```
 
 ## File Structure
@@ -70,31 +70,33 @@ $ npm install && bower install && gulp serve
 This boilerplate will create a set of files and folders
 
 ```
-/assets
-      /dist
-      /src
-          /fonts
-          /gulp
-          /icons
-          /images
-          /js
-          /styles
-                /components
-                      _buttons.ext
-                      _footer.ext
-                      _header.ext
-                      _nav.ext
-                /screens
-                      _base.ext
-                      screen_*.ext
-                /vendor
-                      /frontend framework [bootstrap|foundation|basscss]
-                            index.scss
-                            variables.scss
-                main.ext
-                mixins.ext
-                variables.ext
-          /vendor
+
+/dist
+/src
+   /assets
+      /fonts
+      /gulp
+      /icons
+      /images
+      /js
+      /styles
+            /components
+                  _buttons.ext
+                  _footer.ext
+                  _header.ext
+                  _nav.ext
+            /screens
+                  _base.ext
+                  screen_*.ext
+            /vendor
+                  /frontend framework [bootstrap|foundation|basscss]
+                        index.scss
+                        variables.scss
+            main.ext
+            mixins.ext
+            variables.ext
+      /vendor
+   screen_*.html
 .bowerrc
 .gitattributes
 .gitignore
@@ -104,7 +106,6 @@ This boilerplate will create a set of files and folders
 bower.json
 gulpfile.js
 package.json
-screen_*.html
 ```
 
 ## Available Gulp Commands
