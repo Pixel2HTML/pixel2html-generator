@@ -79,13 +79,6 @@ var Generator = module.exports = function Generator(args, options) {
     required: false
   });
 
-  this.option('modules', {
-    desc: 'Tells the modules you need',
-    type: String,
-    required: false
-  });
-
-
 };
 
 util.inherits(Generator, yeoman.generators.Base);
@@ -105,7 +98,6 @@ Generator.prototype.readConfigFile = function() {
     this.options.cssProcessor = config.cssProcessor;
     this.options.frontEndFramework = config.frontEndFramework;
     this.options.jQuery = config.jQuery;
-    this.options.modules = config.modules;
 
     cb();
   }.bind(this));
@@ -301,52 +293,6 @@ Generator.prototype.askForjQuery = function() {
   }.bind(this));
 };
 
-Generator.prototype.askForModules = function() {
-  var cb = this.async();
-  var jQuery = this.options.jQuery;
-  var modules = this.options.modules;
-
-  this.prompt(
-    [{
-      type: 'checkbox',
-      name: 'modules',
-      message: 'Which modules would you like to include?',
-      choices: [{
-        value: 'parsleyjs',
-        name: 'Form validation with Parsley.js',
-        checked: false
-      }, {
-        value: 'modernizr',
-        name: 'Add modernizr.js',
-        checked: false
-      }, {
-        value: 'masonry',
-        name: 'Add Masonry.js',
-        checked: false
-      }, {
-        value: 'animatecss',
-        name: "Animate.css",
-        checked: false
-      }],
-      when: function() {
-        return !modules;
-      }
-    }],
-
-    function(props) {
-      var hasMod = function(mod) {
-        return _.contains(props.jsModules, mod);
-      };
-
-      this.options.parsleyjs = hasMod('parsleyjs');
-      this.options.modernizr = hasMod('modernizr');
-      this.options.masonry = hasMod('masonry');
-      this.options.animatecss = hasMod('animatecss');
-
-      cb();
-    }.bind(this));
-};
-
 Generator.prototype.writeProjectFiles = function() {
 
   this.log(chalk.yellow('Copying package.json file and adding dependencies.'));
@@ -400,8 +346,6 @@ Generator.prototype.writeProjectFiles = function() {
 
 Generator.prototype.createFolders = function() {
   this.log(chalk.yellow('Creating directories.'));
-
-  mkdirp('assets');
 
   //make src paths
   _.each(this.paths.src, function(path) {
@@ -457,17 +401,6 @@ Generator.prototype.writeBaseBowerFile = function() {
   if (this.options.jQuery) {
     bowerJson.dependencies['jquery'] = '~2.1.*';
   }
-  if (this.options.animatecss) {
-    bowerJson.dependencies['animate.css'] = '~3.5.*';
-  }
-  if (this.options.parsley) {
-    bowerJson.dependencies['parsleyjs'] = '~2.1.*';
-  }
-  if (this.options.masonry) {
-    bowerJson.dependencies['masonry'] = '~3.3.*';
-  }
-  if (this.options.modernizr) {
-    bowerJson.dependencies['modernizr'] = '~3.2.*';
   }
 
   this.fs.writeJSON('bower.json', bowerJson);
@@ -716,7 +649,6 @@ Generator.prototype.writeProjectConfigFile = function() {
     "cssProcessor": this.options.cssProcessor,
     "frontEndFramework": this.options.frontEndFramework,
     "jQuery": this.options.jQuery,
-    "modules": this.options.modules,
     "generatedBy": "Pixel2HTML",
     "generatedAt": moment().format()
   };
