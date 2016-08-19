@@ -8,7 +8,7 @@ var sass = require('gulp-sass');
 
 var sourcemaps = require('gulp-sourcemaps');
 
-var minify = require('gulp-minify-css');
+var minify = require('gulp-clean-css');
 var plumber = require('gulp-plumber');
 var autoprefixer = require('gulp-autoprefixer');
 
