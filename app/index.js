@@ -107,11 +107,11 @@ Generator.prototype.readConfigFile = function() {
 
 Generator.prototype.welcome = function() {
   if (!this.options['skip-welcome-message']) {
-    this.log(
-      chalk.white.bgRed.bold(
-        'Welcome to Pixel2HTML Boilerplate Generator'
-      )
-    );
+    this.log('');
+    this.log(chalk.cyan(' ****************************************************') + '\n');
+    this.log(chalk.cyan('  Welcome to'), chalk.white.bold(' Pixel2HTML Generator '));
+    this.log(chalk.white('  A Yeoman generator for scaffolding web projects') + '\n');
+    this.log(chalk.cyan(' ****************************************************') + '\n');
   }
 };
 
@@ -184,7 +184,7 @@ Generator.prototype.askForQtyScreens = function() {
     [{
       type: 'input',
       name: 'qtyScreens',
-      message: 'How many Screens to will code?',
+      message: 'How many screens do you need to code?',
       default: 1,
       when: function() {
         return !qtyScreens;
@@ -218,7 +218,7 @@ Generator.prototype.askForCssProcessor = function() {
         name: 'Less',
         value: 'less',
       }, {
-        name: 'Styl',
+        name: 'Stylus',
         value: 'styl',
       }, {
         name: 'None',

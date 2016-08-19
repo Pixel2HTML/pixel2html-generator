@@ -32,9 +32,7 @@ gulp.task('vendor:foundation:styles', function() {
     .pipe(rename('foundation.css'))
     .pipe(gulp.dest('<%= paths.dist.styles %>'))
     .pipe(autoprefixer('last 2 versions', 'iOS 8'))
-    .pipe(minify({
-      keepSpecialComments: 0
-    }))
+    .pipe(minify())
     .pipe(rename({
       suffix: '.min'
     }))

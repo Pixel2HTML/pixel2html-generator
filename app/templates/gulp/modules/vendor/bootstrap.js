@@ -3,12 +3,12 @@
 
 var gulp = require('gulp');
 
-
 var sass = require('gulp-sass');
 
 var sourcemaps = require('gulp-sourcemaps');
 
 var minify = require('gulp-clean-css');
+
 var plumber = require('gulp-plumber');
 var autoprefixer = require('gulp-autoprefixer');
 
@@ -38,9 +38,7 @@ gulp.task('vendor:bootstrap:styles', function() {
     .pipe(rename('bootstrap.css'))
     .pipe(autoprefixer('last 2 version', 'iOS 8'))
     .pipe(gulp.dest('<%= paths.dist.styles %>'))
-    .pipe(minify({
-      keepSpecialComments: 0
-    }))
+    .pipe(minify())
     .pipe(rename({
       suffix: '.min'
     }))
