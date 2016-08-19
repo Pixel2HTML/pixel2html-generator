@@ -384,6 +384,18 @@ Generator.prototype.writeProjectFiles = function() {
     this.templatePath('git/gitattributes'),
     this.destinationPath('.gitattributes')
   );
+  this.log(chalk.yellow('Copying README file.'));
+  this.fs.copyTpl(
+    this.templatePath('base/README.md'),
+    this.destinationPath('README.md'), {
+      paths: this.paths,
+      projectName: this.options.projectName,
+      frontEndFramework: this.options.frontEndFramework,
+      jQuery: this.options.jQuery,
+      qtyScreens: this.options.qtyScreens,
+      cssProcessor: this.options.cssProcessor
+    }
+  );
 };
 
 Generator.prototype.createFolders = function() {
