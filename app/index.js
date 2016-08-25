@@ -39,7 +39,7 @@ var Generator = module.exports = function Generator(args, options) {
       'frontendframework': 'dist/assets/css/vendor',
     },
     'releases': {
-      'base': 'releases'
+      'base': 'dist/releases'
     }
   };
 
