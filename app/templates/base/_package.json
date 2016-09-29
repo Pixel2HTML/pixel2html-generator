@@ -3,7 +3,7 @@
   "description": "pixel2html <%= clientId %>/<%= projectName %>",
   "license": "MIT",
   "repository": "http://code.pixel2html.com",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "scripts": {
     "start": "npm install && bower install && gulp serve"
   },
