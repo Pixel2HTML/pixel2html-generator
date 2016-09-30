@@ -8,6 +8,13 @@ For this job, run this command in your shell
 $ npm run start
 ```
 
+### Other available npm commands
+
+```
+$ npm run install //only install dependencies
+$ npm run build //install dependencies and build the project without serving
+```
+
 ## File Structure
 
 This boilerplate will create a set of files and folders
@@ -54,6 +61,8 @@ bower.json
 gulpfile.js
 package.json
 ```
+
+
 
 ## Available Gulp Commands
 
