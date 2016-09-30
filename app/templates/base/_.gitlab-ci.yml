@@ -4,5 +4,5 @@ job:
    script:
       - gulp
       - gulp build:zip
-      - rsync -pva --exclude 'node_modules' --exclude 'assets/src' --exclude '.*' --exclude '.*/' ./dist/ deployer@demos.pixel2html.com:/home/deployer/www/demos/<%= clientId %>/<%= projectName %>/
+      - rsync -avzr --stats --delete-after --exclude 'node_modules' --exclude 'assets/src' --exclude '.*' --exclude '.*/' ./dist/ deployer@demos.pixel2html.com:/home/deployer/www/demos/<%= clientId %>/<%= projectName %>/
       - "curl -X POST -F path=<%= clientId %>/<%= projectName %> http://deployer.pixel2html.com/html/demo_links_update"
