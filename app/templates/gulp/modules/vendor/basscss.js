@@ -40,8 +40,8 @@ gulp.task('vendor:basscss:styles', function() {
     .pipe(browserSync.reload({stream:true}));
 });
 
-gulp.task('vendor:bootstrap:fonts', function() {});
-gulp.task('vendor:bootstrap:scripts', function() {});
+gulp.task('vendor:basscss:fonts', function() {});
+gulp.task('vendor:basscss:scripts', function() {});
 
 
 gulp.task('vendor:basscss', ['vendor:basscss:styles', 'vendor:basscss:scripts', 'vendor:basscss:fonts'])
