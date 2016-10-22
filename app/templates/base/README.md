@@ -5,14 +5,14 @@ To work, the **Pixel2HTML Boilerplate** needs to install some dependencies to ru
 For this job, run this command in your shell
 
 ```
-$ npm run start
+$ npm install
+$ npm run code
 ```
 
 ### Other available npm commands
 
 ```
-$ npm run install //only install dependencies
-$ npm run build //install dependencies and build the project without serving
+$ npm run build //build the project without serving
 ```
 
 ## File Structure
