@@ -286,18 +286,19 @@ Generator.prototype.askForFrontEndFramework = function() {
       type: 'list',
       name: 'frontEndFramework',
       message: 'What FrontEnd Framework do you like to include?',
-      choices: [{
-        name: 'BassCss',
-        value: 'basscss',
-      }, {
-        name: 'Bootstrap',
-        value: 'bootstrap',
-      }, {
-        name: 'Foundation',
-        value: 'foundation',
-      }, {
+      choices: [
+      {
         name: 'None',
         value: false,
+      },{
+        name: 'Bootstrap',
+        value: 'bootstrap',
+      },{
+        name: 'Foundation',
+        value: 'foundation',
+      },{
+        name: 'BassCss',
+        value: 'basscss',
       }],
       when: function() {
         return !frontEndFramework;
@@ -571,7 +572,7 @@ Generator.prototype.writeBaseGulpFiles = function() {
     }
   );
 
-  //styles:main
+  //main:styles
   this.fs.copyTpl(
     this.templatePath('gulp/modules/styles.js'),
     this.destinationPath(this.paths.src.gulp + '/styles.js'), {
@@ -581,7 +582,7 @@ Generator.prototype.writeBaseGulpFiles = function() {
     }
   );
 
-  //scripts:main
+  //main:scripts
   this.fs.copyTpl(
     this.templatePath('gulp/modules/scripts.js'),
     this.destinationPath(this.paths.src.gulp + '/scripts.js'), {
