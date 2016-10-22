@@ -598,7 +598,6 @@ Generator.prototype.writeBaseGulpFiles = function() {
 };
 
 Generator.prototype.writeFrontEndFrameworkFiles = function() {
-  var cssProcessor = this.options.cssProcessor;
   var frontEndFramework = this.options.frontEndFramework;
 
   if (!this.options.frontEndFramework) {

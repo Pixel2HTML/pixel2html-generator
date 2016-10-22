@@ -1,8 +1,8 @@
 /**
- * Pixel2HTML - <%= clientId %>/<%= projectName %>
+ * Pixel2HTML - <%= clientId %>/<%= projectId %>
  */
 
-var msg = 'Pixel2HTML - <%= clientId %>/<%= projectName %>';
+var msg = 'Pixel2HTML - <%= clientId %>/<%= projectId %>';
 
 function printLog(log){
     'use strict';

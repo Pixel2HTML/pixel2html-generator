@@ -22,8 +22,6 @@ gulp.task('main:scripts', function() {
     .pipe(plumber({
       errorHandler: onError
     }))
-    .pipe(jshint())
-    .pipe(jshint.reporter('default'))
     .pipe(gulp.dest('<%= paths.dist.scripts %>'))
     .pipe(concat('main.min.js'))
     .pipe(uglify())
