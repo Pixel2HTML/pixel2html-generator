@@ -3,8 +3,8 @@
 var gulp = require('gulp');
 
 
-var defaultGulp = [
-  'main:html',
+gulp.task('default', [
+  'main:markup',
   'main:static',
   'main:styles',
   'main:scripts',
@@ -14,6 +14,4 @@ var defaultGulp = [
   <% if(jQuery){ %>
   'vendor:jquery',
   <% } %>
-];
-
-gulp.task('default', defaultGulp);
+]);

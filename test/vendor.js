@@ -4,7 +4,7 @@ var path = require('path');
 var helpers = require('yeoman-generator').test;
 var assert = require('yeoman-assert');
 var fs = require('fs');
-describe('Stylus features', function() {
+describe('Vendors features', function() {
   describe('project with not vendor needs', function() {
     before('crafting project', function(done) {
       helpers.run(path.join(__dirname, '../app'))
@@ -16,6 +16,7 @@ describe('Stylus features', function() {
           clientId: '0987',
           projectId: '1234',
           qtyScreens: 6,
+          markupLanguage: 'html',
           cssProcessor: 'less',
           jQuery: false,
           frontEndFramework: false
@@ -43,6 +44,7 @@ describe('Stylus features', function() {
           clientId: '0987',
           projectName: '1234',
           qtyScreens: 6,
+          markupLanguage: 'html',
           cssProcessor: 'less',
           jQuery: true,
           frontEndFramework: 'bootstrap'

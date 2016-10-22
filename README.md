@@ -27,6 +27,7 @@ $ yo pixel2html <params>
 * ```--clientId``` (*int*)
 * ```--projectName``` (*int*)
 * ```--qtyScreens``` (*int*)
+* ```--markupLanguage``` (*string*) [html, pug]
 * ```--cssProcessor``` (*string*) [scss, less, styl, none]
 * ```--frontEndFramework``` (*string*) [basscss, bootstrap, foundation, none]
 * ```--jQuery``` (*bool*)
@@ -42,6 +43,7 @@ Here an example of it's structure
   "clientId": XXX,
   "projectName": XXX,
   "qtyScreens": 4,
+  "markupLanguage": 'html',
   "cssProcessor": "less",
   "frontEndFramework": "bootstrap",
   "jQuery": true,
@@ -94,7 +96,7 @@ This boilerplate will create a set of files and folders
             mixins.ext
             variables.ext
       /vendor
-   screen_*.html
+   screen_*.[html|pug]
 .bowerrc
 .gitattributes
 .gitignore
@@ -116,6 +118,9 @@ package.json
 * `$ gulp main:static:images` Move & optimize images
 * `$ gulp main:static:fonts` Move fonts
 * `$ gulp main:static:icons` Move icons
+
+### Markup
+* `$ gulp main:markup` Compile, move HTML/Pug files
 
 ### Scripts
 * `$ gulp main:scripts` Concat, uglify and move JS files

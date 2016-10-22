@@ -24,7 +24,7 @@ var Generator = module.exports = function Generator(args, options) {
       'vendors': 'src/assets/vendor',
       'scripts': 'src/assets/js',
       'styles': 'src/assets/styles',
-      'html': 'src',
+      'markup': 'src',
       'frontendframework': 'src/assets/styles/vendor',
     },
     'dist': {
@@ -35,7 +35,7 @@ var Generator = module.exports = function Generator(args, options) {
       'scripts': 'dist/assets/js',
       'styles': 'dist/assets/css',
       'base': 'dist',
-      'html': 'dist',
+      'markup': 'dist',
       'frontendframework': 'dist/assets/css/vendor',
     },
     'releases': {
@@ -62,7 +62,7 @@ var Generator = module.exports = function Generator(args, options) {
     required: false
   });
 
-  this.option('markupLanguaje', {
+  this.option('markupLanguage', {
     desc: 'Sets the Markup Languaje [html, pug]',
     type: String,
     required: false
@@ -102,7 +102,7 @@ Generator.prototype.readConfigFile = function() {
     this.options.clientId = config.clientId;
     this.options.projectId = config.projectId;
     this.options.qtyScreens = config.qtyScreens;
-    this.options.markupLanguaje = config.markupLanguaje;
+    this.options.markupLanguage = config.markupLanguage;
     this.options.cssProcessor = config.cssProcessor;
     this.options.frontEndFramework = config.frontEndFramework;
     this.options.jQuery = config.jQuery;
@@ -149,7 +149,7 @@ Generator.prototype.askForClientId = function() {
   );
 };
 
-Generator.prototype.askForProjectName = function() {
+Generator.prototype.askForProjectId = function() {
 
   var cb = this.async();
 
@@ -164,7 +164,7 @@ Generator.prototype.askForProjectName = function() {
       type: 'input',
       name: 'projectId',
       required: true,
-      message: 'Give me the Project Name!',
+      message: 'Give me the Project ID!',
       when: function() {
         return !projectId;
       }
@@ -202,6 +202,37 @@ Generator.prototype.askForQtyScreens = function() {
       cb();
     }.bind(this)
   );
+};
+
+Generator.prototype.askForMarkupLanguage = function() {
+
+  var cb = this.async();
+  var markupLanguage = this.options.markupLanguage
+
+  if (markupLanguage) {
+    cb();
+    return true;
+  }
+
+  this.prompt([{
+      type: 'list',
+      name: 'markupLanguage',
+      message: 'What markup lenguage would you like to use? Pick one',
+      choices: [{
+        name: 'HTML',
+        value: 'html',
+      }, {
+        name: 'pug/jade',
+        value: 'pug',
+      }],
+      when: function() {
+        return !markupLanguage;
+      }
+    }],
+    function(props) {
+      this.options.markupLanguage = props.markupLanguage;
+      cb();
+    }.bind(this));
 };
 
 Generator.prototype.askForCssProcessor = function() {
@@ -309,15 +340,10 @@ Generator.prototype.writeProjectFiles = function() {
     this.destinationPath('package.json'), {
       clientId: this.options.clientId,
       projectId: this.options.projectId,
+      markupLanguage: this.options.markupLanguage,
       cssProcessor: this.options.cssProcessor,
       frontEndFramework: this.options.frontEndFramework
     }
-  );
-
-  this.log(chalk.yellow('Copying jshintrc file.'));
-  this.fs.copy(
-    this.templatePath('base/jshintrc'),
-    this.destinationPath('.jshintrc')
   );
 
   this.log(chalk.yellow('Copying editorconfig file.'));
@@ -338,6 +364,7 @@ Generator.prototype.writeProjectFiles = function() {
     this.templatePath('git/gitattributes'),
     this.destinationPath('.gitattributes')
   );
+
   this.log(chalk.yellow('Copying README file.'));
   this.fs.copyTpl(
     this.templatePath('base/README.md'),
@@ -347,6 +374,7 @@ Generator.prototype.writeProjectFiles = function() {
       frontEndFramework: this.options.frontEndFramework,
       jQuery: this.options.jQuery,
       qtyScreens: this.options.qtyScreens,
+      markupLanguage: this.options.markupLanguage,
       cssProcessor: this.options.cssProcessor
     }
   );
@@ -396,7 +424,7 @@ Generator.prototype.writeBaseBowerFile = function() {
   switch (this.options.frontEndFramework) {
     case 'bootstrap':
       bowerJson.dependencies['bootstrap-sass'] = '^3.3.*';
-      break; //bootstrap
+      break;
 
     case 'basscss':
       bowerJson.dependencies['basscss-sass'] = '~4.0.*';
@@ -420,12 +448,12 @@ Generator.prototype.writeBaseBowerFile = function() {
   );
 };
 
-Generator.prototype.writeHTMLFiles = function() {
+Generator.prototype.writeMarkupFiles = function() {
 
   for (var i = 1; i < this.options.qtyScreens + 1; i++) {
     this.fs.copyTpl(
-      this.templatePath('html/_screen.html'),
-      this.destinationPath(this.paths.src.html+'/screen_' + i + '.html'), {
+      this.templatePath('markup/_screen.'+this.options.markupLanguage),
+      this.destinationPath(this.paths.src.markup+'/screen_' + i + '.'+this.options.markupLanguage), {
         screenNumber: i,
         clientId: this.options.clientId,
         projectId: this.options.projectId,
@@ -561,11 +589,12 @@ Generator.prototype.writeBaseGulpFiles = function() {
     }
   );
 
-  //html:main
+  //main:markup
   this.fs.copyTpl(
-    this.templatePath('gulp/modules/html.js'),
-    this.destinationPath(this.paths.src.gulp + '/html.js'), {
-      paths: this.paths
+    this.templatePath('gulp/modules/markup.js'),
+    this.destinationPath(this.paths.src.gulp + '/markup.js'), {
+      paths: this.paths,
+      markupLanguage: this.options.markupLanguage
     }
   );
 
@@ -575,6 +604,7 @@ Generator.prototype.writeBaseGulpFiles = function() {
     this.destinationPath(this.paths.src.gulp + '/watch.js'), {
       paths: this.paths,
       cssProcessor: this.options.cssProcessor,
+      markupLanguage: this.options.markupLanguage,
       frontEndFramework: this.options.frontEndFramework
     }
   );
@@ -654,6 +684,7 @@ Generator.prototype.writeProjectConfigFile = function() {
     "clientId": this.options.clientId,
     "projectId": this.options.projectId,
     "qtyScreens": this.options.qtyScreens,
+    "markupLanguage": this.options.markupLanguage,
     "cssProcessor": this.options.cssProcessor,
     "frontEndFramework": this.options.frontEndFramework,
     "jQuery": this.options.jQuery,

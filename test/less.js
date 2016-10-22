@@ -18,6 +18,7 @@ describe('LESS features', function() {
         clientId: '0987',
         projectId: '1234',
         qtyScreens: 3,
+        markupLanguage: 'html',
         cssProcessor: 'less',
       })
       .on('end', done);

@@ -19,6 +19,7 @@ describe('Foundation features', function() {
         clientId: '0987',
         projectId: '1234',
         qtyScreens: 3,
+        markupLanguage: 'html',
         cssProcessor: 'scss',
         frontEndFramework: 'foundation',
       })

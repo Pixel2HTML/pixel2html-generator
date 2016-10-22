@@ -17,6 +17,7 @@ describe('general', function() {
         clientId: '0987',
         projectId: '1234',
         qtyScreens: 6,
+        markupLanguage: 'html',
         cssProcessor: 'less',
       })
       .on('end', done);
@@ -27,7 +28,6 @@ describe('general', function() {
       '.bowerrc',
       '.gitignore',
       '.gitattributes',
-      '.jshintrc',
       'bower.json',
       'package.json',
       'gulpfile.js',
