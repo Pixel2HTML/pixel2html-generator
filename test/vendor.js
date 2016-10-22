@@ -14,7 +14,7 @@ describe('Stylus features', function() {
         })
         .withPrompts({
           clientId: '0987',
-          projectName: '1234',
+          projectId: '1234',
           qtyScreens: 6,
           cssProcessor: 'less',
           jQuery: false,

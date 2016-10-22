@@ -44,21 +44,27 @@ var Generator = module.exports = function Generator(args, options) {
   };
 
   //Options to set thru CLI
-  this.option('projectName', {
-    desc: 'Sets the project name i.e.: 3845',
-    type: String,
+  this.option('projectId', {
+    desc: 'Sets the project id i.e.: 3845',
+    type: Number,
     required: false
   });
 
   this.option('clientId', {
     desc: 'Sets the client id i.e.: 3845',
-    type: String,
+    type: Number,
     required: false
   });
 
   this.option('qtyScreens', {
     desc: 'Sets the quantity of screens have the project i.e. 5 (1 homepage, 4 inners)',
     type: Number,
+    required: false
+  });
+
+  this.option('markupLanguaje', {
+    desc: 'Sets the Markup Languaje [html, pug]',
+    type: String,
     required: false
   });
 
@@ -94,8 +100,9 @@ Generator.prototype.readConfigFile = function() {
     }
 
     this.options.clientId = config.clientId;
-    this.options.projectName = config.projectName;
+    this.options.projectId = config.projectId;
     this.options.qtyScreens = config.qtyScreens;
+    this.options.markupLanguaje = config.markupLanguaje;
     this.options.cssProcessor = config.cssProcessor;
     this.options.frontEndFramework = config.frontEndFramework;
     this.options.jQuery = config.jQuery;
@@ -146,24 +153,24 @@ Generator.prototype.askForProjectName = function() {
 
   var cb = this.async();
 
-  var projectName = this.options.projectName;
+  var projectId = this.options.projectId;
 
-  if (projectName) {
+  if (projectId) {
     cb();
     return true;
   }
   this.prompt(
     [{
       type: 'input',
-      name: 'projectName',
+      name: 'projectId',
       required: true,
       message: 'Give me the Project Name!',
       when: function() {
-        return !projectName;
+        return !projectId;
       }
     }],
     function(props) {
-      this.options.projectName = props.projectName;
+      this.options.projectId = props.projectId;
       cb();
     }.bind(this)
   );
@@ -301,7 +308,7 @@ Generator.prototype.writeProjectFiles = function() {
     this.templatePath('base/_package.json'),
     this.destinationPath('package.json'), {
       clientId: this.options.clientId,
-      projectName: this.options.projectName,
+      projectId: this.options.projectId,
       cssProcessor: this.options.cssProcessor,
       frontEndFramework: this.options.frontEndFramework
     }
@@ -336,7 +343,7 @@ Generator.prototype.writeProjectFiles = function() {
     this.templatePath('base/README.md'),
     this.destinationPath('README.md'), {
       paths: this.paths,
-      projectName: this.options.projectName,
+      projectId: this.options.projectId,
       frontEndFramework: this.options.frontEndFramework,
       jQuery: this.options.jQuery,
       qtyScreens: this.options.qtyScreens,
@@ -381,7 +388,7 @@ Generator.prototype.copyGitKeepFiles = function() {
 Generator.prototype.writeBaseBowerFile = function() {
 
   var bowerJson = {
-    name: 'pixel2html-' + _s.slugify(this.options.clientId) + '-' + _s.slugify(this.options.projectName),
+    name: 'pixel2html-' + _s.slugify(this.options.clientId) + '-' + _s.slugify(this.options.projectId),
     private: true,
     dependencies: {}
   };
@@ -421,7 +428,7 @@ Generator.prototype.writeHTMLFiles = function() {
       this.destinationPath(this.paths.src.html+'/screen_' + i + '.html'), {
         screenNumber: i,
         clientId: this.options.clientId,
-        projectName: this.options.projectName,
+        projectId: this.options.projectId,
         frontEndFramework: this.options.frontEndFramework,
         jQuery: this.options.jQuery,
       }
@@ -440,7 +447,7 @@ Generator.prototype.writeBaseStyles = function() {
     this.templatePath('styles/' + cssProcessor + '/main.' + cssProcessor),
     this.destinationPath(this.paths.src.styles + '/main.' + cssProcessor), {
       clientId: this.options.clientId,
-      projectName: this.options.projectName,
+      projectId: this.options.projectId,
       qtyScreens: this.options.qtyScreens
     }
   );
@@ -488,7 +495,7 @@ Generator.prototype.writeBaseStyles = function() {
       this.destinationPath(this.paths.src.styles + '/screens/screen_' + i + '.' + cssProcessor), {
         screenNumber: i,
         clientId: this.options.clientId,
-        projectName: this.options.projectName
+        projectId: this.options.projectId
       }
     );
   }
@@ -501,7 +508,7 @@ Generator.prototype.writeBaseScriptsFiles = function() {
     this.templatePath('scripts/main.js'),
     this.destinationPath(this.paths.src.scripts + '/main.js'), {
       clientId: this.options.clientId,
-      projectName: this.options.projectName
+      projectId: this.options.projectId
     }
   );
 };
@@ -635,7 +642,7 @@ Generator.prototype.writeGitlabCIFiles = function() {
     this.templatePath('base/_.gitlab-ci.yml'),
     this.destinationPath('.gitlab-ci.yml'), {
       clientId: '000'+this.options.clientId,
-      projectName: '000'+this.options.projectName
+      projectId: '000'+this.options.projectId
     }
   );
 }
@@ -646,7 +653,7 @@ Generator.prototype.writeProjectConfigFile = function() {
 
   var configJson = {
     "clientId": this.options.clientId,
-    "projectName": this.options.projectName,
+    "projectId": this.options.projectId,
     "qtyScreens": this.options.qtyScreens,
     "cssProcessor": this.options.cssProcessor,
     "frontEndFramework": this.options.frontEndFramework,
