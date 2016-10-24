@@ -21,45 +21,44 @@ This boilerplate will create a set of files and folders
 
 ```
 
-/dist
-/src
-   /assets
-      /fonts
-      /gulp
-      /icons
-      /images
-      /js
-      /styles
-            /components
-                  _buttons.<%= cssProcessor %>
-                  _footer.<%= cssProcessor %>
-                  _header.<%= cssProcessor %>
-                  _nav.<%= cssProcessor %>
-            /screens
-                  _base.<%= cssProcessor %>
-                  <% for(var i=1; i<=qtyScreens; i++) {%>screen_<%=i%>.<%= cssProcessor %>
-                  <% } %>
-            <% if (frontEndFramework) { -%>
-            /vendor
-                /<%= frontEndFramework %>
-                      index.scss
-                      variables.scss
-                      <% } -%>
-            main.<%= cssProcessor %>
-            mixins.<%= cssProcessor %>
-            variables.<%= cssProcessor %>
-      /vendor
-  <% for(var i=1; i<=qtyScreens; i++) {%>
-    screen_<%=i%>.<%=markupLanguage%><% } %>
-.bowerrc
-.gitattributes
-.gitignore
-.jshintrc
-.editorcofig
-.project.conf
-bower.json
-gulpfile.js
-package.json
+├── dist/
+├── src/
+│    ├──  assets/
+│    │    ├──  .gulp/
+│    │    ├──  fonts/
+│    │    ├──  icons/
+│    │    ├──  images/
+│    │    ├──  js/
+│    │    ├──  styles/
+│    │    │    ├──  components/
+│    │    │    │    ├──  _buttons.<%= cssProcessor %>
+│    │    │    │    ├──  _footer.<%= cssProcessor %>
+│    │    │    │    ├──  _header.<%= cssProcessor %>
+│    │    │    │    └──  _nav.<%= cssProcessor %>
+│    │    │    ├──  screens/
+│    │    │    │    ├──  _base.<%= cssProcessor %>
+<% for(var i=1; i<=qtyScreens; i++) {%>│    │    │    │    └──  screen_<%=i%>.<%= cssProcessor %>
+<% } %><% if (frontEndFramework) { -%>│    │    │    ├──  vendor/
+│    │    │    │    ├──  <%= frontEndFramework %>/
+│    │    │    │         ├──  index.scss
+│    │    │    │         └──  variables.scss<% } -%>
+
+│    │    │    ├──  _variables.<%= cssProcessor %>
+│    │    │    ├──  _reset.<%= cssProcessor %>
+│    │    │    ├──  _mixins.<%= cssProcessor %>
+│    │    │    └──  main.<%= cssProcessor %>
+│    │    └──  vendor/
+<% for(var i=1; i<=qtyScreens; i++) {%>│    └──  screen_<%=i%>.<%=markupLanguage%>
+<% } %>├── .bowerrc
+├── .editorcofig
+├── .gitattributes
+├── .gitignore
+├── .gitlab-ci.yml
+├── .project.conf
+├── bower.json
+├── gulpfile.js
+├── package.json
+└── README.md
 ```
 
 

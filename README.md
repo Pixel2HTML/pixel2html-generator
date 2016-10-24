@@ -71,41 +71,41 @@ This boilerplate will create a set of files and folders
 
 ```
 
-/dist
-/src
-   /assets
-      /fonts
-      /gulp
-      /icons
-      /images
-      /js
-      /styles
-            /components
-                  _buttons.ext
-                  _footer.ext
-                  _header.ext
-                  _nav.ext
-            /screens
-                  _base.ext
-                  screen_*.ext
-            /vendor
-                  /frontend framework [bootstrap|foundation|basscss]
-                        index.scss
-                        variables.scss
-            main.ext
-            mixins.ext
-            variables.ext
-      /vendor
-   screen_*.[html|pug]
-.bowerrc
-.gitattributes
-.gitignore
-.jshintrc
-.editorcofig
-.project.conf
-bower.json
-gulpfile.js
-package.json
+├──  dist/
+├──  src/
+│    └──  assets/
+│    ├──  fonts/
+│    ├──  gulp/
+│    ├──  icons/
+│    ├──  images/
+│    ├──  js/
+│    ├──   styles/
+│    │    ├──  components/
+│    │    │    ├──  _buttons.ext
+│    │    │    ├──  _footer.ext
+│    │    │    ├──  _header.ext
+│    │    │    └── _nav.ext
+│    │    ├──  screens/
+│    │    │    ├──  _base.ext
+│    │    │    └──  screen_*.ext
+│    │    ├──  vendor/
+│    │    │    └──  frontend_framework/ [bootstrap|foundation|basscss]
+│    │    │         ├──  index.scss
+│    │    │         └──  variables.scss
+│    │    ├── main.ext
+│    │    ├── mixins.ext
+│    │    └── variables.ext
+│    └──  vendor/
+│    └──  screen_*.[html|pug]
+├──  .bowerrc
+├──  .gitattributes
+├──  .gitignore
+├──  .jshintrc
+├──  .editorcofig
+├──  .project.conf
+├──  bower.json
+├──  gulpfile.js
+└──  package.json
 ```
 
 ## Available Gulp Commands
