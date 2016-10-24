@@ -5,7 +5,7 @@
   "repository": "http://code.pixel2html.com",
   "version": "1.0.3",
   "scripts": {
-    "postinstall": "bower install",
+    "start": "npm install && bower install",
     "code": "gulp serve",
     "build": "gulp build"
   },
