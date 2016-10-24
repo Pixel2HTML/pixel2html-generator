@@ -27,7 +27,7 @@ gulp.task('vendor:basscss:styles', function() {
     }))
     .pipe(sass({
       outputStyle: 'expanded',
-      includePaths: ['<%= paths.src.vendors %>/basscss-sass']
+      includePaths: ['<%= paths.src.vendors %>/basscss-sass/scss']
     }))
     .pipe(rename('basscss.css'))
     .pipe(gulp.dest('<%= paths.dist.styles %>'))
