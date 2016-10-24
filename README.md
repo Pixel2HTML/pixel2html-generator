@@ -5,6 +5,7 @@
 We aim to generate a boilerplate for projects when we know the specs.
 
 ## How to install
+
 You will need `node` installed in your machine. In case you don't have it (you can check this typing `node -v` in your terminal) please visit [this link](https://nodejs.org/en/download/).
 
 Now we need to install **Yeoman**, **Bower** and the **Pixel2HTML Generator**, so, run this command in your terminal. This one will install globally.
