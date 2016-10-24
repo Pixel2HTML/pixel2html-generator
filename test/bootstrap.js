@@ -17,8 +17,9 @@ describe('Bootstrap features', function() {
       })
       .withPrompts({
         clientId: '0987',
-        projectName: '1234',
+        projectId: '1234',
         qtyScreens: 3,
+        markupLanguage: 'html',
         cssProcessor: 'less',
         frontEndFramework: 'bootstrap',
       })

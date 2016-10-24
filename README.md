@@ -24,9 +24,10 @@ $ yo pixel2html <params>
 
 ### Available Parameters
 
-* ```--clientId``` (*string*)
-* ```--projectName``` (*string*)
+* ```--clientId``` (*int*)
+* ```--projectName``` (*int*)
 * ```--qtyScreens``` (*int*)
+* ```--markupLanguage``` (*string*) [html, pug]
 * ```--cssProcessor``` (*string*) [scss, less, styl, none]
 * ```--frontEndFramework``` (*string*) [basscss, bootstrap, foundation, none]
 * ```--jQuery``` (*bool*)
@@ -39,9 +40,10 @@ Here an example of it's structure
 
 ```
 {
-  "clientId": "XXX",
-  "projectName": "XXX",
+  "clientId": XXX,
+  "projectName": XXX,
   "qtyScreens": 4,
+  "markupLanguage": 'html',
   "cssProcessor": "less",
   "frontEndFramework": "bootstrap",
   "jQuery": true,
@@ -50,7 +52,7 @@ Here an example of it's structure
 }
 ```
 
-Once you created this file, run 
+Once you created this file, run
 ```
 $ yo pixel2html
 ```
@@ -94,7 +96,7 @@ This boilerplate will create a set of files and folders
             mixins.ext
             variables.ext
       /vendor
-   screen_*.html
+   screen_*.[html|pug]
 .bowerrc
 .gitattributes
 .gitignore
@@ -116,6 +118,9 @@ package.json
 * `$ gulp main:static:images` Move & optimize images
 * `$ gulp main:static:fonts` Move fonts
 * `$ gulp main:static:icons` Move icons
+
+### Markup
+* `$ gulp main:markup` Compile, move HTML/Pug files
 
 ### Scripts
 * `$ gulp main:scripts` Concat, uglify and move JS files
@@ -149,7 +154,7 @@ package.json
 
 ### Daemons
 * `$ gulp watch` **Watch** your files and autoexecute gulp directives
-* `$ gulp serve` **Watch** your files and **serve** with an HTTP server and **Sync** with your prefered browser _awesome!_ 
+* `$ gulp serve` **Watch** your files and **serve** with an HTTP server and **Sync** with your prefered browser _awesome!_
 
 ### Delivery
  * `$ gulp build` Execute all the gulp directives and makes a `.zip` file with the latest code.

@@ -1,6 +1,5 @@
 {
-  "name": "<?= projectName %>",
+  "name": "<?= projectId %>",
   "version": "1.0.0",
   "dependencies": {}
 }
-

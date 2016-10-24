@@ -14,8 +14,9 @@ describe('SCSS features', function() {
       })
       .withPrompts({
         clientId: '0987',
-        projectName: '1234',
+        projectId: '1234',
         qtyScreens: 3,
+        markupLanguage: 'html',
         cssProcessor: 'scss',
       })
       .on('end', done);
@@ -50,6 +51,12 @@ describe('SCSS features', function() {
         'src/assets/styles/screens/screen_2.scss',
         'src/assets/styles/screens/screen_3.scss',
       ]);
+    });
+
+    it('should exists a gulp routine', function(){
+      assert.file([
+        'src/.gulp/styles.js'
+      ])
     });
 
   });

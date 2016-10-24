@@ -10,12 +10,13 @@ var onError = function(err) {
   this.emit('end');
 };
 
+
 gulp.task('build:zip', function() {
 
   var distFiles = [
     'dist/*.html',
     'dist/assets/**/*',
-    <% if (cssProcessor === 'scss') { %>
+    <% if (cssProcessor) { %>
     'src/assets/styles/**/*',
     <% } %>
   ];

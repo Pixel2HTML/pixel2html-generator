@@ -24,7 +24,7 @@ var Generator = module.exports = function Generator(args, options) {
       'vendors': 'src/assets/vendor',
       'scripts': 'src/assets/js',
       'styles': 'src/assets/styles',
-      'html': 'src',
+      'markup': 'src',
       'frontendframework': 'src/assets/styles/vendor',
     },
     'dist': {
@@ -35,7 +35,7 @@ var Generator = module.exports = function Generator(args, options) {
       'scripts': 'dist/assets/js',
       'styles': 'dist/assets/css',
       'base': 'dist',
-      'html': 'dist',
+      'markup': 'dist',
       'frontendframework': 'dist/assets/css/vendor',
     },
     'releases': {
@@ -44,21 +44,27 @@ var Generator = module.exports = function Generator(args, options) {
   };
 
   //Options to set thru CLI
-  this.option('projectName', {
-    desc: 'Sets the project name i.e.: 3845',
-    type: String,
+  this.option('projectId', {
+    desc: 'Sets the project id i.e.: 3845',
+    type: Number,
     required: false
   });
 
   this.option('clientId', {
     desc: 'Sets the client id i.e.: 3845',
-    type: String,
+    type: Number,
     required: false
   });
 
   this.option('qtyScreens', {
     desc: 'Sets the quantity of screens have the project i.e. 5 (1 homepage, 4 inners)',
     type: Number,
+    required: false
+  });
+
+  this.option('markupLanguage', {
+    desc: 'Sets the Markup Languaje [html, pug]',
+    type: String,
     required: false
   });
 
@@ -94,8 +100,9 @@ Generator.prototype.readConfigFile = function() {
     }
 
     this.options.clientId = config.clientId;
-    this.options.projectName = config.projectName;
+    this.options.projectId = config.projectId;
     this.options.qtyScreens = config.qtyScreens;
+    this.options.markupLanguage = config.markupLanguage;
     this.options.cssProcessor = config.cssProcessor;
     this.options.frontEndFramework = config.frontEndFramework;
     this.options.jQuery = config.jQuery;
@@ -142,28 +149,28 @@ Generator.prototype.askForClientId = function() {
   );
 };
 
-Generator.prototype.askForProjectName = function() {
+Generator.prototype.askForProjectId = function() {
 
   var cb = this.async();
 
-  var projectName = this.options.projectName;
+  var projectId = this.options.projectId;
 
-  if (projectName) {
+  if (projectId) {
     cb();
     return true;
   }
   this.prompt(
     [{
       type: 'input',
-      name: 'projectName',
+      name: 'projectId',
       required: true,
-      message: 'Give me the Project Name!',
+      message: 'Give me the Project ID!',
       when: function() {
-        return !projectName;
+        return !projectId;
       }
     }],
     function(props) {
-      this.options.projectName = props.projectName;
+      this.options.projectId = props.projectId;
       cb();
     }.bind(this)
   );
@@ -197,6 +204,37 @@ Generator.prototype.askForQtyScreens = function() {
   );
 };
 
+Generator.prototype.askForMarkupLanguage = function() {
+
+  var cb = this.async();
+  var markupLanguage = this.options.markupLanguage
+
+  if (markupLanguage) {
+    cb();
+    return true;
+  }
+
+  this.prompt([{
+      type: 'list',
+      name: 'markupLanguage',
+      message: 'What markup lenguage would you like to use? Pick one',
+      choices: [{
+        name: 'HTML',
+        value: 'html',
+      }, {
+        name: 'pug/jade',
+        value: 'pug',
+      }],
+      when: function() {
+        return !markupLanguage;
+      }
+    }],
+    function(props) {
+      this.options.markupLanguage = props.markupLanguage;
+      cb();
+    }.bind(this));
+};
+
 Generator.prototype.askForCssProcessor = function() {
 
   var cb = this.async();
@@ -222,7 +260,7 @@ Generator.prototype.askForCssProcessor = function() {
         value: 'styl',
       }, {
         name: 'None',
-        value: 'css',
+        value: false,
       }],
       when: function() {
         return !cssProcessor;
@@ -248,18 +286,19 @@ Generator.prototype.askForFrontEndFramework = function() {
       type: 'list',
       name: 'frontEndFramework',
       message: 'What FrontEnd Framework do you like to include?',
-      choices: [{
-        name: 'BassCss',
-        value: 'basscss',
-      }, {
-        name: 'Bootstrap',
-        value: 'bootstrap',
-      }, {
-        name: 'Foundation',
-        value: 'foundation',
-      }, {
+      choices: [
+      {
         name: 'None',
         value: false,
+      },{
+        name: 'Bootstrap',
+        value: 'bootstrap',
+      },{
+        name: 'Foundation',
+        value: 'foundation',
+      },{
+        name: 'BassCss',
+        value: 'basscss',
       }],
       when: function() {
         return !frontEndFramework;
@@ -301,16 +340,11 @@ Generator.prototype.writeProjectFiles = function() {
     this.templatePath('base/_package.json'),
     this.destinationPath('package.json'), {
       clientId: this.options.clientId,
-      projectName: this.options.projectName,
+      projectId: this.options.projectId,
+      markupLanguage: this.options.markupLanguage,
       cssProcessor: this.options.cssProcessor,
       frontEndFramework: this.options.frontEndFramework
     }
-  );
-
-  this.log(chalk.yellow('Copying jshintrc file.'));
-  this.fs.copy(
-    this.templatePath('base/jshintrc'),
-    this.destinationPath('.jshintrc')
   );
 
   this.log(chalk.yellow('Copying editorconfig file.'));
@@ -331,15 +365,17 @@ Generator.prototype.writeProjectFiles = function() {
     this.templatePath('git/gitattributes'),
     this.destinationPath('.gitattributes')
   );
+
   this.log(chalk.yellow('Copying README file.'));
   this.fs.copyTpl(
     this.templatePath('base/README.md'),
     this.destinationPath('README.md'), {
       paths: this.paths,
-      projectName: this.options.projectName,
+      projectId: this.options.projectId,
       frontEndFramework: this.options.frontEndFramework,
       jQuery: this.options.jQuery,
       qtyScreens: this.options.qtyScreens,
+      markupLanguage: this.options.markupLanguage,
       cssProcessor: this.options.cssProcessor
     }
   );
@@ -381,7 +417,7 @@ Generator.prototype.copyGitKeepFiles = function() {
 Generator.prototype.writeBaseBowerFile = function() {
 
   var bowerJson = {
-    name: 'pixel2html-' + _s.slugify(this.options.clientId) + '-' + _s.slugify(this.options.projectName),
+    name: 'pixel2html-' + _s.slugify(this.options.clientId) + '-' + _s.slugify(this.options.projectId),
     private: true,
     dependencies: {}
   };
@@ -389,7 +425,7 @@ Generator.prototype.writeBaseBowerFile = function() {
   switch (this.options.frontEndFramework) {
     case 'bootstrap':
       bowerJson.dependencies['bootstrap-sass'] = '^3.3.*';
-      break; //bootstrap
+      break;
 
     case 'basscss':
       bowerJson.dependencies['basscss-sass'] = '~4.0.*';
@@ -413,15 +449,15 @@ Generator.prototype.writeBaseBowerFile = function() {
   );
 };
 
-Generator.prototype.writeHTMLFiles = function() {
+Generator.prototype.writeMarkupFiles = function() {
 
   for (var i = 1; i < this.options.qtyScreens + 1; i++) {
     this.fs.copyTpl(
-      this.templatePath('html/_screen.html'),
-      this.destinationPath(this.paths.src.html+'/screen_' + i + '.html'), {
+      this.templatePath('markup/_screen.'+this.options.markupLanguage),
+      this.destinationPath(this.paths.src.markup+'/screen_' + i + '.'+this.options.markupLanguage), {
         screenNumber: i,
         clientId: this.options.clientId,
-        projectName: this.options.projectName,
+        projectId: this.options.projectId,
         frontEndFramework: this.options.frontEndFramework,
         jQuery: this.options.jQuery,
       }
@@ -433,65 +469,77 @@ Generator.prototype.writeHTMLFiles = function() {
 Generator.prototype.writeBaseStyles = function() {
 
   var cssProcessor = this.options.cssProcessor;
+  if(cssProcessor){
+    this.options.cssMainFile = this.paths.src.styles + '/main.' + cssProcessor;
 
-  this.options.cssMainFile = this.paths.src.styles + '/main.' + cssProcessor;
-
-  this.fs.copyTpl(
-    this.templatePath('styles/' + cssProcessor + '/main.' + cssProcessor),
-    this.destinationPath(this.paths.src.styles + '/main.' + cssProcessor), {
-      clientId: this.options.clientId,
-      projectName: this.options.projectName,
-      qtyScreens: this.options.qtyScreens
-    }
-  );
-
-  this.fs.copy(
-    this.templatePath('styles/' + cssProcessor + '/_variables.' + cssProcessor),
-    this.destinationPath(this.paths.src.styles + '/_variables.' + cssProcessor)
-  );
-  this.fs.copy(
-    this.templatePath('styles/' + cssProcessor + '/_mixins.' + cssProcessor),
-    this.destinationPath(this.paths.src.styles + '/_mixins.' + cssProcessor)
-  );
-  this.fs.copy(
-    this.templatePath('styles/' + cssProcessor + '/_reset.' + cssProcessor),
-    this.destinationPath(this.paths.src.styles + '/_reset.' + cssProcessor)
-  );
-  this.fs.copy(
-    this.templatePath('styles/' + cssProcessor + '/screens/_base.' + cssProcessor),
-    this.destinationPath(this.paths.src.styles + '/screens/_base.' + cssProcessor)
-  );
-  this.fs.copy(
-    this.templatePath('styles/' + cssProcessor + '/components/_header.' + cssProcessor),
-    this.destinationPath(this.paths.src.styles + '/components/_header.' + cssProcessor)
-  );
-  this.fs.copy(
-    this.templatePath('styles/' + cssProcessor + '/components/_footer.' + cssProcessor),
-    this.destinationPath(this.paths.src.styles + '/components/_footer.' + cssProcessor)
-  );
-  this.fs.copy(
-    this.templatePath('styles/' + cssProcessor + '/components/_nav.' + cssProcessor),
-    this.destinationPath(this.paths.src.styles + '/components/_nav.' + cssProcessor)
-  );
-  this.fs.copy(
-    this.templatePath('styles/' + cssProcessor + '/components/_forms.' + cssProcessor),
-    this.destinationPath(this.paths.src.styles + '/components/_forms.' + cssProcessor)
-  );
-  this.fs.copy(
-    this.templatePath('styles/' + cssProcessor + '/components/_buttons.' + cssProcessor),
-    this.destinationPath(this.paths.src.styles + '/components/_buttons.' + cssProcessor)
-  );
-
-  for (var i = 1; i < this.options.qtyScreens + 1; i++) {
     this.fs.copyTpl(
-      this.templatePath('styles/' + cssProcessor + '/screens/_screen.' + cssProcessor),
-      this.destinationPath(this.paths.src.styles + '/screens/screen_' + i + '.' + cssProcessor), {
-        screenNumber: i,
+      this.templatePath('styles/' + cssProcessor + '/main.' + cssProcessor),
+      this.destinationPath(this.paths.src.styles + '/main.' + cssProcessor), {
         clientId: this.options.clientId,
-        projectName: this.options.projectName
+        projectId: this.options.projectId,
+        qtyScreens: this.options.qtyScreens
+      }
+    );
+
+    this.fs.copy(
+      this.templatePath('styles/' + cssProcessor + '/_variables.' + cssProcessor),
+      this.destinationPath(this.paths.src.styles + '/_variables.' + cssProcessor)
+    );
+    this.fs.copy(
+      this.templatePath('styles/' + cssProcessor + '/_mixins.' + cssProcessor),
+      this.destinationPath(this.paths.src.styles + '/_mixins.' + cssProcessor)
+    );
+    this.fs.copy(
+      this.templatePath('styles/' + cssProcessor + '/_reset.' + cssProcessor),
+      this.destinationPath(this.paths.src.styles + '/_reset.' + cssProcessor)
+    );
+    this.fs.copy(
+      this.templatePath('styles/' + cssProcessor + '/screens/_base.' + cssProcessor),
+      this.destinationPath(this.paths.src.styles + '/screens/_base.' + cssProcessor)
+    );
+    this.fs.copy(
+      this.templatePath('styles/' + cssProcessor + '/components/_header.' + cssProcessor),
+      this.destinationPath(this.paths.src.styles + '/components/_header.' + cssProcessor)
+    );
+    this.fs.copy(
+      this.templatePath('styles/' + cssProcessor + '/components/_footer.' + cssProcessor),
+      this.destinationPath(this.paths.src.styles + '/components/_footer.' + cssProcessor)
+    );
+    this.fs.copy(
+      this.templatePath('styles/' + cssProcessor + '/components/_nav.' + cssProcessor),
+      this.destinationPath(this.paths.src.styles + '/components/_nav.' + cssProcessor)
+    );
+    this.fs.copy(
+      this.templatePath('styles/' + cssProcessor + '/components/_forms.' + cssProcessor),
+      this.destinationPath(this.paths.src.styles + '/components/_forms.' + cssProcessor)
+    );
+    this.fs.copy(
+      this.templatePath('styles/' + cssProcessor + '/components/_buttons.' + cssProcessor),
+      this.destinationPath(this.paths.src.styles + '/components/_buttons.' + cssProcessor)
+    );
+
+    for (var i = 1; i < this.options.qtyScreens + 1; i++) {
+      this.fs.copyTpl(
+        this.templatePath('styles/' + cssProcessor + '/screens/_screen.' + cssProcessor),
+        this.destinationPath(this.paths.src.styles + '/screens/screen_' + i + '.' + cssProcessor), {
+          screenNumber: i,
+          clientId: this.options.clientId,
+          projectId: this.options.projectId
+        }
+      );
+    }
+  } else {
+    this.options.cssMainFile = this.paths.src.styles + '/main.css';
+    this.fs.copyTpl(
+      this.templatePath('styles/css/main.css'),
+      this.destinationPath(this.paths.src.styles + '/main.css'),{
+        clientId: this.options.clientId,
+        projectId: this.options.projectId,
       }
     );
   }
+
+
 };
 
 Generator.prototype.writeBaseScriptsFiles = function() {
@@ -501,7 +549,7 @@ Generator.prototype.writeBaseScriptsFiles = function() {
     this.templatePath('scripts/main.js'),
     this.destinationPath(this.paths.src.scripts + '/main.js'), {
       clientId: this.options.clientId,
-      projectName: this.options.projectName
+      projectId: this.options.projectId
     }
   );
 };
@@ -536,7 +584,7 @@ Generator.prototype.writeBaseGulpFiles = function() {
     }
   );
 
-  //styles:main
+  //main:styles
   this.fs.copyTpl(
     this.templatePath('gulp/modules/styles.js'),
     this.destinationPath(this.paths.src.gulp + '/styles.js'), {
@@ -546,7 +594,7 @@ Generator.prototype.writeBaseGulpFiles = function() {
     }
   );
 
-  //scripts:main
+  //main:scripts
   this.fs.copyTpl(
     this.templatePath('gulp/modules/scripts.js'),
     this.destinationPath(this.paths.src.gulp + '/scripts.js'), {
@@ -554,11 +602,12 @@ Generator.prototype.writeBaseGulpFiles = function() {
     }
   );
 
-  //html:main
+  //main:markup
   this.fs.copyTpl(
-    this.templatePath('gulp/modules/html.js'),
-    this.destinationPath(this.paths.src.gulp + '/html.js'), {
-      paths: this.paths
+    this.templatePath('gulp/modules/markup.js'),
+    this.destinationPath(this.paths.src.gulp + '/markup.js'), {
+      paths: this.paths,
+      markupLanguage: this.options.markupLanguage
     }
   );
 
@@ -568,6 +617,7 @@ Generator.prototype.writeBaseGulpFiles = function() {
     this.destinationPath(this.paths.src.gulp + '/watch.js'), {
       paths: this.paths,
       cssProcessor: this.options.cssProcessor,
+      markupLanguage: this.options.markupLanguage,
       frontEndFramework: this.options.frontEndFramework
     }
   );
@@ -591,7 +641,6 @@ Generator.prototype.writeBaseGulpFiles = function() {
 };
 
 Generator.prototype.writeFrontEndFrameworkFiles = function() {
-  var cssProcessor = this.options.cssProcessor;
   var frontEndFramework = this.options.frontEndFramework;
 
   if (!this.options.frontEndFramework) {
@@ -635,7 +684,7 @@ Generator.prototype.writeGitlabCIFiles = function() {
     this.templatePath('base/_.gitlab-ci.yml'),
     this.destinationPath('.gitlab-ci.yml'), {
       clientId: '000'+this.options.clientId,
-      projectName: '000'+this.options.projectName
+      projectId: '000'+this.options.projectId
     }
   );
 }
@@ -646,8 +695,9 @@ Generator.prototype.writeProjectConfigFile = function() {
 
   var configJson = {
     "clientId": this.options.clientId,
-    "projectName": this.options.projectName,
+    "projectId": this.options.projectId,
     "qtyScreens": this.options.qtyScreens,
+    "markupLanguage": this.options.markupLanguage,
     "cssProcessor": this.options.cssProcessor,
     "frontEndFramework": this.options.frontEndFramework,
     "jQuery": this.options.jQuery,

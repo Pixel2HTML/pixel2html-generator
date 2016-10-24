@@ -1,18 +1,19 @@
 {
-  "name": "pixel2html-<%= clientId %>-<%= projectName %>",
-  "description": "pixel2html <%= clientId %>/<%= projectName %>",
+  "name": "pixel2html-<%= clientId %>-<%= projectId %>",
+  "description": "pixel2html <%= clientId %>/<%= projectId %>",
   "license": "MIT",
   "repository": "http://code.pixel2html.com",
   "version": "1.0.3",
   "scripts": {
-    "install": "npm install && bower install",
-    "start": "npm run install && gulp serve",
-    "build": "npm run install && gulp"
+    "postinstall": "bower install",
+    "code": "gulp serve",
+    "build": "gulp build"
   },
   "dependencies": {
     "del": "^2.2.2",
     "gulp": "^3.9.1",
     "browser-sync": "2.6.5",
+
     <% if (cssProcessor === 'scss' || frontEndFramework) { -%>
     "gulp-sass": "^2.0.4",
     <% } -%>
@@ -22,6 +23,10 @@
     <% if (cssProcessor === 'styl') { -%>
     "gulp-stylus": "^2.0.6",
     <% } -%>
+
+    <% if (markupLanguage === 'pug') { %>
+      "gulp-pug": "^3.1.0",
+    <% } %>
 
     "gulp-autoprefixer": "^2.3.1",
     "gulp-clean-css": "^2.0.12",

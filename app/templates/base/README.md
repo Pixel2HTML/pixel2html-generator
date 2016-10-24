@@ -1,18 +1,18 @@
-# <%= projectName %>
+# <%= projectId %>
 
 ## Installing dependencies & running up
 To work, the **Pixel2HTML Boilerplate** needs to install some dependencies to run the options you select.
 For this job, run this command in your shell
 
 ```
-$ npm run start
+$ npm install
+$ npm run code
 ```
 
 ### Other available npm commands
 
 ```
-$ npm run install //only install dependencies
-$ npm run build //install dependencies and build the project without serving
+$ npm run build //build the project without serving
 ```
 
 ## File Structure
@@ -50,7 +50,7 @@ This boilerplate will create a set of files and folders
             variables.<%= cssProcessor %>
       /vendor
   <% for(var i=1; i<=qtyScreens; i++) {%>
-    screen_<%=i%>.html<% } %>
+    screen_<%=i%>.<%=markupLanguage%><% } %>
 .bowerrc
 .gitattributes
 .gitignore
@@ -116,7 +116,7 @@ package.json
 
 ### Daemons
 * `$ gulp watch` **Watch** your files and autoexecute gulp directives
-* `$ gulp serve` **Watch** your files and **serve** with an HTTP server and **Sync** with your prefered browser _awesome!_ 
+* `$ gulp serve` **Watch** your files and **serve** with an HTTP server and **Sync** with your prefered browser _awesome!_
 
 ### Delivery
  * `$ gulp build` Execute all the gulp directives and makes a `.zip` file with the latest code.
