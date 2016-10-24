@@ -55,7 +55,7 @@ describe('SCSS features', function() {
 
     it('should exists a gulp routine', function(){
       assert.file([
-        'src/.gulp/styles.js'
+        'src/assets/.gulp/styles.js'
       ])
     });
 
