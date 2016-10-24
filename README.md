@@ -19,21 +19,37 @@ To generate the **Pixel2HTML Boilerplate** go to your project folder and run thi
 
 ```
 $ cd ~/your/project/folder
-$ yo pixel2html <params>
+$ yo pixel2html
 ```
 
-### Available Parameters
+### Questions the generator will ask (if not already answered in the config file)
+* Client ID
+* Project ID
+* Quantity of screens
+* Markup Language [HTML/Pug]
+* CSS Processor [CSS/Scss/LESS/Stylus]
+* Frontend Framework [None/Bootstrap/Foundation/BassCss]
+* usage of jQuery
+
+You also can answer this questions passing parameters to the generator command.
+
+#### Available Parameters
 
 * ```--clientId``` (*int*)
-* ```--projectName``` (*int*)
+* ```--projectId``` (*int*)
 * ```--qtyScreens``` (*int*)
 * ```--markupLanguage``` (*string*) [html, pug]
 * ```--cssProcessor``` (*string*) [scss, less, styl, none]
 * ```--frontEndFramework``` (*string*) [basscss, bootstrap, foundation, none]
 * ```--jQuery``` (*bool*)
 
+Example:
 
-### Available config file
+```
+$ yo pixel2html --clientId=1234 --markupLanguage='html'
+```
+
+#### Available config file
 
 You can create a json file in the root directory of your project.
 Here an example of it's structure
@@ -41,14 +57,12 @@ Here an example of it's structure
 ```
 {
   "clientId": XXX,
-  "projectName": XXX,
+  "projectId": XXX,
   "qtyScreens": 4,
   "markupLanguage": 'html',
   "cssProcessor": "less",
   "frontEndFramework": "bootstrap",
-  "jQuery": true,
-  "generatedBy": "Pixel2HTML",
-  "generatedAt": "2015-10-09T21:55:20-03:00"
+  "jQuery": true
 }
 ```
 
@@ -107,6 +121,15 @@ This boilerplate will create a set of files and folders
 ├──  gulpfile.js
 └──  package.json
 ```
+
+## Available script commands.
+
+### Start to code.
+* `$ npm run code`
+
+### Build the project
+* `$ npm run build`
+
 
 ## Available Gulp Commands
 
