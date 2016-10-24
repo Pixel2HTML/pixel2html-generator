@@ -23,6 +23,7 @@
     <% if (cssProcessor === 'styl') { -%>
     "gulp-stylus": "^2.0.6",
     <% } -%>
+
     <% if (markupLanguage === 'pug') { %>
       "gulp-pug": "^3.1.0",
     <% } %>
