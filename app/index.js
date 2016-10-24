@@ -10,6 +10,7 @@ var path = require('path');
 var wiredep = require('wiredep');
 var fs = require('fs-extra');
 var moment = require('moment');
+var pkg = require('../package.json');
 
 var Generator = module.exports = function Generator(args, options) {
 
@@ -702,6 +703,7 @@ Generator.prototype.writeProjectConfigFile = function() {
     "frontEndFramework": this.options.frontEndFramework,
     "jQuery": this.options.jQuery,
     "generatedBy": "Pixel2HTML",
+    "generatorVersion": pkg.version,
     "generatedAt": moment().format()
   };
 
