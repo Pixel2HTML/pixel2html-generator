@@ -678,18 +678,6 @@ Generator.prototype.writeJqueryGulpFiles = function() {
 }
 
 
-Generator.prototype.writeGitlabCIFiles = function() {
-
-  this.fs.copyTpl(
-    this.templatePath('base/_.gitlab-ci.yml'),
-    this.destinationPath('.gitlab-ci.yml'), {
-      clientId: '000'+this.options.clientId,
-      projectId: '000'+this.options.projectId
-    }
-  );
-}
-
-
 Generator.prototype.writeProjectConfigFile = function() {
   //overwrite the default .project.conf file or create the new one.
 
