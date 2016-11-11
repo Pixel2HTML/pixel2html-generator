@@ -473,7 +473,7 @@ Generator.prototype.writeBaseStyles = function() {
   var cssProcessor = this.options.cssProcessor;
   if(cssProcessor){
     this.options.cssMainFile = this.paths.src.styles + '/main.' + cssProcessor;
-    this.options.cssVendorFile = this.paths.src.styles + '/vendor.' + cssProcessor;
+    this.options.cssVendorFile = this.paths.src.styles + '/vendor.scss'
 
     this.fs.copyTpl(
       this.templatePath('styles/' + cssProcessor + '/main.' + cssProcessor),
@@ -485,8 +485,8 @@ Generator.prototype.writeBaseStyles = function() {
     );
 
     this.fs.copyTpl(
-      this.templatePath('styles/' + cssProcessor + '/vendor.' + cssProcessor),
-      this.destinationPath(this.paths.src.styles + '/vendor.' + cssProcessor), {
+      this.templatePath('styles/scss/vendor.scss'),
+      this.destinationPath(this.paths.src.styles + '/vendor.scss'), {
         clientId: this.options.clientId,
         projectId: this.options.projectId,
         frontEndFramework: this.options.frontEndFramework,

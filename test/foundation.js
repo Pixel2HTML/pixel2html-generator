@@ -35,14 +35,27 @@ describe('Foundation features', function() {
     });
   });
 
-  describe('Checking Bootstrap files', function() {
-
-    it('should exists bootstrap\'s user config files', function() {
+  describe('Checking Foundation files', function() {
+    it('should exists a gulp routine', function(){
       assert.file([
-        'src/assets/styles/vendor/foundation/index.scss',
-        'src/assets/styles/vendor/foundation/variables.scss',
+        'src/assets/gulp/tasks/styles.js',
+        'src/assets/gulp/tasks/scripts.js'
+      ])
+    });
+    it('should exists vendor files', function() {
+      assert.file([
+        'src/assets/styles/vendor.scss'
       ]);
     });
+
+    it('should include bootstrap include', function() {
+      assert.fileContent('src/assets/styles/vendor.scss', /import "foundation";/)
+    });
+
+    it('should include correct paths on config file', function(){
+      assert.fileContent('src/assets/gulp/config.js', 'src/assets/vendor/foundation-sites/scss')
+      assert.fileContent('src/assets/gulp/config.js', 'src/assets/vendor/foundation-sites/dist/foundation.js')
+    })
 
   });
 

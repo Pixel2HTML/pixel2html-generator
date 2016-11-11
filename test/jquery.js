@@ -33,12 +33,18 @@ describe('jQuery features', function() {
     });
   });
 
-  describe('Checking jQuery gulp compile files', function() {
-
-    it('should exists jQuery\'s gulp compile files', function() {
-      assert.file('src/assets/.gulp/vendor/jquery.js');
+  describe('Checking jQuery files', function() {
+    it('should exists a gulp routine', function(){
+      assert.file([
+        'src/assets/gulp/tasks/scripts.js'
+      ])
     });
 
+    it('should include correct paths on config file', function(){
+      assert.fileContent('src/assets/gulp/config.js', 'src/assets/vendor/jquery/dist/jquery.js')
+    })
+
   });
+
 
 });

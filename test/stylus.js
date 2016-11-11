@@ -53,6 +53,13 @@ describe('Stylus features', function() {
       ]);
     });
 
+    it('should exists a gulp routine', function(){
+      assert.file([
+        'src/assets/gulp/tasks/styles.js'
+      ]);
+      assert.fileContent('src/assets/gulp/tasks/styles.js',  /gulp-stylus/);
+    });
+
   });
 
 });

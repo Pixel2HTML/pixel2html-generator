@@ -36,13 +36,27 @@ describe('Bootstrap features', function() {
   });
 
   describe('Checking Bootstrap files', function() {
-
-    it('should exists bootstrap\'s user config files', function() {
+    it('should exists a gulp routine', function(){
       assert.file([
-        'src/assets/styles/vendor/bootstrap/index.scss',
-        'src/assets/styles/vendor/bootstrap/variables.scss',
+        'src/assets/gulp/tasks/styles.js',
+        'src/assets/gulp/tasks/scripts.js'
+      ])
+    });
+    it('should exists vendor files', function() {
+      assert.file([
+        'src/assets/styles/vendor.scss'
       ]);
     });
+
+    it('should include bootstrap include', function() {
+      assert.fileContent('src/assets/styles/vendor.scss', /import "bootstrap";/)
+    });
+
+    it('should include correct paths on config file', function(){
+      assert.fileContent('src/assets/gulp/config.js', 'src/assets/vendor/bootstrap-sass/assets/stylesheets')
+      assert.fileContent('src/assets/gulp/config.js', 'src/assets/vendor/bootstrap-sass/assets/javascripts/bootstrap.js')
+      assert.fileContent('src/assets/gulp/config.js', 'src/assets/vendor/bootstrap-sass/assets/fonts/bootstrap/**/*')
+    })
 
   });
 
