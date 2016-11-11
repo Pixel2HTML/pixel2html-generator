@@ -43,3 +43,30 @@ gulp.task('main:styles', function() {
     .pipe(browserSync.reload({stream:true}));
 
 });
+
+gulp.task('vendor:styles', function() {
+  return gulp.src('<%= cssVendorFile %>')
+    .pipe(plumber({
+      errorHandler: helpers.onError
+    }))
+    .pipe(sourcemaps.init())
+    .pipe(sass({
+      outputStyle: 'expanded',
+      includePaths: config.vendor.sassDirectories
+    }))
+    .pipe(autoprefixer({
+      browsers: ['last 2 versions', 'iOS 8'],
+      cascade: false
+    }))
+    .pipe(gulp.dest('dist/assets/css'))
+    .pipe(minify({
+      keepSpecialComments: 0
+    }))
+    .pipe(rename({
+      suffix: '.min'
+    }))
+    .pipe(sourcemaps.write())
+    .pipe(gulp.dest('dist/assets/css'))
+    .pipe(browserSync.reload({stream:true}));
+
+});

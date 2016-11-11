@@ -473,6 +473,7 @@ Generator.prototype.writeBaseStyles = function() {
   var cssProcessor = this.options.cssProcessor;
   if(cssProcessor){
     this.options.cssMainFile = this.paths.src.styles + '/main.' + cssProcessor;
+    this.options.cssVendorFile = this.paths.src.styles + '/vendor.' + cssProcessor;
 
     this.fs.copyTpl(
       this.templatePath('styles/' + cssProcessor + '/main.' + cssProcessor),
@@ -480,6 +481,15 @@ Generator.prototype.writeBaseStyles = function() {
         clientId: this.options.clientId,
         projectId: this.options.projectId,
         qtyScreens: this.options.qtyScreens
+      }
+    );
+
+    this.fs.copyTpl(
+      this.templatePath('styles/' + cssProcessor + '/vendor.' + cssProcessor),
+      this.destinationPath(this.paths.src.styles + '/vendor.' + cssProcessor), {
+        clientId: this.options.clientId,
+        projectId: this.options.projectId,
+        frontEndFramework: this.options.frontEndFramework,
       }
     );
 
@@ -568,6 +578,17 @@ Generator.prototype.writeBaseGulpFiles = function() {
     }
   );
 
+  this.log(chalk.yellow('Copying gulpfile config file.'));
+  this.fs.copyTpl(
+    this.templatePath('gulp/_config.js'),
+    this.destinationPath(this.paths.src.gulp+'/config.js'), {
+      paths: this.paths,
+      cssProcessor: this.options.cssProcessor,
+      frontEndFramework: this.options.frontEndFramework,
+      jQuery: this.options.jQuery
+    }
+  );
+
   this.log(chalk.yellow('Copying gulpfile helpers file.'));
   this.fs.copyTpl(
     this.templatePath('gulp/_helpers.js'),
@@ -575,6 +596,7 @@ Generator.prototype.writeBaseGulpFiles = function() {
       paths: this.paths
     }
   );
+
   //default
   this.fs.copyTpl(
     this.templatePath('gulp/tasks/default.js'),
