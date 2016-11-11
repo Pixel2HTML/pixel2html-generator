@@ -16,7 +16,7 @@ gulp.task('clean', function(cb) {
 gulp.task('main:images', function() {
   return gulp.src('<%= paths.src.images %>/**/*')
     .pipe(plumber({
-      errorHandler: onError
+      errorHandler: helpers.onError
     }))
     .pipe(gulp.dest('<%= paths.dist.images %>'))
     .pipe(browserSync.reload({stream:true}));
@@ -25,7 +25,7 @@ gulp.task('main:images', function() {
 gulp.task('main:fonts', function() {
   return gulp.src('<%= paths.src.fonts %>/**/*')
     .pipe(plumber({
-      errorHandler: onError
+      errorHandler: helpers.onError
     }))
     .pipe(gulp.dest('<%= paths.dist.fonts %>'))
     .pipe(browserSync.reload({stream:true}));
@@ -34,7 +34,7 @@ gulp.task('main:fonts', function() {
 gulp.task('main:icons', function() {
   return gulp.src('<%= paths.src.icons %>/**/*')
     .pipe(plumber({
-      errorHandler: onError
+      errorHandler: helpers.onError
     }))
     .pipe(gulp.dest('<%= paths.dist.icons %>'))
     .pipe(browserSync.reload({stream:true}));

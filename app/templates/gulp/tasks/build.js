@@ -20,7 +20,7 @@ gulp.task('build:zip', function() {
 
   return gulp.src(distFiles, {base: '.'})
     .pipe(plumber({
-      errorHandler: onError
+      errorHandler: helpers.onError
     }))
     .pipe(zip('latest.zip'))
     .pipe(gulp.dest('<%= paths.releases.base %>'));

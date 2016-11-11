@@ -21,7 +21,7 @@ var browserSync = require('browser-sync');
 gulp.task('main:styles', function() {
   return gulp.src('<%= cssMainFile %>')
     .pipe(plumber({
-      errorHandler: onError
+      errorHandler: helpers.onError
     }))
     .pipe(sourcemaps.init())
     <% if (cssProcessor === 'scss') { %>.pipe(sass())<% } %>

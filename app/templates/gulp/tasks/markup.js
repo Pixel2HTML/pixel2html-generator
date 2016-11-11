@@ -13,7 +13,7 @@ gulp.task('main:markup', function() {
 
   return gulp.src('<%= paths.src.markup %>/*.<%=markupLanguage%>')
     .pipe(plumber({
-      errorHandler: onError
+      errorHandler: helpers.onError
     }))
     <% if (markupLanguage === 'pug') { %>
     .pipe(pug({

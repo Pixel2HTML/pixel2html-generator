@@ -14,7 +14,7 @@ var browserSync = require('browser-sync');
 gulp.task('main:scripts', function() {
   return gulp.src('<%= paths.src.scripts %>/main.js')
     .pipe(plumber({
-      errorHandler: onError
+      errorHandler: helpers.onError
     }))
     .pipe(gulp.dest('<%= paths.dist.scripts %>'))
     .pipe(concat('main.min.js'))
