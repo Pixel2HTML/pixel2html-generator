@@ -1,4 +1,2 @@
 require('require-dir')('<%= paths.src.gulp %>');
-<% if(frontEndFramework || jQuery){ %>
-require('require-dir')('<%= paths.src.gulp %>/vendor');
-<% } %>
+require('require-dir')('<%= paths.src.gulp_tasks %>');

@@ -13,7 +13,7 @@ html(lang="en")
     <% if(frontEndFramework){ %>
     link(
       rel='stylesheet',
-      href='assets/css/<%= frontEndFramework %>.min.css'
+      href='assets/css/vendor.min.css'
     )
     <% } %>
 
@@ -30,10 +30,7 @@ html(lang="en")
 
 
 
-    <% if(jQuery){ %>
-      script(src='assets/js/jquery.min.js')
-    <% } %>
-    <% if(frontEndFramework){ %>
-      script(src='assets/js/<%= frontEndFramework %>.min.js')
+    <% if(frontEndFramework || jQuery){ %>
+      script(src='assets/js/vendor.min.js')
     <% } %>
       script(src='assets/js/main.min.js')
