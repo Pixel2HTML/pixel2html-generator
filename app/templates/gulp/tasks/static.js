@@ -31,4 +31,4 @@ gulp.task('main:icons', function() {
     .pipe(browserSync.reload({stream:true}));
 });
 
-gulp.task('main:static', ['main:images', 'main:fonts', 'main:icons']);
+gulp.task('main:static', ['main:images', 'main:icons']);
