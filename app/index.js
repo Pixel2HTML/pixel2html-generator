@@ -568,6 +568,13 @@ Generator.prototype.writeBaseGulpFiles = function() {
     }
   );
 
+  this.log(chalk.yellow('Copying gulpfile helpers file.'));
+  this.fs.copyTpl(
+    this.templatePath('gulp/_helpers.js'),
+    this.destinationPath(this.paths.src.gulp+'/helpers.js'), {
+      paths: this.paths
+    }
+  );
   //default
   this.fs.copyTpl(
     this.templatePath('gulp/tasks/default.js'),
