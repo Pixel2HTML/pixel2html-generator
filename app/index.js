@@ -628,6 +628,7 @@ Generator.prototype.writeBaseGulpFiles = function() {
     this.templatePath('gulp/tasks/styles.js'),
     this.destinationPath(this.paths.src.gulp_tasks + '/styles.js'), {
       cssProcessor: this.options.cssProcessor,
+      frontEndFramework: this.options.frontEndFramework,
       cssMainFile: this.options.cssMainFile,
       cssVendorFile: this.options.cssVendorFile,
       paths: this.paths

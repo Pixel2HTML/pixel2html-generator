@@ -1,7 +1,6 @@
 'use strict'
 
 module.exports = {
-
   vendor: {
     sassDirectories: [
       <% if(frontEndFramework == 'bootstrap'){ %>'<%= paths.src.vendors %>/bootstrap-sass/assets/stylesheets',<% } %>

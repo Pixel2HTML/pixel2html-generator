@@ -5,7 +5,7 @@ var gulp    = require('gulp');
 var config  = require('../config');
 var helpers = require('../helpers');
 
-<% if (cssProcessor === 'scss') { %>var sass = require('gulp-sass');<% } %>
+<% if (cssProcessor === 'scss' || frontEndFramework) { %>var sass = require('gulp-sass');<% } %>
 <% if (cssProcessor === 'less') { %>var less = require('gulp-less');<% } %>
 <% if (cssProcessor === 'styl') { %>var stylus = require('gulp-stylus');<% } %>
 
