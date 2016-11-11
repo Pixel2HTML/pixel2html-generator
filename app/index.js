@@ -10,6 +10,7 @@ var path = require('path');
 var wiredep = require('wiredep');
 var fs = require('fs-extra');
 var moment = require('moment');
+var pkg = require('../package.json');
 
 var Generator = module.exports = function Generator(args, options) {
 
@@ -678,18 +679,6 @@ Generator.prototype.writeJqueryGulpFiles = function() {
 }
 
 
-Generator.prototype.writeGitlabCIFiles = function() {
-
-  this.fs.copyTpl(
-    this.templatePath('base/_.gitlab-ci.yml'),
-    this.destinationPath('.gitlab-ci.yml'), {
-      clientId: '000'+this.options.clientId,
-      projectId: '000'+this.options.projectId
-    }
-  );
-}
-
-
 Generator.prototype.writeProjectConfigFile = function() {
   //overwrite the default .project.conf file or create the new one.
 
@@ -702,6 +691,7 @@ Generator.prototype.writeProjectConfigFile = function() {
     "frontEndFramework": this.options.frontEndFramework,
     "jQuery": this.options.jQuery,
     "generatedBy": "Pixel2HTML",
+    "generatorVersion": pkg.version,
     "generatedAt": moment().format()
   };
 

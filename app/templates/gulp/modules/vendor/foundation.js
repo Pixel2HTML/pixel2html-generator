@@ -21,13 +21,13 @@ var onError = function(err) {
 
 gulp.task('vendor:foundation:styles', function() {
 
-  return gulp.src('<%= paths.src.frontendframework %>/foundation-sites/index.scss')
+  return gulp.src('<%= paths.src.frontendframework %>/foundation/index.scss')
     .pipe(plumber({
       errorHandler: onError
     }))
     .pipe(sass({
       outputStyle: 'expanded',
-      includePaths: ['<%= paths.src.vendors %>/foundation/scss']
+      includePaths: ['<%= paths.src.vendors %>/foundation-sites/scss']
     }))
     .pipe(rename('foundation.css'))
     .pipe(gulp.dest('<%= paths.dist.styles %>'))
