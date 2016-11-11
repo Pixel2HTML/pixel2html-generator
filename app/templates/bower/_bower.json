@@ -1,5 +1,20 @@
 {
-  "name": "<?= projectId %>",
+  "name": "pixel2html-<%= projectId %>-<%= projectId %>",
   "version": "1.0.0",
-  "dependencies": {}
+  "private": true,
+
+  "dependencies": {
+    <% if(frontEndFramework == 'bootstrap'){ %>
+    "bootstrap-sass": "^3.3.*",
+    <% } %>
+    <% if(frontEndFramework == 'foundation'){ %>
+    "foundation-sites": "^6.2.4",
+    <% } %>
+    <% if(frontEndFramework == 'basscss'){ %>
+      "basscss-sass": "^4.0.0",
+    <% } %>
+    <% if(jQuery){ %>
+      "jquery": "^3.1.1"
+    <% } %>
+  }
 }

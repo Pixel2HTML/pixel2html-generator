@@ -418,30 +418,15 @@ Generator.prototype.copyGitKeepFiles = function() {
 
 Generator.prototype.writeBaseBowerFile = function() {
 
-  var bowerJson = {
-    name: 'pixel2html-' + _s.slugify(this.options.clientId) + '-' + _s.slugify(this.options.projectId),
-    private: true,
-    dependencies: {}
-  };
-
-  switch (this.options.frontEndFramework) {
-    case 'bootstrap':
-      bowerJson.dependencies['bootstrap-sass'] = '^3.3.*';
-      break;
-
-    case 'basscss':
-      bowerJson.dependencies['basscss-sass'] = '~4.0.*';
-      break;
-
-    case 'foundation':
-      bowerJson.dependencies['foundation-sites'] = '~6.2.*';
-      break;
-  }
-  if (this.options.jQuery) {
-    bowerJson.dependencies['jquery'] = '~3.1.*';
-  }
-
-  this.fs.writeJSON('bower.json', bowerJson);
+  this.fs.copyTpl(
+    this.templatePath('bower/_bower.json'),
+    this.destinationPath('bower.json'), {
+      clientId: this.options.clientId,
+      projectId: this.options.projectId,
+      frontEndFramework: this.options.frontEndFramework,
+      jQuery: this.options.jQuery
+    }
+  );
 
   this.fs.copyTpl(
     this.templatePath('bower/bowerrc'),
