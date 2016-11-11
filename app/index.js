@@ -19,7 +19,8 @@ var Generator = module.exports = function Generator(args, options) {
   this.paths = {
     'src': {
       'fonts': 'src/assets/fonts',
-      'gulp': 'src/assets/.gulp',
+      'gulp': 'src/assets/gulp',
+      'gulp_tasks': 'src/assets/gulp/tasks',
       'icons': 'src/assets/icons',
       'images': 'src/assets/images',
       'vendors': 'src/assets/vendor',
@@ -569,8 +570,8 @@ Generator.prototype.writeBaseGulpFiles = function() {
 
   //default
   this.fs.copyTpl(
-    this.templatePath('gulp/modules/default.js'),
-    this.destinationPath(this.paths.src.gulp + '/default.js'), {
+    this.templatePath('gulp/tasks/default.js'),
+    this.destinationPath(this.paths.src.gulp_tasks + '/default.js'), {
       paths: this.paths,
       frontEndFramework: this.options.frontEndFramework,
       jQuery: this.options.jQuery
@@ -579,16 +580,16 @@ Generator.prototype.writeBaseGulpFiles = function() {
 
   //static
   this.fs.copyTpl(
-    this.templatePath('gulp/modules/static.js'),
-    this.destinationPath(this.paths.src.gulp + '/static.js'), {
+    this.templatePath('gulp/tasks/static.js'),
+    this.destinationPath(this.paths.src.gulp_tasks + '/static.js'), {
       paths: this.paths
     }
   );
 
   //main:styles
   this.fs.copyTpl(
-    this.templatePath('gulp/modules/styles.js'),
-    this.destinationPath(this.paths.src.gulp + '/styles.js'), {
+    this.templatePath('gulp/tasks/styles.js'),
+    this.destinationPath(this.paths.src.gulp_tasks + '/styles.js'), {
       cssProcessor: this.options.cssProcessor,
       cssMainFile: this.options.cssMainFile,
       paths: this.paths
@@ -597,16 +598,16 @@ Generator.prototype.writeBaseGulpFiles = function() {
 
   //main:scripts
   this.fs.copyTpl(
-    this.templatePath('gulp/modules/scripts.js'),
-    this.destinationPath(this.paths.src.gulp + '/scripts.js'), {
+    this.templatePath('gulp/tasks/scripts.js'),
+    this.destinationPath(this.paths.src.gulp_tasks + '/scripts.js'), {
       paths: this.paths
     }
   );
 
   //main:markup
   this.fs.copyTpl(
-    this.templatePath('gulp/modules/markup.js'),
-    this.destinationPath(this.paths.src.gulp + '/markup.js'), {
+    this.templatePath('gulp/tasks/markup.js'),
+    this.destinationPath(this.paths.src.gulp_tasks + '/markup.js'), {
       paths: this.paths,
       markupLanguage: this.options.markupLanguage
     }
@@ -614,8 +615,8 @@ Generator.prototype.writeBaseGulpFiles = function() {
 
   //watch
   this.fs.copyTpl(
-    this.templatePath('gulp/modules/watch.js'),
-    this.destinationPath(this.paths.src.gulp + '/watch.js'), {
+    this.templatePath('gulp/tasks/watch.js'),
+    this.destinationPath(this.paths.src.gulp_tasks + '/watch.js'), {
       paths: this.paths,
       cssProcessor: this.options.cssProcessor,
       markupLanguage: this.options.markupLanguage,
@@ -625,16 +626,16 @@ Generator.prototype.writeBaseGulpFiles = function() {
 
   //serve
   this.fs.copyTpl(
-    this.templatePath('gulp/modules/serve.js'),
-    this.destinationPath(this.paths.src.gulp + '/serve.js'), {
+    this.templatePath('gulp/tasks/serve.js'),
+    this.destinationPath(this.paths.src.gulp_tasks + '/serve.js'), {
       paths: this.paths
     }
   );
 
-  //serve
+  //build
   this.fs.copyTpl(
-    this.templatePath('gulp/modules/build.js'),
-    this.destinationPath(this.paths.src.gulp + '/build.js'), {
+    this.templatePath('gulp/tasks/build.js'),
+    this.destinationPath(this.paths.src.gulp_tasks + '/build.js'), {
       paths: this.paths,
       cssProcessor: this.options.cssProcessor,
     }
