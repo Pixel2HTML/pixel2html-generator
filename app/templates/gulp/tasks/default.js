@@ -10,9 +10,10 @@ gulp.task('default', [
   'main:styles',
   'main:scripts',
   <% if(frontEndFramework){ %>
-  'vendor:<%= frontEndFramework %>',
+  'vendor:styles',
+  'vendor:fonts',
   <% } %>
-  <% if(jQuery){ %>
-  'vendor:jquery',
+  <% if(jQuery || frontEndFramework){ %>
+  'vendor:scripts',
   <% } %>
 ]);
