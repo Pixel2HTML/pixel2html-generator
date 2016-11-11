@@ -680,43 +680,6 @@ Generator.prototype.writeBaseGulpFiles = function() {
   );
 };
 
-Generator.prototype.writeFrontEndFrameworkFiles = function() {
-  var frontEndFramework = this.options.frontEndFramework;
-
-  if (!this.options.frontEndFramework) {
-    return true;
-  }
-
-  //move vendor styles
-  this.fs.copy(
-    this.templatePath('styles/vendor/' + frontEndFramework),
-    this.destinationPath(this.paths.src.frontendframework + '/' + frontEndFramework)
-  );
-
-  //copy gulp file
-  this.fs.copyTpl(
-    this.templatePath('gulp/modules/vendor/' + this.options.frontEndFramework + '.js'),
-    this.destinationPath(this.paths.src.gulp + '/vendor/' + this.options.frontEndFramework + '.js'), {
-      frontEndFramework: this.options.frontEndFramework,
-      paths: this.paths
-    }
-  );
-};
-
-Generator.prototype.writeJqueryGulpFiles = function() {
-
-  if (!this.options.jQuery) {
-    return true;
-  }
-
-  this.fs.copyTpl(
-    this.templatePath('gulp/modules/vendor/jquery.js'),
-    this.destinationPath(this.paths.src.gulp + '/vendor/jquery.js'), {
-      paths: this.paths
-    }
-  );
-}
-
 
 Generator.prototype.writeProjectConfigFile = function() {
   //overwrite the default .project.conf file or create the new one.
