@@ -615,12 +615,21 @@ Generator.prototype.writeBaseGulpFiles = function() {
     }
   );
 
+  //main:fonts
+  this.fs.copyTpl(
+    this.templatePath('gulp/tasks/fonts.js'),
+    this.destinationPath(this.paths.src.gulp_tasks + '/fonts.js'), {
+      paths: this.paths
+    }
+  );
+
   //main:styles
   this.fs.copyTpl(
     this.templatePath('gulp/tasks/styles.js'),
     this.destinationPath(this.paths.src.gulp_tasks + '/styles.js'), {
       cssProcessor: this.options.cssProcessor,
       cssMainFile: this.options.cssMainFile,
+      cssVendorFile: this.options.cssVendorFile,
       paths: this.paths
     }
   );

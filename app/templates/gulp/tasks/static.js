@@ -22,15 +22,6 @@ gulp.task('main:images', function() {
     .pipe(browserSync.reload({stream:true}));
 });
 
-gulp.task('main:fonts', function() {
-  return gulp.src('<%= paths.src.fonts %>/**/*')
-    .pipe(plumber({
-      errorHandler: helpers.onError
-    }))
-    .pipe(gulp.dest('<%= paths.dist.fonts %>'))
-    .pipe(browserSync.reload({stream:true}));
-});
-
 gulp.task('main:icons', function() {
   return gulp.src('<%= paths.src.icons %>/**/*')
     .pipe(plumber({
