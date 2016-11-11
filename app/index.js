@@ -378,7 +378,9 @@ Generator.prototype.writeProjectFiles = function() {
       jQuery: this.options.jQuery,
       qtyScreens: this.options.qtyScreens,
       markupLanguage: this.options.markupLanguage,
-      cssProcessor: this.options.cssProcessor
+      cssProcessor: this.options.cssProcessor,
+      now: moment().format(),
+      version: pkg.version
     }
   );
 };

@@ -1,4 +1,4 @@
-# Pixel2HTML Boilerplate Generator
+# Pixel2HTML Boilerplate Generator 1.2.0
 
 [![Build Status](https://travis-ci.org/Pixel2HTML/pixel2html-generator.svg?branch=master)](https://travis-ci.org/Pixel2HTML/pixel2html-generator)
 
@@ -103,24 +103,21 @@ This boilerplate will create a set of files and folders
 │    │    ├──  screens/
 │    │    │    ├──  _base.ext
 │    │    │    └──  screen_*.ext
-│    │    ├──  vendor/
-│    │    │    └──  frontend_framework/ [bootstrap|foundation|basscss]
-│    │    │         ├──  index.scss
-│    │    │         └──  variables.scss
 │    │    ├── main.ext
+│    │    ├── vendor.scss
 │    │    ├── mixins.ext
 │    │    └── variables.ext
 │    └──  vendor/
 │    └──  screen_*.[html|pug]
 ├──  .bowerrc
+├──  .editorcofig
 ├──  .gitattributes
 ├──  .gitignore
-├──  .jshintrc
-├──  .editorcofig
 ├──  .project.conf
 ├──  bower.json
 ├──  gulpfile.js
-└──  package.json
+├──  package.json
+└──  README.md
 ```
 
 ## Available script commands.
@@ -138,43 +135,21 @@ This boilerplate will create a set of files and folders
 * `$ gulp clean` Clean /dist directory
 
 ### Static Files
-* `$ gulp main:static` Compile static files (images, fonts, icons)
-* `$ gulp main:static:images` Move & optimize images
-* `$ gulp main:static:fonts` Move fonts
-* `$ gulp main:static:icons` Move icons
+* `$ gulp main:static` Compile static files (images, icons)
+* `$ gulp main:images` Move images
+* `$ gulp main::icons` Move icons
 
-### Markup
-* `$ gulp main:markup` Compile, move HTML/Pug files
+### Fonts Files
+* `$ gulp main:fonts` Move project fonts
+* `$ gulp vendor:fonts` Move vendors fonts
 
 ### Scripts
-* `$ gulp main:scripts` Concat, uglify and move JS files
+* `$ gulp main:scripts` Concat, uglify and move project JS files
+* `$ gulp vendor:scripts` Concat, uglify and move vendors JS files
 
 ### Styles
-* `$ gulp main:styles` Compile, concat, autoprefix, minify and move [SCSS, Less, Stylus] files
-
-### Vendors
-#### Bootstrap
-
-* `$ gulp vendor:bootstrap` Compile & Move all **Bootstrap** files
-* `$ gulp vendor:bootstrap:styles` Compile, concat, autoprefix, minify and move **Bootstrap** files
-* `$ gulp vendor:bootstrap:scripts` Concat, uglify and move **Bootstrap** JS files
-* `$ gulp vendor:bootstrap:fonts` Move **Bootstrap** fonts files
-
-#### Foundation
-* `$ gulp vendor:foundation` Compile & Move all **Foundation** files
-* `$ gulp vendor:foundation:styles` Compile, concat, autoprefix, minify and move **Foundation** files
-* `$ gulp vendor:foundation:scripts` Move **Foundation** JS files
-* `$ gulp vendor:foundation:fonts` Move **Foundation** fonts files
-
-#### BassCss
-* `$ gulp vendor:basscss` Compile & Move all **BassCss** files
-* `$ gulp vendor:basscss:styles` Compile, concat, autoprefix, minify and move **BassCss** files
-* `$ gulp vendor:basscss:scripts` Concat, uglify and move **BassCss** JS files
-* `$ gulp vendor:basscss:fonts` Move **BassCss** fonts files
-
-#### jQuery
-* `$ gulp vendor:jquery` Compile & move all **jQuery** files
-* `$ gulp vendor:jquery:scripts` Compile, concat, minify and move **jQuery** files
+* `$ gulp main:styles` Compile, concat, autoprefix, minify and move [SCSS, Less, Stylus] project files
+* `$ gulp vendor:styles` Compile, concat, autoprefix, minify and move [SCSS, Less, Stylus] vendor files
 
 ### Daemons
 * `$ gulp watch` **Watch** your files and autoexecute gulp directives
