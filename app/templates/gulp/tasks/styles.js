@@ -1,10 +1,14 @@
 'use strict';
 
 
-var gulp = require('gulp');
+var gulp    = require('gulp');
+var config  = require('../config');
+var helpers = require('../helpers');
+
 <% if (cssProcessor === 'scss') { %>var sass = require('gulp-sass');<% } %>
 <% if (cssProcessor === 'less') { %>var less = require('gulp-less');<% } %>
 <% if (cssProcessor === 'styl') { %>var stylus = require('gulp-stylus');<% } %>
+
 var minify = require('gulp-clean-css');
 var sourcemaps = require('gulp-sourcemaps');
 var plumber = require('gulp-plumber');
@@ -13,11 +17,6 @@ var rename = require('gulp-rename');
 
 var browserSync = require('browser-sync');
 
-
-var onError = function(err) {
-  console.log(err.toString());
-  this.emit('end');
-};
 
 gulp.task('main:styles', function() {
   return gulp.src('<%= cssMainFile %>')

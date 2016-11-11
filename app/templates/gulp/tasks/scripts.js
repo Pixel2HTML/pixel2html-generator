@@ -1,21 +1,15 @@
 'use strict';
 
 
-var gulp = require('gulp');
+var gulp    = require('gulp');
+var config  = require('../config');
+var helpers = require('../helpers');
 
-var concat = require('gulp-concat');
+var concat  = require('gulp-concat');
 var plumber = require('gulp-plumber');
-var uglify = require('gulp-uglify');
-
-var jshint = require('gulp-jshint');
+var uglify  = require('gulp-uglify');
 
 var browserSync = require('browser-sync');
-
-
-var onError = function(err) {
-  console.log(err.toString());
-  this.emit('end');
-};
 
 gulp.task('main:scripts', function() {
   return gulp.src('<%= paths.src.scripts %>/main.js')

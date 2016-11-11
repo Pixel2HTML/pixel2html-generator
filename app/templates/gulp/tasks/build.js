@@ -1,15 +1,12 @@
 'use strict';
 
 
-var gulp = require('gulp');
+var gulp    = require('gulp');
+var config  = require('../config');
+var helpers = require('../helpers');
+
 var plumber = require('gulp-plumber');
-var zip  = require('gulp-zip');
-
-var onError = function(err) {
-  console.log(err.toString());
-  this.emit('end');
-};
-
+var zip     = require('gulp-zip');
 
 gulp.task('build:zip', function() {
 

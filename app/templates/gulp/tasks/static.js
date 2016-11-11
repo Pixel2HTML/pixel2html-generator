@@ -1,16 +1,13 @@
 'use strict';
 
-var gulp = require('gulp');
+var gulp    = require('gulp');
+var config  = require('../config');
+var helpers = require('../helpers');
+
 var del = require('del');
 var plumber = require('gulp-plumber');
 var browserSync = require('browser-sync');
 
-
-
-var onError = function(err) {
-  console.log(err.toString());
-  this.emit('end');
-};
 
 gulp.task('clean', function(cb) {
   del(['<%= paths.dist.base %>'], cb);
