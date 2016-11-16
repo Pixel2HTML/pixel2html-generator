@@ -1,0 +1,10 @@
+ title: Project 4352
+ email: your-email@domain.com
+ baseurl: "" # the subpath of your site, e.g. /blog
+
+ markdown: kramdown
+ source:       "src"
+ destination:  "dist"
+ data_dir:     "data"
+ exclude: [assets, releases]
+ keep_files: [assets, releases]

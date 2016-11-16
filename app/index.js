@@ -64,7 +64,7 @@ var Generator = module.exports = function Generator(args, options) {
   });
 
   this.option('markupLanguage', {
-    desc: 'Sets the Markup Languaje [html, pug]',
+    desc: 'Sets the Markup Language/Integration [html, pug, jekyll]',
     type: String,
     required: false
   });
@@ -218,13 +218,17 @@ Generator.prototype.askForMarkupLanguage = function() {
   this.prompt([{
       type: 'list',
       name: 'markupLanguage',
-      message: 'What markup lenguage would you like to use? Pick one',
+      message: 'What markup lenguage/integration would you like to use? Pick one',
       choices: [{
         name: 'HTML',
         value: 'html',
       }, {
         name: 'pug/jade',
         value: 'pug',
+      },
+      {
+        name: 'Jekyll',
+        value: 'jekyll'
       }],
       when: function() {
         return !markupLanguage;
@@ -452,10 +456,15 @@ Generator.prototype.writeBaseBowerFile = function() {
 
 Generator.prototype.writeMarkupFiles = function() {
 
+  if(this.options.markupLanguage == 'jekyll'){
+    var markupLanguage = 'html';
+  } else {
+    var markupLanguage = this.options.markupLanguage;
+  }
   for (var i = 1; i < this.options.qtyScreens + 1; i++) {
     this.fs.copyTpl(
-      this.templatePath('markup/_screen.'+this.options.markupLanguage),
-      this.destinationPath(this.paths.src.markup+'/screen_' + i + '.'+this.options.markupLanguage), {
+      this.templatePath('markup/_screen.'+markupLanguage),
+      this.destinationPath(this.paths.src.markup+'/screen_' + i + '.'+markupLanguage), {
         screenNumber: i,
         clientId: this.options.clientId,
         projectId: this.options.projectId,
