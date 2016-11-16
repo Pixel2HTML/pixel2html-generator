@@ -24,7 +24,10 @@ This boilerplate will create a set of files and folders
 ├── dist/
 ├── src/
 │    ├──  assets/
-│    │    ├──  .gulp/
+│    │    ├──  gulp/
+│    │    │    ├── tasks/
+│    │    │    ├── config.js
+│    │    │    └── helpers.js
 │    │    ├──  fonts/
 │    │    ├──  icons/
 │    │    ├──  images/
@@ -38,14 +41,10 @@ This boilerplate will create a set of files and folders
 │    │    │    ├──  screens/
 │    │    │    │    ├──  _base.<%= cssProcessor %>
 <% for(var i=1; i<=qtyScreens; i++) {%>│    │    │    │    └──  screen_<%=i%>.<%= cssProcessor %>
-<% } %><% if (frontEndFramework) { -%>│    │    │    ├──  vendor/
-│    │    │    │    ├──  <%= frontEndFramework %>/
-│    │    │    │         ├──  index.scss
-│    │    │    │         └──  variables.scss<% } -%>
-
-│    │    │    ├──  _variables.<%= cssProcessor %>
+<% } %>│    │    │    ├──  _variables.<%= cssProcessor %>
 │    │    │    ├──  _reset.<%= cssProcessor %>
 │    │    │    ├──  _mixins.<%= cssProcessor %>
+<% if (frontEndFramework) { -%>│    │    │    ├──  _mixins.scss<% } %>
 │    │    │    └──  main.<%= cssProcessor %>
 │    │    └──  vendor/
 <% for(var i=1; i<=qtyScreens; i++) {%>│    └──  screen_<%=i%>.<%=markupLanguage%>
@@ -53,7 +52,6 @@ This boilerplate will create a set of files and folders
 ├── .editorcofig
 ├── .gitattributes
 ├── .gitignore
-├── .gitlab-ci.yml
 ├── .project.conf
 ├── bower.json
 ├── gulpfile.js
@@ -61,7 +59,46 @@ This boilerplate will create a set of files and folders
 └── README.md
 ```
 
+## Gulp Config file
 
+You have a config file located at `./src/assets/gulp/config.js` that enables you to add thrid-party libraries easily.
+
+### SCSS Directories
+
+You can add paths to `scssDirectories` key, who will add this directories to the `includePath` of `sass` compilation. So you now can `@include` whatever you want in your `./src/assets/styles/vendor.scss` file:
+
+#### Example
+```
+sassDirectories: [
+  'path/to/scss/directory/scss',
+  'another/brick/in/the/scss'
+]
+```
+
+### Script Files
+
+You can add file paths to `scriptFiles` key, who will add this concat, and minify to the `vendors.js` file.
+
+#### Example
+```
+scriptFiles: [
+  './path/to/jquery/library/slider.js',
+  './welcome/to/the/machine.js'
+]
+```
+
+### Font Files
+
+You can add file paths to `fontFiles` key, who will move this fonts to the correct folder `./dist/assets/fonts`.
+You can point to specific files or complete directories using wildcards (`**/*`)
+
+#### Example
+```
+fontFiles: [
+  './path/to/bootstrap/fonts/**/*',
+  './shine/on/crazy/font.ttf'
+]
+```
 
 ## Available Gulp Commands
 
@@ -69,49 +106,21 @@ This boilerplate will create a set of files and folders
 * `$ gulp clean` Clean /dist directory
 
 ### Static Files
-* `$ gulp main:static` Compile static files (images, fonts, icons)
-* `$ gulp main:static:images` Move images
-* `$ gulp main:static:fonts` Move fonts
-* `$ gulp main:static:icons` Move icons
+* `$ gulp main:static` Compile static files (images, icons)
+* `$ gulp main:images` Move images
+* `$ gulp main::icons` Move icons
+
+### Fonts Files
+* `$ gulp main:fonts` Move project fonts
+* `$ gulp vendor:fonts` Move vendors fonts
 
 ### Scripts
-* `$ gulp main:scripts` Concat, uglify and move JS files
+* `$ gulp main:scripts` Concat, uglify and move project JS files
+* `$ gulp vendor:scripts` Concat, uglify and move vendors JS files
 
 ### Styles
-* `$ gulp main:styles` Compile, concat, autoprefix, minify and move [SCSS, Less, Stylus] files
-
-### Vendors
-
-<% if (frontEndFramework == 'bootstrap') { -%>
-#### Bootstrap
-
-* `$ gulp vendor:bootstrap` Compile & Move all **Bootstrap** files
-* `$ gulp vendor:bootstrap:styles` Compile, concat, autoprefix, minify and move **Bootstrap** files
-* `$ gulp vendor:bootstrap:scripts` Concat, uglify and move **Bootstrap** JS files
-* `$ gulp vendor:bootstrap:fonts` Move **Bootstrap** fonts files
-<% } -%>
-
-<% if (frontEndFramework == 'foundation') { -%>
-#### Foundation
-
-* `$ gulp vendor:foundation` Compile & Move all **Foundation** files
-* `$ gulp vendor:foundation:styles` Compile, concat, autoprefix, minify and move **Foundation** files
-* `$ gulp vendor:foundation:scripts` Move **Foundation** JS files
-* `$ gulp vendor:foundation:fonts` Move **Foundation** fonts files
-<% } -%>
-
-<% if (frontEndFramework == 'basscss') { -%>
-#### BassCss
-
-* `$ gulp vendor:basscss` Compile & Move all **BassCss** files
-* `$ gulp vendor:basscss:styles` Compile, concat, autoprefix, minify and move **BassCss** files
-* `$ gulp vendor:basscss:scripts` Concat, uglify and move **BassCss** JS files
-* `$ gulp vendor:basscss:fonts` Move **BassCss** fonts files
-<% } -%>
-
-### jQuery
-* `$ gulp vendor:jquery` Compile & move all **jQuery** files
-* `$ gulp vendor:jquery:scripts` Compile, concat, minify and move **jQuery** files
+* `$ gulp main:styles` Compile, concat, autoprefix, minify and move [SCSS, Less, Stylus] project files
+* `$ gulp vendor:styles` Compile, concat, autoprefix, minify and move [SCSS, Less, Stylus] vendor files
 
 ### Daemons
 * `$ gulp watch` **Watch** your files and autoexecute gulp directives
@@ -119,3 +128,7 @@ This boilerplate will create a set of files and folders
 
 ### Delivery
  * `$ gulp build` Execute all the gulp directives and makes a `.zip` file with the latest code.
+
+---
+
+##### Generated with 💕 by Pixel2HTML v<%= version %> @ <%= now %>

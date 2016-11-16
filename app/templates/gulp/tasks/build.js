@@ -12,10 +12,7 @@ gulp.task('build:zip', function() {
 
   var distFiles = [
     'dist/*.html',
-    'dist/assets/**/*',
-    <% if (cssProcessor) { %>
-    'src/assets/styles/**/*',
-    <% } %>
+    'dist/assets/**/*'
   ];
 
   return gulp.src(distFiles, {base: '.'})
