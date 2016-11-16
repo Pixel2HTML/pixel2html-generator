@@ -14,3 +14,7 @@ gulp.task('jekyll:build', function (gulpCallBack){
         gulpCallBack(code === 0 ? null : 'ERROR: Jekyll process exited with code: '+code);
     });
 });
+
+gulp.task('jekyll:rebuild', ['jekyll:build'], function () {
+    browserSync.reload();
+});

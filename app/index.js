@@ -684,7 +684,8 @@ Generator.prototype.writeBaseGulpFiles = function() {
       paths: this.paths,
       cssProcessor: this.options.cssProcessor,
       markupLanguage: this.options.markupLanguage,
-      frontEndFramework: this.options.frontEndFramework
+      frontEndFramework: this.options.frontEndFramework,
+      markupIntegration: this.options.markupIntegration
     }
   );
 

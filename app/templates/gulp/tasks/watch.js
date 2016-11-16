@@ -7,7 +7,12 @@ var helpers = require('../helpers');
 gulp.task('watch', function() {
 
   //static files
-  gulp.watch('<%= paths.src.markup %>/**/*.<%=markupLanguage%>', ['main:markup']);
+  <% if(markupIntegration=='jekyll'){ %>
+    gulp.watch('<%= paths.src.markup %>/**/*.html', ['jekyll:rebuild']);
+  <% } else { %>
+    gulp.watch('<%= paths.src.markup %>/**/*.<%=markupLanguage%>', ['main:markup']);
+  <% } %>
+
   gulp.watch('<%= paths.src.images %>/**/*', ['main:images']);
   gulp.watch('<%= paths.src.fonts %>/**/*', ['main:fonts']);
   gulp.watch('<%= paths.src.icons %>/**/*', ['main:icons']);
