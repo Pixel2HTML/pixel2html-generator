@@ -65,7 +65,13 @@ var Generator = module.exports = function Generator(args, options) {
   });
 
   this.option('markupLanguage', {
-    desc: 'Sets the Markup Languaje [html, pug]',
+    desc: 'Sets the Markup Language [html, pug]',
+    type: String,
+    required: false
+  });
+
+  this.option('markupIntegration', {
+    desc: 'Sets the Markup Integration',
     type: String,
     required: false
   });
@@ -105,6 +111,7 @@ Generator.prototype.readConfigFile = function() {
     this.options.projectId = config.projectId;
     this.options.qtyScreens = config.qtyScreens;
     this.options.markupLanguage = config.markupLanguage;
+    this.options.markupIntegration = config.markupIntegration;
     this.options.cssProcessor = config.cssProcessor;
     this.options.frontEndFramework = config.frontEndFramework;
     this.options.jQuery = config.jQuery;
@@ -219,7 +226,7 @@ Generator.prototype.askForMarkupLanguage = function() {
   this.prompt([{
       type: 'list',
       name: 'markupLanguage',
-      message: 'What markup lenguage would you like to use? Pick one',
+      message: 'What markup lenguage/integration would you like to use? Pick one',
       choices: [{
         name: 'HTML',
         value: 'html',
@@ -233,6 +240,37 @@ Generator.prototype.askForMarkupLanguage = function() {
     }],
     function(props) {
       this.options.markupLanguage = props.markupLanguage;
+      cb();
+    }.bind(this));
+};
+
+Generator.prototype.askForMarkupIntegration = function() {
+  var cb = this.async();
+  var markupIntegration = this.options.markupIntegration;
+
+  if (markupIntegration) {
+    cb();
+    return true;
+  }
+
+  this.prompt([{
+      type: 'list',
+      name: 'markupIntegration',
+      message: 'What Markup Integrationdo you like to use?',
+      choices: [
+      {
+        name: 'None',
+        value: false,
+      },{
+        name: 'Jekyll',
+        value: 'jekyll',
+      }],
+      when: function() {
+        return !markupIntegration;
+      }
+    }],
+    function(props) {
+      this.options.markupIntegration = props.markupIntegration;
       cb();
     }.bind(this));
 };
@@ -344,6 +382,7 @@ Generator.prototype.writeProjectFiles = function() {
       clientId: this.options.clientId,
       projectId: this.options.projectId,
       markupLanguage: this.options.markupLanguage,
+      markupIntegration: this.options.markupIntegration,
       cssProcessor: this.options.cssProcessor,
       frontEndFramework: this.options.frontEndFramework
     }
@@ -375,6 +414,7 @@ Generator.prototype.writeProjectFiles = function() {
       paths: this.paths,
       projectId: this.options.projectId,
       frontEndFramework: this.options.frontEndFramework,
+      markupIntegration: this.options.markupIntegration,
       jQuery: this.options.jQuery,
       qtyScreens: this.options.qtyScreens,
       markupLanguage: this.options.markupLanguage,
@@ -440,19 +480,20 @@ Generator.prototype.writeBaseBowerFile = function() {
 
 Generator.prototype.writeMarkupFiles = function() {
 
-  for (var i = 1; i < this.options.qtyScreens + 1; i++) {
-    this.fs.copyTpl(
-      this.templatePath('markup/_screen.'+this.options.markupLanguage),
-      this.destinationPath(this.paths.src.markup+'/screen_' + i + '.'+this.options.markupLanguage), {
-        screenNumber: i,
-        clientId: this.options.clientId,
-        projectId: this.options.projectId,
-        frontEndFramework: this.options.frontEndFramework,
-        jQuery: this.options.jQuery,
-      }
-    );
+  if( ! this.options.markupIntegration){
+    for (var i = 1; i < this.options.qtyScreens + 1; i++) {
+      this.fs.copyTpl(
+        this.templatePath('markup/_screen.'+this.options.markupLanguage),
+        this.destinationPath(this.paths.src.markup+'/screen_' + i + '.'+this.options.markupLanguage), {
+          screenNumber: i,
+          clientId: this.options.clientId,
+          projectId: this.options.projectId,
+          frontEndFramework: this.options.frontEndFramework,
+          jQuery: this.options.jQuery,
+        }
+      );
+    }
   }
-
 };
 
 Generator.prototype.writeBaseStyles = function() {
@@ -590,6 +631,7 @@ Generator.prototype.writeBaseGulpFiles = function() {
     this.destinationPath(this.paths.src.gulp_tasks + '/default.js'), {
       paths: this.paths,
       frontEndFramework: this.options.frontEndFramework,
+      markupIntegration: this.options.markupIntegration,
       jQuery: this.options.jQuery
     }
   );
@@ -646,7 +688,8 @@ Generator.prototype.writeBaseGulpFiles = function() {
       paths: this.paths,
       cssProcessor: this.options.cssProcessor,
       markupLanguage: this.options.markupLanguage,
-      frontEndFramework: this.options.frontEndFramework
+      frontEndFramework: this.options.frontEndFramework,
+      markupIntegration: this.options.markupIntegration
     }
   );
 
@@ -668,6 +711,66 @@ Generator.prototype.writeBaseGulpFiles = function() {
   );
 };
 
+Generator.prototype.writeMarkupIntegrationFiles = function() {
+
+  if(this.options.markupIntegration == 'jekyll'){
+    this.log(chalk.yellow('Copying Jekyll main files.'));
+    this.fs.copyTpl(
+      this.templatePath('markup/jekyll/_Gemfile'),
+      this.destinationPath('Gemfile'), {
+      }
+    );
+
+    this.fs.copyTpl(
+      this.templatePath('markup/jekyll/_config.yml'),
+      this.destinationPath('_config.yml'), {
+        projectId: this.options.projectId,
+      }
+    );
+
+    this.fs.copyTpl(
+      this.templatePath('gulp/tasks/jekyll.js'),
+      this.destinationPath(this.paths.src.gulp_tasks + '/jekyll.js'), {
+        paths: this.paths,
+      }
+    );
+
+    for (var i = 1; i < this.options.qtyScreens + 1; i++) {
+      this.fs.copyTpl(
+        this.templatePath('markup/jekyll/_screen.html'),
+        this.destinationPath(this.paths.src.markup+'/screen_' + i + '.html'), {
+          screenNumber: i,
+          clientId: this.options.clientId,
+          projectId: this.options.projectId,
+          frontEndFramework: this.options.frontEndFramework,
+          jQuery: this.options.jQuery,
+        }
+      );
+    }
+
+    this.fs.copyTpl(
+      this.templatePath('markup/jekyll/_includes/shared/head.html'),
+      this.destinationPath(this.paths.src.markup+'/_includes/shared/head.html'), {
+        frontEndFramework: this.options.frontEndFramework,
+      }
+    );
+    this.fs.copyTpl(
+      this.templatePath('markup/jekyll/_includes/shared/foot.html'),
+      this.destinationPath(this.paths.src.markup+'/_includes/shared/foot.html'), {
+        frontEndFramework: this.options.frontEndFramework,
+        jQuery: this.options.jQuery,
+      }
+    );
+    this.fs.copyTpl(
+      this.templatePath('markup/jekyll/_layouts/default.html'),
+      this.destinationPath(this.paths.src.markup+'/_layouts/default.html'), {
+      }
+    );
+  }
+
+};
+
+
 
 Generator.prototype.writeProjectConfigFile = function() {
   //overwrite the default .project.conf file or create the new one.
@@ -677,6 +780,7 @@ Generator.prototype.writeProjectConfigFile = function() {
     "projectId": this.options.projectId,
     "qtyScreens": this.options.qtyScreens,
     "markupLanguage": this.options.markupLanguage,
+    "markupIntegration": this.options.markupIntegration,
     "cssProcessor": this.options.cssProcessor,
     "frontEndFramework": this.options.frontEndFramework,
     "jQuery": this.options.jQuery,
