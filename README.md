@@ -28,6 +28,7 @@ $ yo pixel2html
 * Project ID
 * Quantity of screens
 * Markup Language [HTML/Pug]
+* Markup Integration [Jekyll]
 * CSS Processor [CSS/Scss/LESS/Stylus]
 * Frontend Framework [None/Bootstrap/Foundation/BassCss]
 * usage of jQuery
@@ -40,6 +41,7 @@ You also can answer this questions passing parameters to the generator command.
 * ```--projectId``` (*int*)
 * ```--qtyScreens``` (*int*)
 * ```--markupLanguage``` (*string*) [html, pug]
+* ```--markupIntegration``` (*string*) [jekyll, none]
 * ```--cssProcessor``` (*string*) [scss, less, styl, none]
 * ```--frontEndFramework``` (*string*) [basscss, bootstrap, foundation, none]
 * ```--jQuery``` (*bool*)
@@ -61,6 +63,7 @@ Here an example of it's structure
   "projectId": XXX,
   "qtyScreens": 4,
   "markupLanguage": 'html',
+  "markupIntegration": 'jekyll',
   "cssProcessor": "less",
   "frontEndFramework": "bootstrap",
   "jQuery": true
