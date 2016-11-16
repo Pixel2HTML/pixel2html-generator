@@ -54,6 +54,13 @@ describe('LESS features', function() {
         'src/assets/styles/screens/screen_3.less',
       ]);
     });
+
+    it('should exists a gulp routine', function(){
+      assert.file([
+        'src/assets/gulp/tasks/styles.js'
+      ]);
+      assert.fileContent('src/assets/gulp/tasks/styles.js',  /gulp-less/);
+    });
   });
 
 });

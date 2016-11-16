@@ -1,15 +1,12 @@
 'use strict';
 
 
-var gulp = require('gulp');
+var gulp    = require('gulp');
+var config  = require('../config');
+var helpers = require('../helpers');
+
 var plumber = require('gulp-plumber');
-var zip  = require('gulp-zip');
-
-var onError = function(err) {
-  console.log(err.toString());
-  this.emit('end');
-};
-
+var zip     = require('gulp-zip');
 
 gulp.task('build:zip', function() {
 
@@ -23,7 +20,7 @@ gulp.task('build:zip', function() {
 
   return gulp.src(distFiles, {base: '.'})
     .pipe(plumber({
-      errorHandler: onError
+      errorHandler: helpers.onError
     }))
     .pipe(zip('latest.zip'))
     .pipe(gulp.dest('<%= paths.releases.base %>'));
