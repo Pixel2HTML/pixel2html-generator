@@ -382,6 +382,7 @@ Generator.prototype.writeProjectFiles = function() {
       clientId: this.options.clientId,
       projectId: this.options.projectId,
       markupLanguage: this.options.markupLanguage,
+      markupIntegration: this.options.markupIntegration,
       cssProcessor: this.options.cssProcessor,
       frontEndFramework: this.options.frontEndFramework
     }
@@ -413,6 +414,7 @@ Generator.prototype.writeProjectFiles = function() {
       paths: this.paths,
       projectId: this.options.projectId,
       frontEndFramework: this.options.frontEndFramework,
+      markupIntegration: this.options.markupIntegration,
       jQuery: this.options.jQuery,
       qtyScreens: this.options.qtyScreens,
       markupLanguage: this.options.markupLanguage,

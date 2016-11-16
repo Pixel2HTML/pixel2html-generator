@@ -5,7 +5,7 @@ To work, the **Pixel2HTML Boilerplate** needs to install some dependencies to ru
 For this job, run this command in your shell
 
 ```
-$ npm install
+$ npm run start
 $ npm run code
 ```
 
@@ -23,6 +23,12 @@ This boilerplate will create a set of files and folders
 
 ├── dist/
 ├── src/
+<% if (markupIntegration=='jekyll'){%>│    ├── _layouts/
+│    │    └── default.html
+│    ├── _includes/
+│    │    ├── shared/
+│    │    │    ├──  head.html
+│    │    │    └──  foot.html<%}%>
 │    ├──  assets/
 │    │    ├──  gulp/
 │    │    │    ├──  tasks/
@@ -41,8 +47,7 @@ This boilerplate will create a set of files and folders
 <% for(var i=1; i<=qtyScreens; i++) {%>│    │    │    │    └──  screen_<%=i%>.<%= cssProcessor %>
 <% } %>│    │    │    ├──  _variables.<%= cssProcessor %>
 │    │    │    ├──  _reset.<%= cssProcessor %>
-│    │    │    ├──  _mixins.<%= cssProcessor %>
-<% if (frontEndFramework) { -%>│    │    │    ├──  _mixins.scss<% } %>
+│    │    │    ├──  _mixins.<%= cssProcessor %><% if (frontEndFramework) { -%>│    │    │    ├──  vendors.scss<% } %>
 │    │    │    └──  main.<%= cssProcessor %>
 │    │    └──  vendor/
 <% for(var i=1; i<=qtyScreens; i++) {%>│    └──  screen_<%=i%>.<%=markupLanguage%>
@@ -51,7 +56,9 @@ This boilerplate will create a set of files and folders
 ├── .gitattributes
 ├── .gitignore
 ├── .project.conf
+<% if (markupIntegration=='jekyll'){%>├── Gemfile<%}%>
 ├── bower.json
+<% if (markupIntegration=='jekyll'){%>├── _config.yml<%}%>
 ├── gulpfile.js
 ├── package.json
 └── README.md
@@ -80,6 +87,11 @@ This boilerplate will create a set of files and folders
 ### Styles
 * `$ gulp main:styles` Compile, concat, autoprefix, minify and move [SCSS, Less, Stylus] project files
 * `$ gulp vendor:styles` Compile, concat, autoprefix, minify and move [SCSS, Less, Stylus] vendor files
+
+<% if (markupIntegration=='jekyll'){%>
+### Integration
+* `$ gulp jekyll:build` Compile markup with Jekyll's partials and layouts files.
+<%}%>
 
 ### Daemons
 * `$ gulp watch` **Watch** your files and autoexecute gulp directives

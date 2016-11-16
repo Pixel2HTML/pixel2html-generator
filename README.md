@@ -154,6 +154,9 @@ This boilerplate will create a set of files and folders
 * `$ gulp main:styles` Compile, concat, autoprefix, minify and move [SCSS, Less, Stylus] project files
 * `$ gulp vendor:styles` Compile, concat, autoprefix, minify and move [SCSS, Less, Stylus] vendor files
 
+### Integration
+* `$ gulp jekyll:build` Compile markup with Jekyll's partials and layouts files.
+
 ### Daemons
 * `$ gulp watch` **Watch** your files and autoexecute gulp directives
 * `$ gulp serve` **Watch** your files and **serve** with an HTTP server and **Sync** with your prefered browser _awesome!_
