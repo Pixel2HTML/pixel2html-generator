@@ -52,7 +52,7 @@ gulp.task('vendor:styles', function() {
     .pipe(sourcemaps.init())
     .pipe(sass({
       outputStyle: 'expanded',
-      includePaths: config.vendor.sassDirectories
+      includePaths: config.vendor.scssDirectories
     }))
     .pipe(autoprefixer({
       browsers: ['last 2 versions', 'iOS 8'],

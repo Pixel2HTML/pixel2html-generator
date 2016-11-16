@@ -25,7 +25,9 @@ This boilerplate will create a set of files and folders
 ├── src/
 │    ├──  assets/
 │    │    ├──  gulp/
-│    │    │    ├──  tasks/
+│    │    │    ├── tasks/
+│    │    │    ├── config.js
+│    │    │    └── helpers.js
 │    │    ├──  fonts/
 │    │    ├──  icons/
 │    │    ├──  images/
@@ -57,7 +59,46 @@ This boilerplate will create a set of files and folders
 └── README.md
 ```
 
+## Gulp Config file
 
+You have a config file located at `./src/assets/gulp/config.js` that enables you to add thrid-party libraries easily.
+
+### SCSS Directories
+
+You can add paths to `scssDirectories` key, who will add this directories to the `includePath` of `sass` compilation. So you now can `@include` whatever you want in your `./src/assets/styles/vendor.scss` file:
+
+#### Example
+```
+sassDirectories: [
+  'path/to/scss/directory/scss',
+  'another/brick/in/the/scss'
+]
+```
+
+### Script Files
+
+You can add file paths to `scriptFiles` key, who will add this concat, and minify to the `vendors.js` file.
+
+#### Example
+```
+scriptFiles: [
+  './path/to/jquery/library/slider.js',
+  './welcome/to/the/machine.js'
+]
+```
+
+### Font Files
+
+You can add file paths to `fontFiles` key, who will move this fonts to the correct folder `./dist/assets/fonts`.
+You can point to specific files or complete directories using wildcards (`**/*`)
+
+#### Example
+```
+fontFiles: [
+  './path/to/bootstrap/fonts/**/*',
+  './shine/on/crazy/font.ttf'
+]
+```
 
 ## Available Gulp Commands
 
