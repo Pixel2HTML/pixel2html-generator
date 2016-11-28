@@ -6,6 +6,8 @@ var helpers = require('../helpers');
 
 gulp.task('watch', function() {
 
+  gulp.watch('<%= paths.src.gulp %>/config.js', ['default']);
+
   //static files
   <% if(markupIntegration=='jekyll'){ %>
     gulp.watch('<%= paths.src.markup %>/**/*.html', ['jekyll:rebuild']);
