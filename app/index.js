@@ -614,9 +614,7 @@ Generator.prototype.writeBaseGulpFiles = function() {
     this.templatePath('gulp/tasks/default.js'),
     this.destinationPath(this.paths.src.gulp_tasks + '/default.js'), {
       paths: this.paths,
-      frontEndFramework: this.options.frontEndFramework,
       markupIntegration: this.options.markupIntegration,
-      jQuery: this.options.jQuery
     }
   );
 

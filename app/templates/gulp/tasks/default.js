@@ -6,6 +6,7 @@ var helpers = require('../helpers');
 
 gulp.task('default', [
   'main:static',
+  'main:fonts',
   'main:styles',
   'main:scripts',
   <% if(markupIntegration=='jekyll'){ %>
@@ -13,11 +14,7 @@ gulp.task('default', [
   <% } else { %>
   'main:markup',
   <% } %>
-  <% if(frontEndFramework){ %>
   'vendor:styles',
   'vendor:fonts',
-  <% } %>
-  <% if(jQuery || frontEndFramework){ %>
   'vendor:scripts',
-  <% } %>
 ]);
