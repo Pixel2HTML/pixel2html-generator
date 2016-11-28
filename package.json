@@ -7,6 +7,9 @@
     "name": "Juan Manuel Garcia Olivares",
     "email": "jm@pixel2html.com"
   },
+  "keywords": [
+    "yeoman-generator"
+  ],
   "scripts": {
     "test": "mocha --reporter spec --timeout 3000"
   },
