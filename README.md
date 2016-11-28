@@ -8,13 +8,13 @@ We aim to generate a boilerplate for projects when we know the specs.
 
 You will need `node` installed in your machine. In case you don't have it (you can check this typing `node -v` in your terminal) please visit [this link](https://nodejs.org/en/download/).
 
-Now we need to install **Yeoman**, **Bower** and the **Pixel2HTML Generator**, so, run this command in your terminal. This one will install globally.
+We also need to install **Yeoman**, **Bower** and the **Pixel2HTML Generator**, so run this command in your terminal. The `-g` parameter is to install them globally so can use it in every project.
 ```shell
 $ npm install -g yo bower generator-pixel2html
 ```
 _voilá_
 
-## Running the generator by yourself
+## Running the generator
 
 To generate the **Pixel2HTML Boilerplate** go to your project folder and run this command in your shell
 
@@ -23,13 +23,13 @@ $ cd ~/your/project/folder
 $ yo pixel2html
 ```
 
-### Questions the generator will ask (if not already answered in the config file)
+### Questions the generator will ask
 * Client ID
 * Project ID
 * Quantity of screens
 * Markup Language [HTML/Pug]
-* Markup Integration [Jekyll]
-* CSS Processor [CSS/Scss/LESS/Stylus]
+* Markup Integration [None/Jekyll]
+* CSS Processor [SCSS/LESS/Stylus]
 * Frontend Framework [None/Bootstrap/Foundation/BassCss]
 * usage of jQuery
 
@@ -42,7 +42,7 @@ You also can answer this questions passing parameters to the generator command.
 * ```--qtyScreens``` (*int*)
 * ```--markupLanguage``` (*string*) [html, pug]
 * ```--markupIntegration``` (*string*) [jekyll, none]
-* ```--cssProcessor``` (*string*) [scss, less, styl, none]
+* ```--cssProcessor``` (*string*) [scss, less, styl]
 * ```--frontEndFramework``` (*string*) [basscss, bootstrap, foundation, none]
 * ```--jQuery``` (*bool*)
 
