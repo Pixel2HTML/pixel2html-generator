@@ -11,7 +11,7 @@ gulp.task('default', [
   <% if(markupIntegration=='jekyll'){ %>
   'jekyll:build',
   <% } else { %>
-    'main:markup',
+  'main:markup',
   <% } %>
   <% if(frontEndFramework){ %>
   'vendor:styles',

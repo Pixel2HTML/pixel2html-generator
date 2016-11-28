@@ -45,6 +45,14 @@ describe('Jekyll Features', function() {
         'src/screen_6.html',
         'src/assets/gulp',
         'src/assets/gulp/tasks',
+        'src/assets/gulp/tasks/build.js',
+        'src/assets/gulp/tasks/default.js',
+        'src/assets/gulp/tasks/fonts.js',
+        'src/assets/gulp/tasks/jekyll.js',
+        'src/assets/gulp/tasks/serve.js',
+        'src/assets/gulp/tasks/static.js',
+        'src/assets/gulp/tasks/styles.js',
+        'src/assets/gulp/tasks/watch.js',
         'src/assets/fonts',
         'src/assets/icons',
         'src/assets/images',
@@ -64,8 +72,9 @@ describe('Jekyll Features', function() {
       assert.fileContent('package.json',  /"name": "pixel2html-0987-1234"/);
     });
 
-    it('should have the gulp routine in gul default\'s task', function() {
+    it('should have the gulp routine in gulp default\'s task', function() {
       assert.fileContent('src/assets/gulp/tasks/default.js',  /'jekyll:build'/);
+      assert.noFileContent('src/assets/gulp/tasks/default.js',  /'main:markup'/);
     });
   });
 

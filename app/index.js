@@ -657,13 +657,15 @@ Generator.prototype.writeBaseGulpFiles = function() {
   );
 
   //main:markup
-  this.fs.copyTpl(
-    this.templatePath('gulp/tasks/markup.js'),
-    this.destinationPath(this.paths.src.gulp_tasks + '/markup.js'), {
-      paths: this.paths,
-      markupLanguage: this.options.markupLanguage
-    }
-  );
+  if(!this.options.markupIntegration){
+    this.fs.copyTpl(
+      this.templatePath('gulp/tasks/markup.js'),
+      this.destinationPath(this.paths.src.gulp_tasks + '/markup.js'), {
+        paths: this.paths,
+        markupLanguage: this.options.markupLanguage
+      }
+    );
+  }
 
   //watch
   this.fs.copyTpl(
