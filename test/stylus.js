@@ -60,6 +60,10 @@ describe('Stylus features', function() {
       assert.fileContent('src/assets/gulp/tasks/styles.js',  /gulp-stylus/);
     });
 
+    it('should exists a pipe in the main:styles routing', function() {
+      assert.fileContent('src/assets/gulp/tasks/styles.js', /stylus()/);
+    });
+
   });
 
 });

@@ -76,6 +76,10 @@ describe('Jekyll Features', function() {
       assert.fileContent('src/assets/gulp/tasks/default.js',  /'jekyll:build'/);
       assert.noFileContent('src/assets/gulp/tasks/default.js',  /'main:markup'/);
     });
+
+    it('Gemfile should have the usage of Jekyll Gem', function() {
+      assert.fileContent('Gemfile', /gem 'jekyll'/);
+    });
   });
 
 });
