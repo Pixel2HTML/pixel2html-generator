@@ -4,22 +4,15 @@
 var gulp    = require('gulp');
 var config  = require('../config');
 var helpers = require('../helpers');
-var plumber = require('gulp-plumber');
-var browserSync = require('browser-sync');
 
-<% if (markupLanguage === 'pug') { %>var pug = require('gulp-pug');<% } %>
+var plumber = require('gulp-plumber');
+var browserSync = require('browser-sync');<% if (markupLanguage === 'pug') { %>
+var pug = require('gulp-pug');<% } %>
 
 gulp.task('main:markup', function() {
-
   return gulp.src('<%= paths.src.markup %>/*.<%=markupLanguage%>')
-    .pipe(plumber({
-      errorHandler: helpers.onError
-    }))
-    <% if (markupLanguage === 'pug') { %>
-    .pipe(pug({
-      pretty: true
-    }))
-    <% } %>
+    .pipe(plumber({ errorHandler: helpers.onError }))<% if (markupLanguage === 'pug') { %>
+    .pipe(pug({ pretty: true })) <% } %>
     .pipe(gulp.dest('<%= paths.dist.markup %>'))
     .pipe(browserSync.reload({stream:true}));
 });
