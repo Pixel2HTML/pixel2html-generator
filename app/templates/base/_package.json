@@ -28,7 +28,7 @@
     <% if (markupLanguage === 'pug') { %>
       "gulp-pug": "^3.1.0",
     <% } %>
-
+    "gulp-group-css-media-queries": "^1.2.0",
     "gulp-autoprefixer": "^2.3.1",
     "gulp-clean-css": "^2.0.12",
     "gulp-concat": "^2.6.0",

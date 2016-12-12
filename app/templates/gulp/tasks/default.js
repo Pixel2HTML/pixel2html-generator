@@ -8,16 +8,8 @@ gulp.task('default', [
   'main:static',
   'main:styles',
   'main:scripts',
-  <% if(markupIntegration=='jekyll'){ %>
-  'jekyll:build',
-  <% } else { %>
-    'main:markup',
-  <% } %>
-  <% if(frontEndFramework){ %>
-  'vendor:styles',
-  'vendor:fonts',
-  <% } %>
-  <% if(jQuery || frontEndFramework){ %>
-  'vendor:scripts',
-  <% } %>
+  <% if(markupIntegration=='jekyll'){ %>'jekyll:build', <% } else { %>'main:markup', <% } %>
+  <% if(frontEndFramework){ %>'vendor:styles',
+  'vendor:fonts',<% } %>
+  <% if(jQuery || frontEndFramework){ %>'vendor:scripts',<% } %>
 ]);
