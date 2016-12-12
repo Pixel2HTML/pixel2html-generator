@@ -61,6 +61,10 @@ describe('LESS features', function() {
       ]);
       assert.fileContent('src/assets/gulp/tasks/styles.js',  /gulp-less/);
     });
+
+    it('should exists a pipe in the main:styles routing', function() {
+      assert.fileContent('src/assets/gulp/tasks/styles.js', /less()/);
+    });
   });
 
 });

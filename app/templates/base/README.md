@@ -28,8 +28,7 @@ This boilerplate will create a set of files and folders
 │    ├── _includes/
 │    │    ├── shared/
 │    │    │    ├──  head.html
-│    │    │    └──  foot.html<%}%>
-│    ├──  assets/
+│    │    │    └──  foot.html<%}%>│    ├──  assets/
 │    │    ├──  gulp/
 │    │    │    ├── tasks/
 │    │    │    ├── config.js
@@ -58,10 +57,8 @@ This boilerplate will create a set of files and folders
 ├── .gitattributes
 ├── .gitignore
 ├── .project.conf
-<% if (markupIntegration=='jekyll'){%>├── Gemfile<%}%>
-├── bower.json
-<% if (markupIntegration=='jekyll'){%>├── _config.yml<%}%>
-├── gulpfile.js
+<% if (markupIntegration=='jekyll'){%>├── Gemfile<%}%>├── bower.json
+<% if (markupIntegration=='jekyll'){%>├── _config.yml<%}%>├── gulpfile.js
 ├── package.json
 └── README.md
 ```
@@ -78,13 +75,13 @@ You can add paths to `scssDirectories` key, who will add this directories to the
 ```
 sassDirectories: [
   'path/to/scss/directory/scss',
-  'another/brick/in/the/scss'
+  'another/brick/in/the/scss_wall'
 ]
 ```
 
 ### Script Files
 
-You can add file paths to `scriptFiles` key, who will add this concat, and minify to the `vendors.js` file.
+You can add file paths to `scriptFiles` key, who will add this concat, and minify to the `./dist/assets/js/vendors.js` file.
 
 #### Example
 ```
@@ -115,7 +112,7 @@ fontFiles: [
 ### Static Files
 * `$ gulp main:static` Compile static files (images, icons)
 * `$ gulp main:images` Move images
-* `$ gulp main::icons` Move icons
+* `$ gulp main:icons` Move icons
 
 ### Fonts Files
 * `$ gulp main:fonts` Move project fonts

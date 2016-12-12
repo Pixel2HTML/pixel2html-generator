@@ -22,7 +22,7 @@ describe('SCSS features', function() {
       .on('end', done);
   });
 
-  describe('Checking base files with dependencies', function(){
+  describe('Checking base files with dependencies', function() {
     it('sould exists dependencies on package.json', function () {
       assert.fileContent('package.json',  /"gulp-sass"/);
     });
@@ -53,11 +53,15 @@ describe('SCSS features', function() {
       ]);
     });
 
-    it('should exists a gulp routine', function(){
+    it('should exists a gulp routine', function() {
       assert.file([
         'src/assets/gulp/tasks/styles.js'
       ]);
       assert.fileContent('src/assets/gulp/tasks/styles.js',  /gulp-sass/);
+    });
+
+    it('should exists a pipe in the main:styles routing', function() {
+      assert.fileContent('src/assets/gulp/tasks/styles.js', /sass()/);
     });
 
   });

@@ -77,7 +77,7 @@ var Generator = module.exports = function Generator(args, options) {
   });
 
   this.option('cssProcessor', {
-    desc: 'Sets the CSS Preprocessor [scss, less, styl, none]',
+    desc: 'Sets the CSS Preprocessor [scss, less, styl]',
     type: String,
     required: false
   });
@@ -298,9 +298,6 @@ Generator.prototype.askForCssProcessor = function() {
       }, {
         name: 'Stylus',
         value: 'styl',
-      }, {
-        name: 'None',
-        value: false,
       }],
       when: function() {
         return !cssProcessor;
@@ -499,87 +496,74 @@ Generator.prototype.writeMarkupFiles = function() {
 Generator.prototype.writeBaseStyles = function() {
 
   var cssProcessor = this.options.cssProcessor;
-  if(cssProcessor){
-    this.options.cssMainFile = this.paths.src.styles + '/main.' + cssProcessor;
-    this.options.cssVendorFile = this.paths.src.styles + '/vendor.scss'
+  this.options.cssMainFile = this.paths.src.styles + '/main.' + cssProcessor;
+  this.options.cssVendorFile = this.paths.src.styles + '/vendor.scss'
 
-    this.fs.copyTpl(
-      this.templatePath('styles/' + cssProcessor + '/main.' + cssProcessor),
-      this.destinationPath(this.paths.src.styles + '/main.' + cssProcessor), {
-        clientId: this.options.clientId,
-        projectId: this.options.projectId,
-        qtyScreens: this.options.qtyScreens
-      }
-    );
-
-    this.fs.copyTpl(
-      this.templatePath('styles/scss/vendor.scss'),
-      this.destinationPath(this.paths.src.styles + '/vendor.scss'), {
-        clientId: this.options.clientId,
-        projectId: this.options.projectId,
-        frontEndFramework: this.options.frontEndFramework,
-      }
-    );
-
-    this.fs.copy(
-      this.templatePath('styles/' + cssProcessor + '/_variables.' + cssProcessor),
-      this.destinationPath(this.paths.src.styles + '/_variables.' + cssProcessor)
-    );
-    this.fs.copy(
-      this.templatePath('styles/' + cssProcessor + '/_mixins.' + cssProcessor),
-      this.destinationPath(this.paths.src.styles + '/_mixins.' + cssProcessor)
-    );
-    this.fs.copy(
-      this.templatePath('styles/' + cssProcessor + '/_reset.' + cssProcessor),
-      this.destinationPath(this.paths.src.styles + '/_reset.' + cssProcessor)
-    );
-    this.fs.copy(
-      this.templatePath('styles/' + cssProcessor + '/screens/_base.' + cssProcessor),
-      this.destinationPath(this.paths.src.styles + '/screens/_base.' + cssProcessor)
-    );
-    this.fs.copy(
-      this.templatePath('styles/' + cssProcessor + '/components/_header.' + cssProcessor),
-      this.destinationPath(this.paths.src.styles + '/components/_header.' + cssProcessor)
-    );
-    this.fs.copy(
-      this.templatePath('styles/' + cssProcessor + '/components/_footer.' + cssProcessor),
-      this.destinationPath(this.paths.src.styles + '/components/_footer.' + cssProcessor)
-    );
-    this.fs.copy(
-      this.templatePath('styles/' + cssProcessor + '/components/_nav.' + cssProcessor),
-      this.destinationPath(this.paths.src.styles + '/components/_nav.' + cssProcessor)
-    );
-    this.fs.copy(
-      this.templatePath('styles/' + cssProcessor + '/components/_forms.' + cssProcessor),
-      this.destinationPath(this.paths.src.styles + '/components/_forms.' + cssProcessor)
-    );
-    this.fs.copy(
-      this.templatePath('styles/' + cssProcessor + '/components/_buttons.' + cssProcessor),
-      this.destinationPath(this.paths.src.styles + '/components/_buttons.' + cssProcessor)
-    );
-
-    for (var i = 1; i < this.options.qtyScreens + 1; i++) {
-      this.fs.copyTpl(
-        this.templatePath('styles/' + cssProcessor + '/screens/_screen.' + cssProcessor),
-        this.destinationPath(this.paths.src.styles + '/screens/screen_' + i + '.' + cssProcessor), {
-          screenNumber: i,
-          clientId: this.options.clientId,
-          projectId: this.options.projectId
-        }
-      );
+  this.fs.copyTpl(
+    this.templatePath('styles/' + cssProcessor + '/main.' + cssProcessor),
+    this.destinationPath(this.paths.src.styles + '/main.' + cssProcessor), {
+      clientId: this.options.clientId,
+      projectId: this.options.projectId,
+      qtyScreens: this.options.qtyScreens
     }
-  } else {
-    this.options.cssMainFile = this.paths.src.styles + '/main.css';
+  );
+
+  this.fs.copyTpl(
+    this.templatePath('styles/scss/vendor.scss'),
+    this.destinationPath(this.paths.src.styles + '/vendor.scss'), {
+      clientId: this.options.clientId,
+      projectId: this.options.projectId,
+      frontEndFramework: this.options.frontEndFramework,
+    }
+  );
+
+  this.fs.copy(
+    this.templatePath('styles/' + cssProcessor + '/_variables.' + cssProcessor),
+    this.destinationPath(this.paths.src.styles + '/_variables.' + cssProcessor)
+  );
+  this.fs.copy(
+    this.templatePath('styles/' + cssProcessor + '/_mixins.' + cssProcessor),
+    this.destinationPath(this.paths.src.styles + '/_mixins.' + cssProcessor)
+  );
+  this.fs.copy(
+    this.templatePath('styles/' + cssProcessor + '/_reset.' + cssProcessor),
+    this.destinationPath(this.paths.src.styles + '/_reset.' + cssProcessor)
+  );
+  this.fs.copy(
+    this.templatePath('styles/' + cssProcessor + '/screens/_base.' + cssProcessor),
+    this.destinationPath(this.paths.src.styles + '/screens/_base.' + cssProcessor)
+  );
+  this.fs.copy(
+    this.templatePath('styles/' + cssProcessor + '/components/_header.' + cssProcessor),
+    this.destinationPath(this.paths.src.styles + '/components/_header.' + cssProcessor)
+  );
+  this.fs.copy(
+    this.templatePath('styles/' + cssProcessor + '/components/_footer.' + cssProcessor),
+    this.destinationPath(this.paths.src.styles + '/components/_footer.' + cssProcessor)
+  );
+  this.fs.copy(
+    this.templatePath('styles/' + cssProcessor + '/components/_nav.' + cssProcessor),
+    this.destinationPath(this.paths.src.styles + '/components/_nav.' + cssProcessor)
+  );
+  this.fs.copy(
+    this.templatePath('styles/' + cssProcessor + '/components/_forms.' + cssProcessor),
+    this.destinationPath(this.paths.src.styles + '/components/_forms.' + cssProcessor)
+  );
+  this.fs.copy(
+    this.templatePath('styles/' + cssProcessor + '/components/_buttons.' + cssProcessor),
+    this.destinationPath(this.paths.src.styles + '/components/_buttons.' + cssProcessor)
+  );
+
+  for (var i = 1; i < this.options.qtyScreens + 1; i++) {
     this.fs.copyTpl(
-      this.templatePath('styles/css/main.css'),
-      this.destinationPath(this.paths.src.styles + '/main.css'),{
+      this.templatePath('styles/' + cssProcessor + '/screens/_screen.' + cssProcessor),
+      this.destinationPath(this.paths.src.styles + '/screens/screen_' + i + '.' + cssProcessor), {
+        screenNumber: i,
         clientId: this.options.clientId,
-        projectId: this.options.projectId,
+        projectId: this.options.projectId
       }
     );
   }
-
-
 };
 
 Generator.prototype.writeBaseScriptsFiles = function() {
@@ -630,9 +614,7 @@ Generator.prototype.writeBaseGulpFiles = function() {
     this.templatePath('gulp/tasks/default.js'),
     this.destinationPath(this.paths.src.gulp_tasks + '/default.js'), {
       paths: this.paths,
-      frontEndFramework: this.options.frontEndFramework,
       markupIntegration: this.options.markupIntegration,
-      jQuery: this.options.jQuery
     }
   );
 
@@ -673,13 +655,15 @@ Generator.prototype.writeBaseGulpFiles = function() {
   );
 
   //main:markup
-  this.fs.copyTpl(
-    this.templatePath('gulp/tasks/markup.js'),
-    this.destinationPath(this.paths.src.gulp_tasks + '/markup.js'), {
-      paths: this.paths,
-      markupLanguage: this.options.markupLanguage
-    }
-  );
+  if(!this.options.markupIntegration){
+    this.fs.copyTpl(
+      this.templatePath('gulp/tasks/markup.js'),
+      this.destinationPath(this.paths.src.gulp_tasks + '/markup.js'), {
+        paths: this.paths,
+        markupLanguage: this.options.markupLanguage
+      }
+    );
+  }
 
   //watch
   this.fs.copyTpl(

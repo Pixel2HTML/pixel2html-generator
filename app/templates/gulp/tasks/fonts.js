@@ -20,5 +20,3 @@ gulp.task('vendor:fonts', function() {
     .pipe(gulp.dest('<%= paths.dist.fonts %>'))
     .pipe(browserSync.reload({stream:true}));
 });
-
-gulp.task('main:fonts', ['main:fonts', 'vendor:fonts']);
