@@ -6,6 +6,7 @@ var helpers = require('../helpers');
 
 <% if (cssProcessor === 'scss' || frontEndFramework) { %>var sass = require('gulp-sass');<% } %><% if (cssProcessor === 'less') { %>var less = require('gulp-less');<% } %><% if (cssProcessor === 'styl') { %>var stylus = require('gulp-stylus');<% } %>
 
+var groupcssmediaqueries = require('gulp-group-css-media-queries');
 var minify = require('gulp-clean-css');
 var sourcemaps = require('gulp-sourcemaps');
 var plumber = require('gulp-plumber');
@@ -24,6 +25,7 @@ gulp.task('main:styles', function() {
       cascade: false
     }))
     .pipe(gulp.dest('<%= paths.dist.styles %>'))
+    .pipe(groupcssmediaqueries({ log: true }))
     .pipe(minify({ keepSpecialComments: 0 }))
     .pipe(rename({ suffix: '.min' }))
     .pipe(sourcemaps.write())
@@ -44,6 +46,7 @@ gulp.task('vendor:styles', function() {
       cascade: false
     }))
     .pipe(gulp.dest('dist/assets/css'))
+    .pipe(groupcssmediaqueries({ log: true }))
     .pipe(minify({ keepSpecialComments: 0 }))
     .pipe(rename({ suffix: '.min' }))
     .pipe(sourcemaps.write())
