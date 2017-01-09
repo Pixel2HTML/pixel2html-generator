@@ -4,7 +4,7 @@ var gulp    = require('gulp');
 var config  = require('../config');
 var helpers = require('../helpers');
 
-var plumber = require('gulp-plumber');
+var plumber     = require('gulp-plumber');
 var browserSync = require('browser-sync');
 
 gulp.task('main:fonts', function() {

@@ -7,7 +7,7 @@ var helpers = require('../helpers');
 <% if (cssProcessor === 'scss' || frontEndFramework) { %>var sass = require('gulp-sass');<% } %><% if (cssProcessor === 'less') { %>var less = require('gulp-less');<% } %><% if (cssProcessor === 'styl') { %>var stylus = require('gulp-stylus');<% } %>
 
 var groupcssmediaqueries = require('gulp-group-css-media-queries');
-var minify = require('gulp-clean-css');
+var minify = require('gulp-cssnano');
 var sourcemaps = require('gulp-sourcemaps');
 var plumber = require('gulp-plumber');
 var autoprefixer = require('gulp-autoprefixer');
@@ -26,7 +26,7 @@ gulp.task('main:styles', function() {
     }))
     .pipe(gulp.dest('<%= paths.dist.styles %>'))
     .pipe(groupcssmediaqueries({ log: true }))
-    .pipe(minify({ keepSpecialComments: 0 }))
+    .pipe(minify())
     .pipe(rename({ suffix: '.min' }))
     .pipe(sourcemaps.write())
     .pipe(gulp.dest(config.directories.dist.styles))
@@ -47,7 +47,7 @@ gulp.task('vendor:styles', function() {
     }))
     .pipe(gulp.dest(config.directories.dist.styles))
     .pipe(groupcssmediaqueries({ log: true }))
-    .pipe(minify({ keepSpecialComments: 0 }))
+    .pipe(minify())
     .pipe(rename({ suffix: '.min' }))
     .pipe(sourcemaps.write())
     .pipe(gulp.dest(config.directories.dist.styles))

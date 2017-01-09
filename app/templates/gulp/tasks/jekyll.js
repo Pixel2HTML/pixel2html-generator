@@ -1,11 +1,11 @@
 'use strict';
 
-var gulp    = require('gulp');
-var config  = require('../config');
-var helpers = require('../helpers');
-var plumber = require('gulp-plumber');
+var gulp        = require('gulp');
+var config      = require('../config');
+var helpers     = require('../helpers');
+var plumber     = require('gulp-plumber');
 var browserSync = require('browser-sync');
-var spawn = require('child_process').spawn;
+var spawn       = require('child_process').spawn;
 
 gulp.task('jekyll:build', function (gulpCallBack){
     var jekyll = spawn('jekyll', ['build'], {stdio: 'inherit'});

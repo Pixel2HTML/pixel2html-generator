@@ -4,8 +4,8 @@ var gulp    = require('gulp');
 var config  = require('../config');
 var helpers = require('../helpers');
 
-var del = require('del');
-var plumber = require('gulp-plumber');
+var del         = require('del');
+var plumber     = require('gulp-plumber');
 var browserSync = require('browser-sync');
 
 gulp.task('clean', function(cb) {
