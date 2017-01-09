@@ -10,7 +10,7 @@ module.exports = {
       'images': 'dist/assets/images',
       'scripts': 'dist/assets/js',
       'styles': 'dist/assets/css',
-    },
+    }
   },
   vendor: {
     scssDirectories: [
