@@ -1,6 +1,17 @@
 'use strict'
 
 module.exports = {
+  directories: {
+    'dist': {
+      'base': 'dist',
+      'markup': 'dist',
+      'fonts': 'dist/assets/fonts',
+      'icons': 'dist/assets/icons',
+      'images': 'dist/assets/images',
+      'scripts': 'dist/assets/js',
+      'styles': 'dist/assets/css',
+    },
+  },
   vendor: {
     scssDirectories: [
       <% if(frontEndFramework == 'bootstrap'){ %>'<%= paths.src.vendors %>/bootstrap-sass/assets/stylesheets',<% } %>

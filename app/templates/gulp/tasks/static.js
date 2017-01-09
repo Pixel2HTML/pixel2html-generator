@@ -15,14 +15,14 @@ gulp.task('clean', function(cb) {
 gulp.task('main:images', function() {
   return gulp.src('<%= paths.src.images %>/**/*')
     .pipe(plumber({ errorHandler: helpers.onError }))
-    .pipe(gulp.dest('<%= paths.dist.images %>'))
+    .pipe(gulp.dest(config.directories.dist.images))
     .pipe(browserSync.reload({stream:true}));
 });
 
 gulp.task('main:icons', function() {
   return gulp.src('<%= paths.src.icons %>/**/*')
     .pipe(plumber({ errorHandler: helpers.onError }))
-    .pipe(gulp.dest('<%= paths.dist.icons %>'))
+    .pipe(gulp.dest(config.directories.dist.icons))
     .pipe(browserSync.reload({stream:true}));
 });
 

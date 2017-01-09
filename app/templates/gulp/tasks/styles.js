@@ -29,7 +29,7 @@ gulp.task('main:styles', function() {
     .pipe(minify({ keepSpecialComments: 0 }))
     .pipe(rename({ suffix: '.min' }))
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest('<%= paths.dist.styles %>'))
+    .pipe(gulp.dest(config.directories.dist.styles))
     .pipe(browserSync.reload({stream:true}));
 });
 
@@ -45,11 +45,11 @@ gulp.task('vendor:styles', function() {
       browsers: ['last 2 versions', 'iOS 8'],
       cascade: false
     }))
-    .pipe(gulp.dest('dist/assets/css'))
+    .pipe(gulp.dest(config.directories.dist.styles))
     .pipe(groupcssmediaqueries({ log: true }))
     .pipe(minify({ keepSpecialComments: 0 }))
     .pipe(rename({ suffix: '.min' }))
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest('<%= paths.dist.styles %>'))
+    .pipe(gulp.dest(config.directories.dist.styles))
     .pipe(browserSync.reload({stream:true}));
 });

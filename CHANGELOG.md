@@ -1,3 +1,9 @@
+#### 1.2.2
+- Added `dist` directories configuration on `config.js` file.
+
+#### 1.2.1
+- Fixed version name
+
 #### 1.2.0
 - Added Jekyll support
 - Removed vendor gulp tasks in favor of `config.js`

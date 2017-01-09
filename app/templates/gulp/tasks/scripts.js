@@ -13,10 +13,10 @@ var browserSync = require('browser-sync');
 gulp.task('main:scripts', function() {
   return gulp.src('<%= paths.src.scripts %>/main.js')
     .pipe(plumber({ errorHandler: helpers.onError }))
-    .pipe(gulp.dest('<%= paths.dist.scripts %>'))
+    .pipe(gulp.dest(config.directories.dist.scripts))
     .pipe(concat('main.min.js'))
     .pipe(uglify())
-    .pipe(gulp.dest('<%= paths.dist.scripts %>'))
+    .pipe(gulp.dest(config.directories.dist.scripts))
     .pipe(browserSync.reload({stream:true}));
 });
 
@@ -24,8 +24,8 @@ gulp.task('vendor:scripts', function() {
   return gulp.src(config.vendor.scriptFiles)
     .pipe(plumber({ errorHandler: helpers.onError }))
     .pipe(concat('vendor.js'))
-    .pipe(gulp.dest('<%= paths.dist.scripts %>'))
+    .pipe(gulp.dest(config.directories.dist.scripts))
     .pipe(rename({ suffix: '.min' }))
-    .pipe(gulp.dest('<%= paths.dist.scripts %>'))
+    .pipe(gulp.dest(config.directories.dist.scripts))
     .pipe(browserSync.reload({stream:true}));
 });

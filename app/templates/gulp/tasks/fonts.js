@@ -10,13 +10,13 @@ var browserSync = require('browser-sync');
 gulp.task('main:fonts', function() {
   return gulp.src('<%= paths.src.fonts %>/**/*')
     .pipe(plumber({ errorHandler: helpers.onError }))
-    .pipe(gulp.dest('<%= paths.dist.fonts %>'))
+    .pipe(gulp.dest(config.directories.dist.fonts))
     .pipe(browserSync.reload({stream:true}));
 });
 
 gulp.task('vendor:fonts', function() {
   return gulp.src(config.vendor.fontFiles)
     .pipe(plumber({ errorHandler: helpers.onError }))
-    .pipe(gulp.dest('<%= paths.dist.fonts %>'))
+    .pipe(gulp.dest(config.directories.dist.fonts))
     .pipe(browserSync.reload({stream:true}));
 });
