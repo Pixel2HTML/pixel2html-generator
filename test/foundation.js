@@ -55,7 +55,11 @@ describe('Foundation features', function() {
     it('should include correct paths on config file', function(){
       assert.fileContent('src/assets/gulp/config.js', 'src/assets/vendor/foundation-sites/scss')
       assert.fileContent('src/assets/gulp/config.js', 'src/assets/vendor/foundation-sites/dist/foundation.js')
-    })
+    });
+
+    it('should include foundation initializer on main.js', function(){
+      assert.fileContent('src/assets/js/main.js', /\$\(document\)\.foundation\(\)/);
+    });
 
   });
 
