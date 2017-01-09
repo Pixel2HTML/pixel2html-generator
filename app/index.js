@@ -573,7 +573,8 @@ Generator.prototype.writeBaseScriptsFiles = function() {
     this.templatePath('scripts/main.js'),
     this.destinationPath(this.paths.src.scripts + '/main.js'), {
       clientId: this.options.clientId,
-      projectId: this.options.projectId
+      projectId: this.options.projectId,
+      frontEndFramework: this.options.frontEndFramework,
     }
   );
 };

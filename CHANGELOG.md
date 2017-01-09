@@ -1,5 +1,6 @@
 #### 1.2.2
 - Added `dist` directories configuration on `config.js` file.
+- Added Zurb Foundation initializer on `main.js` file.
 
 #### 1.2.1
 - Fixed version name

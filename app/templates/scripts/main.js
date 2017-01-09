@@ -10,3 +10,10 @@ function printLog(log){
 }
 
 printLog(msg);
+
+<% if (frontEndFramework === 'foundation') { %>
+/**
+* Foundation Framework Initializer
+*/
+$(document).foundation();
+<% } %>
