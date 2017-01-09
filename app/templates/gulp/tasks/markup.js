@@ -13,6 +13,6 @@ gulp.task('main:markup', function() {
   return gulp.src('<%= paths.src.markup %>/*.<%=markupLanguage%>')
     .pipe(plumber({ errorHandler: helpers.onError }))<% if (markupLanguage === 'pug') { %>
     .pipe(pug({ pretty: true })) <% } %>
-    .pipe(gulp.dest('<%= paths.dist.markup %>'))
+    .pipe(gulp.dest(config.directories.dist.markup))
     .pipe(browserSync.reload({stream:true}));
 });
