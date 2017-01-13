@@ -2,8 +2,8 @@
   "name": "pixel2html-<%= clientId %>-<%= projectId %>",
   "description": "pixel2html <%= clientId %>/<%= projectId %>",
   "license": "MIT",
-  "repository": "http://code.pixel2html.com",
-  "version": "1.0.3",
+  "repository": "http://www.pixel2html.com",
+  "version": "1.0.0",
   "scripts": {
 
     "start": "npm install && bower install <% if (markupIntegration=='jekyll'){%>&& bundle install<%}%>",
