@@ -587,7 +587,10 @@ Generator.prototype.writeBaseGulpFiles = function() {
     this.destinationPath('gulpfile.js'), {
       paths: this.paths,
       frontEndFramework: this.options.frontEndFramework,
-      jQuery: this.options.jQuery
+      jQuery: this.options.jQuery,
+      markupLanguage: this.options.markupLanguage,
+      markupIntegration: this.options.markupIntegration,
+      cssProcessor: this.options.cssProcessor
     }
   );
 
@@ -607,17 +610,6 @@ Generator.prototype.writeBaseGulpFiles = function() {
     this.templatePath('gulp/_helpers.js'),
     this.destinationPath(this.paths.src.gulp+'/helpers.js'), {
       paths: this.paths
-    }
-  );
-
-  //default
-  this.fs.copyTpl(
-    this.templatePath('gulp/tasks/default.js'),
-    this.destinationPath(this.paths.src.gulp_tasks + '/default.js'), {
-      paths: this.paths,
-      frontEndFramework: this.options.frontEndFramework,
-      markupIntegration: this.options.markupIntegration,
-      jQuery: this.options.jQuery,
     }
   );
 
@@ -668,34 +660,6 @@ Generator.prototype.writeBaseGulpFiles = function() {
     );
   }
 
-  //watch
-  this.fs.copyTpl(
-    this.templatePath('gulp/tasks/watch.js'),
-    this.destinationPath(this.paths.src.gulp_tasks + '/watch.js'), {
-      paths: this.paths,
-      cssProcessor: this.options.cssProcessor,
-      markupLanguage: this.options.markupLanguage,
-      frontEndFramework: this.options.frontEndFramework,
-      markupIntegration: this.options.markupIntegration
-    }
-  );
-
-  //serve
-  this.fs.copyTpl(
-    this.templatePath('gulp/tasks/serve.js'),
-    this.destinationPath(this.paths.src.gulp_tasks + '/serve.js'), {
-      paths: this.paths
-    }
-  );
-
-  //build
-  this.fs.copyTpl(
-    this.templatePath('gulp/tasks/build.js'),
-    this.destinationPath(this.paths.src.gulp_tasks + '/build.js'), {
-      paths: this.paths,
-      cssProcessor: this.options.cssProcessor,
-    }
-  );
 };
 
 Generator.prototype.writeMarkupIntegrationFiles = function() {
