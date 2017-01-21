@@ -4,7 +4,17 @@ var gulp    = require('gulp');
 var config  = require('../config');
 var helpers = require('../helpers');
 
-<% if (cssProcessor === 'scss' || frontEndFramework) { %>var sass = require('gulp-sass');<% } %><% if (cssProcessor === 'less') { %>var less = require('gulp-less');<% } %><% if (cssProcessor === 'styl') { %>var stylus = require('gulp-stylus');<% } %>
+<% if (cssProcessor === 'scss' || frontEndFramework) { %>
+var sass = require('gulp-sass');
+<% } %>
+
+<% if (cssProcessor === 'less') { %>
+var less = require('gulp-less');
+<% } %>
+
+<% if (cssProcessor === 'styl') { %>
+var stylus = require('gulp-stylus');
+<% } %>
 
 var groupcssmediaqueries = require('gulp-group-css-media-queries');
 var minify = require('gulp-cssnano');
@@ -12,7 +22,6 @@ var sourcemaps = require('gulp-sourcemaps');
 var plumber = require('gulp-plumber');
 var autoprefixer = require('gulp-autoprefixer');
 var rename = require('gulp-rename');
-var browserSync = require('browser-sync');
 
 
 gulp.task('main:styles', function() {
@@ -30,7 +39,6 @@ gulp.task('main:styles', function() {
     .pipe(rename({ suffix: '.min' }))
     .pipe(sourcemaps.write())
     .pipe(gulp.dest(config.directories.dist.styles))
-    .pipe(browserSync.reload({stream:true}));
 });
 
 gulp.task('vendor:styles', function() {
@@ -51,5 +59,4 @@ gulp.task('vendor:styles', function() {
     .pipe(rename({ suffix: '.min' }))
     .pipe(sourcemaps.write())
     .pipe(gulp.dest(config.directories.dist.styles))
-    .pipe(browserSync.reload({stream:true}));
 });
