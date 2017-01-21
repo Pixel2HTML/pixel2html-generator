@@ -13,16 +13,17 @@ requireDir('<%= paths.src.gulp %>', {
 })
 
 gulp.task('build', gulp.series(
+  'clean',
   'main:static',
   'main:styles',
   'main:scripts',
   'vendor:styles',
-  'vendor:fonts',
+  'main:fonts',
   'vendor:scripts',
   <% if(markupIntegration=='jekyll'){ %>
-  'jekyll:build',
+  'jekyll:build'
   <% } else { %>
-  'main:markup',
+  'main:markup'
   <% } %>
 ))
 
@@ -77,7 +78,7 @@ gulp.task('watch', done => {
   done()
 })
 
-gulp.task('serve', gulp.parallel('browserSync', , 'serve''watch'))
+gulp.task('serve', gulp.parallel('browser-sync', 'watch'))
 
 gulp.task('release', gulp.series('build', 'zip'))
 

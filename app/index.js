@@ -649,6 +649,14 @@ Generator.prototype.writeBaseGulpFiles = function() {
     }
   );
 
+  //zip
+  this.fs.copyTpl(
+    this.templatePath('gulp/tasks/zip.js'),
+    this.destinationPath(this.paths.src.gulp_tasks + '/zip.js'), {
+      paths: this.paths
+    }
+  );
+
   //main:markup
   if(!this.options.markupIntegration){
     this.fs.copyTpl(
