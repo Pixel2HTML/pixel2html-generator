@@ -1,6 +1,4 @@
 'use strict';
-
-
 var gulp    = require('gulp');
 var config  = require('../config');
 var helpers = require('../helpers');
@@ -8,7 +6,7 @@ var helpers = require('../helpers');
 var plumber = require('gulp-plumber');
 var zip     = require('gulp-zip');
 
-gulp.task('build:zip', function() {
+gulp.task('zip', function() {
 
   var distFiles = [
     'dist/*.html',
@@ -23,5 +21,3 @@ gulp.task('build:zip', function() {
     .pipe(gulp.dest('<%= paths.releases.base %>'));
 });
 
-
-gulp.task('build', ['default', 'build:zip']);
