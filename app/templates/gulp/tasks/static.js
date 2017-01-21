@@ -7,8 +7,8 @@ var helpers = require('../helpers')
 var del = require('del')
 var plumber = require('gulp-plumber')
 
-gulp.task('clean', function (cb) {
-  del(['<%= paths.dist.base %>'], cb)
+gulp.task('clean', function () {
+  return del(['<%= paths.dist.base %>'])
 })
 
 gulp.task('main:images', function () {
