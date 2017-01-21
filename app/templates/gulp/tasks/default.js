@@ -42,7 +42,7 @@ gulp.task('browser-sync', () => {
 gulp.task('watch', done => {
   // Detect changes on the config file
   gulp.watch('<%= paths.src.gulp %>/config.js', gulp.series('default', reload))
-  
+
   //static files
   <% if(markupIntegration=='jekyll'){ %>
       gulp.watch('<%= paths.src.markup %>/**/*.html', gulp.series('jekyll:rebuild', reload));
@@ -50,22 +50,25 @@ gulp.task('watch', done => {
       gulp.watch('<%= paths.src.markup %>/**/*.<%=markupLanguage%>', ['main:markup']);
   <% } %>
 
-  gulp.watch('<%= paths.src.images %>/**/*', ['main:images']);
-  gulp.watch('<%= paths.src.fonts %>/**/*', ['main:fonts']);
-  gulp.watch('<%= paths.src.icons %>/**/*', ['main:icons']);
+  gulp.watch('<%= paths.src.images %>/**/*', gulp.series( 'main:images', reload ));
+  gulp.watch('<%= paths.src.fonts %>/**/*', gulp.series( 'main:fonts', reload ));
+  gulp.watch('<%= paths.src.icons %>/**/*', gulp.series( 'main:icons', reload ));
 
   //scripts
-  gulp.watch('<%= paths.src.scripts %>/**/*.js', ['main:scripts']);
+  gulp.watch('<%= paths.src.scripts %>/**/*.js', gulp.series( 'main:scripts', reload ));
 
   //styles
   gulp.watch([
     '<%= paths.src.styles %>/**/*.<%=cssProcessor%>',
     '!<%= paths.src.frontendframework %>/**/*',
-  ], ['main:styles']);
+  ], gulp.series( 'main:styles', reload ));
 
-  <% if (frontEndFramework) { %>gulp.watch('<%= paths.src.frontendframework %>/**/**.scss', ['vendor:<%=frontEndFramework%>:styles']);
-  gulp.watch('<%= paths.src.frontendframework %>/**/**.js', ['vendor:<%=frontEndFramework%>:scripts']);
-  gulp.watch('<%= paths.src.frontendframework %>/**/fonts/**/*', ['vendor:<%=frontEndFramework%>:fonts']);<% } %>
+  // wat
+  <% if (frontEndFramework) { %>
+    gulp.watch('<%= paths.src.frontendframework %>/**/**.scss', gulp.series( 'vendor:<%=frontEndFramework%>:styles', reload ));
+    gulp.watch('<%= paths.src.frontendframework %>/**/**.js', gulp.series( 'vendor:<%=frontEndFramework%>:scripts', reload ));
+    gulp.watch('<%= paths.src.frontendframework %>/**/fonts/**/*', gulp.series( 'vendor:<%=frontEndFramework%>:fonts', reload ));
+  <% } %>
   done()
 })
 
