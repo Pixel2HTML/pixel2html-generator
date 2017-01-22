@@ -12,6 +12,9 @@ module.exports = {
       'styles': 'dist/assets/css',
     }
   },
+  scriptFiles: [
+    '<%= paths.src.scripts %>/*.js'
+  ],
   vendor: {
     scssDirectories: [
       <% if(frontEndFramework == 'bootstrap'){ %>'<%= paths.src.vendors %>/bootstrap-sass/assets/stylesheets',<% } %>
@@ -19,10 +22,10 @@ module.exports = {
       <% if(frontEndFramework == 'basscss'){ %>'<%= paths.src.vendors %>/basscss-sass/scss',<% } %>
     ],
     scriptFiles: [
-      // jQuery
-      '<%= paths.src.vendors %>/jquery/dist/jquery.js',
+      <% if(jQuery){ %>'<%= paths.src.vendors %>/jquery/dist/jquery.js',<% } %>
       <% if(frontEndFramework == 'bootstrap'){ %>'<%= paths.src.vendors %>/bootstrap-sass/assets/javascripts/bootstrap.js',<% } %>
       <% if(frontEndFramework == 'foundation'){ %>'<%= paths.src.vendors %>/foundation-sites/dist/foundation.js',<% } %>
+      '<%= paths.src.scripts %>/vendor/*.js'
     ],
     fontFiles: [
       '<%= paths.src.fonts %>/**/*',
