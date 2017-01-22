@@ -29,9 +29,7 @@ describe('Foundation features', function() {
   describe('Checking base files with dependencies', function(){
     it('Should exists dependencies in package.json', function () {
       assert.fileContent('package.json',  /"gulp-sass"/);
-    });
-    it('should exists dependencies in bower.json', function(){
-      assert.fileContent('bower.json', /"foundation-sites"/);
+      assert.fileContent('package.json', /"foundation-sites"/);
     });
   });
 
@@ -53,8 +51,8 @@ describe('Foundation features', function() {
     });
 
     it('should include correct paths on config file', function(){
-      assert.fileContent('src/assets/gulp/config.js', 'src/assets/vendor/foundation-sites/scss')
-      assert.fileContent('src/assets/gulp/config.js', 'src/assets/vendor/foundation-sites/dist/foundation.js')
+      assert.fileContent('src/assets/gulp/config.js', './node_modules/foundation-sites/scss')
+      assert.fileContent('src/assets/gulp/config.js', './node_modules/foundation-sites/dist/js/foundation.min.js')
     });
 
     it('should include foundation initializer on main.js', function(){

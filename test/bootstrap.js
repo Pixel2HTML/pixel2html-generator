@@ -29,9 +29,7 @@ describe('Bootstrap features', function() {
   describe('Checking base files with dependencies', function(){
     it('Should exists dependencies in package.json', function () {
       assert.fileContent('package.json',  /"gulp-sass"/);
-    });
-    it('should exists dependencies in bower.json', function(){
-      assert.fileContent('bower.json', /"bootstrap-sass"/);
+      assert.fileContent('package.json', /"bootstrap"/);
     });
   });
 
@@ -53,9 +51,8 @@ describe('Bootstrap features', function() {
     });
 
     it('should include correct paths on config file', function(){
-      assert.fileContent('src/assets/gulp/config.js', 'src/assets/vendor/bootstrap-sass/assets/stylesheets')
-      assert.fileContent('src/assets/gulp/config.js', 'src/assets/vendor/bootstrap-sass/assets/javascripts/bootstrap.js')
-      assert.fileContent('src/assets/gulp/config.js', 'src/assets/vendor/bootstrap-sass/assets/fonts/bootstrap/**/*')
+      assert.fileContent('src/assets/gulp/config.js', './node_modules/bootstrap/scss')
+      assert.fileContent('src/assets/gulp/config.js', './node_modules/bootstrap/dist/js/bootstrap.min.js')
     })
 
   });

@@ -25,10 +25,8 @@ describe('general', function() {
 
   it('creates expected base files', function() {
     assert.file([
-      '.bowerrc',
       '.gitignore',
       '.gitattributes',
-      'bower.json',
       'package.json',
       'gulpfile.js',
       'package.json',
