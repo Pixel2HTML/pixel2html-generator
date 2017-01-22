@@ -381,7 +381,7 @@ Generator.prototype.writeProjectFiles = function() {
       markupLanguage: this.options.markupLanguage,
       markupIntegration: this.options.markupIntegration,
       cssProcessor: this.options.cssProcessor,
-      frontEndFramework: this.options.frontEndFramework
+      frontEndFramework: this.options.frontEndFramework,
       jQuery: this.options.jQuery
     }
   );

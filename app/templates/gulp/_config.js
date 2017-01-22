@@ -28,8 +28,7 @@ module.exports = {
       '<%= paths.src.scripts %>/vendor/*.js'
     ],
     fontFiles: [
-      '<%= paths.src.fonts %>/**/*',
-      <% if(frontEndFramework == 'bootstrap'){ %>'<%= paths.src.vendors %>/bootstrap-sass/assets/fonts/bootstrap/**/*',<% } %>
+      '<%= paths.src.fonts %>/**/*'
     ]
   }
 }
