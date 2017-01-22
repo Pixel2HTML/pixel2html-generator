@@ -382,6 +382,7 @@ Generator.prototype.writeProjectFiles = function() {
       markupIntegration: this.options.markupIntegration,
       cssProcessor: this.options.cssProcessor,
       frontEndFramework: this.options.frontEndFramework
+      jQuery: this.options.jQuery
     }
   );
 
@@ -454,26 +455,6 @@ Generator.prototype.copyGitKeepFiles = function() {
    );
 
 }
-
-Generator.prototype.writeBaseBowerFile = function() {
-
-  this.fs.copyTpl(
-    this.templatePath('bower/_bower.json'),
-    this.destinationPath('bower.json'), {
-      clientId: this.options.clientId,
-      projectId: this.options.projectId,
-      frontEndFramework: this.options.frontEndFramework,
-      jQuery: this.options.jQuery
-    }
-  );
-
-  this.fs.copyTpl(
-    this.templatePath('bower/bowerrc'),
-    this.destinationPath('.bowerrc'), {
-       paths: this.paths
-    }
-  );
-};
 
 Generator.prototype.writeMarkupFiles = function() {
 
@@ -737,8 +718,6 @@ Generator.prototype.writeMarkupIntegrationFiles = function() {
   }
 
 };
-
-
 
 Generator.prototype.writeProjectConfigFile = function() {
   //overwrite the default .project.conf file or create the new one.
