@@ -5,10 +5,9 @@
   "repository": "http://www.pixel2html.com",
   "version": "1.0.0",
   "scripts": {
-
     "start": "npm install && bower install <% if (markupIntegration=='jekyll'){%>&& bundle install<%}%>",
     "code": "gulp",
-    "build": "gulp build"
+    "build": "gulp release"
   },
   "dependencies": {
     "del": "^2.2.2",
