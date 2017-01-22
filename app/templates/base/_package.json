@@ -23,7 +23,7 @@
       "basscss-sass": "^4.0.0",
     <% } %>
     <% if(jQuery){ %>
-      "jquery": "^3.1.1"
+      "jquery": "^3.1.1",
     <% } %>
     <% if (cssProcessor === 'scss' || frontEndFramework) { -%>
     "gulp-sass": "^3.1.0",
