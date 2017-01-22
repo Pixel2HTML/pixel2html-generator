@@ -17,31 +17,31 @@ var Generator = module.exports = function Generator(args, options) {
   yeoman.generators.Base.apply(this, arguments);
 
   this.paths = {
-    'src': {
-      'fonts': 'src/assets/fonts',
-      'gulp': 'src/assets/gulp',
-      'gulp_tasks': 'src/assets/gulp/tasks',
-      'icons': 'src/assets/icons',
-      'images': 'src/assets/images',
-      'vendors': 'src/assets/vendor',
-      'scripts': 'src/assets/js',
-      'styles': 'src/assets/styles',
-      'markup': 'src',
-      'frontendframework': 'src/assets/styles/vendor',
+    src: {
+      fonts: 'src/assets/fonts',
+      gulp: 'src/assets/gulp',
+      gulp_tasks: 'src/assets/gulp/tasks',
+      icons: 'src/assets/icons',
+      images: 'src/assets/images',
+      vendors: 'src/assets/vendor',
+      scripts: 'src/assets/js',
+      styles: 'src/assets/styles',
+      markup: 'src',
+      frontendframework: 'src/assets/styles/vendor',
     },
-    'dist': {
-      'assets': 'dist/assets',
-      'fonts': 'dist/assets/fonts',
-      'icons': 'dist/assets/icons',
-      'images': 'dist/assets/images',
-      'scripts': 'dist/assets/js',
-      'styles': 'dist/assets/css',
-      'base': 'dist',
-      'markup': 'dist',
-      'frontendframework': 'dist/assets/css/vendor',
+    dist: {
+      assets: 'dist/assets',
+      fonts: 'dist/assets/fonts',
+      icons: 'dist/assets/icons',
+      images: 'dist/assets/images',
+      scripts: 'dist/assets/js',
+      styles: 'dist/assets/css',
+      base: 'dist',
+      markup: 'dist',
+      frontendframework: 'dist/assets/css/vendor',
     },
-    'releases': {
-      'base': 'dist/releases'
+    releases: {
+      base: 'dist/releases'
     }
   };
 

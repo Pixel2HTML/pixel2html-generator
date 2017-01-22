@@ -69,12 +69,6 @@ gulp.task('watch', done => {
     '!<%= paths.src.frontendframework %>/**/*',
   ], gulp.series( 'main:styles', reload ));
 
-  // wat
-  <% if (frontEndFramework) { %>
-    gulp.watch('<%= paths.src.frontendframework %>/**/**.scss', gulp.series( 'vendor:<%=frontEndFramework%>:styles', reload ));
-    gulp.watch('<%= paths.src.frontendframework %>/**/**.js', gulp.series( 'vendor:<%=frontEndFramework%>:scripts', reload ));
-    gulp.watch('<%= paths.src.frontendframework %>/**/fonts/**/*', gulp.series( 'vendor:<%=frontEndFramework%>:fonts', reload ));
-  <% } %>
   done()
 })
 
