@@ -35,7 +35,7 @@ function reload(done) {
 gulp.task('browser-sync', () => {
   return browserSync.init({
     server : {
-      baseDir : config.directorie.dist.base,
+      baseDir : config.directories.dist.base,
       serveStaticOptions : {
         extensions : ['html']
       }
@@ -53,7 +53,7 @@ gulp.task('watch', done => {
   <% if(markupIntegration=='jekyll'){ %>
       gulp.watch('<%= paths.src.markup %>/**/*.html', gulp.series('jekyll:rebuild', reload));
     <% } else { %>
-      gulp.watch('<%= paths.src.markup %>/**/*.<%=markupLanguage%>', ['main:markup']);
+      gulp.watch('<%= paths.src.markup %>/**/*.<%=markupLanguage%>', gulp.series( 'main:markup', reload ));
   <% } %>
 
   gulp.watch('<%= paths.src.images %>/**/*', gulp.series( 'main:images', reload ));
