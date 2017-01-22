@@ -577,6 +577,15 @@ Generator.prototype.writeBaseScriptsFiles = function() {
       frontEndFramework: this.options.frontEndFramework,
     }
   );
+
+  this.fs.copyTpl(
+    this.templatePath('scripts/vendor/vendor.js'),
+    this.destinationPath(this.paths.src.scripts + '/vendor/vendor.js'), {
+      clientId: this.options.clientId,
+      projectId: this.options.projectId,
+      frontEndFramework: this.options.frontEndFramework,
+    }
+  );
 };
 
 Generator.prototype.writeBaseGulpFiles = function() {
