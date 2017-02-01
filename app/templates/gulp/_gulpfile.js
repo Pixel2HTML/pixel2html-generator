@@ -14,18 +14,19 @@ requireDir('<%= paths.src.gulp %>', {
 
 gulp.task('build', gulp.series(
   'clean',
-  'main:static',
-  'main:styles',
-  'main:scripts',
-  'vendor:styles',
-  'main:fonts',
-  'vendor:scripts',
-  <% if(markupIntegration=='jekyll'){ %>
-  'jekyll:build'
-  <% } else { %>
-  'main:markup'
-  <% } %>
+  gulp.parallel('main:static',
+    'main:styles',
+    'main:scripts',
+    'main:fonts',
+    <% if(markupIntegration=='jekyll'){ %>
+    'jekyll:build'
+    <% } else { %>
+    'main:markup'
+    <% } %>),
+  gulp.parallel('vendor:styles',
+  'vendor:scripts')
 ))
+
 
 function reload(done) {
   browserSync.reload()
