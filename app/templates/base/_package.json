@@ -14,7 +14,7 @@
     "gulp": "github:gulpjs/gulp#4.0",
     "browser-sync": "^2.18.6",
     <% if(frontEndFramework == 'bootstrap'){ %>
-    "bootstrap": "4.0.0-alpha.6",
+    "bootstrap-sass": "^3.3.7",
     <% } -%>
     <% if(frontEndFramework == 'foundation'){ %>
     "foundation-sites": "^6.3.0",
