@@ -11,3 +11,6 @@
 <% if(frontEndFramework == 'basscss'){ %>
 @import "basscss";
 <% } %>
+<% if(!frontEndFramework){ %>
+@import "reset";
+<% } %>

@@ -25,10 +25,8 @@ describe('Markup Features', function() {
 
     it('creates expected base files', function() {
       assert.file([
-        '.bowerrc',
         '.gitignore',
         '.gitattributes',
-        'bower.json',
         'package.json',
         'gulpfile.js',
         'package.json',
@@ -59,8 +57,8 @@ describe('Markup Features', function() {
     });
 
     it('should have the gulp routine in gulp default\'s task', function() {
-      assert.fileContent('src/assets/gulp/tasks/default.js',  /'main:markup'/);
-      assert.noFileContent('src/assets/gulp/tasks/default.js',  /'jekyll:build'/);
+      assert.fileContent('gulpfile.js',  /'main:markup'/);
+      assert.noFileContent('gulpfile.js',  /'jekyll:build'/);
     });
   });
 
@@ -89,10 +87,8 @@ describe('Markup Features', function() {
 
     it('creates expected base files', function() {
       assert.file([
-        '.bowerrc',
         '.gitignore',
         '.gitattributes',
-        'bower.json',
         'package.json',
         'gulpfile.js',
         'package.json',
@@ -130,8 +126,8 @@ describe('Markup Features', function() {
     });
 
     it('should have the gulp routine in gulp default\'s task', function() {
-      assert.fileContent('src/assets/gulp/tasks/default.js',  /'main:markup'/);
-      assert.noFileContent('src/assets/gulp/tasks/default.js',  /'jekyll:build'/);
+      assert.fileContent('gulpfile.js',  /'main:markup'/);
+      assert.noFileContent('gulpfile.js',  /'jekyll:build'/);
     });
   });
 
