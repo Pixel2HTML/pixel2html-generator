@@ -50,6 +50,11 @@ describe('Bootstrap features', function () {
     it('should include correct paths on config file', function () {
       assert.fileContent('src/assets/gulp/config.js', './node_modules/bootstrap-sass/assets/stylesheets')
       assert.fileContent('src/assets/gulp/config.js', './node_modules/bootstrap-sass/assets/javascripts/bootstrap.min.js')
+    })
+
+    it('should include correct paths on config file', function () {
+      assert.fileContent('src/assets/gulp/config.js', './node_modules/bootstrap-sass/assets/stylesheets')
+      assert.fileContent('src/assets/gulp/config.js', './node_modules/bootstrap-sass/assets/javascripts/bootstrap.min.js')
       assert.fileContent('src/assets/gulp/config.js', './node_modules/bootstrap-sass/assets/fonts/**/*')
     })
   })

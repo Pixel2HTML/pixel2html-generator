@@ -17,7 +17,7 @@ module.exports = {
   ],
   vendor: {
     scssDirectories: [
-      <% if(frontEndFramework == 'bootstrap'){ %>'./node_modules/bootstrap-sass/assets/stylesheets',<% } %>
+      <% if(frontEndFramework == 'bootstrap'){ %>'./node_modules/bootstrap-sass/assets/stylesheets/bootstrap',<% } %>
       <% if(frontEndFramework == 'foundation'){ %>'./node_modules/foundation-sites/scss',<% } %>
       <% if(frontEndFramework == 'basscss'){ %>'./node_modules/basscss-sass/scss',<% } %>
     ],
