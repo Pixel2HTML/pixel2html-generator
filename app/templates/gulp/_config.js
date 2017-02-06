@@ -29,7 +29,7 @@ module.exports = {
     ],
     fontFiles: [
       '<%= paths.src.fonts %>/**/*',
-      <% if(frontEndFramework == 'bootstrap'){ %>'./node_modules/bootstrap-sass/assets/fonts/bootstrap/**/*',<% } %>
+      <% if(frontEndFramework == 'bootstrap'){ %>'./node_modules/bootstrap-sass/assets/fonts/**/*',<% } %>
     ]
   }
 }
