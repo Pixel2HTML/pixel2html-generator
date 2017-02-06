@@ -15,10 +15,10 @@ gulp.task('main:scripts', function () {
     .pipe(plumber({ errorHandler: helpers.onError }))
     .pipe(sourcemaps.init())
     .pipe(concat('main.js'))
-    .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest(config.directories.dist.scripts))
     .pipe(concat('main.min.js'))
     .pipe(uglify({ preserveComments: 'license' }))
+    .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest(config.directories.dist.scripts))
 })
 
