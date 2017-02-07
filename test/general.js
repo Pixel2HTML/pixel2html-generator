@@ -25,10 +25,8 @@ describe('general', function() {
 
   it('creates expected base files', function() {
     assert.file([
-      '.bowerrc',
       '.gitignore',
       '.gitattributes',
-      'bower.json',
       'package.json',
       'gulpfile.js',
       'package.json',
@@ -43,14 +41,11 @@ describe('general', function() {
       'src/assets/gulp/config.js',
       'src/assets/gulp/helpers.js',
       'src/assets/gulp/tasks',
-      'src/assets/gulp/tasks/default.js',
       'src/assets/gulp/tasks/styles.js',
       'src/assets/gulp/tasks/scripts.js',
       'src/assets/gulp/tasks/fonts.js',
       'src/assets/gulp/tasks/static.js',
       'src/assets/gulp/tasks/markup.js',
-      'src/assets/gulp/tasks/serve.js',
-      'src/assets/gulp/tasks/watch.js',
       'src/assets/fonts',
       'src/assets/icons',
       'src/assets/images',

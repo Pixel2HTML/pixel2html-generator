@@ -17,31 +17,31 @@ var Generator = module.exports = function Generator(args, options) {
   yeoman.generators.Base.apply(this, arguments);
 
   this.paths = {
-    'src': {
-      'fonts': 'src/assets/fonts',
-      'gulp': 'src/assets/gulp',
-      'gulp_tasks': 'src/assets/gulp/tasks',
-      'icons': 'src/assets/icons',
-      'images': 'src/assets/images',
-      'vendors': 'src/assets/vendor',
-      'scripts': 'src/assets/js',
-      'styles': 'src/assets/styles',
-      'markup': 'src',
-      'frontendframework': 'src/assets/styles/vendor',
+    src: {
+      fonts: 'src/assets/fonts',
+      gulp: 'src/assets/gulp',
+      gulp_tasks: 'src/assets/gulp/tasks',
+      icons: 'src/assets/icons',
+      images: 'src/assets/images',
+      vendors: 'src/assets/vendor',
+      scripts: 'src/assets/js',
+      styles: 'src/assets/styles',
+      markup: 'src',
+      frontendframework: 'src/assets/styles/vendor',
     },
-    'dist': {
-      'assets': 'dist/assets',
-      'fonts': 'dist/assets/fonts',
-      'icons': 'dist/assets/icons',
-      'images': 'dist/assets/images',
-      'scripts': 'dist/assets/js',
-      'styles': 'dist/assets/css',
-      'base': 'dist',
-      'markup': 'dist',
-      'frontendframework': 'dist/assets/css/vendor',
+    dist: {
+      assets: 'dist/assets',
+      fonts: 'dist/assets/fonts',
+      icons: 'dist/assets/icons',
+      images: 'dist/assets/images',
+      scripts: 'dist/assets/js',
+      styles: 'dist/assets/css',
+      base: 'dist',
+      markup: 'dist',
+      frontendframework: 'dist/assets/css/vendor',
     },
-    'releases': {
-      'base': 'dist/releases'
+    releases: {
+      base: 'dist/releases'
     }
   };
 
@@ -381,7 +381,8 @@ Generator.prototype.writeProjectFiles = function() {
       markupLanguage: this.options.markupLanguage,
       markupIntegration: this.options.markupIntegration,
       cssProcessor: this.options.cssProcessor,
-      frontEndFramework: this.options.frontEndFramework
+      frontEndFramework: this.options.frontEndFramework,
+      jQuery: this.options.jQuery
     }
   );
 
@@ -454,26 +455,6 @@ Generator.prototype.copyGitKeepFiles = function() {
    );
 
 }
-
-Generator.prototype.writeBaseBowerFile = function() {
-
-  this.fs.copyTpl(
-    this.templatePath('bower/_bower.json'),
-    this.destinationPath('bower.json'), {
-      clientId: this.options.clientId,
-      projectId: this.options.projectId,
-      frontEndFramework: this.options.frontEndFramework,
-      jQuery: this.options.jQuery
-    }
-  );
-
-  this.fs.copyTpl(
-    this.templatePath('bower/bowerrc'),
-    this.destinationPath('.bowerrc'), {
-       paths: this.paths
-    }
-  );
-};
 
 Generator.prototype.writeMarkupFiles = function() {
 
@@ -577,6 +558,15 @@ Generator.prototype.writeBaseScriptsFiles = function() {
       frontEndFramework: this.options.frontEndFramework,
     }
   );
+
+  this.fs.copyTpl(
+    this.templatePath('scripts/vendor/vendor.js'),
+    this.destinationPath(this.paths.src.scripts + '/vendor/vendor.js'), {
+      clientId: this.options.clientId,
+      projectId: this.options.projectId,
+      frontEndFramework: this.options.frontEndFramework,
+    }
+  );
 };
 
 Generator.prototype.writeBaseGulpFiles = function() {
@@ -587,7 +577,10 @@ Generator.prototype.writeBaseGulpFiles = function() {
     this.destinationPath('gulpfile.js'), {
       paths: this.paths,
       frontEndFramework: this.options.frontEndFramework,
-      jQuery: this.options.jQuery
+      jQuery: this.options.jQuery,
+      markupLanguage: this.options.markupLanguage,
+      markupIntegration: this.options.markupIntegration,
+      cssProcessor: this.options.cssProcessor
     }
   );
 
@@ -607,17 +600,6 @@ Generator.prototype.writeBaseGulpFiles = function() {
     this.templatePath('gulp/_helpers.js'),
     this.destinationPath(this.paths.src.gulp+'/helpers.js'), {
       paths: this.paths
-    }
-  );
-
-  //default
-  this.fs.copyTpl(
-    this.templatePath('gulp/tasks/default.js'),
-    this.destinationPath(this.paths.src.gulp_tasks + '/default.js'), {
-      paths: this.paths,
-      frontEndFramework: this.options.frontEndFramework,
-      markupIntegration: this.options.markupIntegration,
-      jQuery: this.options.jQuery,
     }
   );
 
@@ -657,6 +639,14 @@ Generator.prototype.writeBaseGulpFiles = function() {
     }
   );
 
+  //zip
+  this.fs.copyTpl(
+    this.templatePath('gulp/tasks/zip.js'),
+    this.destinationPath(this.paths.src.gulp_tasks + '/zip.js'), {
+      paths: this.paths
+    }
+  );
+
   //main:markup
   if(!this.options.markupIntegration){
     this.fs.copyTpl(
@@ -668,34 +658,6 @@ Generator.prototype.writeBaseGulpFiles = function() {
     );
   }
 
-  //watch
-  this.fs.copyTpl(
-    this.templatePath('gulp/tasks/watch.js'),
-    this.destinationPath(this.paths.src.gulp_tasks + '/watch.js'), {
-      paths: this.paths,
-      cssProcessor: this.options.cssProcessor,
-      markupLanguage: this.options.markupLanguage,
-      frontEndFramework: this.options.frontEndFramework,
-      markupIntegration: this.options.markupIntegration
-    }
-  );
-
-  //serve
-  this.fs.copyTpl(
-    this.templatePath('gulp/tasks/serve.js'),
-    this.destinationPath(this.paths.src.gulp_tasks + '/serve.js'), {
-      paths: this.paths
-    }
-  );
-
-  //build
-  this.fs.copyTpl(
-    this.templatePath('gulp/tasks/build.js'),
-    this.destinationPath(this.paths.src.gulp_tasks + '/build.js'), {
-      paths: this.paths,
-      cssProcessor: this.options.cssProcessor,
-    }
-  );
 };
 
 Generator.prototype.writeMarkupIntegrationFiles = function() {
@@ -756,8 +718,6 @@ Generator.prototype.writeMarkupIntegrationFiles = function() {
   }
 
 };
-
-
 
 Generator.prototype.writeProjectConfigFile = function() {
   //overwrite the default .project.conf file or create the new one.

@@ -29,7 +29,7 @@ describe('jQuery features', function() {
 
   describe('Checking base files with dependencies', function(){
     it('should exists dependencies in bower.json', function(){
-      assert.fileContent('bower.json', /"jquery"/);
+      assert.fileContent('package.json', /"jquery"/);
     });
   });
 
@@ -41,7 +41,7 @@ describe('jQuery features', function() {
     });
 
     it('should include correct paths on config file', function(){
-      assert.fileContent('src/assets/gulp/config.js', 'src/assets/vendor/jquery/dist/jquery.js')
+      assert.fileContent('src/assets/gulp/config.js', './node_modules/jquery/dist/jquery.min.js')
     })
 
   });

@@ -5,16 +5,26 @@
   "repository": "http://www.pixel2html.com",
   "version": "1.0.0",
   "scripts": {
-
-    "start": "npm install && bower install <% if (markupIntegration=='jekyll'){%>&& bundle install<%}%>",
-    "code": "gulp serve",
-    "build": "gulp build"
+    "start": "npm install <% if (markupIntegration=='jekyll'){%>&& bundle install<%}%>",
+    "code": "gulp",
+    "build": "gulp release"
   },
   "dependencies": {
     "del": "^2.2.2",
-    "gulp": "^3.9.1",
-    "browser-sync": "2.6.5",
-
+    "gulp": "github:gulpjs/gulp#4.0",
+    "browser-sync": "^2.18.6",
+    <% if(frontEndFramework == 'bootstrap'){ %>
+    "bootstrap-sass": "^3.3.7",
+    <% } -%>
+    <% if(frontEndFramework == 'foundation'){ %>
+    "foundation-sites": "^6.3.0",
+    <% } %>
+    <% if(frontEndFramework == 'basscss'){ %>
+      "basscss-sass": "^4.0.0",
+    <% } %>
+    <% if(jQuery){ %>
+      "jquery": "^3.1.1",
+    <% } %>
     <% if (cssProcessor === 'scss' || frontEndFramework) { -%>
     "gulp-sass": "^3.1.0",
     <% } -%>
