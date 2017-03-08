@@ -1,6 +1,4 @@
 'use strict';
-
-
 var gulp    = require('gulp');
 var config  = require('../config');
 var helpers = require('../helpers');
@@ -14,7 +12,7 @@ gulp.task('main:markup', function() {
   return gulp.src('<%= paths.src.markup %>/*.<%=markupLanguage%>')
     .pipe(plumber({ errorHandler: helpers.onError }))
 <% if (markupLanguage === 'pug') { %>
-    .pipe(pug({ pretty: true })) 
+    .pipe(pug({ pretty: true }))
 <% } %>
     .pipe(gulp.dest(config.directories.dist.markup))
 });
