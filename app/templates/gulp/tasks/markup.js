@@ -1,11 +1,11 @@
-'use strict';
-var gulp    = require('gulp');
-var config  = require('../config');
-var helpers = require('../helpers');
+'use strict'
+var gulp    = require('gulp')
+var config  = require('../config')
+var helpers = require('../helpers')
 
-var plumber     = require('gulp-plumber');
+var plumber     = require('gulp-plumber')
 <% if (markupLanguage === 'pug') { %>
-var pug         = require('gulp-pug');
+var pug         = require('gulp-pug')
 <% } %>
 
 gulp.task('main:markup', function() {
@@ -15,4 +15,4 @@ gulp.task('main:markup', function() {
     .pipe(pug({ pretty: true }))
 <% } %>
     .pipe(gulp.dest(config.directories.dist.markup))
-});
+})
