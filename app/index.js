@@ -667,7 +667,9 @@ Generator.prototype.writeBaseGulpFiles = function () {
       this.templatePath('gulp/tasks/markup.js'),
       this.destinationPath(this.paths.src.gulp_tasks + '/markup.js'), {
         paths: this.paths,
-        markupLanguage: this.options.markupLanguage
+        markupLanguage: this.options.markupLanguage,
+        clientId: this.options.clientId,
+        projectId: this.options.projectId
       }
     )
   }
