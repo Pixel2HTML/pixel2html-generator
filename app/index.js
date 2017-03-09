@@ -465,17 +465,32 @@ Generator.prototype.writePugFiles = function () {
   if (!this.options.markupIntegration && usingPug) {
     // Loop di loop for each screen
     for (var i = 1; i < this.options.qtyScreens + 1; i++) {
-      this.fs.copyTpl(
-        this.templatePath('markup/pug/_screen.' + this.options.markupLanguage),
-        this.destinationPath(this.paths.src.markup + '/pug/screen-' + i + '.' + this.options.markupLanguage),
-        {
-          screenNumber: i,
-          clientId: this.options.clientId,
-          projectId: this.options.projectId,
-          frontEndFramework: this.options.frontEndFramework,
-          jQuery: this.options.jQuery
-        }
-      )
+      // We want index.pug because we lazy
+      if (i === 1) {
+        this.fs.copyTpl(
+          this.templatePath('markup/pug/_screen.' + this.options.markupLanguage),
+          this.destinationPath(this.paths.src.markup + '/pug/index' + '.' + this.options.markupLanguage),
+          {
+            screenNumber: i,
+            clientId: this.options.clientId,
+            projectId: this.options.projectId,
+            frontEndFramework: this.options.frontEndFramework,
+            jQuery: this.options.jQuery
+          }
+        )
+      } else {
+        this.fs.copyTpl(
+          this.templatePath('markup/pug/_screen.' + this.options.markupLanguage),
+          this.destinationPath(this.paths.src.markup + '/pug/screen-' + i + '.' + this.options.markupLanguage),
+          {
+            screenNumber: i,
+            clientId: this.options.clientId,
+            projectId: this.options.projectId,
+            frontEndFramework: this.options.frontEndFramework,
+            jQuery: this.options.jQuery
+          }
+        )
+      }
     }
     this.fs.copyTpl(
       this.templatePath('markup/pug/layouts/layout-primary.pug'),
