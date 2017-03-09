@@ -488,6 +488,14 @@ Generator.prototype.writePugFiles = function () {
         jQuery: this.options.jQuery
       }
     )
+    this.fs.copy(
+      this.templatePath('markup/pug/layouts/general/**/*'),
+      this.destinationPath(this.paths.src.markup + '/pug/layouts/general')
+    )
+    this.fs.copy(
+      this.templatePath('markup/pug/layouts/includes/**/*'),
+      this.destinationPath(this.paths.src.markup + '/pug/layouts/includes')
+    )
   }
 }
 
