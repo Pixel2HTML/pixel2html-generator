@@ -13,17 +13,16 @@ requireDir('<%= paths.src.gulp %>', {
 
 gulp.task('build', gulp.series(
   'clean',
-  gulp.parallel('main:static',
-    'main:styles',
-    'main:scripts',
-    'main:fonts',
-    <% if(markupIntegration=='jekyll'){ %>
-    'jekyll:build'
-    <% } else { %>
-    'main:markup'
-    <% } %>),
-  gulp.parallel('vendor:styles',
-  'vendor:scripts')
+  'main:static',
+  'main:scripts',
+  'vendor:scripts',
+  'main:fonts',
+  <% if(markupIntegration=='jekyll'){ %>
+  'jekyll:build'
+  <% } else { %>
+  'main:markup'<% } %>,
+  'vendor:styles',
+  'main:styles'
 ))
 
 
