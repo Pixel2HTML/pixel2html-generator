@@ -40,5 +40,7 @@ module.exports = {
     console.log(error.toString())
     this.emit('end')
   },
-  production: production ? true : false
+  production: production ? true : false,
+  // Stuff for PurifyCss
+  purify: ['./dist/**/*.html', './dist/**/*.js'],
 }
