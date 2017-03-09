@@ -30,5 +30,12 @@
     "mocha": "*",
     "standard": "^9.0.1",
     "yeoman-assert": "^2.1.0"
+  },
+  "standard": {
+    "globals": [
+      "describe",
+      "it",
+      "before"
+    ]
   }
 }
