@@ -97,6 +97,7 @@ describe('Markup Features', function () {
         'src/pug/screen-4.pug',
         'src/pug/screen-5.pug',
         'src/pug/screen-6.pug',
+        'src/pug/layouts/layout-primary.pug',
         'src/assets/gulp',
         'src/assets/gulp/tasks',
         'src/assets/fonts',

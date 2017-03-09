@@ -463,9 +463,10 @@ Generator.prototype.writeHtmlFiles = function () {
 Generator.prototype.writePugFiles = function () {
   let usingPug = this.options.markupLanguage === 'pug'
   if (!this.options.markupIntegration && usingPug) {
+    // Loop di loop for each screen
     for (var i = 1; i < this.options.qtyScreens + 1; i++) {
       this.fs.copyTpl(
-        this.templatePath('markup/_screen.' + this.options.markupLanguage),
+        this.templatePath('markup/pug/_screen.' + this.options.markupLanguage),
         this.destinationPath(this.paths.src.markup + '/pug/screen-' + i + '.' + this.options.markupLanguage),
         {
           screenNumber: i,
@@ -476,6 +477,17 @@ Generator.prototype.writePugFiles = function () {
         }
       )
     }
+    this.fs.copyTpl(
+      this.templatePath('markup/pug/layouts/layout-primary.pug'),
+      this.destinationPath(this.paths.src.markup + '/pug/layouts/layout-primary.pug'),
+      {
+        screenNumber: i,
+        clientId: this.options.clientId,
+        projectId: this.options.projectId,
+        frontEndFramework: this.options.frontEndFramework,
+        jQuery: this.options.jQuery
+      }
+    )
   }
 }
 
