@@ -1,6 +1,7 @@
 'use strict'
 // We use this to read flags in the command line
 const argv = require('yargs').argv
+// Add your conditions here 💅
 const production = argv.prod || argv.production
 
 module.exports = {
