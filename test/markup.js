@@ -116,7 +116,7 @@ describe('Markup Features', function () {
       assert.file([
         'src/assets/gulp/tasks/markup.js'
       ])
-      assert.fileContent('src/assets/gulp/tasks/markup.js', /gulp-pug/)
+      assert.fileContent('src/assets/gulp/tasks/markup.js', /\$\.pug/)
     })
 
     it('should exists a pipe in the main:markup', function () {
