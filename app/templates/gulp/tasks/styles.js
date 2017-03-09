@@ -44,7 +44,7 @@ gulp.task('vendor:styles', () => {
   return gulp.src('<%= cssVendorFile %>')
   .pipe(when(!production, $.sourcemaps.init()))
   .pipe($.sass({
-    includePaths: config.scssDirectories
+    includePaths: config.vendor.scssDirectories
   }))
   .on('error', $.sass.logError)
   .pipe($.autoprefixer({
