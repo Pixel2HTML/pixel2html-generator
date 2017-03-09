@@ -55,7 +55,7 @@ describe('SCSS features', function () {
       assert.file([
         'src/assets/gulp/tasks/styles.js'
       ])
-      assert.fileContent('src/assets/gulp/tasks/styles.js', /gulp-sass/)
+      assert.fileContent('src/assets/gulp/tasks/styles.js', /\$\.sass/)
     })
 
     it('should exists a pipe in the main:styles routing', function () {

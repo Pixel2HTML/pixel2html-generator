@@ -55,7 +55,7 @@ describe('Stylus features', function () {
       assert.file([
         'src/assets/gulp/tasks/styles.js'
       ])
-      assert.fileContent('src/assets/gulp/tasks/styles.js', /gulp-stylus/)
+      assert.fileContent('src/assets/gulp/tasks/styles.js', /\$\.stylus/)
     })
 
     it('should exists a pipe in the main:styles routing', function () {
