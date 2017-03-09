@@ -1,4 +1,7 @@
 'use strict'
+// We use this to read flags in the command line
+const argv = require('yargs').argv
+const production = argv.prod || argv.production
 
 module.exports = {
   directories: {
@@ -35,5 +38,6 @@ module.exports = {
   onError: function (error) {
     console.log(error.toString())
     this.emit('end')
-  }
+  },
+  production: production ? true : false
 }
