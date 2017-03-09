@@ -28,11 +28,11 @@ gulp.task('main:markup', function() {
       pretty: true,
       baseDir: './<%= paths.src.markup %>/pug',
       locals: devLocals
-    }))).on('error', config.errorHandler)
+    }))).on('error', config.onError)
     .pipe(when(production, $.pug({
       baseDir: './<%= paths.src.markup %>/pug',
       locals: prodLocals
-    }))).on('error', config.errorHandler)
+    }))).on('error', config.onError)
 
 <% } else { %>
   return gulp.src('<%= paths.src.markup %>/*.<%=markupLanguage%>')

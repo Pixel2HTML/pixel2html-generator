@@ -19,7 +19,7 @@ gulp.task('main:scripts', () => {
   .pipe(when(production, $.rename({suffix: '.min'})))
   .pipe(when(production, $.uglify({
     preserveComments: 'license'
-  }))).on('error', config.errorHandler)
+  }))).on('error', config.onError)
   .pipe(when(production, gulp.dest(destination)))
 })
 
@@ -34,6 +34,6 @@ gulp.task('vendor:scripts', () => {
   .pipe(when(production, $.rename({suffix: '.min'})))
   .pipe(when(production, $.uglify({
     preserveComments: 'license'
-  }))).on('error', config.errorHandler)
+  }))).on('error', config.onError)
   .pipe(when(production, gulp.dest(destination)))
 })

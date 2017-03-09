@@ -4,6 +4,7 @@ const config  = require('../config')
 const when = require('gulp-if')
 const $ = require('gulp-load-plugins')()
 const destination = config.directories.dist.styles
+const production = config.production
 
 gulp.task('main:styles', function() {
   return gulp.src('<%= cssMainFile %>')

@@ -19,16 +19,16 @@ html(lang='en')
       //- If extra head content is necessary per page, it can be added per screen
 
   body
-    include ./includes/_mixins
+    include includes/mixins
     <!--[if lt IE 8]>
       p.browserupgrade
         You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-    include ./general/_menu
+    include general/menu
     block content
       //- This gets replaced by content per page
 
-    include ./general/_footer
+    include general/footer
     block footer
       //- If extra footer content is necessary per page, it can be added per screen
 
