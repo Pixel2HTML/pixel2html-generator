@@ -28,6 +28,7 @@
   },
   "devDependencies": {
     "mocha": "*",
+    "standard": "^9.0.1",
     "yeoman-assert": "^2.1.0"
   }
 }

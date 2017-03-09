@@ -1,14 +1,13 @@
-'use strict';
+'use strict'
 
-var path = require('path');
-var helpers = require('yeoman-generator').test;
-var assert = require('yeoman-assert');
-var fs = require('fs');
+var path = require('path')
+var helpers = require('yeoman-generator').test
+var assert = require('yeoman-assert')
+var fs = require('fs')
 
-describe('Jekyll Features', function() {
-  describe('Jekyll Project', function(){
-
-    before('crafting  project', function(done) {
+describe('Jekyll Features', function () {
+  describe('Jekyll Project', function () {
+    before('crafting  project', function (done) {
       helpers.run(path.join(__dirname, '../app'))
         .inDir(path.join(__dirname, 'temp'))
         .withOptions({
@@ -20,12 +19,12 @@ describe('Jekyll Features', function() {
           qtyScreens: 6,
           markupLanguage: 'html',
           markupIntegration: 'jekyll',
-          cssProcessor: 'less',
+          cssProcessor: 'less'
         })
-        .on('end', done);
-    });
+        .on('end', done)
+    })
 
-    it('creates expected base files', function() {
+    it('creates expected base files', function () {
       assert.file([
         '.gitignore',
         '.gitattributes',
@@ -58,22 +57,21 @@ describe('Jekyll Features', function() {
         'src/_includes',
         'src/_includes/shared/head.html',
         'src/_includes/shared/foot.html',
-        'src/assets/gulp/tasks/jekyll.js',
-      ]);
-    });
+        'src/assets/gulp/tasks/jekyll.js'
+      ])
+    })
 
-    it('should have the project name on package.json', function() {
-      assert.fileContent('package.json',  /"name": "pixel2html-0987-1234"/);
-    });
+    it('should have the project name on package.json', function () {
+      assert.fileContent('package.json', /"name": "pixel2html-0987-1234"/)
+    })
 
-    it('should have the gulp routine in gulp default\'s task', function() {
-      assert.fileContent('gulpfile.js',  /'jekyll:build'/);
-      assert.noFileContent('gulpfile.js',  /'main:markup'/);
-    });
+    it('should have the gulp routine in gulp default\'s task', function () {
+      assert.fileContent('gulpfile.js', /'jekyll:build'/)
+      assert.noFileContent('gulpfile.js', /'main:markup'/)
+    })
 
-    it('Gemfile should have the usage of Jekyll Gem', function() {
-      assert.fileContent('Gemfile', /gem 'jekyll'/);
-    });
-  });
-
-});
+    it('Gemfile should have the usage of Jekyll Gem', function () {
+      assert.fileContent('Gemfile', /gem 'jekyll'/)
+    })
+  })
+})

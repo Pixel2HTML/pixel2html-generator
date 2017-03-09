@@ -1,13 +1,13 @@
-'use strict';
+'use strict'
 
-var path = require('path');
-var helpers = require('yeoman-generator').test;
-var assert = require('yeoman-assert');
-var fs = require('fs');
+var path = require('path')
+var helpers = require('yeoman-generator').test
+var assert = require('yeoman-assert')
+var fs = require('fs')
 
-describe('Markup Features', function() {
-  describe('HTML Project', function(){
-    before('crafting  project', function(done) {
+describe('Markup Features', function () {
+  describe('HTML Project', function () {
+    before('crafting  project', function (done) {
       helpers.run(path.join(__dirname, '../app'))
         .inDir(path.join(__dirname, 'temp'))
         .withOptions({
@@ -18,12 +18,12 @@ describe('Markup Features', function() {
           projectId: '1234',
           qtyScreens: 6,
           markupLanguage: 'html',
-          cssProcessor: 'less',
+          cssProcessor: 'less'
         })
-        .on('end', done);
-    });
+        .on('end', done)
+    })
 
-    it('creates expected base files', function() {
+    it('creates expected base files', function () {
       assert.file([
         '.gitignore',
         '.gitattributes',
@@ -44,26 +44,26 @@ describe('Markup Features', function() {
         'src/assets/images',
         'src/assets/js',
         'src/assets/styles',
-        'src/assets/vendor',
-      ]);
-    });
+        'src/assets/vendor'
+      ])
+    })
 
-    it('should have the project name on package.json', function() {
-      assert.fileContent('package.json',  /"name": "pixel2html-0987-1234"/);
-    });
+    it('should have the project name on package.json', function () {
+      assert.fileContent('package.json', /"name": "pixel2html-0987-1234"/)
+    })
 
-    it('should exists a gulp routine', function() {
-      assert.file(['src/assets/gulp/tasks/markup.js']);
-    });
+    it('should exists a gulp routine', function () {
+      assert.file(['src/assets/gulp/tasks/markup.js'])
+    })
 
-    it('should have the gulp routine in gulp default\'s task', function() {
-      assert.fileContent('gulpfile.js',  /'main:markup'/);
-      assert.noFileContent('gulpfile.js',  /'jekyll:build'/);
-    });
-  });
+    it('should have the gulp routine in gulp default\'s task', function () {
+      assert.fileContent('gulpfile.js', /'main:markup'/)
+      assert.noFileContent('gulpfile.js', /'jekyll:build'/)
+    })
+  })
 
-  describe('PUG Project', function(){
-    before('crafting  project', function(done) {
+  describe('PUG Project', function () {
+    before('crafting  project', function (done) {
       helpers.run(path.join(__dirname, '../app'))
         .inDir(path.join(__dirname, 'temp'))
         .withOptions({
@@ -74,18 +74,18 @@ describe('Markup Features', function() {
           projectId: '1234',
           qtyScreens: 6,
           markupLanguage: 'pug',
-          cssProcessor: 'less',
+          cssProcessor: 'less'
         })
-        .on('end', done);
-    });
+        .on('end', done)
+    })
 
-    describe('Checking base files with dependencies', function() {
+    describe('Checking base files with dependencies', function () {
       it('sould exists dependencies on package.json', function () {
-        assert.fileContent('package.json',  /"gulp-pug"/);
-      });
-    });
+        assert.fileContent('package.json', /"gulp-pug"/)
+      })
+    })
 
-    it('creates expected base files', function() {
+    it('creates expected base files', function () {
       assert.file([
         '.gitignore',
         '.gitattributes',
@@ -106,30 +106,28 @@ describe('Markup Features', function() {
         'src/assets/images',
         'src/assets/js',
         'src/assets/styles',
-        'src/assets/vendor',
-      ]);
-    });
+        'src/assets/vendor'
+      ])
+    })
 
-    it('should have the project name on package.json', function() {
-      assert.fileContent('package.json',  /"name": "pixel2html-0987-1234"/);
-    });
+    it('should have the project name on package.json', function () {
+      assert.fileContent('package.json', /"name": "pixel2html-0987-1234"/)
+    })
 
-    it('should exists a gulp routine', function() {
+    it('should exists a gulp routine', function () {
       assert.file([
         'src/assets/gulp/tasks/markup.js'
-      ]);
-      assert.fileContent('src/assets/gulp/tasks/markup.js',  /gulp-pug/);
-    });
+      ])
+      assert.fileContent('src/assets/gulp/tasks/markup.js', /gulp-pug/)
+    })
 
-    it('should exists a pipe in the main:markup', function() {
-      assert.fileContent('src/assets/gulp/tasks/markup.js', /pug\(/);
-    });
+    it('should exists a pipe in the main:markup', function () {
+      assert.fileContent('src/assets/gulp/tasks/markup.js', /pug\(/)
+    })
 
-    it('should have the gulp routine in gulp default\'s task', function() {
-      assert.fileContent('gulpfile.js',  /'main:markup'/);
-      assert.noFileContent('gulpfile.js',  /'jekyll:build'/);
-    });
-  });
-
-
-});
+    it('should have the gulp routine in gulp default\'s task', function () {
+      assert.fileContent('gulpfile.js', /'main:markup'/)
+      assert.noFileContent('gulpfile.js', /'jekyll:build'/)
+    })
+  })
+})
