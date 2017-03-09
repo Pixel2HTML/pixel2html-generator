@@ -7,7 +7,7 @@
   "scripts": {
     "start": "npm install <% if (markupIntegration=='jekyll'){%>&& bundle install<%}%>",
     "code": "gulp",
-    "build": "gulp release"
+    "build": "gulp release --prod"
   },
   "dependencies": {
     "del": "^2.2.2",
