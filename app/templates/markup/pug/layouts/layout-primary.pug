@@ -1,0 +1,40 @@
+doctype html
+html(lang='en')
+  head
+    block title
+      title <%= clientId %>/<%= projectId %> - Screen <%= screenNumber %>
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge,chrome=1')
+    meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0")
+    //- Favicons and Android NavBar Color
+    meta(name='theme-color', content='#3e456c')
+    //- CSS Files
+    if productionMode
+      link(rel='stylesheet', href='assets/css/vendor.min.css')
+      link(rel='stylesheet', href='assets/css/main.min.css')
+    else
+      link(rel='stylesheet', href='assets/css/vendor.css')
+      link(rel='stylesheet', href='assets/css/main.css')
+    block head
+      //- If extra head content is necessary per page, it can be added per screen
+
+  body
+    include ./includes/_mixins
+    <!--[if lt IE 8]>
+      p.browserupgrade
+        You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    include ./general/_menu
+    block content
+      //- This gets replaced by content per page
+
+    include ./general/_footer
+    block footer
+      //- If extra footer content is necessary per page, it can be added per screen
+
+    if productionMode
+      script(src='assets/javascript/main.min.js')
+    else
+      script(src='assets/javascript/main.js')
+    block scripts
+      //- Also if more scripts are needed you can hook in here <3
