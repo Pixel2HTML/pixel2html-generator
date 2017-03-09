@@ -37,7 +37,6 @@ describe('general', function () {
       'src/screen_6.html',
       'src/assets/gulp',
       'src/assets/gulp/config.js',
-      'src/assets/gulp/helpers.js',
       'src/assets/gulp/tasks',
       'src/assets/gulp/tasks/styles.js',
       'src/assets/gulp/tasks/scripts.js',
