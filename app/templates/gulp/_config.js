@@ -31,5 +31,9 @@ module.exports = {
       '<%= paths.src.fonts %>/**/*',
       <% if(frontEndFramework == 'bootstrap'){ %>'./node_modules/bootstrap-sass/assets/fonts/**/*',<% } %>
     ]
+  },
+  onError: function (error) {
+    console.log(error.toString())
+    this.emit('end')
   }
 }
