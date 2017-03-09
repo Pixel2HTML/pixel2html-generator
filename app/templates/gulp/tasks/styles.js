@@ -34,7 +34,7 @@ gulp.task('main:styles', function() {
     .pipe(gulp.dest(destination))
 
     .pipe(when(production, $.rename({suffix: '.min'})))
-    .pipe(when(production, $.purifycss( config.purify )))
+    .pipe(when(production, $.purifycss( config.purify, { info: true } )))
     .pipe(when(production, $.cssnano()))
     .pipe(when(production, gulp.dest(destination)))
 })
@@ -56,7 +56,7 @@ gulp.task('vendor:styles', () => {
   .pipe(gulp.dest(destination))
 
   .pipe(when(production, $.rename({suffix: '.min'})))
-  .pipe(when(production, $.purifycss( config.purify )))
+  .pipe(when(production, $.purifycss( config.purify, { info: true } )))
   .pipe(when(production, $.cssnano()))
   .pipe(when(production, gulp.dest(destination)))
 })
