@@ -440,13 +440,33 @@ Generator.prototype.copyGitKeepFiles = function () {
    )
 }
 
-Generator.prototype.writeMarkupFiles = function () {
-  const usingPug = this.options.markupLanguage === 'pug'
-  if (!this.options.markupIntegration) {
+Generator.prototype.writeHtmlFiles = function () {
+  let usingHtml = this.options.markupLanguage === 'html'
+  if (!this.options.markupIntegration && usingHtml) {
     for (var i = 1; i < this.options.qtyScreens + 1; i++) {
       this.fs.copyTpl(
         this.templatePath('markup/_screen.' + this.options.markupLanguage),
-        this.destinationPath(this.paths.src.markup + usingPug ? '/pug' : '' + '/screen_' + i + '.' + this.options.markupLanguage),
+        this.destinationPath(this.paths.src.markup + '/screen-' + i + '.' + this.options.markupLanguage),
+        {
+          screenNumber: i,
+          clientId: this.options.clientId,
+          projectId: this.options.projectId,
+          frontEndFramework: this.options.frontEndFramework,
+          jQuery: this.options.jQuery
+        }
+      )
+    }
+  }
+}
+
+// Splitting Pug Files in its own task because we need room to stretch our legs next
+Generator.prototype.writePugFiles = function () {
+  let usingPug = this.options.markupLanguage === 'pug'
+  if (!this.options.markupIntegration && usingPug) {
+    for (var i = 1; i < this.options.qtyScreens + 1; i++) {
+      this.fs.copyTpl(
+        this.templatePath('markup/_screen.' + this.options.markupLanguage),
+        this.destinationPath(this.paths.src.markup + '/pug/screen-' + i + '.' + this.options.markupLanguage),
         {
           screenNumber: i,
           clientId: this.options.clientId,
@@ -659,7 +679,7 @@ Generator.prototype.writeMarkupIntegrationFiles = function () {
     for (var i = 1; i < this.options.qtyScreens + 1; i++) {
       this.fs.copyTpl(
         this.templatePath('markup/jekyll/_screen.html'),
-        this.destinationPath(this.paths.src.markup + '/screen_' + i + '.html'), {
+        this.destinationPath(this.paths.src.markup + '/screen-' + i + '.html'), {
           screenNumber: i,
           clientId: this.options.clientId,
           projectId: this.options.projectId,
