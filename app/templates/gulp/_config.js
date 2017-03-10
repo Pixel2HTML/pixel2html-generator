@@ -16,9 +16,14 @@ module.exports = {
       styles: 'dist/assets/css',
     }
   },
-  scriptFiles: [
-    '<%= paths.src.scripts %>/*.js'
-  ],
+  project: {
+    scriptFiles: [
+      '<%= paths.src.scripts %>/*.js'
+    ],
+    fontFiles: [
+      '<%= paths.src.fonts %>/**/*',
+    ]
+  },
   vendor: {
     scssDirectories: [
       <% if(frontEndFramework == 'bootstrap'){ %>'./node_modules/bootstrap-sass/assets/stylesheets',<% } %>
@@ -32,7 +37,6 @@ module.exports = {
       '<%= paths.src.scripts %>/vendor/*.js'
     ],
     fontFiles: [
-      '<%= paths.src.fonts %>/**/*',
       <% if(frontEndFramework == 'bootstrap'){ %>'./node_modules/bootstrap-sass/assets/fonts/**/*',<% } %>
     ]
   },
