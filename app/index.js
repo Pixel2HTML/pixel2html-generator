@@ -440,6 +440,14 @@ Generator.prototype.copyGitKeepFiles = function () {
    )
 }
 
+// A sample SVG to show how to use SVG Icons
+Generator.prototype.copySampleSvg = function () {
+  this.fs.copy(
+    this.templatePath('assets/icons/react.svg'),
+    this.destinationPath(this.paths.src.icons + '/react.svg')
+  )
+}
+
 Generator.prototype.writeHtmlFiles = function () {
   let usingHtml = this.options.markupLanguage === 'html'
   if (!this.options.markupIntegration && usingHtml) {

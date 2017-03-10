@@ -2,7 +2,7 @@
 
 var requireDir = require('require-dir')
 var gulp    = require('gulp')
-var config  = require('./src/assets/gulp/config')
+var config  = require('./gulp/config')
 var browserSync = require('browser-sync')
 
 

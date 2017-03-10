@@ -1,7 +1,13 @@
 extends layouts/layout-primary
 
 block content
-  h1 <%= clientId %>/<%= projectId %> - Screen <%= screenNumber %>
-  p Welcome to our lovely Pixel2Html Generator.
-  p Please go ahead and remove this from the partial file and go and hack along
-  img(src='http://i.giphy.com/o0vwzuFwCGAFO.gif' alt='Lets get to code shall we?')
+  section.delete-all-of-this-to-begin
+    h1 <%= clientId %>/<%= projectId %> - Screen <%= screenNumber %>
+    p Welcome to our lovely Pixel2Html Generator.
+    p Please go ahead and remove this from the partial file and go and hack along
+    img(src='http://i.giphy.com/o0vwzuFwCGAFO.gif' alt='Lets get to code shall we?')
+    h2 SVG Icons
+    p Take notice we also do svg icons around here like such
+    +svg('react')
+    p Put your svg icons in the icons folder and call them like this #[code +svg('react')] there you'd replace the name of the icon for the actual name of the file its pretty magical
+    p Find more info on: #[a(href='https://fvsch.com/code/svg-icons/how-to/' target='_blank') https://fvsch.com/code/svg-icons/how-to/]
