@@ -29,6 +29,7 @@ describe('general', function () {
       'gulpfile.js',
       'package.json',
       '.editorconfig',
+      'LICENSE',
       'src/screen-1.html',
       'src/screen-2.html',
       'src/screen-3.html',

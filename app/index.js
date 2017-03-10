@@ -378,6 +378,12 @@ Generator.prototype.writeProjectFiles = function () {
     this.destinationPath('.editorconfig')
   )
 
+  this.log(chalk.yellow('Copying MIT License'))
+  this.fs.copy(
+    this.templatePath('base/LICENSE'),
+    this.destinationPath('LICENSE')
+  )
+
   this.log(chalk.yellow('Copying git files.'))
   this.fs.copyTpl(
     this.templatePath('git/gitignore'),
