@@ -23,7 +23,6 @@ const prodLocals = {
 gulp.task('main:markup', function() {
 <% if (markupLanguage === 'pug') { %>
   return gulp.src('<%= paths.src.markup %>/pug/*.<%=markupLanguage%>')
-
     .pipe(when(!production, $.pug({
       pretty: true,
       baseDir: './<%= paths.src.markup %>/pug',
