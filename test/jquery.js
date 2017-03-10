@@ -31,12 +31,12 @@ describe('jQuery features', function () {
   describe('Checking jQuery files', function () {
     it('should exists a gulp routine', function () {
       assert.file([
-        'src/assets/gulp/tasks/scripts.js'
+        'gulp/tasks/scripts.js'
       ])
     })
 
     it('should include correct paths on config file', function () {
-      assert.fileContent('src/assets/gulp/config.js', './node_modules/jquery/dist/jquery.min.js')
+      assert.fileContent('gulp/config.js', './node_modules/jquery/dist/jquery.min.js')
     })
   })
 })

@@ -38,12 +38,12 @@ describe('Jekyll Features', function () {
         'src/screen-4.html',
         'src/screen-5.html',
         'src/screen-6.html',
-        'src/assets/gulp',
-        'src/assets/gulp/tasks',
-        'src/assets/gulp/tasks/fonts.js',
-        'src/assets/gulp/tasks/jekyll.js',
-        'src/assets/gulp/tasks/static.js',
-        'src/assets/gulp/tasks/styles.js',
+        'gulp',
+        'gulp/tasks',
+        'gulp/tasks/fonts.js',
+        'gulp/tasks/jekyll.js',
+        'gulp/tasks/static.js',
+        'gulp/tasks/styles.js',
         'src/assets/fonts',
         'src/assets/icons',
         'src/assets/images',
@@ -55,7 +55,7 @@ describe('Jekyll Features', function () {
         'src/_includes',
         'src/_includes/shared/head.html',
         'src/_includes/shared/foot.html',
-        'src/assets/gulp/tasks/jekyll.js'
+        'gulp/tasks/jekyll.js'
       ])
     })
 

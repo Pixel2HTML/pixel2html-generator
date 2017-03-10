@@ -33,8 +33,8 @@ describe('Bootstrap features', function () {
   describe('Checking Bootstrap files', function () {
     it('should exists a gulp routine', function () {
       assert.file([
-        'src/assets/gulp/tasks/styles.js',
-        'src/assets/gulp/tasks/scripts.js'
+        'gulp/tasks/styles.js',
+        'gulp/tasks/scripts.js'
       ])
     })
     it('should exists vendor files', function () {
@@ -48,14 +48,14 @@ describe('Bootstrap features', function () {
     })
 
     it('should include correct paths on config file', function () {
-      assert.fileContent('src/assets/gulp/config.js', './node_modules/bootstrap-sass/assets/stylesheets')
-      assert.fileContent('src/assets/gulp/config.js', './node_modules/bootstrap-sass/assets/javascripts/bootstrap.min.js')
+      assert.fileContent('gulp/config.js', './node_modules/bootstrap-sass/assets/stylesheets')
+      assert.fileContent('gulp/config.js', './node_modules/bootstrap-sass/assets/javascripts/bootstrap.min.js')
     })
 
     it('should include correct paths on config file', function () {
-      assert.fileContent('src/assets/gulp/config.js', './node_modules/bootstrap-sass/assets/stylesheets')
-      assert.fileContent('src/assets/gulp/config.js', './node_modules/bootstrap-sass/assets/javascripts/bootstrap.min.js')
-      assert.fileContent('src/assets/gulp/config.js', './node_modules/bootstrap-sass/assets/fonts/**/*')
+      assert.fileContent('gulp/config.js', './node_modules/bootstrap-sass/assets/stylesheets')
+      assert.fileContent('gulp/config.js', './node_modules/bootstrap-sass/assets/javascripts/bootstrap.min.js')
+      assert.fileContent('gulp/config.js', './node_modules/bootstrap-sass/assets/fonts/**/*')
     })
   })
 })

@@ -35,8 +35,8 @@ describe('Markup Features', function () {
         'src/screen-4.html',
         'src/screen-5.html',
         'src/screen-6.html',
-        'src/assets/gulp',
-        'src/assets/gulp/tasks',
+        'gulp',
+        'gulp/tasks',
         'src/assets/fonts',
         'src/assets/icons',
         'src/assets/images',
@@ -51,7 +51,7 @@ describe('Markup Features', function () {
     })
 
     it('should exists a gulp routine', function () {
-      assert.file(['src/assets/gulp/tasks/markup.js'])
+      assert.file(['gulp/tasks/markup.js'])
     })
 
     it('should have the gulp routine in gulp default\'s task', function () {
@@ -101,8 +101,8 @@ describe('Markup Features', function () {
         'src/pug/layouts/general/footer.pug',
         'src/pug/layouts/general/menu.pug',
         'src/pug/layouts/includes/mixins.pug',
-        'src/assets/gulp',
-        'src/assets/gulp/tasks',
+        'gulp',
+        'gulp/tasks',
         'src/assets/fonts',
         'src/assets/icons',
         'src/assets/images',
@@ -118,13 +118,13 @@ describe('Markup Features', function () {
 
     it('should exists a gulp routine', function () {
       assert.file([
-        'src/assets/gulp/tasks/markup.js'
+        'gulp/tasks/markup.js'
       ])
-      assert.fileContent('src/assets/gulp/tasks/markup.js', /\$\.pug/)
+      assert.fileContent('gulp/tasks/markup.js', /\$\.pug/)
     })
 
     it('should exists a pipe in the main:markup', function () {
-      assert.fileContent('src/assets/gulp/tasks/markup.js', /pug\(/)
+      assert.fileContent('gulp/tasks/markup.js', /pug\(/)
     })
 
     it('should have the gulp routine in gulp default\'s task', function () {

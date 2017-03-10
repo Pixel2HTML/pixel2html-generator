@@ -32,8 +32,8 @@ describe('Foundation features', function () {
   describe('Checking Foundation files', function () {
     it('should exists a gulp routine', function () {
       assert.file([
-        'src/assets/gulp/tasks/styles.js',
-        'src/assets/gulp/tasks/scripts.js'
+        'gulp/tasks/styles.js',
+        'gulp/tasks/scripts.js'
       ])
     })
     it('should exists vendor files', function () {
@@ -47,8 +47,8 @@ describe('Foundation features', function () {
     })
 
     it('should include correct paths on config file', function () {
-      assert.fileContent('src/assets/gulp/config.js', './node_modules/foundation-sites/scss')
-      assert.fileContent('src/assets/gulp/config.js', './node_modules/foundation-sites/dist/js/foundation.min.js')
+      assert.fileContent('gulp/config.js', './node_modules/foundation-sites/scss')
+      assert.fileContent('gulp/config.js', './node_modules/foundation-sites/dist/js/foundation.min.js')
     })
 
     it('should include foundation initializer on main.js', function () {

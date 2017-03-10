@@ -2,6 +2,7 @@
 
 var gulp = require('gulp')
 var config = require('../config')
+var $ = require('gulp-load-plugins')()
 
 var del = require('del')
 
@@ -15,7 +16,22 @@ gulp.task('main:images', function () {
 })
 
 gulp.task('main:icons', function () {
-  return gulp.src('<%= paths.src.icons %>/**/*')
+  return gulp.src('<%= paths.src.icons %>/**/*.svg')
+    .pipe($.svgmin({
+      plugins: [
+        {
+          removeStyleElement: true
+        },
+        {
+          removeAttrs: {
+            attrs: ['fill', 'stroke', 'fill.*', 'stroke.*']
+          }
+        }
+      ],
+      js2svg: { pretty: true }
+    }))
+    .pipe($.svgstore())
+    .pipe($.rename('symbols.svg'))
     .pipe(gulp.dest(config.directories.dist.icons))
 })
 

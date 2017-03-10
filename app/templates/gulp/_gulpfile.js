@@ -51,13 +51,14 @@ gulp.task('watch', done => {
   //static files
   <% if(markupIntegration=='jekyll'){ %>
       gulp.watch('<%= paths.src.markup %>/**/*.html', gulp.series('jekyll:rebuild', reload))
+      gulp.watch('<%= paths.src.icons %>/**/*', gulp.series( 'main:icons', reload ))
     <% } else { %>
       gulp.watch('<%= paths.src.markup %>/**/*.<%=markupLanguage%>', gulp.series( 'main:markup', reload ))
+      gulp.watch('<%= paths.src.icons %>/**/*', gulp.series( 'main:icons', 'main:markup', reload ))
   <% } %>
 
   gulp.watch('<%= paths.src.images %>/**/*', gulp.series( 'main:images', reload ))
   gulp.watch('<%= paths.src.fonts %>/**/*', gulp.series( 'main:fonts', reload ))
-  gulp.watch('<%= paths.src.icons %>/**/*', gulp.series( 'main:icons', reload ))
 
   //scripts
   gulp.watch('<%= paths.src.scripts %>/**/*.js', gulp.series( 'main:scripts', reload ))

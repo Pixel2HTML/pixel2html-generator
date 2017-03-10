@@ -53,7 +53,10 @@
     "gulp-zip": "^3.2.0",
     "gulp-load-plugins": "^1.5.0",
     "standard": "^9.0.1",
-    "yargs": "^5.0.0"
+    "yargs": "^5.0.0",
+    "svg4everybody": "^2.1.4",
+    "gulp-svgmin": "^1.2.3",
+    "gulp-svgstore": "^6.1.0"
   },
   "standard": {
     "globals": [

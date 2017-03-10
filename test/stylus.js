@@ -53,13 +53,13 @@ describe('Stylus features', function () {
 
     it('should exists a gulp routine', function () {
       assert.file([
-        'src/assets/gulp/tasks/styles.js'
+        'gulp/tasks/styles.js'
       ])
-      assert.fileContent('src/assets/gulp/tasks/styles.js', /\$\.stylus/)
+      assert.fileContent('gulp/tasks/styles.js', /\$\.stylus/)
     })
 
     it('should exists a pipe in the main:styles routing', function () {
-      assert.fileContent('src/assets/gulp/tasks/styles.js', /stylus()/)
+      assert.fileContent('gulp/tasks/styles.js', /stylus()/)
     })
   })
 })
