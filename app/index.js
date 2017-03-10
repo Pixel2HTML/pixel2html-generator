@@ -245,7 +245,7 @@ Generator.prototype.askForMarkupIntegration = function () {
   this.prompt([{
     type: 'list',
     name: 'markupIntegration',
-    message: 'What Markup Integrationdo you like to use?',
+    message: 'What Markup Integration do you like to use?',
     choices: [
       {
         name: 'None',
