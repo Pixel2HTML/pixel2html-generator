@@ -9,7 +9,7 @@ const production = config.production
 const destination = config.directories.dist.scripts
 
 gulp.task('main:scripts', () => {
-  return gulp.src(config.scriptFiles)
+  return gulp.src(config.project.scriptFiles)
   .pipe(when(!production, $.sourcemaps.init()))
   .pipe($.concat('main.js'))
   .pipe(when(!production, $.sourcemaps.write('./')))
