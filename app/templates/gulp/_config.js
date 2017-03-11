@@ -6,9 +6,19 @@ const production = argv.prod || argv.production
 
 module.exports = {
   directories: {
+    src: {
+      base: '<%= paths.src.base %>',
+      <% if(markupLanguage == 'html'){%>markup: '<%= paths.src.markup %>',<% } %>
+      <% if(markupLanguage == 'pug'){%>markup: '<%= paths.src.markup %>/pug',<% } %>
+      fonts: '<%= paths.src.fonts %>',
+      icons: '<%= paths.src.icons %>',
+      images: '<%= paths.src.images %>',
+      scripts: '<%= paths.src.scripts %>',
+      styles: '<%= paths.src.styles %>'
+    },
     dist: {
-      base: 'dist',
-      markup: 'dist',
+      base: '<%= paths.dist.base %>',
+      markup: '<%= paths.dist.markup %>',
       fonts: 'dist/assets/fonts',
       icons: 'dist/assets/icons',
       images: 'dist/assets/images',
@@ -17,6 +27,7 @@ module.exports = {
     }
   },
   project: {
+    cssMainFile: <%= cssMainFile %>,
     scriptFiles: [
       '<%= paths.src.scripts %>/*.js'
     ],

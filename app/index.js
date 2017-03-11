@@ -14,15 +14,16 @@ var Generator = module.exports = function Generator (args, options) {
 
   this.paths = {
     src: {
-      fonts: 'src/assets/fonts',
       gulp: 'gulp',
       gulp_tasks: 'gulp/tasks',
+      fonts: 'src/assets/fonts',
       icons: 'src/assets/icons',
       images: 'src/assets/images',
       vendors: 'src/assets/vendor',
       scripts: 'src/assets/js',
       styles: 'src/assets/styles',
       markup: 'src',
+      base: 'src',
       frontendframework: 'src/assets/styles/vendor'
     },
     dist: {
@@ -625,6 +626,7 @@ Generator.prototype.writeBaseGulpFiles = function () {
     this.destinationPath(this.paths.src.gulp + '/config.js'), {
       paths: this.paths,
       cssProcessor: this.options.cssProcessor,
+      markupLanguage: this.options.markupLanguage,
       frontEndFramework: this.options.frontEndFramework,
       jQuery: this.options.jQuery
     }

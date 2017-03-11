@@ -7,16 +7,16 @@ var $ = require('gulp-load-plugins')()
 var del = require('del')
 
 gulp.task('clean', function () {
-  return del(['<%= paths.dist.base %>'])
+  return del([config.directories.dist.base])
 })
 
 gulp.task('main:images', function () {
-  return gulp.src('<%= paths.src.images %>/**/*')
+  return gulp.src(config.directories.src.images + '/**/*')
     .pipe(gulp.dest(config.directories.dist.images))
 })
 
 gulp.task('main:icons', function () {
-  return gulp.src('<%= paths.src.icons %>/**/*.svg')
+  return gulp.src(config.directories.src.icons + '/**/*.svg')
     .pipe($.svgmin({
       plugins: [
         {

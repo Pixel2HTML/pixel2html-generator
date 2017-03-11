@@ -14,8 +14,6 @@ gulp.task('main:scripts', () => {
   .pipe($.concat('main.js'))
   .pipe(when(!production, $.sourcemaps.write('./')))
   .pipe(gulp.dest(destination))
-  // All production stuff here
-  // Rename file to .min and uglify that stuff
   .pipe(when(production, $.rename({suffix: '.min'})))
   .pipe(when(production, $.uglify({
     preserveComments: 'license'
@@ -29,8 +27,6 @@ gulp.task('vendor:scripts', () => {
   .pipe($.concat('vendor.js'))
   .pipe(when(!production, $.sourcemaps.write('./')))
   .pipe(gulp.dest(destination))
-  // All production stuff here
-  // Rename file to .min and uglify that stuff
   .pipe(when(production, $.rename({suffix: '.min'})))
   .pipe(when(production, $.uglify({
     preserveComments: 'license'
