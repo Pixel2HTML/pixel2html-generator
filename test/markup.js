@@ -91,7 +91,7 @@ describe('Markup Features', function () {
         'gulpfile.js',
         'package.json',
         '.editorconfig',
-        'src/pug/index.pug',
+        'src/pug/screen-1.pug',
         'src/pug/screen-2.pug',
         'src/pug/screen-3.pug',
         'src/pug/screen-4.pug',
