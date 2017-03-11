@@ -51,10 +51,10 @@ gulp.task('vendor:styles', () => {
   .pipe($.groupCssMediaQueries())
   .pipe($.csscomb())
   .pipe(when(!production, $.sourcemaps.write('./')))
-  .pipe(gulp.dest(destination))
+  .pipe(gulp.dest(config.directories.dist.styles))
 
   .pipe(when(production, $.rename({suffix: '.min'})))
   .pipe(when(production, $.purifycss( config.purify, { info: true } )))
   .pipe(when(production, $.cssnano()))
-  .pipe(when(production, gulp.dest(destination)))
+  .pipe(gulp.dest(config.directories.dist.styles))
 })

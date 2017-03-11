@@ -27,7 +27,7 @@ module.exports = {
     }
   },
   project: {
-    cssMainFile: <%= cssMainFile %>,
+    cssMainFile: '<%= cssMainFile %>',
     scriptFiles: [
       '<%= paths.src.scripts %>/*.js'
     ],

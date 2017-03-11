@@ -619,12 +619,14 @@ Generator.prototype.writeBaseGulpFiles = function () {
       cssProcessor: this.options.cssProcessor
     }
   )
+  this.options.cssMainFile = this.paths.src.styles + '/main.' + this.options.cssProcessor
 
   this.log(chalk.yellow('Copying gulpfile config file.'))
   this.fs.copyTpl(
     this.templatePath('gulp/_config.js'),
     this.destinationPath(this.paths.src.gulp + '/config.js'), {
       paths: this.paths,
+      cssMainFile: this.options.cssMainFile,
       cssProcessor: this.options.cssProcessor,
       markupLanguage: this.options.markupLanguage,
       frontEndFramework: this.options.frontEndFramework,
@@ -654,7 +656,6 @@ Generator.prototype.writeBaseGulpFiles = function () {
     this.destinationPath(this.paths.src.gulp_tasks + '/styles.js'), {
       cssProcessor: this.options.cssProcessor,
       frontEndFramework: this.options.frontEndFramework,
-      cssMainFile: this.options.cssMainFile,
       cssVendorFile: this.options.cssVendorFile,
       paths: this.paths
     }
