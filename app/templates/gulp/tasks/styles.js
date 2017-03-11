@@ -1,62 +1,60 @@
-'use strict';
-
-var gulp    = require('gulp');
-var config  = require('../config');
-var helpers = require('../helpers');
-
-<% if (cssProcessor === 'scss' || frontEndFramework) { %>
-var sass = require('gulp-sass');
-<% } %>
-
-<% if (cssProcessor === 'less') { %>
-var less = require('gulp-less');
-<% } %>
-
-<% if (cssProcessor === 'styl') { %>
-var stylus = require('gulp-stylus');
-<% } %>
-
-var groupcssmediaqueries = require('gulp-group-css-media-queries');
-var minify = require('gulp-cssnano');
-var sourcemaps = require('gulp-sourcemaps');
-var plumber = require('gulp-plumber');
-var autoprefixer = require('gulp-autoprefixer');
-var rename = require('gulp-rename');
-
+'use strict'
+const gulp    = require('gulp')
+const config  = require('../config')
+const when = require('gulp-if')
+const $ = require('gulp-load-plugins')()
+const production = config.production
 
 gulp.task('main:styles', function() {
-  return gulp.src('<%= cssMainFile %>')
-    .pipe(plumber({ errorHandler: helpers.onError }))
-    .pipe(sourcemaps.init())
-    <% if (cssProcessor === 'scss') { %>.pipe(sass())<% } %><% if (cssProcessor === 'less') { %>.pipe(less())<% } %><% if (cssProcessor === 'styl') { %>.pipe(stylus())<% } %>
-    .pipe(autoprefixer({
-      browsers: ['last 2 versions', 'iOS 8'],
-      cascade: false
+  return gulp.src(config.project.cssMainFile)
+    .pipe($.sourcemaps.init())
+    .pipe(when(!production, $.sourcemaps.init()))
+    <% if (cssProcessor === 'scss') { %>
+        .pipe($.sass({
+          includePaths: config.vendor.scssDirectories
+        }))
+        .on('error', $.sass.logError)
+    <% } %>
+    <% if (cssProcessor === 'less') { %>
+        .pipe($.less())
+        .on('error', config.onError)
+    <% } %>
+    <% if (cssProcessor === 'styl') { %>
+        .pipe($.stylus())
+        .on('error', config.onError)
+    <% } %>
+    .pipe($.autoprefixer({
+      browsers: ['last 2 versions', 'iOS 8']
     }))
-    .pipe(gulp.dest('<%= paths.dist.styles %>'))
-    .pipe(groupcssmediaqueries({ log: true }))
-    .pipe(minify())
-    .pipe(rename({ suffix: '.min' }))
-    .pipe(sourcemaps.write())
     .pipe(gulp.dest(config.directories.dist.styles))
-});
+    .pipe($.groupCssMediaQueries())
+    .pipe($.csscomb())
+    .pipe(when(!production, $.sourcemaps.write('./')))
+    .pipe(gulp.dest(config.directories.dist.styles))
 
-gulp.task('vendor:styles', function() {
+    .pipe(when(production, $.rename({suffix: '.min'})))
+    .pipe(when(production, $.purifycss( config.purify, { info: true } )))
+    .pipe(when(production, $.cssnano()))
+    .pipe(when(production, gulp.dest(config.directories.dist.styles)))
+})
+
+gulp.task('vendor:styles', () => {
   return gulp.src('<%= cssVendorFile %>')
-    .pipe(plumber({ errorHandler: helpers.onError }))
-    .pipe(sourcemaps.init())
-    .pipe(sass({
-      outputStyle: 'expanded',
-      includePaths: config.vendor.scssDirectories
-    }))
-    .pipe(autoprefixer({
-      browsers: ['last 2 versions', 'iOS 8'],
-      cascade: false
-    }))
-    .pipe(gulp.dest(config.directories.dist.styles))
-    .pipe(groupcssmediaqueries({ log: true }))
-    .pipe(minify())
-    .pipe(rename({ suffix: '.min' }))
-    .pipe(sourcemaps.write())
-    .pipe(gulp.dest(config.directories.dist.styles))
-});
+  .pipe(when(!production, $.sourcemaps.init()))
+  .pipe($.sass({
+    includePaths: config.vendor.scssDirectories
+  }))
+  .on('error', $.sass.logError)
+  .pipe($.autoprefixer({
+    browsers: ['last 2 versions', 'iOS 8']
+  }))
+  .pipe($.groupCssMediaQueries())
+  .pipe($.csscomb())
+  .pipe(when(!production, $.sourcemaps.write('./')))
+  .pipe(gulp.dest(config.directories.dist.styles))
+
+  .pipe(when(production, $.rename({suffix: '.min'})))
+  .pipe(when(production, $.purifycss( config.purify, { info: true } )))
+  .pipe(when(production, $.cssnano()))
+  .pipe(gulp.dest(config.directories.dist.styles))
+})

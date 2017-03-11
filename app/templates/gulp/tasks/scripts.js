@@ -1,32 +1,35 @@
 'use strict'
 
-var gulp = require('gulp')
-var config = require('../config')
-var helpers = require('../helpers')
+const gulp = require('gulp')
+const config = require('../config')
+const $ = require('gulp-load-plugins')()
+const when = require('gulp-if')
 
-var concat = require('gulp-concat')
-var plumber = require('gulp-plumber')
-var uglify = require('gulp-uglify')
-var rename = require('gulp-rename')
-var sourcemaps = require('gulp-sourcemaps')
+const production = config.production
+const destination = config.directories.dist.scripts
 
-gulp.task('main:scripts', function () {
-  return gulp.src(config.scriptFiles)
-    .pipe(plumber({ errorHandler: helpers.onError }))
-    .pipe(sourcemaps.init())
-    .pipe(concat('main.js'))
-    .pipe(gulp.dest(config.directories.dist.scripts))
-    .pipe(concat('main.min.js'))
-    .pipe(uglify({ preserveComments: 'license' }))
-    .pipe(sourcemaps.write('./'))
-    .pipe(gulp.dest(config.directories.dist.scripts))
+gulp.task('main:scripts', () => {
+  return gulp.src(config.project.scriptFiles)
+  .pipe(when(!production, $.sourcemaps.init()))
+  .pipe($.concat('main.js'))
+  .pipe(when(!production, $.sourcemaps.write('./')))
+  .pipe(gulp.dest(destination))
+  .pipe(when(production, $.rename({suffix: '.min'})))
+  .pipe(when(production, $.uglify({
+    preserveComments: 'license'
+  }))).on('error', config.onError)
+  .pipe(when(production, gulp.dest(destination)))
 })
 
-gulp.task('vendor:scripts', function () {
+gulp.task('vendor:scripts', () => {
   return gulp.src(config.vendor.scriptFiles)
-    .pipe(plumber({ errorHandler: helpers.onError }))
-    .pipe(concat('vendor.js'))
-    .pipe(gulp.dest(config.directories.dist.scripts))
-    .pipe(rename({ suffix: '.min' }))
-    .pipe(gulp.dest(config.directories.dist.scripts))
+  .pipe(when(!production, $.sourcemaps.init()))
+  .pipe($.concat('vendor.js'))
+  .pipe(when(!production, $.sourcemaps.write('./')))
+  .pipe(gulp.dest(destination))
+  .pipe(when(production, $.rename({suffix: '.min'})))
+  .pipe(when(production, $.uglify({
+    preserveComments: 'license'
+  }))).on('error', config.onError)
+  .pipe(when(production, gulp.dest(destination)))
 })

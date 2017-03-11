@@ -7,7 +7,7 @@
   "scripts": {
     "start": "npm install <% if (markupIntegration=='jekyll'){%>&& bundle install<%}%>",
     "code": "gulp",
-    "build": "gulp release"
+    "build": "gulp release --prod"
   },
   "dependencies": {
     "del": "^2.2.2",
@@ -41,13 +41,29 @@
     "gulp-group-css-media-queries": "^1.2.0",
     "gulp-autoprefixer": "^3.1.1",
     "gulp-cssnano": "^2.1.2",
+    "gulp-if": "^2.0.2",
     "gulp-concat": "^2.6.0",
     "gulp-uglify": "^2.0.0",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-util": "^3.0.7",
-    "gulp-plumber": "^1.1.0",
     "gulp-rename": "^1.2.2",
+    "gulp-purifycss": "^0.2.0",
+    "gulp-csscomb": "^3.0.8",
     "require-dir": "^0.3.0",
-    "gulp-zip": "^3.2.0"
+    "gulp-zip": "^3.2.0",
+    "gulp-load-plugins": "^1.5.0",
+    "standard": "^9.0.1",
+    "yargs": "^5.0.0",
+    "svg4everybody": "^2.1.4",
+    "gulp-svgmin": "^1.2.3",
+    "gulp-svgstore": "^6.1.0"
+  },
+  "standard": {
+    "globals": [
+      "jQuery",
+      "$",
+      "WebFont",
+      "svg4everybody"
+    ]
   }
 }

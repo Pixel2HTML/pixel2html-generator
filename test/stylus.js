@@ -1,12 +1,11 @@
-'use strict';
+'use strict'
 
-var path = require('path');
-var helpers = require('yeoman-generator').test;
-var assert = require('yeoman-assert');
+var path = require('path')
+var helpers = require('yeoman-generator').test
+var assert = require('yeoman-assert')
 
-describe('Stylus features', function() {
-
-  before('crafting project', function(done) {
+describe('Stylus features', function () {
+  before('crafting project', function (done) {
     helpers.run(path.join(__dirname, '../app'))
       .inDir(path.join(__dirname, 'temp'))
       .withOptions({
@@ -17,20 +16,19 @@ describe('Stylus features', function() {
         projectId: '1234',
         qtyScreens: 3,
         markupLanguage: 'html',
-        cssProcessor: 'styl',
+        cssProcessor: 'styl'
       })
-      .on('end', done);
-  });
+      .on('end', done)
+  })
 
-  describe('Checking base files with dependencies', function(){
+  describe('Checking base files with dependencies', function () {
     it('sould exists dependencies on package.json', function () {
-      assert.fileContent('package.json',  /"gulp-stylus"/);
-    });
-  });
+      assert.fileContent('package.json', /"gulp-stylus"/)
+    })
+  })
 
-  describe('Creating Stylus files', function() {
-
-    it('should exists base Stylus file', function() {
+  describe('Creating Stylus files', function () {
+    it('should exists base Stylus file', function () {
       assert.file([
         'src/assets/styles/main.styl',
         'src/assets/styles/_reset.styl',
@@ -41,29 +39,27 @@ describe('Stylus features', function() {
         'src/assets/styles/components/_footer.styl',
         'src/assets/styles/components/_header.styl',
         'src/assets/styles/components/_forms.styl',
-        'src/assets/styles/components/_nav.styl',
-      ]);
-    });
+        'src/assets/styles/components/_nav.styl'
+      ])
+    })
 
-    it('should exists screens Stylus files', function() {
+    it('should exists screens Stylus files', function () {
       assert.file([
         'src/assets/styles/screens/screen_1.styl',
         'src/assets/styles/screens/screen_2.styl',
-        'src/assets/styles/screens/screen_3.styl',
-      ]);
-    });
+        'src/assets/styles/screens/screen_3.styl'
+      ])
+    })
 
-    it('should exists a gulp routine', function(){
+    it('should exists a gulp routine', function () {
       assert.file([
-        'src/assets/gulp/tasks/styles.js'
-      ]);
-      assert.fileContent('src/assets/gulp/tasks/styles.js',  /gulp-stylus/);
-    });
+        'gulp/tasks/styles.js'
+      ])
+      assert.fileContent('gulp/tasks/styles.js', /\$\.stylus/)
+    })
 
-    it('should exists a pipe in the main:styles routing', function() {
-      assert.fileContent('src/assets/gulp/tasks/styles.js', /stylus()/);
-    });
-
-  });
-
-});
+    it('should exists a pipe in the main:styles routing', function () {
+      assert.fileContent('gulp/tasks/styles.js', /stylus()/)
+    })
+  })
+})

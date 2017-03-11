@@ -1,7 +1,7 @@
 {
   "name": "generator-pixel2html",
   "description": "Pixel2HTML Boilerplate Generator",
-  "version": "1.2.2",
+  "version": "1.3.0",
   "license": "MIT",
   "author": {
     "name": "Juan Manuel Garcia Olivares",
@@ -28,6 +28,19 @@
   },
   "devDependencies": {
     "mocha": "*",
+    "standard": "^9.0.1",
     "yeoman-assert": "^2.1.0"
+  },
+  "standard": {
+    "globals": [
+      "describe",
+      "it",
+      "before",
+      "beforeEach",
+      "after",
+      "afterEach",
+      "xdescribe",
+      "xit"
+    ]
   }
 }

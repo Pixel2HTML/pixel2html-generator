@@ -1,12 +1,11 @@
-'use strict';
+'use strict'
 
-var path = require('path');
-var helpers = require('yeoman-generator').test;
-var assert = require('yeoman-assert');
+var path = require('path')
+var helpers = require('yeoman-generator').test
+var assert = require('yeoman-assert')
 
-describe('SCSS features', function() {
-
-  before('crafting project', function(done) {
+describe('SCSS features', function () {
+  before('crafting project', function (done) {
     helpers.run(path.join(__dirname, '../app'))
       .inDir(path.join(__dirname, 'temp'))
       .withOptions({
@@ -17,20 +16,19 @@ describe('SCSS features', function() {
         projectId: '1234',
         qtyScreens: 3,
         markupLanguage: 'html',
-        cssProcessor: 'scss',
+        cssProcessor: 'scss'
       })
-      .on('end', done);
-  });
+      .on('end', done)
+  })
 
-  describe('Checking base files with dependencies', function() {
+  describe('Checking base files with dependencies', function () {
     it('sould exists dependencies on package.json', function () {
-      assert.fileContent('package.json',  /"gulp-sass"/);
-    });
-  });
+      assert.fileContent('package.json', /"gulp-sass"/)
+    })
+  })
 
-  describe('Creating SCSS files', function() {
-
-    it('should exists base SCSS file', function() {
+  describe('Creating SCSS files', function () {
+    it('should exists base SCSS file', function () {
       assert.file([
         'src/assets/styles/main.scss',
         'src/assets/styles/_reset.scss',
@@ -41,29 +39,27 @@ describe('SCSS features', function() {
         'src/assets/styles/components/_footer.scss',
         'src/assets/styles/components/_header.scss',
         'src/assets/styles/components/_forms.scss',
-        'src/assets/styles/components/_nav.scss',
-      ]);
-    });
+        'src/assets/styles/components/_nav.scss'
+      ])
+    })
 
-    it('should exists screens SCSS files', function() {
+    it('should exists screens SCSS files', function () {
       assert.file([
         'src/assets/styles/screens/screen_1.scss',
         'src/assets/styles/screens/screen_2.scss',
-        'src/assets/styles/screens/screen_3.scss',
-      ]);
-    });
+        'src/assets/styles/screens/screen_3.scss'
+      ])
+    })
 
-    it('should exists a gulp routine', function() {
+    it('should exists a gulp routine', function () {
       assert.file([
-        'src/assets/gulp/tasks/styles.js'
-      ]);
-      assert.fileContent('src/assets/gulp/tasks/styles.js',  /gulp-sass/);
-    });
+        'gulp/tasks/styles.js'
+      ])
+      assert.fileContent('gulp/tasks/styles.js', /\$\.sass/)
+    })
 
-    it('should exists a pipe in the main:styles routing', function() {
-      assert.fileContent('src/assets/gulp/tasks/styles.js', /sass()/);
-    });
-
-  });
-
-});
+    it('should exists a pipe in the main:styles routing', function () {
+      assert.fileContent('gulp/tasks/styles.js', /sass()/)
+    })
+  })
+})

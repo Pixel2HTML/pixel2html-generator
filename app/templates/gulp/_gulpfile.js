@@ -1,10 +1,9 @@
 'use strict'
 
 var requireDir = require('require-dir')
-var gulp    = require('gulp');
-var config  = require('./src/assets/gulp/config');
-var helpers = require('./src/assets/gulp/helpers');
-var browserSync = require('browser-sync');
+var gulp    = require('gulp')
+var config  = require('./gulp/config')
+var browserSync = require('browser-sync')
 
 
 // Add all the tasks and files, boom!
@@ -14,17 +13,16 @@ requireDir('<%= paths.src.gulp %>', {
 
 gulp.task('build', gulp.series(
   'clean',
-  gulp.parallel('main:static',
-    'main:styles',
-    'main:scripts',
-    'main:fonts',
-    <% if(markupIntegration=='jekyll'){ %>
-    'jekyll:build'
-    <% } else { %>
-    'main:markup'
-    <% } %>),
-  gulp.parallel('vendor:styles',
-  'vendor:scripts')
+  'main:static',
+  'main:scripts',
+  'vendor:scripts',
+  'main:fonts',
+  <% if(markupIntegration=='jekyll'){ %>
+  'jekyll:build'
+  <% } else { %>
+  'main:markup'<% } %>,
+  'vendor:styles',
+  'main:styles'
 ))
 
 
@@ -52,23 +50,24 @@ gulp.task('watch', done => {
 
   //static files
   <% if(markupIntegration=='jekyll'){ %>
-      gulp.watch('<%= paths.src.markup %>/**/*.html', gulp.series('jekyll:rebuild', reload));
+      gulp.watch('<%= paths.src.markup %>/**/*.html', gulp.series('jekyll:rebuild', reload))
+      gulp.watch('<%= paths.src.icons %>/**/*', gulp.series( 'main:icons', reload ))
     <% } else { %>
-      gulp.watch('<%= paths.src.markup %>/**/*.<%=markupLanguage%>', gulp.series( 'main:markup', reload ));
+      gulp.watch('<%= paths.src.markup %>/**/*.<%=markupLanguage%>', gulp.series( 'main:markup', reload ))
+      gulp.watch('<%= paths.src.icons %>/**/*', gulp.series( 'main:icons', 'main:markup', reload ))
   <% } %>
 
-  gulp.watch('<%= paths.src.images %>/**/*', gulp.series( 'main:images', reload ));
-  gulp.watch('<%= paths.src.fonts %>/**/*', gulp.series( 'main:fonts', reload ));
-  gulp.watch('<%= paths.src.icons %>/**/*', gulp.series( 'main:icons', reload ));
+  gulp.watch('<%= paths.src.images %>/**/*', gulp.series( 'main:images', reload ))
+  gulp.watch('<%= paths.src.fonts %>/**/*', gulp.series( 'main:fonts', reload ))
 
   //scripts
-  gulp.watch('<%= paths.src.scripts %>/**/*.js', gulp.series( 'main:scripts', reload ));
+  gulp.watch('<%= paths.src.scripts %>/**/*.js', gulp.series( 'main:scripts', reload ))
 
   //styles
   gulp.watch([
     '<%= paths.src.styles %>/**/*.<%=cssProcessor%>',
     '!<%= paths.src.frontendframework %>/**/*',
-  ], gulp.series( 'main:styles', reload ));
+  ], gulp.series( 'main:styles', reload ))
 
   done()
 })
