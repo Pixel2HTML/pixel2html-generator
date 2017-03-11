@@ -7,6 +7,10 @@
     "name": "Juan Manuel Garcia Olivares",
     "email": "jm@pixel2html.com"
   },
+  "contributors": [{
+    "name": "Miguel Palau",
+    "email": "miguel@pixel2html.com"
+  }],
   "keywords": [
     "yeoman-generator"
   ],
