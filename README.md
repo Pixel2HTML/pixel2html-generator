@@ -1,4 +1,4 @@
-# Pixel2HTML Boilerplate Generator 1.2.2
+# Pixel2HTML Boilerplate Generator 1.3.0
 
 [![Build Status](https://travis-ci.org/Pixel2HTML/pixel2html-generator.svg?branch=master)](https://travis-ci.org/Pixel2HTML/pixel2html-generator)
 
@@ -10,9 +10,9 @@ We aim to generate a boilerplate code for projects when we know the specs. 💕
 
 You will need `node` installed in your machine. In case you don't have it (you can check this typing `node --version` in your terminal) please visit [this link](https://nodejs.org/en/download/).
 
-We also need to install **Yeoman**, **Bower** and the **Pixel2HTML Generator**, so run this command in your terminal. The `-g` parameter is to install them globally so can use it in every project.
+We also need to install **Yeoman**, and the **Pixel2HTML Generator**, so run this command in your terminal. The `-g` parameter is to install them globally so can use it in every project.
 ```shell
-$ npm install -g yo bower generator-pixel2html
+$ npm install -g yo generator-pixel2html
 ```
 
 #### Ruby
@@ -103,34 +103,31 @@ This boilerplate will create a set of files and folders
 ```
 
 ├──  dist/
+├──  gulp/
 ├──  src/
 │    └──  assets/
-│    ├──  fonts/
-│    ├──  gulp/
-│    ├──  icons/
-│    ├──  images/
-│    ├──  js/
-│    ├──   styles/
-│    │    ├──  components/
-│    │    │    ├──  _buttons.ext
-│    │    │    ├──  _footer.ext
-│    │    │    ├──  _header.ext
-│    │    │    └── _nav.ext
-│    │    ├──  screens/
-│    │    │    ├──  _base.ext
-│    │    │    └──  screen_*.ext
-│    │    ├── main.ext
-│    │    ├── vendor.scss
-│    │    ├── mixins.ext
-│    │    └── variables.ext
-│    └──  vendor/
+│    │    ├──  fonts/
+│    │    ├──  icons/
+│    │    ├──  images/
+│    │    ├──  js/
+│    │    ├──  styles/
+│    │    │    ├──  components/
+│    │    │    │    ├──  _buttons.ext
+│    │    │    │    ├──  _footer.ext
+│    │    │    │    ├──  _header.ext
+│    │    │    │    └── _nav.ext
+│    │    │    ├──  screens/
+│    │    │    │    ├──  _base.ext
+│    │    │    │    └──  screen_*.ext
+│    │    │    ├── main.ext
+│    │    │    ├── vendor.scss
+│    │    │    ├── mixins.ext
+│    │    │    └── variables.ext
 │    └──  screen_*.[html|pug]
-├──  .bowerrc
 ├──  .editorcofig
 ├──  .gitattributes
 ├──  .gitignore
 ├──  .project.conf
-├──  bower.json
 ├──  gulpfile.js
 ├──  package.json
 └──  README.md
