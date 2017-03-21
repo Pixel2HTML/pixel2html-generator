@@ -45,6 +45,7 @@ module.exports = {
       <% if(jQuery){ %>'./node_modules/jquery/dist/jquery.min.js',<% } %>
       <% if(frontEndFramework == 'bootstrap'){ %>'./node_modules/bootstrap-sass/assets/javascripts/bootstrap.min.js',<% } %>
       <% if(frontEndFramework == 'foundation'){ %>'./node_modules/foundation-sites/dist/js/foundation.min.js',<% } %>
+      './node_modules/svg4everybody/dist/svg4everybody.min.js',
       '<%= paths.src.scripts %>/vendor/*.js'
     ],
     fontFiles: [
