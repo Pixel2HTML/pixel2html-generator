@@ -1,3 +1,6 @@
+### 1.3.1
+- Added missing references to vendor scripts on pug base files
+
 #### 1.3.0
 - Migrate to Gulp 4.
 - Import reset.css only when there no selected FrontEnd Framework
