@@ -91,25 +91,21 @@ class PixelGenerator extends Generator {
   }
 
   readConfigFile () {
-    var cb = this.async()
-
-    fs.readJson('./.project.conf', function (err, config) {
-      if (err) {
-        cb()
+    return fs.readJson('./.project.conf')
+      .then(config => {
+        this.options.clientId = config.clientId
+        this.options.projectId = config.projectId
+        this.options.qtyScreens = config.qtyScreens
+        this.options.markupLanguage = config.markupLanguage
+        this.options.markupIntegration = config.markupIntegration
+        this.options.cssProcessor = config.cssProcessor
+        this.options.frontEndFramework = config.frontEndFramework
+        this.options.jQuery = config.jQuery
+      })
+      .catch(err => {
+        this.log(chalk.cyan(err) + '\n')
         return true
-      }
-
-      this.options.clientId = config.clientId
-      this.options.projectId = config.projectId
-      this.options.qtyScreens = config.qtyScreens
-      this.options.markupLanguage = config.markupLanguage
-      this.options.markupIntegration = config.markupIntegration
-      this.options.cssProcessor = config.cssProcessor
-      this.options.frontEndFramework = config.frontEndFramework
-      this.options.jQuery = config.jQuery
-
-      cb()
-    }.bind(this))
+      })
   }
 
   welcome () {
