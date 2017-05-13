@@ -8,7 +8,7 @@ const fs = require('fs-extra')
 const moment = require('moment')
 const pkg = require('../package.json')
 
-module.exports = class extends Generator {
+class PixelGenerator extends Generator {
   constructor (args, options) {
     super(args, options)
     this.paths = {
@@ -764,3 +764,5 @@ module.exports = class extends Generator {
     this.fs.writeJSON('./.project.conf', configJson)
   }
 }
+
+module.exports = PixelGenerator
