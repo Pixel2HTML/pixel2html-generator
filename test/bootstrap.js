@@ -2,7 +2,7 @@
 /* global describe, before, it */
 
 var path = require('path')
-var helpers = require('yeoman-generator').test
+var helpers = require('yeoman-test')
 var assert = require('yeoman-assert')
 
 describe('Bootstrap features', function () {
