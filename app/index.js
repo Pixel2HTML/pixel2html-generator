@@ -1,15 +1,15 @@
 'use strict'
 
-var yeoman = require('yeoman-generator')
-var chalk = require('chalk')
-var mkdirp = require('mkdirp')
-var _ = require('underscore')
-var util = require('util')
-var fs = require('fs-extra')
-var moment = require('moment')
-var pkg = require('../package.json')
+const yeoman = require('yeoman-generator')
+const chalk = require('chalk')
+const mkdirp = require('mkdirp')
+const _ = require('underscore')
+const util = require('util')
+const fs = require('fs-extra')
+const moment = require('moment')
+const pkg = require('../package.json')
 
-var Generator = module.exports = function Generator (args, options) {
+const Generator = module.exports = function Generator (args, options) {
   yeoman.generators.Base.apply(this, arguments)
 
   this.paths = {
