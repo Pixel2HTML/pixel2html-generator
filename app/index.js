@@ -103,8 +103,11 @@ class PixelGenerator extends Generator {
         this.options.jQuery = config.jQuery
       })
       .catch(err => {
-        this.log(chalk.cyan(err) + '\n')
-        return true
+        let okayError = err.toString() !== "Error: ENOENT: no such file or directory, open './.project.conf'"
+        if (okayError) {
+          this.log(chalk.cyan('There was an issue:') + '\n')
+          this.log(chalk.white(err) + '\n')
+        }
       })
   }
 
