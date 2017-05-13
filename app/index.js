@@ -123,123 +123,82 @@ class PixelGenerator extends Generator {
   }
 
   askForClientId () {
-    var cb = this.async()
-
-    var clientId = this.options.clientId
-
-    if (clientId) {
-      cb()
-      return true
-    }
-    this.prompt(
-      [{
-        type: 'input',
-        name: 'clientId',
-        required: true,
-        message: 'Give me the Client ID!',
-        when: function () {
-          return !clientId
-        }
-      }],
-      function (props) {
-        this.options.clientId = props.clientId
-        cb()
-      }.bind(this)
-    )
+    return this.options.clientId
+      ? true
+      : this.prompt(
+        [{
+          type: 'input',
+          name: 'clientId',
+          required: true,
+          message: 'Give me the Client ID!'
+        }]
+      )
+      .then(answers => {
+        this.options.clientId = answers.clientId
+      })
   }
 
   askForProjectId () {
-    var cb = this.async()
-
-    var projectId = this.options.projectId
-
-    if (projectId) {
-      cb()
-      return true
-    }
-    this.prompt(
-      [{
-        type: 'input',
-        name: 'projectId',
-        required: true,
-        message: 'Give me the Project ID!',
-        when: function () {
-          return !projectId
-        }
-      }],
-      function (props) {
+    return this.options.projectId
+      ? true
+      : this.prompt(
+        [{
+          type: 'input',
+          name: 'projectId',
+          required: true,
+          message: 'Give me the Project ID!'
+        }]
+      )
+      .then(props => {
         this.options.projectId = props.projectId
-        cb()
-      }.bind(this)
-    )
+      })
   }
 
   askForQtyScreens () {
-    var cb = this.async()
-    var qtyScreens = this.options.qtyScreens
-
-    if (qtyScreens) {
-      cb()
-      return true
-    }
-
-    this.prompt(
+    return this.options.qtyScreens
+    ? true
+    : this.prompt(
       [{
         type: 'input',
         name: 'qtyScreens',
         message: 'How many screens do you need to code?',
-        default: 1,
-        when: function () {
-          return !qtyScreens
-        }
-      }],
-      function (props) {
-        this.options.qtyScreens = parseInt(props.qtyScreens)
-        cb()
-      }.bind(this)
+        default: 1
+      }]
     )
+      .then(props => {
+        this.options.qtyScreens = parseInt(props.qtyScreens)
+      })
   }
 
   askForMarkupLanguage () {
-    var cb = this.async()
-    var markupLanguage = this.options.markupLanguage
-
-    if (markupLanguage) {
-      cb()
-      return true
-    }
-
-    this.prompt([{
-      type: 'list',
-      name: 'markupLanguage',
-      message: 'What markup lenguage/integration would you like to use? Pick one',
-      choices: [{
-        name: 'HTML',
-        value: 'html'
-      }, {
-        name: 'pug/jade',
-        value: 'pug'
-      }],
-      when: function () {
-        return !markupLanguage
-      }
-    }],
-      function (props) {
+    return this.options.markupLanguage
+    ? true
+    : this.prompt([
+      {
+        type: 'list',
+        name: 'markupLanguage',
+        message: 'What markup lenguage/integration would you like to use? Pick one',
+        choices: [
+          {
+            name: 'HTML',
+            value: 'html'
+          },
+          {
+            name: 'pug/jade',
+            value: 'pug'
+          }
+        ]
+      }]
+    )
+      .then(props => {
         this.options.markupLanguage = props.markupLanguage
-        cb()
-      }.bind(this))
+      })
   }
 
   askForMarkupIntegration () {
-    var cb = this.async()
-    var markupIntegration = this.options.markupIntegration
-
-    if (markupIntegration) {
-      cb()
-      return true
-    }
-
-    this.prompt([{
+    return this.options.markupIntegration
+    ? true
+    : this.prompt([{
       type: 'list',
       name: 'markupIntegration',
       message: 'What Markup Integration do you like to use?',
@@ -250,27 +209,17 @@ class PixelGenerator extends Generator {
         }, {
           name: 'Jekyll',
           value: 'jekyll'
-        }],
-      when: function () {
-        return !markupIntegration
-      }
-    }],
-      function (props) {
+        }]
+    }])
+      .then(props => {
         this.options.markupIntegration = props.markupIntegration
-        cb()
-      }.bind(this))
+      })
   }
 
   askForCssProcessor () {
-    var cb = this.async()
-    var cssProcessor = this.options.cssProcessor
-
-    if (cssProcessor) {
-      cb()
-      return true
-    }
-
-    this.prompt([{
+    return this.options.cssProcessor
+      ? true
+    : this.prompt([{
       type: 'list',
       name: 'cssProcessor',
       message: 'What preprocessor would you like to use? Pick one',
@@ -283,75 +232,52 @@ class PixelGenerator extends Generator {
       }, {
         name: 'Stylus',
         value: 'styl'
-      }],
-      when: function () {
-        return !cssProcessor
-      }
-    }],
-      function (props) {
-        this.options.cssProcessor = props.cssProcessor
-        cb()
-      }.bind(this))
+      }]
+    }])
+    .then(props => {
+      this.options.cssProcessor = props.cssProcessor
+    })
   }
 
   askForFrontEndFramework () {
-    var cb = this.async()
-    var frontEndFramework = this.options.frontEndFramework
-
-    if (frontEndFramework) {
-      cb()
-      return true
-    }
-
-    this.prompt([{
-      type: 'list',
-      name: 'frontEndFramework',
-      message: 'What FrontEnd Framework do you like to include?',
-      choices: [
-        {
-          name: 'None',
-          value: false
-        }, {
-          name: 'Bootstrap',
-          value: 'bootstrap'
-        }, {
-          name: 'Foundation',
-          value: 'foundation'
-        }, {
-          name: 'BassCss',
-          value: 'basscss'
-        }],
-      when: function () {
-        return !frontEndFramework
-      }
-    }],
-      function (props) {
+    return this.options.frontEndFramework
+      ? true
+      : this.prompt([{
+        type: 'list',
+        name: 'frontEndFramework',
+        message: 'What FrontEnd Framework do you like to include?',
+        choices: [
+          {
+            name: 'None',
+            value: false
+          }, {
+            name: 'Bootstrap',
+            value: 'bootstrap'
+          }, {
+            name: 'Foundation',
+            value: 'foundation'
+          }, {
+            name: 'BassCss',
+            value: 'basscss'
+          }]
+      }])
+      .then(props => {
         this.options.frontEndFramework = props.frontEndFramework
-        cb()
-      }.bind(this))
+      })
   }
 
   askForjQuery () {
-    var cb = this.async()
-    var jQuery = this.options.jQuery
-
-    if (jQuery) {
-      cb()
-      return true
-    }
-
-    this.prompt([{
-      type: 'confirm',
-      name: 'jQuery',
-      message: 'Would you like to use jQuery?',
-      default: true,
-      when: function () {
-        return !jQuery
-      }
-    }], function (props) {
-      this.options.jQuery = props.jQuery
-      cb()
-    }.bind(this))
+    return this.options.jQuery
+      ? true
+      : this.prompt([{
+        type: 'confirm',
+        name: 'jQuery',
+        message: 'Would you like to use jQuery?',
+        default: true
+      }])
+      .then(props => {
+        this.options.jQuery = props.jQuery
+      })
   }
 
   writeProjectFiles () {
@@ -443,7 +369,6 @@ class PixelGenerator extends Generator {
     )
   }
 
-  // A sample SVG to show how to use SVG Icons
   copySampleSvg () {
     this.fs.copy(
       this.templatePath('assets/icons/react.svg'),
@@ -470,7 +395,6 @@ class PixelGenerator extends Generator {
     }
   }
 
-  // Splitting Pug Files in its own task because we need room to stretch our legs next
   writePugFiles () {
     let usingPug = this.options.markupLanguage === 'pug'
     if (!this.options.markupIntegration && usingPug) {
