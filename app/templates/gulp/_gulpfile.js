@@ -17,6 +17,7 @@ gulp.task('build', gulp.series(
   'main:scripts',
   'vendor:scripts',
   'main:fonts',
+  'vendor:fonts',
   <% if(markupIntegration=='jekyll'){ %>
   'jekyll:build'
   <% } else { %>
@@ -59,6 +60,7 @@ gulp.task('watch', done => {
 
   gulp.watch('<%= paths.src.images %>/**/*', gulp.series( 'main:images', reload ))
   gulp.watch('<%= paths.src.fonts %>/**/*', gulp.series( 'main:fonts', reload ))
+  gulp.watch(config.vendor.fontFiles, gulp.series( 'vendor:fonts', reload ))
 
   //scripts
   gulp.watch('<%= paths.src.scripts %>/**/*.js', gulp.series( 'main:scripts', reload ))
