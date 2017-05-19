@@ -155,15 +155,15 @@ class PixelGenerator extends Generator {
 
   askForQtyScreens () {
     return this.options.qtyScreens
-    ? true
-    : this.prompt(
-      [{
-        type: 'input',
-        name: 'qtyScreens',
-        message: 'How many screens do you need to code?',
-        default: 1
-      }]
-    )
+      ? true
+      : this.prompt(
+        [{
+          type: 'input',
+          name: 'qtyScreens',
+          message: 'How many screens do you need to code?',
+          default: 1
+        }]
+      )
       .then(props => {
         this.options.qtyScreens = parseInt(props.qtyScreens)
       })
@@ -171,24 +171,24 @@ class PixelGenerator extends Generator {
 
   askForMarkupLanguage () {
     return this.options.markupLanguage
-    ? true
-    : this.prompt([
-      {
-        type: 'list',
-        name: 'markupLanguage',
-        message: 'What markup lenguage/integration would you like to use? Pick one',
-        choices: [
-          {
-            name: 'HTML',
-            value: 'html'
-          },
-          {
-            name: 'pug/jade',
-            value: 'pug'
-          }
-        ]
-      }]
-    )
+      ? true
+      : this.prompt([
+        {
+          type: 'list',
+          name: 'markupLanguage',
+          message: 'What markup lenguage/integration would you like to use? Pick one',
+          choices: [
+            {
+              name: 'HTML',
+              value: 'html'
+            },
+            {
+              name: 'pug/jade',
+              value: 'pug'
+            }
+          ]
+        }]
+      )
       .then(props => {
         this.options.markupLanguage = props.markupLanguage
       })
@@ -196,20 +196,20 @@ class PixelGenerator extends Generator {
 
   askForMarkupIntegration () {
     return this.options.markupIntegration
-    ? true
-    : this.prompt([{
-      type: 'list',
-      name: 'markupIntegration',
-      message: 'What Markup Integration do you like to use?',
-      choices: [
-        {
-          name: 'None',
-          value: false
-        }, {
-          name: 'Jekyll',
-          value: 'jekyll'
-        }]
-    }])
+      ? true
+      : this.prompt([{
+        type: 'list',
+        name: 'markupIntegration',
+        message: 'What Markup Integration do you like to use?',
+        choices: [
+          {
+            name: 'None',
+            value: false
+          }, {
+            name: 'Jekyll',
+            value: 'jekyll'
+          }]
+      }])
       .then(props => {
         this.options.markupIntegration = props.markupIntegration
       })
@@ -218,24 +218,24 @@ class PixelGenerator extends Generator {
   askForCssProcessor () {
     return this.options.cssProcessor
       ? true
-    : this.prompt([{
-      type: 'list',
-      name: 'cssProcessor',
-      message: 'What preprocessor would you like to use? Pick one',
-      choices: [{
-        name: 'Sass',
-        value: 'scss'
-      }, {
-        name: 'Less',
-        value: 'less'
-      }, {
-        name: 'Stylus',
-        value: 'styl'
-      }]
-    }])
-    .then(props => {
-      this.options.cssProcessor = props.cssProcessor
-    })
+      : this.prompt([{
+        type: 'list',
+        name: 'cssProcessor',
+        message: 'What preprocessor would you like to use? Pick one',
+        choices: [{
+          name: 'Sass',
+          value: 'scss'
+        }, {
+          name: 'Less',
+          value: 'less'
+        }, {
+          name: 'Stylus',
+          value: 'styl'
+        }]
+      }])
+      .then(props => {
+        this.options.cssProcessor = props.cssProcessor
+      })
   }
 
   askForFrontEndFramework () {
