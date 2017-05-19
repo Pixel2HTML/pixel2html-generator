@@ -1,3 +1,8 @@
+### 1.3.2
+- Fix some miss references to vendor fonts
+- Updated JS syntax to ES6
+- Minor fixes
+
 ### 1.3.1
 - Added missing references to vendor scripts on pug base files
 
