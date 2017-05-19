@@ -17,10 +17,9 @@ gulp.task('build', gulp.series(
   'main:scripts',
   'vendor:scripts',
   'main:fonts',
-  <% if(markupIntegration=='jekyll'){ %>
-  'jekyll:build'
-  <% } else { %>
-  'main:markup'<% } %>,
+  'vendor:fonts',
+  <% if(markupIntegration=='jekyll'){ %>'jekyll:build'
+  <% } else { %>'main:markup'<% } %>,
   'vendor:styles',
   'main:styles'
 ))

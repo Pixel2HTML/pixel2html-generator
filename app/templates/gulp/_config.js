@@ -33,7 +33,6 @@ module.exports = {
     ],
     fontFiles: [
       '<%= paths.src.fonts %>/**/*',
-      <% if(frontEndFramework == 'bootstrap'){ %>'./node_modules/bootstrap-sass/assets/fonts/**/*',<% } %>
     ]
   },
   vendor: {
@@ -48,6 +47,9 @@ module.exports = {
       <% if(frontEndFramework == 'foundation'){ %>'./node_modules/foundation-sites/dist/js/foundation.min.js',<% } %>
       './node_modules/svg4everybody/dist/svg4everybody.min.js',
       '<%= paths.src.scripts %>/vendor/*.js'
+    ],
+    fontFiles: [
+      <% if(frontEndFramework == 'bootstrap'){ %>'./node_modules/bootstrap-sass/assets/fonts/**/*',<% } %>
     ]
   },
   onError: function (error) {
