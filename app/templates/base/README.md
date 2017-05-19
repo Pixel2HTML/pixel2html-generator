@@ -41,6 +41,7 @@ This boilerplate will create a set of files and folders
 │    │    │    ├──  components/
 │    │    │    │    ├──  _buttons.<%= cssProcessor %>
 │    │    │    │    ├──  _footer.<%= cssProcessor %>
+│    │    │    │    ├──  _forms.<%= cssProcessor %>
 │    │    │    │    ├──  _header.<%= cssProcessor %>
 │    │    │    │    └──  _nav.<%= cssProcessor %>
 │    │    │    ├──  screens/
@@ -48,20 +49,21 @@ This boilerplate will create a set of files and folders
 <% for(var i=1; i<=qtyScreens; i++) {%>│    │    │    │    └──  screen_<%=i%>.<%= cssProcessor %>
 <% } %>│    │    │    ├──  _variables.<%= cssProcessor %>
 │    │    │    ├──  _reset.<%= cssProcessor %>
-│    │    │    ├──  _mixins.<%= cssProcessor %><% if (frontEndFramework) { -%>│    │    │    ├──  vendors.scss<% } %>
+│    │    │    ├──  _mixins.<%= cssProcessor %>
+<% if (frontEndFramework) { -%>│    │    │    ├──  vendors.scss<% } %>
 │    │    │    └──  main.<%= cssProcessor %>
 │    │    └──  vendor/
 <% for(var i=1; i<=qtyScreens; i++) {%>│    └──  screen_<%=i%>.<%=markupLanguage%>
-<% } %>├── .bowerrc
-├── .editorcofig
+<% } %>├── .editorcofig
 ├── .gitattributes
 ├── .gitignore
-├── .project.conf
-<% if (markupIntegration=='jekyll'){%>├── Gemfile<%}%>├── bower.json
-<% if (markupIntegration=='jekyll'){%>├── _config.yml<%}%>├── gulpfile.js
+├── .project.conf<% if (markupIntegration=='jekyll'){%>
+├── Gemfile<%}%><% if (markupIntegration=='jekyll'){%>
+├── _config.yml<%}%>
+├── gulpfile.js
+├── LICENSE
 ├── package.json
 └── README.md
-└── LICENSE
 ```
 
 ## Gulp Config file

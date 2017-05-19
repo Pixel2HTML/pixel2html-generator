@@ -114,15 +114,17 @@ This boilerplate will create a set of files and folders
 │    │    │    ├──  components/
 │    │    │    │    ├──  _buttons.ext
 │    │    │    │    ├──  _footer.ext
+│    │    │    │    ├──  _forms.ext
 │    │    │    │    ├──  _header.ext
-│    │    │    │    └── _nav.ext
+│    │    │    │    └──  _nav.ext
 │    │    │    ├──  screens/
 │    │    │    │    ├──  _base.ext
 │    │    │    │    └──  screen_*.ext
+│    │    │    ├── _mixins.ext
+│    │    │    ├── _reset.ext
+│    │    │    ├── _variables.ext
 │    │    │    ├── main.ext
-│    │    │    ├── vendor.scss
-│    │    │    ├── mixins.ext
-│    │    │    └── variables.ext
+│    │    │    └── vendor.scss
 │    └──  screen_*.[html|pug]
 ├──  .editorcofig
 ├──  .gitattributes
@@ -161,15 +163,13 @@ This boilerplate will create a set of files and folders
 * `$ gulp vendor:scripts` Concat, uglify and move vendors JS files
 
 ### Styles
-* `$ gulp main:styles` Compile, concat, autoprefix, minify and move [SCSS, Less, Stylus] project files
-* `$ gulp vendor:styles` Compile, concat, autoprefix, minify and move [SCSS, Less, Stylus] vendor files
+* `$ gulp main:styles` Compile, concat, autoprefix and move [SCSS, Less, Stylus] project files
+* `$ gulp vendor:styles` Compile, concat, autoprefix and move [SCSS, Less, Stylus] vendor files
 
 ### Integration
 * `$ gulp jekyll:build` Compile markup with Jekyll's partials and layouts files.
 
-### Daemons
-* `$ gulp watch` **Watch** your files and autoexecute gulp directives
-* `$ gulp serve` **Watch** your files and **serve** with an HTTP server and **Sync** with your prefered browser _awesome!_
-
 ### Delivery
  * `$ gulp build` Execute all the gulp directives and makes a `.zip` file with the latest code.
+ * `$ gulp release` Execute all the gulp directives and makes a `.zip` file with the latest code.
+ * `$ gulp release --prod` Execute all the gulp directives, prepare assets to production and makes a `.zip` file with the latest code.
