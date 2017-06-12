@@ -1,5 +1,5 @@
 //
-// Pixel2HTML - <%= projectId %>
+// Pixel2HTML - <%=clientId%>/<%= projectId %>
 //
 <% if(frontEndFramework == 'bootstrap'){ %>
 @import "bootstrap";
