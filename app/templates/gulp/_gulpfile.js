@@ -47,23 +47,23 @@ gulp.task('watch', done => {
   gulp.watch('<%= paths.src.gulp %>/config.js', gulp.series('default', reload))
 
   //static files
-  <% if(markupIntegration=='jekyll'){ %>
-      gulp.watch('<%= paths.src.markup %>/**/*.html', gulp.series('jekyll:rebuild', reload))
-      gulp.watch('<%= paths.src.icons %>/**/*', gulp.series( 'main:icons', reload ))
-    <% } else { %>
-      gulp.watch('<%= paths.src.markup %>/**/*.<%=markupLanguage%>', gulp.series( 'main:markup', reload ))
-      gulp.watch('<%= paths.src.icons %>/**/*', gulp.series( 'main:icons', 'main:markup', reload ))
+  <% if(markupIntegration == 'jekyll'){ %>
+    gulp.watch(config.directories.src.markup+'/**/*.html', gulp.series('jekyll:rebuild', reload))
+    gulp.watch(config.directories.src.icons+'/**/*', gulp.series( 'main:icons', reload ))
+  <% } else { %>
+    gulp.watch(config.directories.src.markup+'/**/*.<%=markupLanguage%>', gulp.series( 'main:markup', reload ))
+    gulp.watch(config.directories.src.icons+'/**/*', gulp.series( 'main:icons', reload ))
   <% } %>
 
-  gulp.watch('<%= paths.src.images %>/**/*', gulp.series( 'main:images', reload ))
+  gulp.watch(config.directories.src.images+'/**/*', gulp.series( 'main:images', reload ))
   gulp.watch(config.project.fontFiles, gulp.series( 'main:fonts', reload ))
 
   //scripts
-  gulp.watch('<%= paths.src.scripts %>/**/*.js', gulp.series( 'main:scripts', reload ))
+  gulp.watch(config.directories.src.scripts+'/**/*.js', gulp.series( 'main:scripts', reload ))
 
   //styles
   gulp.watch([
-    '<%= paths.src.styles %>/**/*.<%=cssProcessor%>',
+    config.directories.src.styles+'/**/*.<%=cssProcessor%>',
     '!<%= paths.src.frontendframework %>/**/*',
   ], gulp.series( 'main:styles', reload ))
 
