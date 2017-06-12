@@ -50,6 +50,18 @@ describe('Stylus features', function () {
       ])
     })
 
+    it('should have project and client ids on comments', function() {
+      assert.fileContent('src/assets/styles/screens/screen_1.styl', /Pixel2HTML - 0987\/1234/)
+      assert.fileContent('src/assets/styles/screens/screen_2.styl', /Pixel2HTML - 0987\/1234/)
+      assert.fileContent('src/assets/styles/screens/screen_3.styl', /Pixel2HTML - 0987\/1234/)
+    })
+
+    it('should have screen number on comments', function() {
+      assert.fileContent('src/assets/styles/screens/screen_1.styl', /Screen 1/)
+      assert.fileContent('src/assets/styles/screens/screen_2.styl', /Screen 2/)
+      assert.fileContent('src/assets/styles/screens/screen_3.styl', /Screen 3/)
+    })
+
     it('should exists a gulp routine', function () {
       assert.file([
         'gulp/tasks/styles.js'
