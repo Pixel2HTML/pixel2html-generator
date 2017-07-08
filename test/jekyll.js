@@ -4,9 +4,8 @@ import path from 'path'
 
 describe('Jekyll Features', function () {
   describe('Jekyll Project', function () {
-    before('crafting  project', function (done) {
-      helpers.run(path.join(__dirname, '../app'))
-        .inDir(path.join(__dirname, 'temp'))
+    beforeEach(function () {
+      return helpers.run(path.join(__dirname, '../app'))
         .withOptions({
           'skip-install': true
         })
@@ -18,7 +17,7 @@ describe('Jekyll Features', function () {
           markupIntegration: 'jekyll',
           cssProcessor: 'less'
         })
-        .on('end', done)
+        .toPromise()
     })
 
     it('creates expected base files', function () {

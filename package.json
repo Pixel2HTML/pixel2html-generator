@@ -17,7 +17,7 @@
     "yeoman-generator"
   ],
   "scripts": {
-    "test": "mocha --require babel-register"
+    "test": "mocha --require babel-register --reporter nyan"
   },
   "main": "app/index.js",
   "dependencies": {

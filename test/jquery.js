@@ -3,9 +3,8 @@ import assert from 'yeoman-assert'
 import path from 'path'
 
 describe('jQuery features', function () {
-  before('crafting project with jQuery', function (done) {
-    helpers.run(path.join(__dirname, '../app'))
-      .inDir(path.join(__dirname, 'temp'))
+  beforeEach(function () {
+    return helpers.run(path.join(__dirname, '../app'))
       .withOptions({
         'skip-install': true
       })
@@ -18,24 +17,20 @@ describe('jQuery features', function () {
         frontEndFramework: 'bootstrap',
         jQuery: true
       })
-      .on('end', done)
+      .toPromise()
   })
 
-  describe('Checking base files with dependencies', function () {
-    it('should exists dependencies in bower.json', function () {
-      assert.fileContent('package.json', /"jquery"/)
-    })
+  it('should list dependencies in bower.json', function () {
+    assert.fileContent('package.json', /"jquery"/)
   })
 
-  describe('Checking jQuery files', function () {
-    it('should exists a gulp routine', function () {
-      assert.file([
-        'gulp/tasks/scripts.js'
-      ])
-    })
+  it('should exists a gulp routine', function () {
+    assert.file([
+      'gulp/tasks/scripts.js'
+    ])
+  })
 
-    it('should include correct paths on config file', function () {
-      assert.fileContent('gulp/config.js', './node_modules/jquery/dist/jquery.min.js')
-    })
+  it('should include correct paths on config file', function () {
+    assert.fileContent('gulp/config.js', './node_modules/jquery/dist/jquery.min.js')
   })
 })
