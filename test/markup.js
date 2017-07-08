@@ -1,7 +1,6 @@
-'use strict'
-var path = require('path')
-var helpers = require('yeoman-test')
-var assert = require('yeoman-assert')
+import helpers from 'yeoman-test'
+import assert from 'yeoman-assert'
+import path from 'path'
 
 describe('Markup Features', function () {
   describe('HTML Project', function () {

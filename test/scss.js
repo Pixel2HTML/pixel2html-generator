@@ -1,7 +1,6 @@
-'use strict'
-var path = require('path')
-var helpers = require('yeoman-test')
-var assert = require('yeoman-assert')
+import helpers from 'yeoman-test'
+import assert from 'yeoman-assert'
+import path from 'path'
 
 describe('SCSS features', function () {
   before('crafting project', function (done) {
@@ -50,13 +49,13 @@ describe('SCSS features', function () {
       ])
     })
 
-    it('should have project and client ids on comments', function() {
+    it('should have project and client ids on comments', function () {
       assert.fileContent('src/assets/styles/screens/screen_1.scss', /Pixel2HTML - 0987\/1234/)
       assert.fileContent('src/assets/styles/screens/screen_2.scss', /Pixel2HTML - 0987\/1234/)
       assert.fileContent('src/assets/styles/screens/screen_3.scss', /Pixel2HTML - 0987\/1234/)
     })
 
-    it('should have screen number on comments', function() {
+    it('should have screen number on comments', function () {
       assert.fileContent('src/assets/styles/screens/screen_1.scss', /Screen 1/)
       assert.fileContent('src/assets/styles/screens/screen_2.scss', /Screen 2/)
       assert.fileContent('src/assets/styles/screens/screen_3.scss', /Screen 3/)

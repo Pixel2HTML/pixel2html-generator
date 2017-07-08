@@ -1,12 +1,9 @@
-'use strict'
-/* global describe, before, it */
-
-var path = require('path')
-var helpers = require('yeoman-test')
-var assert = require('yeoman-assert')
+import helpers from 'yeoman-test'
+import assert from 'yeoman-assert'
+import path from 'path'
 
 describe('Bootstrap features', function () {
-  before('crafting project', function (done) {
+  beforeEach('crafting project', function (done) {
     helpers.run(path.join(__dirname, '../app'))
       .inDir(path.join(__dirname, 'temp'))
       .withOptions({
