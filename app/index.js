@@ -651,7 +651,7 @@ class PixelGenerator extends Generator {
           this.templatePath('markup/jekyll/_screen.html'),
           this.destinationPath(this.paths.src.markup + '/screen-' + i + '.html'), {
             screenNumber: i,
-            projectName: this.options.projectName
+            projectName: this.options.projectName,
             frontEndFramework: this.options.frontEndFramework,
             jQuery: this.options.jQuery
           }
