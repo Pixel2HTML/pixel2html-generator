@@ -57,6 +57,10 @@ describe('Markup Features', function () {
       assert.fileContent('gulpfile.js', /'main:markup'/)
       assert.noFileContent('gulpfile.js', /'jekyll:build'/)
     })
+
+    it('should have the projectName in the title tag', function(){
+      assert.fileContent('src/screen-1.html', /<title>Pixel2HTML - Screen 1<\/title>/)
+    })
   })
 
   describe('PUG Project', function () {

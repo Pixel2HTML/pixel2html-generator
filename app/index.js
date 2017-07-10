@@ -405,8 +405,7 @@ class PixelGenerator extends Generator {
           this.destinationPath(this.paths.src.markup + '/screen-' + i + '.' + this.options.markupLanguage),
           {
             screenNumber: i,
-            clientId: this.options.clientId,
-            projectId: this.options.projectId,
+            projectName: this.options.projectName,
             frontEndFramework: this.options.frontEndFramework,
             jQuery: this.options.jQuery
           }
@@ -424,8 +423,7 @@ class PixelGenerator extends Generator {
           this.destinationPath(this.paths.src.markup + '/pug/screen-' + i + '.' + this.options.markupLanguage),
           {
             screenNumber: i,
-            clientId: this.options.clientId,
-            projectId: this.options.projectId,
+            projectName: this.options.projectName,
             frontEndFramework: this.options.frontEndFramework,
             jQuery: this.options.jQuery
           }
@@ -436,8 +434,7 @@ class PixelGenerator extends Generator {
         this.destinationPath(this.paths.src.markup + '/pug/layouts/layout-primary.pug'),
         {
           screenNumber: i,
-          clientId: this.options.clientId,
-          projectId: this.options.projectId,
+          projectName: this.options.projectName,
           frontEndFramework: this.options.frontEndFramework,
           jQuery: this.options.jQuery
         }
