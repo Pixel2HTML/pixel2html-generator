@@ -1,4 +1,4 @@
-# Pixel2HTML Boilerplate Generator 1.3.2
+# Pixel2HTML Boilerplate Generator 1.3.3
 
 [![Build Status](https://travis-ci.org/Pixel2HTML/pixel2html-generator.svg?branch=master)](https://travis-ci.org/Pixel2HTML/pixel2html-generator)
 
@@ -38,6 +38,7 @@ The **Pixel2HTML Boilerplate** will ask you questions about this points. Answeri
 
 * Client ID?
 * Project ID?
+* Project Name?
 * Quantity of screens?
 * Markup Language? _Options: HTML/Pug_
 * Markup Integration? _Options: None/Jekyll_
@@ -52,6 +53,7 @@ You also can answer this questions passing parameters to the generator command.
 
 * ```--clientId``` (*int*)
 * ```--projectId``` (*int*)
+* ```--projectName``` (*string*)
 * ```--qtyScreens``` (*int*)
 * ```--markupLanguage``` (*string*) [html, pug]
 * ```--markupIntegration``` (*string*) [jekyll, none]
@@ -74,6 +76,7 @@ Here an example of it's structure:
 {
   "clientId": XXX,
   "projectId": XXX,
+  "projectName": 'XXX',
   "qtyScreens": 4,
   "markupLanguage": 'html',
   "markupIntegration": 'jekyll',

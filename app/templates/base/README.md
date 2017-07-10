@@ -1,4 +1,4 @@
-# <%= projectId %>
+# <%= projectName %>
 
 ## Installing dependencies & running up
 To work, the **Pixel2HTML Boilerplate** needs to install some dependencies to run the options you select.

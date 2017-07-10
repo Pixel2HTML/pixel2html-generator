@@ -1,3 +1,10 @@
+### 1.3.3
+- Fixed some minor bugs on Jekyll builds
+- Smarter use of config variables to gulp routines.
+- Updated dependencies versions
+- Some tests improvement
+- `projectName` variable instead of `projectId` to generate more white label projects.
+
 ### 1.3.2
 - Fix some miss references to vendor fonts
 - Updated JS syntax to ES6
