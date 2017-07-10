@@ -12,6 +12,7 @@ describe('Markup Features', function () {
         .withPrompts({
           clientId: '0987',
           projectId: '1234',
+          projectName: 'Pixel2HTML',
           qtyScreens: 6,
           markupLanguage: 'html',
           cssProcessor: 'less'
@@ -45,7 +46,7 @@ describe('Markup Features', function () {
     })
 
     it('should have the project name on package.json', function () {
-      assert.fileContent('package.json', /"name": "pixel2html-0987-1234"/)
+      assert.fileContent('package.json', /"name": "Pixel2HTML"/)
     })
 
     it('should exists a gulp routine', function () {
@@ -55,6 +56,10 @@ describe('Markup Features', function () {
     it('should have the gulp routine in gulp default\'s task', function () {
       assert.fileContent('gulpfile.js', /'main:markup'/)
       assert.noFileContent('gulpfile.js', /'jekyll:build'/)
+    })
+
+    it('should have the projectName in the title tag', function(){
+      assert.fileContent('src/screen-1.html', /<title>Pixel2HTML - Screen 1<\/title>/)
     })
   })
 
@@ -67,6 +72,7 @@ describe('Markup Features', function () {
         .withPrompts({
           clientId: '0987',
           projectId: '1234',
+          projectName: 'Pixel2HTML',
           qtyScreens: 6,
           markupLanguage: 'pug',
           cssProcessor: 'less'
@@ -108,7 +114,7 @@ describe('Markup Features', function () {
     })
 
     it('should have the project name on package.json', function () {
-      assert.fileContent('package.json', /"name": "pixel2html-0987-1234"/)
+      assert.fileContent('package.json', /"name": "Pixel2HTML"/)
     })
 
     it('should exists a gulp routine', function () {

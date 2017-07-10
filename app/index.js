@@ -100,6 +100,7 @@ class PixelGenerator extends Generator {
       .then(config => {
         this.options.clientId = config.clientId
         this.options.projectId = config.projectId
+        this.options.projectName = config.projectName
         this.options.qtyScreens = config.qtyScreens
         this.options.markupLanguage = config.markupLanguage
         this.options.markupIntegration = config.markupIntegration
@@ -155,6 +156,22 @@ class PixelGenerator extends Generator {
       )
       .then(props => {
         this.options.projectId = props.projectId
+      })
+  }
+
+  askForProjectName () {
+    return this.options.projectName
+      ? true
+      : this.prompt(
+        [{
+          type: 'input',
+          name: 'projectName',
+          required: true,
+          message: 'Give me the Project Name!'
+        }]
+      )
+      .then(props => {
+        this.options.projectName = props.projectName
       })
   }
 
@@ -289,8 +306,7 @@ class PixelGenerator extends Generator {
     this.fs.copyTpl(
       this.templatePath('base/_package.json'),
       this.destinationPath('package.json'), {
-        clientId: this.options.clientId,
-        projectId: this.options.projectId,
+        projectName: this.options.projectName,
         markupLanguage: this.options.markupLanguage,
         markupIntegration: this.options.markupIntegration,
         cssProcessor: this.options.cssProcessor,
@@ -389,8 +405,7 @@ class PixelGenerator extends Generator {
           this.destinationPath(this.paths.src.markup + '/screen-' + i + '.' + this.options.markupLanguage),
           {
             screenNumber: i,
-            clientId: this.options.clientId,
-            projectId: this.options.projectId,
+            projectName: this.options.projectName,
             frontEndFramework: this.options.frontEndFramework,
             jQuery: this.options.jQuery
           }
@@ -408,8 +423,7 @@ class PixelGenerator extends Generator {
           this.destinationPath(this.paths.src.markup + '/pug/screen-' + i + '.' + this.options.markupLanguage),
           {
             screenNumber: i,
-            clientId: this.options.clientId,
-            projectId: this.options.projectId,
+            projectName: this.options.projectName,
             frontEndFramework: this.options.frontEndFramework,
             jQuery: this.options.jQuery
           }
@@ -420,8 +434,7 @@ class PixelGenerator extends Generator {
         this.destinationPath(this.paths.src.markup + '/pug/layouts/layout-primary.pug'),
         {
           screenNumber: i,
-          clientId: this.options.clientId,
-          projectId: this.options.projectId,
+          projectName: this.options.projectName,
           frontEndFramework: this.options.frontEndFramework,
           jQuery: this.options.jQuery
         }
@@ -445,8 +458,7 @@ class PixelGenerator extends Generator {
     this.fs.copyTpl(
       this.templatePath('styles/' + cssProcessor + '/main.' + cssProcessor),
       this.destinationPath(this.paths.src.styles + '/main.' + cssProcessor), {
-        clientId: this.options.clientId,
-        projectId: this.options.projectId,
+        projectName: this.options.projectName,
         qtyScreens: this.options.qtyScreens
       }
     )
@@ -454,8 +466,7 @@ class PixelGenerator extends Generator {
     this.fs.copyTpl(
       this.templatePath('styles/scss/vendor.scss'),
       this.destinationPath(this.paths.src.styles + '/vendor.scss'), {
-        clientId: this.options.clientId,
-        projectId: this.options.projectId,
+        projectName: this.options.projectName,
         frontEndFramework: this.options.frontEndFramework
       }
     )
@@ -502,8 +513,7 @@ class PixelGenerator extends Generator {
         this.templatePath('styles/' + cssProcessor + '/screens/_screen.' + cssProcessor),
         this.destinationPath(this.paths.src.styles + '/screens/screen_' + i + '.' + cssProcessor), {
           screenNumber: i,
-          clientId: this.options.clientId,
-          projectId: this.options.projectId
+          projectName: this.options.projectName
         }
       )
     }
@@ -514,8 +524,7 @@ class PixelGenerator extends Generator {
     this.fs.copyTpl(
       this.templatePath('scripts/main.js'),
       this.destinationPath(this.paths.src.scripts + '/main.js'), {
-        clientId: this.options.clientId,
-        projectId: this.options.projectId,
+        projectName: this.options.projectName,
         frontEndFramework: this.options.frontEndFramework
       }
     )
@@ -523,8 +532,7 @@ class PixelGenerator extends Generator {
     this.fs.copyTpl(
       this.templatePath('scripts/vendor/vendor.js'),
       this.destinationPath(this.paths.src.scripts + '/vendor/vendor.js'), {
-        clientId: this.options.clientId,
-        projectId: this.options.projectId,
+        projectName: this.options.projectName,
         frontEndFramework: this.options.frontEndFramework
       }
     )
@@ -627,7 +635,7 @@ class PixelGenerator extends Generator {
       this.fs.copyTpl(
         this.templatePath('markup/jekyll/_config.yml'),
         this.destinationPath('_config.yml'), {
-          projectId: this.options.projectId
+          projectName: this.options.projectName
         }
       )
 
@@ -643,8 +651,7 @@ class PixelGenerator extends Generator {
           this.templatePath('markup/jekyll/_screen.html'),
           this.destinationPath(this.paths.src.markup + '/screen-' + i + '.html'), {
             screenNumber: i,
-            clientId: this.options.clientId,
-            projectId: this.options.projectId,
+            projectName: this.options.projectName,
             frontEndFramework: this.options.frontEndFramework,
             jQuery: this.options.jQuery
           }
@@ -678,6 +685,7 @@ class PixelGenerator extends Generator {
     var configJson = {
       'clientId': this.options.clientId,
       'projectId': this.options.projectId,
+      'projectName': this.options.projectName,
       'qtyScreens': this.options.qtyScreens,
       'markupLanguage': this.options.markupLanguage,
       'markupIntegration': this.options.markupIntegration,

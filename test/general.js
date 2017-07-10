@@ -11,6 +11,7 @@ describe('General Assertions', function () {
       .withPrompts({
         clientId: '0987',
         projectId: '1234',
+        projectName: 'Pixel2HTML',
         qtyScreens: 6,
         markupLanguage: 'html',
         cssProcessor: 'less'
@@ -51,6 +52,6 @@ describe('General Assertions', function () {
   })
 
   it('should have the project name on package.json', function () {
-    assert.fileContent('package.json', /"name": "pixel2html-0987-1234"/)
+    assert.fileContent('package.json', /"name": "Pixel2HTML"/)
   })
 })

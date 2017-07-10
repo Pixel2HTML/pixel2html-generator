@@ -11,6 +11,7 @@ describe('SCSS features', function () {
       .withPrompts({
         clientId: '0987',
         projectId: '1234',
+        projectName: 'Pixel2HTML',
         qtyScreens: 3,
         markupLanguage: 'html',
         cssProcessor: 'scss'
@@ -25,6 +26,7 @@ describe('SCSS features', function () {
   it('should exists base SCSS file', function () {
     assert.file([
       'src/assets/styles/main.scss',
+      'src/assets/styles/vendor.scss',
       'src/assets/styles/_reset.scss',
       'src/assets/styles/_mixins.scss',
       'src/assets/styles/_variables.scss',
@@ -46,9 +48,9 @@ describe('SCSS features', function () {
   })
 
   it('should have project and client ids on comments', function () {
-    assert.fileContent('src/assets/styles/screens/screen_1.scss', /Pixel2HTML - 0987\/1234/)
-    assert.fileContent('src/assets/styles/screens/screen_2.scss', /Pixel2HTML - 0987\/1234/)
-    assert.fileContent('src/assets/styles/screens/screen_3.scss', /Pixel2HTML - 0987\/1234/)
+    assert.fileContent('src/assets/styles/screens/screen_1.scss', /Pixel2HTML/)
+    assert.fileContent('src/assets/styles/screens/screen_2.scss', /Pixel2HTML/)
+    assert.fileContent('src/assets/styles/screens/screen_3.scss', /Pixel2HTML/)
   })
 
   it('should have screen number on comments', function () {

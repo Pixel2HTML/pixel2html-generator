@@ -2,7 +2,7 @@ import helpers from 'yeoman-test'
 import assert from 'yeoman-assert'
 import path from 'path'
 
-describe('jQuery features', function () {
+describe('Script features', function () {
   beforeEach(function () {
     return helpers.run(path.join(__dirname, '../app'))
       .withOptions({
@@ -21,8 +21,12 @@ describe('jQuery features', function () {
       .toPromise()
   })
 
-  it('should list dependencies in bower.json', function () {
-    assert.fileContent('package.json', /"jquery"/)
+  it('creates expected base files', function () {
+    assert.file([
+      'src/assets/js',
+      'src/assets/js/main.js',
+      'src/assets/js/vendor/vendor.js',
+    ])
   })
 
   it('should exists a gulp routine', function () {
@@ -31,7 +35,7 @@ describe('jQuery features', function () {
     ])
   })
 
-  it('should include correct paths on config file', function () {
-    assert.fileContent('gulp/config.js', './node_modules/jquery/dist/jquery.min.js')
+  it('should have the project name on package.json', function () {
+    assert.fileContent('src/assets/js/main.js', /Pixel2HTML/)
   })
 })
