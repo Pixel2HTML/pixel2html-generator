@@ -306,8 +306,7 @@ class PixelGenerator extends Generator {
     this.fs.copyTpl(
       this.templatePath('base/_package.json'),
       this.destinationPath('package.json'), {
-        clientId: this.options.clientId,
-        projectId: this.options.projectId,
+        projectName: this.options.projectName,
         markupLanguage: this.options.markupLanguage,
         markupIntegration: this.options.markupIntegration,
         cssProcessor: this.options.cssProcessor,
