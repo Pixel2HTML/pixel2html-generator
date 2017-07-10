@@ -1,7 +1,7 @@
 {
   "name": "generator-pixel2html",
   "description": "Pixel2HTML Boilerplate Generator",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "license": "MIT",
   "author": {
     "name": "Juan Manuel Garcia Olivares",
@@ -17,7 +17,7 @@
     "yeoman-generator"
   ],
   "scripts": {
-    "test": "mocha --require babel-register --reporter nyan"
+    "test": "mocha --require babel-register"
   },
   "main": "app/index.js",
   "dependencies": {

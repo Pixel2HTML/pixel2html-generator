@@ -345,7 +345,7 @@ class PixelGenerator extends Generator {
       this.templatePath('base/README.md'),
       this.destinationPath('README.md'), {
         paths: this.paths,
-        projectId: this.options.projectId,
+        projectName: this.options.projectName,
         frontEndFramework: this.options.frontEndFramework,
         markupIntegration: this.options.markupIntegration,
         jQuery: this.options.jQuery,
