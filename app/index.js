@@ -6,6 +6,7 @@ const mkdirp = require('mkdirp')
 const _ = require('underscore')
 const fs = require('fs-extra')
 const moment = require('moment')
+const updateNotifier = require('update-notifier')
 const pkg = require('../package.json')
 
 class PixelGenerator extends Generator {
@@ -88,6 +89,10 @@ class PixelGenerator extends Generator {
       type: String,
       required: false
     })
+  }
+
+  notify () {
+    updateNotifier({pkg}).notify()
   }
 
   readConfigFile () {

@@ -1,13 +1,10 @@
-'use strict'
+import helpers from 'yeoman-test'
+import assert from 'yeoman-assert'
+import path from 'path'
 
-var path = require('path')
-var helpers = require('yeoman-test')
-var assert = require('yeoman-assert')
-
-describe('general', function () {
-  before('crafting project', function (done) {
-    helpers.run(path.join(__dirname, '../app'))
-      .inDir(path.join(__dirname, 'temp'))
+describe('General Assertions', function () {
+  beforeEach(function () {
+    return helpers.run(path.join(__dirname, '../app'))
       .withOptions({
         'skip-install': true
       })
@@ -18,7 +15,7 @@ describe('general', function () {
         markupLanguage: 'html',
         cssProcessor: 'less'
       })
-      .on('end', done)
+      .toPromise()
   })
 
   it('creates expected base files', function () {

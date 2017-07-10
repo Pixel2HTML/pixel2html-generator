@@ -1,13 +1,10 @@
-'use strict'
-
-var path = require('path')
-var helpers = require('yeoman-test')
-var assert = require('yeoman-assert')
+import helpers from 'yeoman-test'
+import assert from 'yeoman-assert'
+import path from 'path'
 
 describe('Foundation features', function () {
-  before('crafting project', function (done) {
-    helpers.run(path.join(__dirname, '../app'))
-      .inDir(path.join(__dirname, 'temp'))
+  beforeEach(function () {
+    return helpers.run(path.join(__dirname, '../app'))
       .withOptions({
         'skip-install': true
       })
@@ -19,40 +16,36 @@ describe('Foundation features', function () {
         cssProcessor: 'scss',
         frontEndFramework: 'foundation'
       })
-      .on('end', done)
+      .toPromise()
   })
 
-  describe('Checking base files with dependencies', function () {
-    it('Should exists dependencies in package.json', function () {
-      assert.fileContent('package.json', /"gulp-sass"/)
-      assert.fileContent('package.json', /"foundation-sites"/)
-    })
+  it('Should exists dependencies in package.json', function () {
+    assert.fileContent('package.json', /"gulp-sass"/)
+    assert.fileContent('package.json', /"foundation-sites"/)
   })
 
-  describe('Checking Foundation files', function () {
-    it('should exists a gulp routine', function () {
-      assert.file([
-        'gulp/tasks/styles.js',
-        'gulp/tasks/scripts.js'
-      ])
-    })
-    it('should exists vendor files', function () {
-      assert.file([
-        'src/assets/styles/vendor.scss'
-      ])
-    })
+  it('should exists a gulp routine', function () {
+    assert.file([
+      'gulp/tasks/styles.js',
+      'gulp/tasks/scripts.js'
+    ])
+  })
+  it('should exists vendor files', function () {
+    assert.file([
+      'src/assets/styles/vendor.scss'
+    ])
+  })
 
-    it('should include bootstrap include', function () {
-      assert.fileContent('src/assets/styles/vendor.scss', /import "foundation";/)
-    })
+  it('should include bootstrap include', function () {
+    assert.fileContent('src/assets/styles/vendor.scss', /import "foundation";/)
+  })
 
-    it('should include correct paths on config file', function () {
-      assert.fileContent('gulp/config.js', './node_modules/foundation-sites/scss')
-      assert.fileContent('gulp/config.js', './node_modules/foundation-sites/dist/js/foundation.min.js')
-    })
+  it('should include correct paths on config file', function () {
+    assert.fileContent('gulp/config.js', './node_modules/foundation-sites/scss')
+    assert.fileContent('gulp/config.js', './node_modules/foundation-sites/dist/js/foundation.min.js')
+  })
 
-    it('should include foundation initializer on main.js', function () {
-      assert.fileContent('src/assets/js/main.js', /\$\(document\)\.foundation\(\)/)
-    })
+  it('should include foundation initializer on main.js', function () {
+    assert.fileContent('src/assets/js/main.js', /\$\(document\)\.foundation\(\)/)
   })
 })

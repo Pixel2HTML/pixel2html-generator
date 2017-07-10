@@ -1,13 +1,11 @@
-'use strict'
-var path = require('path')
-var helpers = require('yeoman-test')
-var assert = require('yeoman-assert')
+import helpers from 'yeoman-test'
+import assert from 'yeoman-assert'
+import path from 'path'
 
 describe('Markup Features', function () {
   describe('HTML Project', function () {
-    before('crafting  project', function (done) {
-      helpers.run(path.join(__dirname, '../app'))
-        .inDir(path.join(__dirname, 'temp'))
+    beforeEach(function () {
+      return helpers.run(path.join(__dirname, '../app'))
         .withOptions({
           'skip-install': true
         })
@@ -18,7 +16,7 @@ describe('Markup Features', function () {
           markupLanguage: 'html',
           cssProcessor: 'less'
         })
-        .on('end', done)
+        .toPromise()
     })
 
     it('creates expected base files', function () {
@@ -61,9 +59,8 @@ describe('Markup Features', function () {
   })
 
   describe('PUG Project', function () {
-    before('crafting  project', function (done) {
-      helpers.run(path.join(__dirname, '../app'))
-        .inDir(path.join(__dirname, 'temp'))
+    beforeEach('crafting  project', function () {
+      return helpers.run(path.join(__dirname, '../app'))
         .withOptions({
           'skip-install': true
         })
@@ -74,13 +71,11 @@ describe('Markup Features', function () {
           markupLanguage: 'pug',
           cssProcessor: 'less'
         })
-        .on('end', done)
+        .toPromise()
     })
 
-    describe('Checking base files with dependencies', function () {
-      it('sould exists dependencies on package.json', function () {
-        assert.fileContent('package.json', /"gulp-pug"/)
-      })
+    it('sould list dependencies on package.json', function () {
+      assert.fileContent('package.json', /"gulp-pug"/)
     })
 
     it('creates expected base files', function () {
