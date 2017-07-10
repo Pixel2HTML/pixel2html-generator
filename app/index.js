@@ -458,8 +458,7 @@ class PixelGenerator extends Generator {
     this.fs.copyTpl(
       this.templatePath('styles/' + cssProcessor + '/main.' + cssProcessor),
       this.destinationPath(this.paths.src.styles + '/main.' + cssProcessor), {
-        clientId: this.options.clientId,
-        projectId: this.options.projectId,
+        projectName: this.options.projectName,
         qtyScreens: this.options.qtyScreens
       }
     )
@@ -467,8 +466,7 @@ class PixelGenerator extends Generator {
     this.fs.copyTpl(
       this.templatePath('styles/scss/vendor.scss'),
       this.destinationPath(this.paths.src.styles + '/vendor.scss'), {
-        clientId: this.options.clientId,
-        projectId: this.options.projectId,
+        projectName: this.options.projectName,
         frontEndFramework: this.options.frontEndFramework
       }
     )
@@ -515,8 +513,7 @@ class PixelGenerator extends Generator {
         this.templatePath('styles/' + cssProcessor + '/screens/_screen.' + cssProcessor),
         this.destinationPath(this.paths.src.styles + '/screens/screen_' + i + '.' + cssProcessor), {
           screenNumber: i,
-          clientId: this.options.clientId,
-          projectId: this.options.projectId
+          projectName: this.options.projectName
         }
       )
     }

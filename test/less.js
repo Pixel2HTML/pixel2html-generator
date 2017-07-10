@@ -47,9 +47,9 @@ describe('LESS features', function () {
   })
 
   it('should have project and client ids on comments', function () {
-    assert.fileContent('src/assets/styles/screens/screen_1.less', /Pixel2HTML - 0987\/1234/)
-    assert.fileContent('src/assets/styles/screens/screen_2.less', /Pixel2HTML - 0987\/1234/)
-    assert.fileContent('src/assets/styles/screens/screen_3.less', /Pixel2HTML - 0987\/1234/)
+    assert.fileContent('src/assets/styles/screens/screen_1.less', /Pixel2HTML/)
+    assert.fileContent('src/assets/styles/screens/screen_2.less', /Pixel2HTML/)
+    assert.fileContent('src/assets/styles/screens/screen_3.less', /Pixel2HTML/)
   })
 
   it('should have screen number on comments', function () {

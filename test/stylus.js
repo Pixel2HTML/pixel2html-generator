@@ -47,9 +47,9 @@ describe('Stylus features', function () {
   })
 
   it('should have project and client ids on comments', function () {
-    assert.fileContent('src/assets/styles/screens/screen_1.styl', /Pixel2HTML - 0987\/1234/)
-    assert.fileContent('src/assets/styles/screens/screen_2.styl', /Pixel2HTML - 0987\/1234/)
-    assert.fileContent('src/assets/styles/screens/screen_3.styl', /Pixel2HTML - 0987\/1234/)
+    assert.fileContent('src/assets/styles/screens/screen_1.styl', /Pixel2HTML/)
+    assert.fileContent('src/assets/styles/screens/screen_2.styl', /Pixel2HTML/)
+    assert.fileContent('src/assets/styles/screens/screen_3.styl', /Pixel2HTML/)
   })
 
   it('should have screen number on comments', function () {
