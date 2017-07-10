@@ -635,7 +635,7 @@ class PixelGenerator extends Generator {
       this.fs.copyTpl(
         this.templatePath('markup/jekyll/_config.yml'),
         this.destinationPath('_config.yml'), {
-          projectId: this.options.projectId
+          projectName: this.options.projectName
         }
       )
 
@@ -651,8 +651,7 @@ class PixelGenerator extends Generator {
           this.templatePath('markup/jekyll/_screen.html'),
           this.destinationPath(this.paths.src.markup + '/screen-' + i + '.html'), {
             screenNumber: i,
-            clientId: this.options.clientId,
-            projectId: this.options.projectId,
+            projectName: this.options.projectName
             frontEndFramework: this.options.frontEndFramework,
             jQuery: this.options.jQuery
           }
