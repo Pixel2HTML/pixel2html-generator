@@ -36,6 +36,6 @@ describe('Script features', function () {
   })
 
   it('should have the project name on package.json', function () {
-    assert.fileContent('src/js/main.js', /Pixel2HTML/)
+    assert.fileContent('src/assets/js/main.js', /Pixel2HTML/)
   })
 })
