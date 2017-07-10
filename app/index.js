@@ -524,8 +524,7 @@ class PixelGenerator extends Generator {
     this.fs.copyTpl(
       this.templatePath('scripts/main.js'),
       this.destinationPath(this.paths.src.scripts + '/main.js'), {
-        clientId: this.options.clientId,
-        projectId: this.options.projectId,
+        projectName: this.options.projectName,
         frontEndFramework: this.options.frontEndFramework
       }
     )
@@ -533,8 +532,7 @@ class PixelGenerator extends Generator {
     this.fs.copyTpl(
       this.templatePath('scripts/vendor/vendor.js'),
       this.destinationPath(this.paths.src.scripts + '/vendor/vendor.js'), {
-        clientId: this.options.clientId,
-        projectId: this.options.projectId,
+        projectName: this.options.projectName,
         frontEndFramework: this.options.frontEndFramework
       }
     )
