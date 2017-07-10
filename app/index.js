@@ -100,6 +100,7 @@ class PixelGenerator extends Generator {
       .then(config => {
         this.options.clientId = config.clientId
         this.options.projectId = config.projectId
+        this.options.projectName = config.projectName
         this.options.qtyScreens = config.qtyScreens
         this.options.markupLanguage = config.markupLanguage
         this.options.markupIntegration = config.markupIntegration
@@ -155,6 +156,22 @@ class PixelGenerator extends Generator {
       )
       .then(props => {
         this.options.projectId = props.projectId
+      })
+  }
+
+  askForProjectName () {
+    return this.options.projectName
+      ? true
+      : this.prompt(
+        [{
+          type: 'input',
+          name: 'projectName',
+          required: true,
+          message: 'Give me the Project Name!'
+        }]
+      )
+      .then(props => {
+        this.options.projectName = props.projectName
       })
   }
 
@@ -678,6 +695,7 @@ class PixelGenerator extends Generator {
     var configJson = {
       'clientId': this.options.clientId,
       'projectId': this.options.projectId,
+      'projectName': this.options.projectName,
       'qtyScreens': this.options.qtyScreens,
       'markupLanguage': this.options.markupLanguage,
       'markupIntegration': this.options.markupIntegration,
