@@ -1,4 +1,4 @@
-# <%= projectId %>
+# <%= projectName %>
 
 ## Installing dependencies & running up
 To work, the **Pixel2HTML Boilerplate** needs to install some dependencies to run the options you select.
@@ -41,6 +41,7 @@ This boilerplate will create a set of files and folders
 │    │    │    ├──  components/
 │    │    │    │    ├──  _buttons.<%= cssProcessor %>
 │    │    │    │    ├──  _footer.<%= cssProcessor %>
+│    │    │    │    ├──  _forms.<%= cssProcessor %>
 │    │    │    │    ├──  _header.<%= cssProcessor %>
 │    │    │    │    └──  _nav.<%= cssProcessor %>
 │    │    │    ├──  screens/
@@ -48,24 +49,26 @@ This boilerplate will create a set of files and folders
 <% for(var i=1; i<=qtyScreens; i++) {%>│    │    │    │    └──  screen_<%=i%>.<%= cssProcessor %>
 <% } %>│    │    │    ├──  _variables.<%= cssProcessor %>
 │    │    │    ├──  _reset.<%= cssProcessor %>
-│    │    │    ├──  _mixins.<%= cssProcessor %><% if (frontEndFramework) { -%>│    │    │    ├──  vendors.scss<% } %>
+│    │    │    ├──  _mixins.<%= cssProcessor %>
+<% if (frontEndFramework) { -%>│    │    │    ├──  vendors.scss<% } %>
 │    │    │    └──  main.<%= cssProcessor %>
 │    │    └──  vendor/
 <% for(var i=1; i<=qtyScreens; i++) {%>│    └──  screen_<%=i%>.<%=markupLanguage%>
-<% } %>├── .bowerrc
-├── .editorcofig
+<% } %>├── .editorcofig
 ├── .gitattributes
 ├── .gitignore
-├── .project.conf
-<% if (markupIntegration=='jekyll'){%>├── Gemfile<%}%>├── bower.json
-<% if (markupIntegration=='jekyll'){%>├── _config.yml<%}%>├── gulpfile.js
+├── .project.conf<% if (markupIntegration=='jekyll'){%>
+├── Gemfile<%}%><% if (markupIntegration=='jekyll'){%>
+├── _config.yml<%}%>
+├── gulpfile.js
+├── LICENSE
 ├── package.json
 └── README.md
 ```
 
 ## Gulp Config file
 
-You have a config file located at `./src/assets/gulp/config.js` that enables you to add thrid-party libraries easily.
+You have a config file located at `gulp/config.js` that enables you to add thrid-party libraries easily.
 
 ### SCSS Directories
 
@@ -112,7 +115,7 @@ fontFiles: [
 ### Static Files
 * `$ gulp main:static` Compile static files (images, icons)
 * `$ gulp main:images` Move images
-* `$ gulp main:icons` Move icons
+* `$ gulp main:icons` Create SVG Icon System
 
 ### Fonts Files
 * `$ gulp main:fonts` Move project fonts
@@ -137,6 +140,12 @@ fontFiles: [
 
 ### Delivery
  * `$ gulp build` Execute all the gulp directives and makes a `.zip` file with the latest code.
+
+### EditorConfig Please note we use
+[EditorConfig](http://editorconfig.org/) to help us try to standarize
+stuff like tabs spaces and such. Please visit the link provided to
+download a plugin for your text editor of choice like Vim, Coda, Atom,
+Sublime Text, Visual Studio, Emacs Notepad++ and more.
 
 ---
 

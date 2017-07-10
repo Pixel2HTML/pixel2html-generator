@@ -1,5 +1,4 @@
- title: Project <%= projectId %>
- email: info@pixel2html.com
+ title: <%= projectName %>
  baseurl: "" # the subpath of your site, e.g. /blog
 
  markdown:      kramdown

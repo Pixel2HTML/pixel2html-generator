@@ -1,4 +1,4 @@
-# Pixel2HTML Boilerplate Generator 1.2.2
+# Pixel2HTML Boilerplate Generator 1.3.3
 
 [![Build Status](https://travis-ci.org/Pixel2HTML/pixel2html-generator.svg?branch=master)](https://travis-ci.org/Pixel2HTML/pixel2html-generator)
 
@@ -10,9 +10,9 @@ We aim to generate a boilerplate code for projects when we know the specs. 💕
 
 You will need `node` installed in your machine. In case you don't have it (you can check this typing `node --version` in your terminal) please visit [this link](https://nodejs.org/en/download/).
 
-We also need to install **Yeoman**, **Bower** and the **Pixel2HTML Generator**, so run this command in your terminal. The `-g` parameter is to install them globally so can use it in every project.
+We also need to install **Yeoman**, and the **Pixel2HTML Generator**, so run this command in your terminal. The `-g` parameter is to install them globally so can use it in every project.
 ```shell
-$ npm install -g yo bower generator-pixel2html
+$ npm install -g yo generator-pixel2html
 ```
 
 #### Ruby
@@ -38,6 +38,7 @@ The **Pixel2HTML Boilerplate** will ask you questions about this points. Answeri
 
 * Client ID?
 * Project ID?
+* Project Name?
 * Quantity of screens?
 * Markup Language? _Options: HTML/Pug_
 * Markup Integration? _Options: None/Jekyll_
@@ -52,6 +53,7 @@ You also can answer this questions passing parameters to the generator command.
 
 * ```--clientId``` (*int*)
 * ```--projectId``` (*int*)
+* ```--projectName``` (*string*)
 * ```--qtyScreens``` (*int*)
 * ```--markupLanguage``` (*string*) [html, pug]
 * ```--markupIntegration``` (*string*) [jekyll, none]
@@ -74,6 +76,7 @@ Here an example of it's structure:
 {
   "clientId": XXX,
   "projectId": XXX,
+  "projectName": 'XXX',
   "qtyScreens": 4,
   "markupLanguage": 'html',
   "markupIntegration": 'jekyll',
@@ -103,34 +106,33 @@ This boilerplate will create a set of files and folders
 ```
 
 ├──  dist/
+├──  gulp/
 ├──  src/
 │    └──  assets/
-│    ├──  fonts/
-│    ├──  gulp/
-│    ├──  icons/
-│    ├──  images/
-│    ├──  js/
-│    ├──   styles/
-│    │    ├──  components/
-│    │    │    ├──  _buttons.ext
-│    │    │    ├──  _footer.ext
-│    │    │    ├──  _header.ext
-│    │    │    └── _nav.ext
-│    │    ├──  screens/
-│    │    │    ├──  _base.ext
-│    │    │    └──  screen_*.ext
-│    │    ├── main.ext
-│    │    ├── vendor.scss
-│    │    ├── mixins.ext
-│    │    └── variables.ext
-│    └──  vendor/
+│    │    ├──  fonts/
+│    │    ├──  icons/
+│    │    ├──  images/
+│    │    ├──  js/
+│    │    ├──  styles/
+│    │    │    ├──  components/
+│    │    │    │    ├──  _buttons.ext
+│    │    │    │    ├──  _footer.ext
+│    │    │    │    ├──  _forms.ext
+│    │    │    │    ├──  _header.ext
+│    │    │    │    └──  _nav.ext
+│    │    │    ├──  screens/
+│    │    │    │    ├──  _base.ext
+│    │    │    │    └──  screen_*.ext
+│    │    │    ├── _mixins.ext
+│    │    │    ├── _reset.ext
+│    │    │    ├── _variables.ext
+│    │    │    ├── main.ext
+│    │    │    └── vendor.scss
 │    └──  screen_*.[html|pug]
-├──  .bowerrc
 ├──  .editorcofig
 ├──  .gitattributes
 ├──  .gitignore
 ├──  .project.conf
-├──  bower.json
 ├──  gulpfile.js
 ├──  package.json
 └──  README.md
@@ -164,15 +166,13 @@ This boilerplate will create a set of files and folders
 * `$ gulp vendor:scripts` Concat, uglify and move vendors JS files
 
 ### Styles
-* `$ gulp main:styles` Compile, concat, autoprefix, minify and move [SCSS, Less, Stylus] project files
-* `$ gulp vendor:styles` Compile, concat, autoprefix, minify and move [SCSS, Less, Stylus] vendor files
+* `$ gulp main:styles` Compile, concat, autoprefix and move [SCSS, Less, Stylus] project files
+* `$ gulp vendor:styles` Compile, concat, autoprefix and move [SCSS, Less, Stylus] vendor files
 
 ### Integration
 * `$ gulp jekyll:build` Compile markup with Jekyll's partials and layouts files.
 
-### Daemons
-* `$ gulp watch` **Watch** your files and autoexecute gulp directives
-* `$ gulp serve` **Watch** your files and **serve** with an HTTP server and **Sync** with your prefered browser _awesome!_
-
 ### Delivery
  * `$ gulp build` Execute all the gulp directives and makes a `.zip` file with the latest code.
+ * `$ gulp release` Execute all the gulp directives and makes a `.zip` file with the latest code.
+ * `$ gulp release --prod` Execute all the gulp directives, prepare assets to production and makes a `.zip` file with the latest code.

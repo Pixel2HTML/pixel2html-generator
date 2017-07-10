@@ -30,6 +30,8 @@ nbproject
 .idea
 .sass-cache
 .tmp
+iTermocil.yml
+.tmuxinator
 
 <%= paths.src.vendors %>
 /releases/*

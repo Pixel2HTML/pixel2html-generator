@@ -1,20 +1,39 @@
-'use strict';
+'use strict'
+const gulp    = require('gulp')
+const config  = require('../config')
+const $ = require('gulp-load-plugins')()
+const when = require('gulp-if')
+const production = config.production
 
-
-var gulp    = require('gulp');
-var config  = require('../config');
-var helpers = require('../helpers');
-
-var plumber     = require('gulp-plumber');
 <% if (markupLanguage === 'pug') { %>
-var pug         = require('gulp-pug');
+// Hey don't touch these unless you know what you're doing
+// with Love Mike ❤️
+const devLocals = {
+  base: '',
+  extension: '',
+  productionMode: false
+}
+const prodLocals = {
+  base: '/<%= clientId %>/<%= projectId %>',
+  extension: '.html',
+  productionMode: true
+}
 <% } %>
 
 gulp.task('main:markup', function() {
-  return gulp.src('<%= paths.src.markup %>/*.<%=markupLanguage%>')
-    .pipe(plumber({ errorHandler: helpers.onError }))
+  return gulp.src(config.directories.src.markup+'/*.<%=markupLanguage%>')
 <% if (markupLanguage === 'pug') { %>
-    .pipe(pug({ pretty: true })) 
+    .pipe(when(!production, $.pug({
+      pretty: true,
+      baseDir: config.directories.src.markup,
+      locals: devLocals
+    }))).on('error', config.onError)
+    .pipe(when(production, $.pug({
+      baseDir: config.directories.src.markup,
+      locals: prodLocals
+    }))).on('error', config.onError)
+<% } else { %>
+    .pipe(gulp.dest(config.directories.dist.markup))
 <% } %>
     .pipe(gulp.dest(config.directories.dist.markup))
-});
+})

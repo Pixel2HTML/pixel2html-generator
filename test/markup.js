@@ -1,29 +1,26 @@
-'use strict';
+import helpers from 'yeoman-test'
+import assert from 'yeoman-assert'
+import path from 'path'
 
-var path = require('path');
-var helpers = require('yeoman-generator').test;
-var assert = require('yeoman-assert');
-var fs = require('fs');
-
-describe('Markup Features', function() {
-  describe('HTML Project', function(){
-    before('crafting  project', function(done) {
-      helpers.run(path.join(__dirname, '../app'))
-        .inDir(path.join(__dirname, 'temp'))
+describe('Markup Features', function () {
+  describe('HTML Project', function () {
+    beforeEach(function () {
+      return helpers.run(path.join(__dirname, '../app'))
         .withOptions({
           'skip-install': true
         })
         .withPrompts({
           clientId: '0987',
           projectId: '1234',
+          projectName: 'Pixel2HTML',
           qtyScreens: 6,
           markupLanguage: 'html',
-          cssProcessor: 'less',
+          cssProcessor: 'less'
         })
-        .on('end', done);
-    });
+        .toPromise()
+    })
 
-    it('creates expected base files', function() {
+    it('creates expected base files', function () {
       assert.file([
         '.gitignore',
         '.gitattributes',
@@ -31,61 +28,63 @@ describe('Markup Features', function() {
         'gulpfile.js',
         'package.json',
         '.editorconfig',
-        'src/screen_1.html',
-        'src/screen_2.html',
-        'src/screen_3.html',
-        'src/screen_4.html',
-        'src/screen_5.html',
-        'src/screen_6.html',
-        'src/assets/gulp',
-        'src/assets/gulp/tasks',
+        'src/screen-1.html',
+        'src/screen-2.html',
+        'src/screen-3.html',
+        'src/screen-4.html',
+        'src/screen-5.html',
+        'src/screen-6.html',
+        'gulp',
+        'gulp/tasks',
         'src/assets/fonts',
         'src/assets/icons',
         'src/assets/images',
         'src/assets/js',
         'src/assets/styles',
-        'src/assets/vendor',
-      ]);
-    });
+        'src/assets/vendor'
+      ])
+    })
 
-    it('should have the project name on package.json', function() {
-      assert.fileContent('package.json',  /"name": "pixel2html-0987-1234"/);
-    });
+    it('should have the project name on package.json', function () {
+      assert.fileContent('package.json', /"name": "Pixel2HTML"/)
+    })
 
-    it('should exists a gulp routine', function() {
-      assert.file(['src/assets/gulp/tasks/markup.js']);
-    });
+    it('should exists a gulp routine', function () {
+      assert.file(['gulp/tasks/markup.js'])
+    })
 
-    it('should have the gulp routine in gulp default\'s task', function() {
-      assert.fileContent('gulpfile.js',  /'main:markup'/);
-      assert.noFileContent('gulpfile.js',  /'jekyll:build'/);
-    });
-  });
+    it('should have the gulp routine in gulp default\'s task', function () {
+      assert.fileContent('gulpfile.js', /'main:markup'/)
+      assert.noFileContent('gulpfile.js', /'jekyll:build'/)
+    })
 
-  describe('PUG Project', function(){
-    before('crafting  project', function(done) {
-      helpers.run(path.join(__dirname, '../app'))
-        .inDir(path.join(__dirname, 'temp'))
+    it('should have the projectName in the title tag', function(){
+      assert.fileContent('src/screen-1.html', /<title>Pixel2HTML - Screen 1<\/title>/)
+    })
+  })
+
+  describe('PUG Project', function () {
+    beforeEach('crafting  project', function () {
+      return helpers.run(path.join(__dirname, '../app'))
         .withOptions({
           'skip-install': true
         })
         .withPrompts({
           clientId: '0987',
           projectId: '1234',
+          projectName: 'Pixel2HTML',
           qtyScreens: 6,
           markupLanguage: 'pug',
-          cssProcessor: 'less',
+          cssProcessor: 'less'
         })
-        .on('end', done);
-    });
+        .toPromise()
+    })
 
-    describe('Checking base files with dependencies', function() {
-      it('sould exists dependencies on package.json', function () {
-        assert.fileContent('package.json',  /"gulp-pug"/);
-      });
-    });
+    it('sould list dependencies on package.json', function () {
+      assert.fileContent('package.json', /"gulp-pug"/)
+    })
 
-    it('creates expected base files', function() {
+    it('creates expected base files', function () {
       assert.file([
         '.gitignore',
         '.gitattributes',
@@ -93,43 +92,45 @@ describe('Markup Features', function() {
         'gulpfile.js',
         'package.json',
         '.editorconfig',
-        'src/screen_1.pug',
-        'src/screen_2.pug',
-        'src/screen_3.pug',
-        'src/screen_4.pug',
-        'src/screen_5.pug',
-        'src/screen_6.pug',
-        'src/assets/gulp',
-        'src/assets/gulp/tasks',
+        'src/pug/screen-1.pug',
+        'src/pug/screen-2.pug',
+        'src/pug/screen-3.pug',
+        'src/pug/screen-4.pug',
+        'src/pug/screen-5.pug',
+        'src/pug/screen-6.pug',
+        'src/pug/layouts/layout-primary.pug',
+        'src/pug/layouts/general/footer.pug',
+        'src/pug/layouts/general/menu.pug',
+        'src/pug/layouts/includes/mixins.pug',
+        'gulp',
+        'gulp/tasks',
         'src/assets/fonts',
         'src/assets/icons',
         'src/assets/images',
         'src/assets/js',
         'src/assets/styles',
-        'src/assets/vendor',
-      ]);
-    });
+        'src/assets/vendor'
+      ])
+    })
 
-    it('should have the project name on package.json', function() {
-      assert.fileContent('package.json',  /"name": "pixel2html-0987-1234"/);
-    });
+    it('should have the project name on package.json', function () {
+      assert.fileContent('package.json', /"name": "Pixel2HTML"/)
+    })
 
-    it('should exists a gulp routine', function() {
+    it('should exists a gulp routine', function () {
       assert.file([
-        'src/assets/gulp/tasks/markup.js'
-      ]);
-      assert.fileContent('src/assets/gulp/tasks/markup.js',  /gulp-pug/);
-    });
+        'gulp/tasks/markup.js'
+      ])
+      assert.fileContent('gulp/tasks/markup.js', /\$\.pug/)
+    })
 
-    it('should exists a pipe in the main:markup', function() {
-      assert.fileContent('src/assets/gulp/tasks/markup.js', /pug\(/);
-    });
+    it('should exists a pipe in the main:markup', function () {
+      assert.fileContent('gulp/tasks/markup.js', /pug\(/)
+    })
 
-    it('should have the gulp routine in gulp default\'s task', function() {
-      assert.fileContent('gulpfile.js',  /'main:markup'/);
-      assert.noFileContent('gulpfile.js',  /'jekyll:build'/);
-    });
-  });
-
-
-});
+    it('should have the gulp routine in gulp default\'s task', function () {
+      assert.fileContent('gulpfile.js', /'main:markup'/)
+      assert.noFileContent('gulpfile.js', /'jekyll:build'/)
+    })
+  })
+})
