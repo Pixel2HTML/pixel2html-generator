@@ -7,28 +7,23 @@ const production = config.production
 
 gulp.task('main:styles', function() {
   return gulp.src(config.project.cssMainFile)
-    .pipe($.sourcemaps.init())
     .pipe(when(!production, $.sourcemaps.init()))
-    <% if (cssProcessor === 'scss') { %>
-        .pipe($.sass({
-          includePaths: config.vendor.scssDirectories
-        }))
-        .on('error', $.sass.logError)
+    <% if (cssProcessor === 'scss') { -%>
+    .pipe($.sass({
+      includePaths: config.vendor.scssDirectories
+    })).on('error', $.sass.logError)
+    <% } -%>
+    <% if (cssProcessor === 'less') { -%>
+    .pipe($.less()).on('error', config.onError)
     <% } %>
-    <% if (cssProcessor === 'less') { %>
-        .pipe($.less())
-        .on('error', config.onError)
-    <% } %>
-    <% if (cssProcessor === 'styl') { %>
-        .pipe($.stylus())
-        .on('error', config.onError)
-    <% } %>
+    <% if (cssProcessor === 'styl') { -%>
+    .pipe($.stylus()).on('error', config.onError)
+    <% } -%>
     .pipe($.autoprefixer({
       browsers: ['last 2 versions', 'iOS 8']
     }))
-    .pipe(gulp.dest(config.directories.dist.styles))
-    .pipe($.groupCssMediaQueries())
-    .pipe($.csscomb())
+    .pipe(when(production, $.groupCssMediaQueries()))
+    .pipe(when(production, $.csscomb()))
     .pipe(when(!production, $.sourcemaps.write('./')))
     .pipe(gulp.dest(config.directories.dist.styles))
 
@@ -43,18 +38,17 @@ gulp.task('vendor:styles', () => {
   .pipe(when(!production, $.sourcemaps.init()))
   .pipe($.sass({
     includePaths: config.vendor.scssDirectories
-  }))
-  .on('error', $.sass.logError)
+  })).on('error', $.sass.logError)
   .pipe($.autoprefixer({
     browsers: ['last 2 versions', 'iOS 8']
   }))
-  .pipe($.groupCssMediaQueries())
-  .pipe($.csscomb())
+  .pipe(when(production, $.groupCssMediaQueries()))
+  .pipe(when(production, $.csscomb()))
   .pipe(when(!production, $.sourcemaps.write('./')))
   .pipe(gulp.dest(config.directories.dist.styles))
 
   .pipe(when(production, $.rename({suffix: '.min'})))
   .pipe(when(production, $.purifycss( config.purify, { info: true } )))
   .pipe(when(production, $.cssnano()))
-  .pipe(gulp.dest(config.directories.dist.styles))
+  .pipe(when(production, gulp.dest(config.directories.dist.styles)))
 })
