@@ -1,3 +1,7 @@
+### 1.3.4
+- Fixed some minor bugs on JS compilation
+- Minor other fixes
+
 ### 1.3.3
 - Fixed some minor bugs on Jekyll builds
 - Smarter use of config variables to gulp routines.
