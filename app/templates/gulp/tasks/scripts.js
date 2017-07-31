@@ -15,9 +15,7 @@ gulp.task('main:scripts', () => {
   .pipe(when(!production, $.sourcemaps.write('./')))
   .pipe(gulp.dest(destination))
   .pipe(when(production, $.rename({suffix: '.min'})))
-  .pipe(when(production, $.uglify({
-    preserveComments: 'license'
-  }))).on('error', config.onError)
+  .pipe(when(production, $.uglify())).on('error', config.onError)
   .pipe(when(production, gulp.dest(destination)))
 })
 
@@ -28,8 +26,6 @@ gulp.task('vendor:scripts', () => {
   .pipe(when(!production, $.sourcemaps.write('./')))
   .pipe(gulp.dest(destination))
   .pipe(when(production, $.rename({suffix: '.min'})))
-  .pipe(when(production, $.uglify({
-    preserveComments: 'license'
-  }))).on('error', config.onError)
+  .pipe(when(production, $.uglify())).on('error', config.onError)
   .pipe(when(production, gulp.dest(destination)))
 })
