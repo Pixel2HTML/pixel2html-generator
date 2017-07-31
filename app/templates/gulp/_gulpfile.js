@@ -43,9 +43,6 @@ gulp.task('browser-sync', () => {
 })
 
 gulp.task('watch', done => {
-  // Detect changes on the config file
-  gulp.watch('<%= paths.src.gulp %>/config.js', gulp.series('default', reload))
-
   //static files
   <% if(markupIntegration == 'jekyll'){ %>
     gulp.watch(config.directories.src.markup+'/**/*.html', gulp.series('jekyll:rebuild', reload))
@@ -66,6 +63,10 @@ gulp.task('watch', done => {
     config.directories.src.styles+'/**/*.<%=cssProcessor%>',
     '!<%= paths.src.frontendframework %>/**/*',
   ], gulp.series( 'main:styles', reload ))
+
+  gulp.watch([
+    config.directories.src.styles + '/vendor.scss'
+  ], gulp.series( 'vendor:styles', reload ))
 
   done()
 })
