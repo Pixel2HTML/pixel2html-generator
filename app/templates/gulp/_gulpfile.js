@@ -64,6 +64,10 @@ gulp.task('watch', done => {
     '!<%= paths.src.frontendframework %>/**/*',
   ], gulp.series( 'main:styles', reload ))
 
+  gulp.watch([
+    config.directories.src.styles + '/vendor.scss'
+  ], gulp.series( 'vendor:styles', reload ))
+
   done()
 })
 
