@@ -36,6 +36,7 @@
     <% } -%>
     <% if (markupLanguage === 'pug') { %>
       "gulp-pug": "^3.3.0",
+      "gulp-html-prettify": "^0.0.1",
     <% } -%>
     "gulp-group-css-media-queries": "^1.2.0",
     "gulp-autoprefixer": "^4.0.0",
