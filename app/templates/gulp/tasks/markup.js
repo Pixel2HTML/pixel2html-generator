@@ -23,7 +23,6 @@ gulp.task('main:markup', function() {
   return gulp.src(config.directories.src.markup+'/*.<%=markupLanguage%>')
 <% if (markupLanguage === 'pug') { -%>
     .pipe(when(!production, $.pug({
-      pretty: true,
       baseDir: config.directories.src.markup,
       locals: devLocals
     }))).on('error', config.onError)
