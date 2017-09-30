@@ -9,10 +9,8 @@
     "code": "gulp",
     "build": "gulp release --prod",
     "lint:js": "standard",
-    <% if (cssProcessor === 'scss' || frontEndFramework) { -%>
     "lint:scss": "stylelint ./src/styles/**/*.scss",
     "lint": "npm run lint:js; npm run lint:scss"
-    <% } -%>
   },
   "dependencies": {
     "babel-core": "^6.26.0",
@@ -40,10 +38,6 @@
     <% if(jQuery){ -%>
     "jquery": "^3.2.1",
     <% } -%>
-    <% if (cssProcessor === 'scss' || frontEndFramework) { -%>
-    "gulp-sass": "^3.1.0",
-    "sass-module-importer": "^1.4.0",
-    <% } -%>
     <% if (cssProcessor === 'less') { -%>
     "gulp-less": "^3.3.0",
     <% } -%>
@@ -56,16 +50,17 @@
     <% } -%>
     "gulp-purifycss": "^0.2.0",
     "gulp-rename": "^1.2.2",
+    "gulp-sass": "^3.1.0",
     "gulp-sourcemaps": "^2.6.0",
     "gulp-zip": "^4.0.0",
     "require-dir": "^0.3.2",
+    "sass-module-importer": "^1.4.0",
     "uglifyjs-webpack-plugin": "^0.4.6",
     "vinyl-ftp": "^0.6.0",
     "webpack": "^3.6.0",
     "webpack-stream": "^4.0.0",
     "yargs": "^9.0.1"
   },
-  <% if (cssProcessor === 'scss' || frontEndFramework) { -%>
   "stylelint": {
     "extends": "stylelint-config-recommended-scss",
     "plugins": [
@@ -82,15 +77,12 @@
       "no-empty-source": null
     }
   },
-  <% } -%>
   "devDependencies": {
     "standard": "^10.0.2",
-    <% if (cssProcessor === 'scss' || frontEndFramework) { -%>
     "stylelint": "^8.1.1",
     "stylelint-config-recommended-scss": "^2.0.0",
     "stylelint-no-unsupported-browser-features": "^1.0.0",
     "stylelint-scss": "^2.1.0",
-    <% } -%>
     "webpack-bundle-analyzer": "^2.9.0"
   }
 }
