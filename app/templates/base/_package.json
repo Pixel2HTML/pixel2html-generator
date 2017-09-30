@@ -1,32 +1,48 @@
 {
   "name": "<%= projectName %>",
-  "description": "<%= projectName %>",
+  "description": "<%= projectName %> front end source code",
   "license": "MIT",
   "repository": "http://www.pixel2html.com",
   "version": "1.0.0",
   "scripts": {
     "start": "npm install <% if (markupIntegration=='jekyll'){%>&& bundle install<%}%>",
     "code": "gulp",
-    "build": "gulp release --prod"
+    "build": "gulp release --prod",
+    "lint:js": "standard",
+    <% if (cssProcessor === 'scss' || frontEndFramework) { -%>
+    "lint:scss": "stylelint ./src/styles/**/*.scss",
+    "lint": "npm run lint:js; npm run lint:scss"
+    <% } -%>
   },
   "dependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
+    "browser-sync": "^2.18.12",
     "del": "^3.0.0",
     "gulp": "github:gulpjs/gulp#4.0",
-    "browser-sync": "^2.18.12",
-    <% if(frontEndFramework == 'bootstrap'){ %>
+    "gulp-autoprefixer": "^4.0.0",
+    "gulp-csscomb": "^3.0.8",
+    "gulp-cssnano": "^2.1.2",
+    "gulp-group-css-media-queries": "^1.2.0",
+    "gulp-if": "^2.0.2",
+    "gulp-load-plugins": "^1.5.0",
+    <% if(frontEndFramework == 'bootstrap'){ -%>
     "bootstrap-sass": "^3.3.7",
     <% } -%>
-    <% if(frontEndFramework == 'foundation'){ %>
+    <% if(frontEndFramework == 'foundation'){ -%>
     "foundation-sites": "^6.3.1",
     <% } -%>
-    <% if(frontEndFramework == 'basscss'){ %>
-      "basscss-sass": "^4.0.0",
+    <% if(frontEndFramework == 'basscss'){ -%>
+    "basscss-sass": "^4.0.0",
     <% } -%>
-    <% if(jQuery){ %>
-      "jquery": "^3.2.1",
+    <% if(jQuery){ -%>
+    "jquery": "^3.2.1",
     <% } -%>
     <% if (cssProcessor === 'scss' || frontEndFramework) { -%>
     "gulp-sass": "^3.1.0",
+    "sass-module-importer": "^1.4.0",
     <% } -%>
     <% if (cssProcessor === 'less') { -%>
     "gulp-less": "^3.3.0",
@@ -34,36 +50,47 @@
     <% if (cssProcessor === 'styl') { -%>
     "gulp-stylus": "^2.6.0",
     <% } -%>
-    <% if (markupLanguage === 'pug') { %>
-      "gulp-pug": "^3.3.0",
-      "gulp-html-prettify": "^0.0.1",
+    <% if (markupLanguage === 'pug') { -%>
+    "gulp-pug": "^3.3.0",
+    "gulp-html-prettify": "^0.0.1",
     <% } -%>
-    "gulp-group-css-media-queries": "^1.2.0",
-    "gulp-autoprefixer": "^4.0.0",
-    "gulp-cssnano": "^2.1.2",
-    "gulp-if": "^2.0.2",
-    "gulp-concat": "^2.6.1",
-    "gulp-uglify": "^3.0.0",
-    "gulp-sourcemaps": "^2.6.0",
-    "gulp-util": "^3.0.8",
-    "gulp-rename": "^1.2.2",
     "gulp-purifycss": "^0.2.0",
-    "gulp-csscomb": "^3.0.8",
-    "require-dir": "^0.3.2",
+    "gulp-rename": "^1.2.2",
+    "gulp-sourcemaps": "^2.6.0",
     "gulp-zip": "^4.0.0",
-    "gulp-load-plugins": "^1.5.0",
-    "standard": "^10.0.2",
-    "yargs": "^8.0.1",
-    "svg4everybody": "^2.1.8",
-    "gulp-svgmin": "^1.2.4",
-    "gulp-svgstore": "^6.1.0"
+    "require-dir": "^0.3.2",
+    "uglifyjs-webpack-plugin": "^0.4.6",
+    "vinyl-ftp": "^0.6.0",
+    "webpack": "^3.6.0",
+    "webpack-stream": "^4.0.0",
+    "yargs": "^9.0.1"
   },
-  "standard": {
-    "globals": [
-      "jQuery",
-      "$",
-      "WebFont",
-      "svg4everybody"
-    ]
+  <% if (cssProcessor === 'scss' || frontEndFramework) { -%>
+  "stylelint": {
+    "extends": "stylelint-config-recommended-scss",
+    "plugins": [
+      "stylelint-no-unsupported-browser-features"
+    ],
+    "rules": {
+      "plugin/no-unsupported-browser-features": [
+        true,
+        {
+          "ignore": ["rem"],
+          "severity": "warning"
+        }
+      ],
+      "no-empty-source": null
+    }
+  },
+  <% } -%>
+  "devDependencies": {
+    "standard": "^10.0.2",
+    <% if (cssProcessor === 'scss' || frontEndFramework) { -%>
+    "stylelint": "^8.1.1",
+    "stylelint-config-recommended-scss": "^2.0.0",
+    "stylelint-no-unsupported-browser-features": "^1.0.0",
+    "stylelint-scss": "^2.1.0",
+    <% } -%>
+    "webpack-bundle-analyzer": "^2.9.0"
   }
 }
