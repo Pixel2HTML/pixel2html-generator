@@ -613,7 +613,12 @@ class PixelGenerator extends Generator {
     this.fs.copyTpl(
       this.templatePath('gulp/tasks/serve.js'),
       this.destinationPath(this.paths.src.gulp_tasks + '/serve.js'), {
-        paths: this.paths
+        paths: this.paths,
+        frontEndFramework: this.options.frontEndFramework,
+        jQuery: this.options.jQuery,
+        markupLanguage: this.options.markupLanguage,
+        markupIntegration: this.options.markupIntegration,
+        cssProcessor: this.options.cssProcessor
       }
     )
 
