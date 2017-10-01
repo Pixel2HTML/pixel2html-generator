@@ -17,12 +17,10 @@ class PixelGenerator extends Generator {
         fonts: 'src/assets/fonts',
         icons: 'src/assets/icons',
         images: 'src/assets/images',
-        vendors: 'src/assets/vendor',
         scripts: 'src/assets/js',
         styles: 'src/assets/styles',
         markup: 'src',
-        base: 'src',
-        frontendframework: 'src/assets/styles/vendor'
+        base: 'src'
       },
       dist: {
         assets: 'dist/assets',
@@ -32,8 +30,7 @@ class PixelGenerator extends Generator {
         scripts: 'dist/assets/js',
         styles: 'dist/assets/css',
         base: 'dist',
-        markup: 'dist',
-        frontendframework: 'dist/assets/css/vendor'
+        markup: 'dist'
       },
       releases: {
         base: 'dist/releases'
@@ -534,14 +531,6 @@ class PixelGenerator extends Generator {
     this.fs.copyTpl(
       this.templatePath('scripts/main.js'),
       this.destinationPath(this.paths.src.scripts + '/main.js'), {
-        projectName: this.options.projectName,
-        frontEndFramework: this.options.frontEndFramework
-      }
-    )
-
-    this.fs.copyTpl(
-      this.templatePath('scripts/vendor/vendor.js'),
-      this.destinationPath(this.paths.src.scripts + '/vendor/vendor.js'), {
         projectName: this.options.projectName,
         frontEndFramework: this.options.frontEndFramework
       }

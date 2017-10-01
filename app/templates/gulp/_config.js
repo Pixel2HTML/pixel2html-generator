@@ -2,14 +2,19 @@
 // We use this to read flags in the command line
 const argv = require('yargs').argv
 // Add your conditions here 💅
-const production = argv.prod || argv.production
+const production = !!argv.prod || !!argv.production
+const debug = !!arg.debug
 
 module.exports = {
   directories: {
     src: {
       base: '<%= paths.src.base %>',
-      <% if(markupLanguage == 'html'){%>markup: '<%= paths.src.markup %>',<% } %>
-      <% if(markupLanguage == 'pug'){%>markup: '<%= paths.src.markup %>/pug',<% } %>
+      <% if(markupLanguage == 'html'){ -%>
+      markup: '<%= paths.src.markup %>',
+      <% } -%>
+      <% if(markupLanguage == 'pug'){ -%>
+      markup: '<%= paths.src.markup %>/pug',
+      <% } -%>
       fonts: '<%= paths.src.fonts %>',
       icons: '<%= paths.src.icons %>',
       images: '<%= paths.src.images %>',
@@ -28,33 +33,19 @@ module.exports = {
   },
   project: {
     cssMainFile: '<%= cssMainFile %>',
-    scriptFiles: [
-      '<%= paths.src.scripts %>/*.js'
-    ],
+    cssVendorFile: 'src/assets/styles/vendor.scss',
+    jsMainFile: 'src/assets/js/main.js',
     fontFiles: [
       '<%= paths.src.fonts %>/**/*',
       <% if(frontEndFramework == 'bootstrap'){ %>'./node_modules/bootstrap-sass/assets/fonts/**/*',<% } %>
     ]
   },
-  vendor: {
-    scssDirectories: [
-      <% if(frontEndFramework == 'bootstrap'){ %>'./node_modules/bootstrap-sass/assets/stylesheets',<% } %>
-      <% if(frontEndFramework == 'foundation'){ %>'./node_modules/foundation-sites/scss',<% } %>
-      <% if(frontEndFramework == 'basscss'){ %>'./node_modules/basscss-sass/scss',<% } %>
-    ],
-    scriptFiles: [
-      <% if(jQuery){ %>'./node_modules/jquery/dist/jquery.min.js',<% } %>
-      <% if(frontEndFramework == 'bootstrap'){ %>'./node_modules/bootstrap-sass/assets/javascripts/bootstrap.min.js',<% } %>
-      <% if(frontEndFramework == 'foundation'){ %>'./node_modules/foundation-sites/dist/js/foundation.min.js',<% } %>
-      './node_modules/svg4everybody/dist/svg4everybody.min.js',
-      '<%= paths.src.scripts %>/vendor/*.js'
-    ]
-  },
-  onError: function (error) {
+  onError: error => {
     console.log(error.toString())
     this.emit('end')
   },
-  production: !!production,
+  production,
+  debug,
   // Stuff for PurifyCss
   purify: ['./dist/**/*.js', './dist/**/*.html'],
 }

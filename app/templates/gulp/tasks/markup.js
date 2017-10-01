@@ -1,9 +1,10 @@
 const gulp    = require('gulp')
 const config  = require('../config')
+<% if (markupLanguage === 'pug') { -%>
 const $ = require('gulp-load-plugins')()
-const when = require('gulp-if')
 const fs = require('fs')
 const production = config.production
+<% } -%>
 
 gulp.task('main:markup', function() {
   return gulp.src(config.directories.src.markup+'/*.<%=markupLanguage%>')

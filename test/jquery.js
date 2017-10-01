@@ -30,8 +30,4 @@ describe('jQuery features', function () {
       'gulp/tasks/scripts.js'
     ])
   })
-
-  it('should include correct paths on config file', function () {
-    assert.fileContent('gulp/config.js', './node_modules/jquery/dist/jquery.min.js')
-  })
 })
