@@ -288,8 +288,8 @@ class PixelGenerator extends Generator {
       : this.prompt([{
         type: 'confirm',
         name: 'jQuery',
-        message: 'Would you like to use jQuery?',
-        default: true
+        message: 'Would you like to use jQuery? \n http://youmightnotneedjquery.com/ \n http://youmightnotneedjqueryplugins.com/',
+        default: false
       }])
       .then(props => {
         this.options.jQuery = props.jQuery
