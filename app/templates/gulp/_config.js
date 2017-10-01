@@ -48,4 +48,13 @@ module.exports = {
   debug,
   // Stuff for PurifyCss
   purify: ['./dist/**/*.js', './dist/**/*.html'],
+  deploy: {
+    ftp: {
+      user: '',
+      password: '',
+      host: '',
+      port: '21',
+      remotePath: './'
+    }
+  }
 }

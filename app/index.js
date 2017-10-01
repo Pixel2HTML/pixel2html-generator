@@ -535,6 +535,13 @@ class PixelGenerator extends Generator {
         frontEndFramework: this.options.frontEndFramework
       }
     )
+    this.fs.copyTpl(
+      this.templatePath('scripts/general/index.js'),
+      this.destinationPath(this.paths.src.scripts + '/genera/index.js'), {
+        projectName: this.options.projectName,
+        frontEndFramework: this.options.frontEndFramework
+      }
+    )
   }
 
   writeBaseGulpFiles () {
@@ -565,15 +572,7 @@ class PixelGenerator extends Generator {
       }
     )
 
-    // static
-    this.fs.copyTpl(
-      this.templatePath('gulp/tasks/static.js'),
-      this.destinationPath(this.paths.src.gulp_tasks + '/static.js'), {
-        paths: this.paths
-      }
-    )
-
-    // main:fonts
+    // fonts
     this.fs.copyTpl(
       this.templatePath('gulp/tasks/fonts.js'),
       this.destinationPath(this.paths.src.gulp_tasks + '/fonts.js'), {
@@ -581,34 +580,15 @@ class PixelGenerator extends Generator {
       }
     )
 
-    // main:styles
+    // FTP
     this.fs.copyTpl(
-      this.templatePath('gulp/tasks/styles.js'),
-      this.destinationPath(this.paths.src.gulp_tasks + '/styles.js'), {
-        cssProcessor: this.options.cssProcessor,
-        frontEndFramework: this.options.frontEndFramework,
-        cssVendorFile: this.options.cssVendorFile,
+      this.templatePath('gulp/tasks/ftp.js'),
+      this.destinationPath(this.paths.src.gulp_tasks + '/ftp.js'), {
         paths: this.paths
       }
     )
 
-    // main:scripts
-    this.fs.copyTpl(
-      this.templatePath('gulp/tasks/scripts.js'),
-      this.destinationPath(this.paths.src.gulp_tasks + '/scripts.js'), {
-        paths: this.paths
-      }
-    )
-
-    // zip
-    this.fs.copyTpl(
-      this.templatePath('gulp/tasks/zip.js'),
-      this.destinationPath(this.paths.src.gulp_tasks + '/zip.js'), {
-        paths: this.paths
-      }
-    )
-
-    // main:markup
+    // markup
     if (!this.options.markupIntegration) {
       this.fs.copyTpl(
         this.templatePath('gulp/tasks/markup.js'),
@@ -620,6 +600,49 @@ class PixelGenerator extends Generator {
         }
       )
     }
+
+    // scripts
+    this.fs.copyTpl(
+      this.templatePath('gulp/tasks/scripts.js'),
+      this.destinationPath(this.paths.src.gulp_tasks + '/scripts.js'), {
+        paths: this.paths
+      }
+    )
+
+    // Serve
+    this.fs.copyTpl(
+      this.templatePath('gulp/tasks/serve.js'),
+      this.destinationPath(this.paths.src.gulp_tasks + '/serve.js'), {
+        paths: this.paths
+      }
+    )
+
+    // static
+    this.fs.copyTpl(
+      this.templatePath('gulp/tasks/static.js'),
+      this.destinationPath(this.paths.src.gulp_tasks + '/static.js'), {
+        paths: this.paths
+      }
+    )
+
+    // styles
+    this.fs.copyTpl(
+      this.templatePath('gulp/tasks/styles.js'),
+      this.destinationPath(this.paths.src.gulp_tasks + '/styles.js'), {
+        cssProcessor: this.options.cssProcessor,
+        frontEndFramework: this.options.frontEndFramework,
+        cssVendorFile: this.options.cssVendorFile,
+        paths: this.paths
+      }
+    )
+
+    // zip
+    this.fs.copyTpl(
+      this.templatePath('gulp/tasks/zip.js'),
+      this.destinationPath(this.paths.src.gulp_tasks + '/zip.js'), {
+        paths: this.paths
+      }
+    )
   }
 
   writeMarkupIntegrationFiles () {
@@ -679,8 +702,6 @@ class PixelGenerator extends Generator {
   }
 
   writeProjectConfigFile () {
-    // overwrite the default .project.conf file or create the new one.
-
     var configJson = {
       'clientId': this.options.clientId,
       'projectId': this.options.projectId,
