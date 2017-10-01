@@ -2,14 +2,14 @@
 // <%=projectName%>
 //
 <% if(frontEndFramework == 'bootstrap'){ %>
-@import "bootstrap";
+@import "bootstrap-sass";
 <% } %>
 <% if(frontEndFramework == 'foundation'){ %>
-@import "foundation";
+@import "foundation-sites";
 @include foundation-everything;
 <% } %>
 <% if(frontEndFramework == 'basscss'){ %>
-@import "basscss";
+@import "basscss-sass";
 <% } %>
 <% if(!frontEndFramework){ %>
 @import "reset";
