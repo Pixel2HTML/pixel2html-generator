@@ -5,11 +5,11 @@
 @import "bootstrap-sass";
 <% } %>
 <% if(frontEndFramework == 'foundation'){ %>
-@import "foundation-sites";
+@import "foundation-sites/scss/foundation";
 @include foundation-everything;
 <% } %>
 <% if(frontEndFramework == 'basscss'){ %>
-@import "basscss-sass";
+@import "basscss-sass/scss/basscss";
 <% } %>
 <% if(!frontEndFramework){ %>
 @import "reset";
