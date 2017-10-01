@@ -63,8 +63,8 @@ describe('Jekyll Features', function () {
     })
 
     it('should have the gulp routine in gulp default\'s task', function () {
-      assert.fileContent('gulpfile.js', /'jekyll:build'/)
-      assert.noFileContent('gulpfile.js', /'main:markup'/)
+      assert.fileContent('gulpfile.js', /'jekyll'/)
+      assert.noFileContent('gulpfile.js', /'markup'/)
     })
 
     it('Gemfile should have the usage of Jekyll Gem', function () {
