@@ -1,5 +1,3 @@
-'use strict'
-
 const Generator = require('yeoman-generator')
 const chalk = require('chalk')
 const mkdirp = require('mkdirp')
@@ -325,6 +323,12 @@ class PixelGenerator extends Generator {
     this.fs.copy(
       this.templatePath('base/babelrc'),
       this.destinationPath('.babelrc')
+    )
+
+    this.log(chalk.yellow('Copying browserlistrc file'))
+    this.fs.copy(
+      this.templatePath('base/browserlistrc'),
+      this.destinationPath('.browserlistrc')
     )
 
     this.log(chalk.yellow('Copying MIT License'))

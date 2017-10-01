@@ -22,6 +22,7 @@ describe('General Assertions', function () {
   it('creates expected base files', function () {
     assert.file([
       '.babelrc',
+      '.browserlistrc',
       '.gitignore',
       '.gitattributes',
       'package.json',
