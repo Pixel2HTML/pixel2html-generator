@@ -57,6 +57,8 @@ This boilerplate will create a set of files and folders
 <% } %>├── .editorcofig
 ├── .gitattributes
 ├── .gitignore
+├── .browserlistrc
+├── .babelrc
 ├── .project.conf<% if (markupIntegration=='jekyll'){%>
 ├── Gemfile<%}%><% if (markupIntegration=='jekyll'){%>
 ├── _config.yml<%}%>
@@ -72,26 +74,35 @@ You have a config file located at `gulp/config.js` that enables you to add thrid
 
 ### SCSS Directories
 
-You can add paths to `scssDirectories` key, who will add this directories to the `includePath` of `sass` compilation. So you now can `@include` whatever you want in your `./src/assets/styles/vendor.scss` file:
+We are using [`sass-module-importer`](https://www.npmjs.com/package/sass-module-importer) so we can import sass libraries just using the npm package name like:
 
 #### Example
+```scss
+import "bootstrap-sass";
 ```
-sassDirectories: [
-  'path/to/scss/directory/scss',
-  'another/brick/in/the/scss_wall'
-]
+
+That is the external library fits under one of these categories:
+
+* Set a SCSS/Sass/CSS file on the "main" field of their package.json/bower.json
+* Set a SCSS/Sass/CSS file on the "style" field of their package.json/bower.json
+* Have a index.css file on the root of their module
+
+However fear not, if your module doesn't fit into those categories you can also *navigate* to your desired scss or css file like this:
+
+```scss
+@import "module-name/folder/to/_file.scss";
 ```
 
 ### Script Files
 
-You can add file paths to `scriptFiles` key, who will add this concat, and minify to the `./dist/assets/js/vendors.js` file.
+We are using [WebpackJS](https://webpack.js.org/) to bundle our script files. There's also ES6 on-demand transpilation and pollyfills.
+
+Learn more about Javascript Modules here [Wesbos Article About Modules](http://wesbos.com/javascript-modules/)
 
 #### Example
-```
-scriptFiles: [
-  './path/to/jquery/library/slider.js',
-  './welcome/to/the/machine.js'
-]
+```js
+import $ from 'jquery'
+import 'bootstrap-sass'
 ```
 
 ### Font Files
@@ -112,26 +123,21 @@ fontFiles: [
 ### Helpers
 * `$ gulp clean` Clean /dist directory
 
-### Static Files
-* `$ gulp main:static` Compile static files (images, icons)
-* `$ gulp main:images` Move images
-* `$ gulp main:icons` Create SVG Icon System
+### Images
+* `$ gulp images` Move images
 
 ### Fonts Files
-* `$ gulp main:fonts` Move project fonts
-* `$ gulp vendor:fonts` Move vendors fonts
+* `$ gulp fonts` Move project fonts
 
 ### Scripts
-* `$ gulp main:scripts` Concat, uglify and move project JS files
-* `$ gulp vendor:scripts` Concat, uglify and move vendors JS files
+* `$ gulp scripts` Process script files with webpack
 
 ### Styles
-* `$ gulp main:styles` Compile, concat, autoprefix, minify and move [SCSS, Less, Stylus] project files
-* `$ gulp vendor:styles` Compile, concat, autoprefix, minify and move [SCSS, Less, Stylus] vendor files
+* `$ gulp styles` Compile, concat, autoprefix, minify and move [SCSS, Less, Stylus] project files
 
 <% if (markupIntegration=='jekyll'){%>
 ### Integration
-* `$ gulp jekyll:build` Compile markup with Jekyll's partials and layouts files.
+* `$ gulp jekyll` Compile markup with Jekyll's partials and layouts files.
 <%}%>
 
 ### Daemons
