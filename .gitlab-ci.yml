@@ -1,6 +1,6 @@
 before_script:
-   - npm-cache install
+   - yarn
 
 job:
   script:
-    - npm test
+    - yarn test
