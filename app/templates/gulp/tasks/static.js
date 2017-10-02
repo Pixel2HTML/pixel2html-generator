@@ -11,7 +11,7 @@ gulp.task('images', function () {
     .pipe(gulp.dest(config.directories.dist.images))
 })
 
-<% if(!markupLanguage === 'pug'){ -%>
+<% if(markupLanguage === 'html' || markupIntegration === 'jekyll'){ -%>
 gulp.task('icons', function () {
   return gulp.src(config.directories.src.icons + '/**/*')
     .pipe(gulp.dest(config.directories.dist.icons))

@@ -661,7 +661,8 @@ class PixelGenerator extends Generator {
       this.templatePath('gulp/tasks/static.js'),
       this.destinationPath(this.paths.src.gulp_tasks + '/static.js'), {
         paths: this.paths,
-        markupLanguage: this.options.markupLanguage
+        markupLanguage: this.options.markupLanguage,
+        markupIntegration: this.options.markupIntegration
       }
     )
 
