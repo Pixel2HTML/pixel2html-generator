@@ -23,16 +23,6 @@ gulp.task('browser-sync', done => {
 })
 
 gulp.task('watch', done => {
-  gulp.watch(config.directories.src.markup + '/**/*.pug', gulp.series('main:markup', reload))
-  gulp.watch(config.directories.src.icons + '/**/*', gulp.series('main:markup', reload))
-  gulp.watch(config.directories.src.images + '/**/*', gulp.series('images', reload))
-  gulp.watch(config.project.fontFiles, gulp.series('main:fonts', reload))
-  gulp.watch(config.directories.src.scripts + '/**/*.js', gulp.series('scripts', reload))
-  gulp.watch(config.directories.src.styles + '/**/*.scss', gulp.series('styles', reload))
-  done()
-})
-
-gulp.task('watch', done => {
   //static files
   <% if(markupIntegration === 'jekyll'){ %>
     gulp.watch(config.directories.src.markup+'/**/*.html', gulp.series('jekyll:rebuild', reload))
@@ -46,20 +36,15 @@ gulp.task('watch', done => {
   <% } %>
 
   gulp.watch(config.directories.src.images+'/**/*', gulp.series( 'images', reload ))
-  gulp.watch(config.project.fontFiles, gulp.series( 'main:fonts', reload ))
 
   //scripts
   gulp.watch(config.directories.src.scripts+'/**/*.js', gulp.series( 'scripts', reload ))
 
-  //styles
-  gulp.watch([
-    config.directories.src.styles+'/**/*.<%=cssProcessor%>',
-    '!<%= paths.src.frontendframework %>/**/*',
-  ], gulp.series( 'main:styles', reload ))
+  // Fonts
+  gulp.watch(config.project.fontFiles, gulp.series('fonts', reload))
 
-  gulp.watch([
-    config.directories.src.styles + '/vendor.scss'
-  ], gulp.series( 'vendor:styles', reload ))
+  //styles
+  gulp.watch(config.directories.src.styles + '/**/*.scss', gulp.series('styles', reload))
 
   done()
 })
