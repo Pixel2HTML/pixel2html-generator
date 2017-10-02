@@ -105,6 +105,12 @@ import $ from 'jquery'
 import 'bootstrap-sass'
 ```
 
+We also included the amazing [`webpack-bundle-analyzer`](https://github.com/webpack-contrib/webpack-bundle-analyzer) you can fine tweak you JS bundle size if you wish to. Fire it up running this command:
+
+```sh
+$ npm run debug
+```
+
 ### Font Files
 
 You can add file paths to `fontFiles` key, who will move this fonts to the correct folder `./dist/assets/fonts`.

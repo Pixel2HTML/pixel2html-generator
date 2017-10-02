@@ -10,7 +10,8 @@
     "build": "gulp release --prod",
     "lint:js": "standard",
     "lint:scss": "stylelint ./src/styles/**/*.scss",
-    "lint": "npm run lint:js; npm run lint:scss"
+    "lint": "npm run lint:js; npm run lint:scss",
+    "debug": "gulp scripts --debug"
   },
   "dependencies": {
     "babel-core": "^6.26.0",
