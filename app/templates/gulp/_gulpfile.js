@@ -14,10 +14,10 @@ gulp.task('build', gulp.series(
   <% if(markupIntegration === 'jekyll'){ -%>
   'jekyll',
   <% } else if (markupLanguage === 'pug') { %>
-  'markup'
+  'markup',
   <% } else { -%>
   'markup',
-  'icons'
+  'icons',
   <% } -%>
   'styles'
 ))
