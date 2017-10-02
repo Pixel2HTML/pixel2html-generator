@@ -660,7 +660,8 @@ class PixelGenerator extends Generator {
     this.fs.copyTpl(
       this.templatePath('gulp/tasks/static.js'),
       this.destinationPath(this.paths.src.gulp_tasks + '/static.js'), {
-        paths: this.paths
+        paths: this.paths,
+        markupLanguage: this.options.markupLanguage
       }
     )
 

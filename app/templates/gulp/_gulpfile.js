@@ -11,10 +11,13 @@ gulp.task('build', gulp.series(
   'images',
   'scripts',
   'fonts',
-  <% if(markupIntegration=='jekyll'){ -%>
+  <% if(markupIntegration === 'jekyll'){ -%>
   'jekyll',
+  <% } else if (markupLanguage === 'pug') { %>
+  'markup'
   <% } else { -%>
   'markup',
+  'icons'
   <% } -%>
   'styles'
 ))

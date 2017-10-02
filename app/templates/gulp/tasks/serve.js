@@ -34,19 +34,22 @@ gulp.task('watch', done => {
 
 gulp.task('watch', done => {
   //static files
-  <% if(markupIntegration == 'jekyll'){ %>
+  <% if(markupIntegration === 'jekyll'){ %>
     gulp.watch(config.directories.src.markup+'/**/*.html', gulp.series('jekyll:rebuild', reload))
-    gulp.watch(config.directories.src.icons+'/**/*', gulp.series( 'main:icons', reload ))
+    gulp.watch(config.directories.src.icons+'/**/*.svg', gulp.series( 'icons', reload ))
+  <% } else if (markupLanguage === 'pug') { %>
+    gulp.watch(config.directories.src.markup+'/**/*.<%=markupLanguage%>', gulp.series( 'markup', reload ))
+    gulp.watch(config.directories.src.icons+'/**/*.svg', gulp.series( 'markup', reload ))
   <% } else { %>
-    gulp.watch(config.directories.src.markup+'/**/*.<%=markupLanguage%>', gulp.series( 'main:markup', reload ))
-    gulp.watch(config.directories.src.icons+'/**/*', gulp.series( 'main:icons', reload ))
+    gulp.watch(config.directories.src.markup+'/**/*.<%=markupLanguage%>', gulp.series( 'markup', reload ))
+    gulp.watch(config.directories.src.icons+'/**/*.svg', gulp.series( 'icons', reload ))
   <% } %>
 
-  gulp.watch(config.directories.src.images+'/**/*', gulp.series( 'main:images', reload ))
+  gulp.watch(config.directories.src.images+'/**/*', gulp.series( 'images', reload ))
   gulp.watch(config.project.fontFiles, gulp.series( 'main:fonts', reload ))
 
   //scripts
-  gulp.watch(config.directories.src.scripts+'/**/*.js', gulp.series( 'main:scripts', reload ))
+  gulp.watch(config.directories.src.scripts+'/**/*.js', gulp.series( 'scripts', reload ))
 
   //styles
   gulp.watch([
@@ -63,4 +66,4 @@ gulp.task('watch', done => {
 
 <% if(markupIntegration=='jekyll'){ -%>
 gulp.task('jekyll:rebuild', gulp.series('jekyll', reload))
-<% } else { -%>
+<% } %>
