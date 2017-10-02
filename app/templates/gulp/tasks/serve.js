@@ -61,4 +61,6 @@ gulp.task('watch', done => {
   done()
 })
 
+<% if(markupIntegration=='jekyll'){ -%>
 gulp.task('jekyll:rebuild', gulp.series('jekyll', reload))
+<% } else { -%>
