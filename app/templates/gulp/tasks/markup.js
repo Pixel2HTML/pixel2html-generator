@@ -6,7 +6,7 @@ const fs = require('fs')
 const production = config.production
 <% } -%>
 
-gulp.task('main:markup', function() {
+gulp.task('markup', function() {
   return gulp.src(config.directories.src.markup+'/*.<%=markupLanguage%>')
 <% if (markupLanguage === 'pug') { -%>
     .pipe($.pug({
