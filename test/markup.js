@@ -40,8 +40,7 @@ describe('Markup Features', function () {
         'src/assets/icons',
         'src/assets/images',
         'src/assets/js',
-        'src/assets/styles',
-        'src/assets/vendor'
+        'src/assets/styles'
       ])
     })
 
@@ -108,8 +107,7 @@ describe('Markup Features', function () {
         'src/assets/icons',
         'src/assets/images',
         'src/assets/js',
-        'src/assets/styles',
-        'src/assets/vendor'
+        'src/assets/styles'
       ])
     })
 

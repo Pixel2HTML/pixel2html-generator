@@ -6,3 +6,6 @@ import './jquery'
 <% if (frontEndFramework === 'bootstrap') { -%>
 import './bootstrap'
 <% } -%>
+<% if (frontEndFramework === 'foundation') { -%>
+import './foundation'
+<% } -%>

@@ -21,8 +21,18 @@ describe('jQuery features', function () {
       .toPromise()
   })
 
-  it('should list dependencies in bower.json', function () {
+  it('should list dependencies in package.json', function () {
     assert.fileContent('package.json', /"jquery"/)
+  })
+
+  it('should import jQuery', function () {
+    assert.fileContent('src/assets/js/general/index.js', /import '.\/jquery'/)
+  })
+
+  it('should be a jquery file', function () {
+    assert.file([
+      'src/assets/js/general/jquery.js'
+    ])
   })
 
   it('should exists a gulp routine', function () {

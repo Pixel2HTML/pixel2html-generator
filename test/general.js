@@ -48,8 +48,7 @@ describe('General Assertions', function () {
       'src/assets/icons',
       'src/assets/images',
       'src/assets/js',
-      'src/assets/styles',
-      'src/assets/vendor'
+      'src/assets/styles'
     ])
   })
 

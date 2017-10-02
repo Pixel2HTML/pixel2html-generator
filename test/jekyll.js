@@ -48,7 +48,6 @@ describe('Jekyll Features', function () {
         'src/assets/images',
         'src/assets/js',
         'src/assets/styles',
-        'src/assets/vendor',
         'src/_layouts',
         'src/_layouts/default.html',
         'src/_includes',

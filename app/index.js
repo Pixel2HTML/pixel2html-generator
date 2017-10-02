@@ -565,6 +565,17 @@ class PixelGenerator extends Generator {
         }
       )
     }
+
+    if (this.options.frontEndFramework === 'foundation') {
+      this.fs.copyTpl(
+        this.templatePath('scripts/general/foundation.js'),
+        this.destinationPath(this.paths.src.scripts + '/general/foundation.js'), {
+          projectName: this.options.projectName,
+          frontEndFramework: this.options.frontEndFramework,
+          jQuery: this.options.jQuery
+        }
+      )
+    }
   }
 
   writeBaseGulpFiles () {

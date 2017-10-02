@@ -33,15 +33,13 @@ describe('Foundation features', function () {
   })
   it('should exists vendor files', function () {
     assert.file([
-      'src/assets/styles/vendor.scss'
+      'src/assets/styles/vendor.scss',
+      'src/assets/js/general/foundation.js'
     ])
   })
 
-  it('should include bootstrap include', function () {
-    assert.fileContent('src/assets/styles/vendor.scss', /import "foundation-sites";/)
-  })
-
-  it('should include foundation initializer on main.js', function () {
-    assert.fileContent('src/assets/js/main.js', /\$\(document\)\.foundation\(\)/)
+  it('should include foundation include', function () {
+    assert.fileContent('src/assets/styles/vendor.scss', /import "foundation-sites\/scss\/foundation";/)
+    assert.fileContent('src/assets/js/general/index.js', /import '.\/foundation'/)
   })
 })

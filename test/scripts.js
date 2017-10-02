@@ -25,7 +25,7 @@ describe('Script features', function () {
     assert.file([
       'src/assets/js',
       'src/assets/js/main.js',
-      'src/assets/js/vendor/vendor.js',
+      'src/assets/js/general/index.js'
     ])
   })
 
