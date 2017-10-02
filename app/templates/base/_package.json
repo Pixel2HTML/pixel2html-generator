@@ -30,7 +30,7 @@
     "bootstrap-sass": "^3.3.7",
     <% } -%>
     <% if(frontEndFramework == 'foundation'){ -%>
-    "foundation-sites": "^6.3.1",
+    "foundation-sites": "^6.4.3",
     <% } -%>
     <% if(frontEndFramework == 'basscss'){ -%>
     "basscss-sass": "^4.0.0",

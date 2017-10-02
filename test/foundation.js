@@ -38,12 +38,7 @@ describe('Foundation features', function () {
   })
 
   it('should include bootstrap include', function () {
-    assert.fileContent('src/assets/styles/vendor.scss', /import "foundation";/)
-  })
-
-  it('should include correct paths on config file', function () {
-    assert.fileContent('gulp/config.js', './node_modules/foundation-sites/scss')
-    assert.fileContent('gulp/config.js', './node_modules/foundation-sites/dist/js/foundation.min.js')
+    assert.fileContent('src/assets/styles/vendor.scss', /import "foundation-sites";/)
   })
 
   it('should include foundation initializer on main.js', function () {
