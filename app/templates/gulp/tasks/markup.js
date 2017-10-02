@@ -12,7 +12,7 @@ gulp.task('main:markup', function() {
     .pipe($.pug({
       baseDir: config.directories.src.markup,
       locals: {
-        icon: name => fs.readFileSync(`./src/assets/icons/${name}.svg`)},
+        icon: name => fs.readFileSync(`./src/assets/icons/${name}.svg`),
         production
       }
     })).on('error', config.onError)

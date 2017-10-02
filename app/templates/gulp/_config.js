@@ -3,7 +3,7 @@
 const argv = require('yargs').argv
 // Add your conditions here 💅
 const production = !!argv.prod || !!argv.production
-const debug = !!arg.debug
+const debug = !!argv.debug
 
 module.exports = {
   directories: {
