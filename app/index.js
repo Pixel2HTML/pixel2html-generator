@@ -537,11 +537,34 @@ class PixelGenerator extends Generator {
     )
     this.fs.copyTpl(
       this.templatePath('scripts/general/index.js'),
-      this.destinationPath(this.paths.src.scripts + '/genera/index.js'), {
+      this.destinationPath(this.paths.src.scripts + '/general/index.js'), {
         projectName: this.options.projectName,
-        frontEndFramework: this.options.frontEndFramework
+        frontEndFramework: this.options.frontEndFramework,
+        jQuery: this.options.jQuery
       }
     )
+
+    if (this.options.jQuery) {
+      this.fs.copyTpl(
+        this.templatePath('scripts/general/jquery.js'),
+        this.destinationPath(this.paths.src.scripts + '/general/jquery.js'), {
+          projectName: this.options.projectName,
+          frontEndFramework: this.options.frontEndFramework,
+          jQuery: this.options.jQuery
+        }
+      )
+    }
+
+    if (this.options.frontEndFramework === 'bootstrap') {
+      this.fs.copyTpl(
+        this.templatePath('scripts/general/bootstrap.js'),
+        this.destinationPath(this.paths.src.scripts + '/general/bootstrap.js'), {
+          projectName: this.options.projectName,
+          frontEndFramework: this.options.frontEndFramework,
+          jQuery: this.options.jQuery
+        }
+      )
+    }
   }
 
   writeBaseGulpFiles () {

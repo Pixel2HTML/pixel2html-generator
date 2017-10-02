@@ -31,14 +31,17 @@ describe('Bootstrap features', function () {
       'gulp/tasks/scripts.js'
     ])
   })
+
   it('should exists vendor files', function () {
     assert.file([
-      'src/assets/styles/vendor.scss'
+      'src/assets/styles/vendor.scss',
+      'src/assets/js/general/bootstrap.js'
     ])
   })
 
   it('should include bootstrap include', function () {
     assert.fileContent('src/assets/styles/vendor.scss', /import "bootstrap-sass";/)
+    assert.fileContent('src/assets/js/general/index.js', /import '.\/bootstrap'/)
   })
 
   it('should include correct paths on config file', function () {
