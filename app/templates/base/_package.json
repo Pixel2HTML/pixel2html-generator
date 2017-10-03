@@ -49,6 +49,9 @@
     "gulp-pug": "^3.3.0",
     "gulp-html-prettify": "^0.0.1",
     <% } -%>
+    <% if (markupLanguage === 'html') { -%>
+    "gulp-html-replace": "^1.6.2",
+    <% } -%>
     "gulp-purifycss": "^0.2.0",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^3.1.0",
