@@ -7,8 +7,11 @@ const fs = require('fs')
 <% } -%>
 
 <% if (markupLanguage === 'html') { -%>
-const JS_DIR = config.directories.dist.scripts
-const CSS_DIR = config.directories.dist.styles
+const BASE = config.directories.dist.base
+
+// Epic h4xxxxx
+const JS_DIR = config.directories.dist.scripts.split(`${BASE}/`)[1]
+const CSS_DIR = config.directories.dist.styles.split(`${BASE}/`)[1]
 
 const JS_EXT = production ? '.min.js' : '.js'
 const CSS_EXT = production ? '.min.css' : '.css'
@@ -24,8 +27,8 @@ const css = [
 ]
 <% } -%>
 
-gulp.task('markup', function() {
-  return gulp.src(config.directories.src.markup+'/*.<%=markupLanguage%>')
+gulp.task('markup', () =>
+  gulp.src(config.directories.src.markup+'/*.<%=markupLanguage%>')
 <% if (markupLanguage === 'pug') { -%>
     .pipe($.pug({
       baseDir: config.directories.src.markup,
@@ -40,4 +43,4 @@ gulp.task('markup', function() {
     .pipe($.htmlReplace({ js, css }))
 <% } -%>
     .pipe(gulp.dest(config.directories.dist.markup))
-})
+)
