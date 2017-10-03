@@ -7,6 +7,8 @@ const {cwd} = require('process')
 const production = process.env.NODE_ENV === 'production'
 const debug = process.env.NODE_ENV === 'debug'
 
+// When you really want to make the relationship work...
+const ENTRY_PATH = cwd() + '/' + config.project.jsMainFile
 const OUTPUT_PATH = cwd() + '/' + config.directories.dist.scripts
 
 let plugins = [
@@ -29,7 +31,7 @@ if (production) plugins = [...plugins, ...productionPlugins]
 if (debug) plugins = [...plugins, ...debugPlugins]
 
 const CONFIG = {
-  entry: config.project.jsMainFile,
+  entry: ENTRY_PATH,
   devtool: production ? 'source-map' : 'inline-source-map',
   module: {
     rules: [{
