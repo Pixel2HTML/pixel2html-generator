@@ -26,8 +26,8 @@ const debugPlugins = [
 if (production) plugins = [...plugins, ...productionPlugins]
 if (debug) plugins = [...plugins, ...debugPlugins]
 
-gulp.task('scripts', () => {
-  return gulp.src(config.project.jsMainFile)
+gulp.task('scripts', () =>
+  gulp.src(config.project.jsMainFile)
     .pipe(wp({
       devtool: production ? 'source-map' : 'inline-source-map',
       module: {
@@ -42,4 +42,4 @@ gulp.task('scripts', () => {
       plugins
     }, webpack)).on('error', config.onError)
     .pipe(gulp.dest(config.directories.dist.scripts))
-})
+)

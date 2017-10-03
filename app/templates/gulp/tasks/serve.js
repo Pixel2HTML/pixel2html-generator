@@ -2,7 +2,7 @@ const gulp = require('gulp')
 const config = require('../config')
 const browserSync = require('browser-sync')
 
-function reload (done) {
+const reload = done => {
   browserSync.reload()
   done()
 }

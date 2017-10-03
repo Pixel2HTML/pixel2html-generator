@@ -5,8 +5,8 @@ const $ = require('gulp-load-plugins')()
 const production = config.production
 const moduleImporter = require('sass-module-importer')
 
-gulp.task('main:styles', function() {
-  return gulp.src(config.project.cssMainFile)
+gulp.task('main:styles', () =>
+  gulp.src(config.project.cssMainFile)
     .pipe(when(!production, $.sourcemaps.init()))
     <% if (cssProcessor === 'scss') { -%>
     .pipe($.sass({importer: moduleImporter()}))
@@ -28,10 +28,10 @@ gulp.task('main:styles', function() {
     .pipe(when(production, $.purifycss( config.purify, { info: true } )))
     .pipe(when(production, $.cssnano()))
     .pipe(when(production, gulp.dest(config.directories.dist.styles)))
-})
+)
 
-gulp.task('vendor:styles', () => {
-  return gulp.src(config.project.cssVendorFile)
+gulp.task('vendor:styles', () =>
+  gulp.src(config.project.cssVendorFile)
   .pipe(when(!production, $.sourcemaps.init()))
   .pipe($.sass({importer: moduleImporter()}))
   .on('error', $.sass.logError)
@@ -45,6 +45,6 @@ gulp.task('vendor:styles', () => {
   .pipe(when(production, $.purifycss( config.purify, { info: true } )))
   .pipe(when(production, $.cssnano()))
   .pipe(when(production, gulp.dest(config.directories.dist.styles)))
-})
+)
 
 gulp.task('styles', gulp.parallel('main:styles', 'vendor:styles'))

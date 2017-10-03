@@ -2,7 +2,7 @@ const gulp = require('gulp')
 const config = require('../config')
 const zip = require('gulp-zip')
 
-gulp.task('zip', function () {
+gulp.task('zip', () => {
   const distFiles = [
     `${config.directories.dist.base}/**`,
     `!${config.directories.dist.base}`
