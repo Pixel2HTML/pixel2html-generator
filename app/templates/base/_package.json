@@ -11,7 +11,8 @@
     "lint:js": "standard",
     "lint:scss": "stylelint ./src/styles/**/*.scss",
     "lint": "npm run lint:js; npm run lint:scss",
-    "debug": "gulp scripts --debug"
+    "debug": "NODE_ENV=debug webpack --config gulp/webpack.config.js",
+    "prod": "NODE_ENV=production gulp build"
   },
   "dependencies": {
     "babel-core": "^6.26.0",

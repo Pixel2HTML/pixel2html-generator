@@ -606,6 +606,12 @@ class PixelGenerator extends Generator {
       }
     )
 
+    this.log(chalk.yellow('Copying webpack config file.'))
+    this.fs.copyTpl(
+      this.templatePath('gulp/webpack.config.js'),
+      this.destinationPath(this.paths.src.gulp + '/webpack.config.js')
+    )
+
     // fonts
     this.fs.copyTpl(
       this.templatePath('gulp/tasks/fonts.js'),
