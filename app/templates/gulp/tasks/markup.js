@@ -5,9 +5,8 @@ const $ = require('gulp-load-plugins')()
 const when = require('gulp-if')
 const production = config.production
 
-<% if (markupLanguage === 'pug') { %>
+<% if (markupLanguage === 'pug') { -%>
 // Hey don't touch these unless you know what you're doing
-// with Love Mike ❤️
 const devLocals = {
   base: '',
   extension: '',
@@ -18,13 +17,12 @@ const prodLocals = {
   extension: '.html',
   productionMode: true
 }
-<% } %>
+<% } -%>
 
 gulp.task('main:markup', function() {
   return gulp.src(config.directories.src.markup+'/*.<%=markupLanguage%>')
-<% if (markupLanguage === 'pug') { %>
+<% if (markupLanguage === 'pug') { -%>
     .pipe(when(!production, $.pug({
-      pretty: true,
       baseDir: config.directories.src.markup,
       locals: devLocals
     }))).on('error', config.onError)
@@ -32,8 +30,7 @@ gulp.task('main:markup', function() {
       baseDir: config.directories.src.markup,
       locals: prodLocals
     }))).on('error', config.onError)
-<% } else { %>
-    .pipe(gulp.dest(config.directories.dist.markup))
-<% } %>
+    .pipe($.htmlPrettify())
+<% } -%>
     .pipe(gulp.dest(config.directories.dist.markup))
 })
