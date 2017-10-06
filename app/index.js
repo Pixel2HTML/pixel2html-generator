@@ -1,5 +1,3 @@
-'use strict'
-
 const Generator = require('yeoman-generator')
 const chalk = require('chalk')
 const mkdirp = require('mkdirp')
@@ -19,12 +17,10 @@ class PixelGenerator extends Generator {
         fonts: 'src/assets/fonts',
         icons: 'src/assets/icons',
         images: 'src/assets/images',
-        vendors: 'src/assets/vendor',
         scripts: 'src/assets/js',
         styles: 'src/assets/styles',
         markup: 'src',
-        base: 'src',
-        frontendframework: 'src/assets/styles/vendor'
+        base: 'src'
       },
       dist: {
         assets: 'dist/assets',
@@ -34,8 +30,7 @@ class PixelGenerator extends Generator {
         scripts: 'dist/assets/js',
         styles: 'dist/assets/css',
         base: 'dist',
-        markup: 'dist',
-        frontendframework: 'dist/assets/css/vendor'
+        markup: 'dist'
       },
       releases: {
         base: 'dist/releases'
@@ -293,8 +288,8 @@ class PixelGenerator extends Generator {
       : this.prompt([{
         type: 'confirm',
         name: 'jQuery',
-        message: 'Would you like to use jQuery?',
-        default: true
+        message: 'Would you like to use jQuery? \n http://youmightnotneedjquery.com/ \n http://youmightnotneedjqueryplugins.com/',
+        default: false
       }])
       .then(props => {
         this.options.jQuery = props.jQuery
@@ -319,6 +314,18 @@ class PixelGenerator extends Generator {
     this.fs.copy(
       this.templatePath('base/editorconfig'),
       this.destinationPath('.editorconfig')
+    )
+
+    this.log(chalk.yellow('Copying babelrc file'))
+    this.fs.copy(
+      this.templatePath('base/babelrc'),
+      this.destinationPath('.babelrc')
+    )
+
+    this.log(chalk.yellow('Copying browserlistrc file'))
+    this.fs.copy(
+      this.templatePath('base/browserlistrc'),
+      this.destinationPath('.browserlistrc')
     )
 
     this.log(chalk.yellow('Copying MIT License'))
@@ -528,14 +535,47 @@ class PixelGenerator extends Generator {
         frontEndFramework: this.options.frontEndFramework
       }
     )
-
     this.fs.copyTpl(
-      this.templatePath('scripts/vendor/vendor.js'),
-      this.destinationPath(this.paths.src.scripts + '/vendor/vendor.js'), {
+      this.templatePath('scripts/general/index.js'),
+      this.destinationPath(this.paths.src.scripts + '/general/index.js'), {
         projectName: this.options.projectName,
-        frontEndFramework: this.options.frontEndFramework
+        frontEndFramework: this.options.frontEndFramework,
+        jQuery: this.options.jQuery
       }
     )
+
+    if (this.options.jQuery) {
+      this.fs.copyTpl(
+        this.templatePath('scripts/general/jquery.js'),
+        this.destinationPath(this.paths.src.scripts + '/general/jquery.js'), {
+          projectName: this.options.projectName,
+          frontEndFramework: this.options.frontEndFramework,
+          jQuery: this.options.jQuery
+        }
+      )
+    }
+
+    if (this.options.frontEndFramework === 'bootstrap') {
+      this.fs.copyTpl(
+        this.templatePath('scripts/general/bootstrap.js'),
+        this.destinationPath(this.paths.src.scripts + '/general/bootstrap.js'), {
+          projectName: this.options.projectName,
+          frontEndFramework: this.options.frontEndFramework,
+          jQuery: this.options.jQuery
+        }
+      )
+    }
+
+    if (this.options.frontEndFramework === 'foundation') {
+      this.fs.copyTpl(
+        this.templatePath('scripts/general/foundation.js'),
+        this.destinationPath(this.paths.src.scripts + '/general/foundation.js'), {
+          projectName: this.options.projectName,
+          frontEndFramework: this.options.frontEndFramework,
+          jQuery: this.options.jQuery
+        }
+      )
+    }
   }
 
   writeBaseGulpFiles () {
@@ -566,15 +606,13 @@ class PixelGenerator extends Generator {
       }
     )
 
-    // static
+    this.log(chalk.yellow('Copying webpack config file.'))
     this.fs.copyTpl(
-      this.templatePath('gulp/tasks/static.js'),
-      this.destinationPath(this.paths.src.gulp_tasks + '/static.js'), {
-        paths: this.paths
-      }
+      this.templatePath('gulp/webpack.config.js'),
+      this.destinationPath(this.paths.src.gulp + '/webpack.config.js')
     )
 
-    // main:fonts
+    // fonts
     this.fs.copyTpl(
       this.templatePath('gulp/tasks/fonts.js'),
       this.destinationPath(this.paths.src.gulp_tasks + '/fonts.js'), {
@@ -582,34 +620,15 @@ class PixelGenerator extends Generator {
       }
     )
 
-    // main:styles
+    // FTP
     this.fs.copyTpl(
-      this.templatePath('gulp/tasks/styles.js'),
-      this.destinationPath(this.paths.src.gulp_tasks + '/styles.js'), {
-        cssProcessor: this.options.cssProcessor,
-        frontEndFramework: this.options.frontEndFramework,
-        cssVendorFile: this.options.cssVendorFile,
+      this.templatePath('gulp/tasks/ftp.js'),
+      this.destinationPath(this.paths.src.gulp_tasks + '/ftp.js'), {
         paths: this.paths
       }
     )
 
-    // main:scripts
-    this.fs.copyTpl(
-      this.templatePath('gulp/tasks/scripts.js'),
-      this.destinationPath(this.paths.src.gulp_tasks + '/scripts.js'), {
-        paths: this.paths
-      }
-    )
-
-    // zip
-    this.fs.copyTpl(
-      this.templatePath('gulp/tasks/zip.js'),
-      this.destinationPath(this.paths.src.gulp_tasks + '/zip.js'), {
-        paths: this.paths
-      }
-    )
-
-    // main:markup
+    // markup
     if (!this.options.markupIntegration) {
       this.fs.copyTpl(
         this.templatePath('gulp/tasks/markup.js'),
@@ -621,6 +640,56 @@ class PixelGenerator extends Generator {
         }
       )
     }
+
+    // scripts
+    this.fs.copyTpl(
+      this.templatePath('gulp/tasks/scripts.js'),
+      this.destinationPath(this.paths.src.gulp_tasks + '/scripts.js'), {
+        paths: this.paths
+      }
+    )
+
+    // Serve
+    this.fs.copyTpl(
+      this.templatePath('gulp/tasks/serve.js'),
+      this.destinationPath(this.paths.src.gulp_tasks + '/serve.js'), {
+        paths: this.paths,
+        frontEndFramework: this.options.frontEndFramework,
+        jQuery: this.options.jQuery,
+        markupLanguage: this.options.markupLanguage,
+        markupIntegration: this.options.markupIntegration,
+        cssProcessor: this.options.cssProcessor
+      }
+    )
+
+    // static
+    this.fs.copyTpl(
+      this.templatePath('gulp/tasks/static.js'),
+      this.destinationPath(this.paths.src.gulp_tasks + '/static.js'), {
+        paths: this.paths,
+        markupLanguage: this.options.markupLanguage,
+        markupIntegration: this.options.markupIntegration
+      }
+    )
+
+    // styles
+    this.fs.copyTpl(
+      this.templatePath('gulp/tasks/styles.js'),
+      this.destinationPath(this.paths.src.gulp_tasks + '/styles.js'), {
+        cssProcessor: this.options.cssProcessor,
+        frontEndFramework: this.options.frontEndFramework,
+        cssVendorFile: this.options.cssVendorFile,
+        paths: this.paths
+      }
+    )
+
+    // zip
+    this.fs.copyTpl(
+      this.templatePath('gulp/tasks/zip.js'),
+      this.destinationPath(this.paths.src.gulp_tasks + '/zip.js'), {
+        paths: this.paths
+      }
+    )
   }
 
   writeMarkupIntegrationFiles () {
@@ -680,8 +749,6 @@ class PixelGenerator extends Generator {
   }
 
   writeProjectConfigFile () {
-    // overwrite the default .project.conf file or create the new one.
-
     var configJson = {
       'clientId': this.options.clientId,
       'projectId': this.options.projectId,

@@ -33,20 +33,13 @@ describe('Foundation features', function () {
   })
   it('should exists vendor files', function () {
     assert.file([
-      'src/assets/styles/vendor.scss'
+      'src/assets/styles/vendor.scss',
+      'src/assets/js/general/foundation.js'
     ])
   })
 
-  it('should include bootstrap include', function () {
-    assert.fileContent('src/assets/styles/vendor.scss', /import "foundation";/)
-  })
-
-  it('should include correct paths on config file', function () {
-    assert.fileContent('gulp/config.js', './node_modules/foundation-sites/scss')
-    assert.fileContent('gulp/config.js', './node_modules/foundation-sites/dist/js/foundation.min.js')
-  })
-
-  it('should include foundation initializer on main.js', function () {
-    assert.fileContent('src/assets/js/main.js', /\$\(document\)\.foundation\(\)/)
+  it('should include foundation include', function () {
+    assert.fileContent('src/assets/styles/vendor.scss', /import "foundation-sites\/scss\/foundation";/)
+    assert.fileContent('src/assets/js/general/index.js', /import '.\/foundation'/)
   })
 })

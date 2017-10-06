@@ -40,8 +40,7 @@ describe('Markup Features', function () {
         'src/assets/icons',
         'src/assets/images',
         'src/assets/js',
-        'src/assets/styles',
-        'src/assets/vendor'
+        'src/assets/styles'
       ])
     })
 
@@ -54,8 +53,8 @@ describe('Markup Features', function () {
     })
 
     it('should have the gulp routine in gulp default\'s task', function () {
-      assert.fileContent('gulpfile.js', /'main:markup'/)
-      assert.noFileContent('gulpfile.js', /'jekyll:build'/)
+      assert.fileContent('gulpfile.js', /'markup'/)
+      assert.noFileContent('gulpfile.js', /'jekyll'/)
     })
 
     it('should have the projectName in the title tag', function () {
@@ -108,8 +107,7 @@ describe('Markup Features', function () {
         'src/assets/icons',
         'src/assets/images',
         'src/assets/js',
-        'src/assets/styles',
-        'src/assets/vendor'
+        'src/assets/styles'
       ])
     })
 
@@ -129,8 +127,8 @@ describe('Markup Features', function () {
     })
 
     it('should have the gulp routine in gulp default\'s task', function () {
-      assert.fileContent('gulpfile.js', /'main:markup'/)
-      assert.noFileContent('gulpfile.js', /'jekyll:build'/)
+      assert.fileContent('gulpfile.js', /'markup'/)
+      assert.noFileContent('gulpfile.js', /'jekyll'/)
     })
   })
 })

@@ -1,10 +1,9 @@
-'use strict'
-var gulp = require('gulp')
-var config = require('../config')
-var zip = require('gulp-zip')
+const gulp = require('gulp')
+const config = require('../config')
+const zip = require('gulp-zip')
 
-gulp.task('zip', function () {
-  var distFiles = [
+gulp.task('zip', () => {
+  const distFiles = [
     `${config.directories.dist.base}/**`,
     `!${config.directories.dist.base}`
   ]

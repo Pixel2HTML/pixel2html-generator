@@ -33,5 +33,4 @@ nbproject
 iTermocil.yml
 .tmuxinator
 
-<%= paths.src.vendors %>
 /releases/*
