@@ -1,9 +1,9 @@
 ### 2.0.0
+- Reduced number of total dependencies
 - Webpack integration to handle JS files
 - God mode svg inline icons with pug mixins
-- Non pug builds only get svg icons copied
 - Unified fonts task
-- Reduced number of total dependencies
+- Deploy via FTP
 - Jekyll and HTML both are now Environment aware 💅
 - No more support to LESS & Stylus css preprocessors.
 - No more support to BassCss framework

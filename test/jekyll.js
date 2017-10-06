@@ -10,13 +10,10 @@ describe('Jekyll Features', function () {
           'skip-install': true
         })
         .withPrompts({
-          clientId: '0987',
-          projectId: '1234',
           projectName: 'Pixel2HTML',
           qtyScreens: 6,
           markupLanguage: 'html',
-          markupIntegration: 'jekyll',
-          cssProcessor: 'less'
+          markupIntegration: 'jekyll'
         })
         .toPromise()
     })

@@ -9,12 +9,9 @@ describe('Script features', function () {
         'skip-install': true
       })
       .withPrompts({
-        clientId: '0987',
-        projectId: '1234',
         projectName: 'Pixel2HTML',
         qtyScreens: 3,
         markupLanguage: 'html',
-        cssProcessor: 'less',
         frontEndFramework: 'bootstrap',
         jQuery: true
       })

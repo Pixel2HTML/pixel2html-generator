@@ -8,16 +8,8 @@ const moduleImporter = require('sass-module-importer')
 gulp.task('main:styles', () =>
   gulp.src(config.project.cssMainFile)
     .pipe(when(!production, $.sourcemaps.init()))
-    <% if (cssProcessor === 'scss') { -%>
     .pipe($.sass({importer: moduleImporter()}))
     .on('error', $.sass.logError)
-    <% } -%>
-    <% if (cssProcessor === 'less') { -%>
-    .pipe($.less()).on('error', config.onError)
-    <% } %>
-    <% if (cssProcessor === 'styl') { -%>
-    .pipe($.stylus()).on('error', config.onError)
-    <% } -%>
     .pipe($.autoprefixer())
     .pipe(when(production, $.groupCssMediaQueries()))
     .pipe(when(production, $.csscomb()))

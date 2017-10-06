@@ -40,7 +40,6 @@ The **Pixel2HTML Boilerplate** will ask you questions about this points. Answeri
 * Quantity of screens?
 * Markup Language? _Options: HTML/Pug_
 * Markup Integration? _Options: None/Jekyll_
-* CSS Processor? _Options: SCSS/LESS/Stylus_
 * Frontend Framework _Options: None/Bootstrap/Foundation/BassCss_
 * jQuery? _Options: true/false_
 
@@ -53,7 +52,6 @@ You also can answer this questions passing parameters to the generator command.
 * ```--qtyScreens``` (*int*)
 * ```--markupLanguage``` (*string*) [html, pug]
 * ```--markupIntegration``` (*string*) [jekyll, none]
-* ```--cssProcessor``` (*string*) [scss, less, styl]
 * ```--frontEndFramework``` (*string*) [basscss, bootstrap, foundation, none]
 * ```--jQuery``` (*bool*)
 
@@ -74,7 +72,6 @@ Here an example of it's structure:
   "qtyScreens": 4,
   "markupLanguage": 'html',
   "markupIntegration": 'jekyll',
-  "cssProcessor": "less",
   "frontEndFramework": "bootstrap",
   "jQuery": true
 }
@@ -109,18 +106,18 @@ This boilerplate will create a set of files and folders
 │    │    ├──  js/
 │    │    ├──  styles/
 │    │    │    ├──  components/
-│    │    │    │    ├──  _buttons.ext
-│    │    │    │    ├──  _footer.ext
-│    │    │    │    ├──  _forms.ext
-│    │    │    │    ├──  _header.ext
-│    │    │    │    └──  _nav.ext
+│    │    │    │    ├──  _buttons.scss
+│    │    │    │    ├──  _footer.scss
+│    │    │    │    ├──  _forms.scss
+│    │    │    │    ├──  _header.scss
+│    │    │    │    └──  _nav.scss
 │    │    │    ├──  screens/
-│    │    │    │    ├──  _base.ext
-│    │    │    │    └──  screen_*.ext
-│    │    │    ├── _mixins.ext
-│    │    │    ├── _reset.ext
-│    │    │    ├── _variables.ext
-│    │    │    ├── main.ext
+│    │    │    │    ├──  _base.scss
+│    │    │    │    └──  screen_*.scss
+│    │    │    ├── _mixins.scss
+│    │    │    ├── _reset.scss
+│    │    │    ├── _variables.scss
+│    │    │    ├── main.scss
 │    │    │    └── vendor.scss
 │    └──  screen_*.[html|pug]
 ├──  .editorcofig
@@ -149,7 +146,7 @@ This boilerplate will create a set of files and folders
 ### Static Files
 * `$ gulp main:static` Compile static files (images, icons)
 * `$ gulp main:images` Move images
-* `$ gulp main::icons` Move icons
+* `$ gulp main:icons` Move icons
 
 ### Fonts Files
 * `$ gulp main:fonts` Move project fonts

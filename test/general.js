@@ -9,12 +9,9 @@ describe('General Assertions', function () {
         'skip-install': true
       })
       .withPrompts({
-        clientId: '0987',
-        projectId: '1234',
         projectName: 'Pixel2HTML',
         qtyScreens: 6,
-        markupLanguage: 'html',
-        cssProcessor: 'less'
+        markupLanguage: 'html'
       })
       .toPromise()
   })
