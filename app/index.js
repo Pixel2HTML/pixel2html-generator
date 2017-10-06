@@ -395,7 +395,7 @@ class PixelGenerator extends Generator {
     )
 
     this.fs.copyTpl(
-      this.templatePath('styles/scss/vendor.scss'),
+      this.templatePath('styles/vendor.scss'),
       this.destinationPath(this.paths.src.styles + '/vendor.scss'), {
         projectName: this.options.projectName,
         frontEndFramework: this.options.frontEndFramework
