@@ -20,7 +20,7 @@ $ npm install -g yo generator-pixel2html
 If you plan is generate a site with **Jekyll** you also need `Ruby` and `Bundler` up & running.
 
 You can check if **Ruby** is installed running `ruby --version`
-We recommend to use the latest stable version (2.3.2). If you need more information please check on [ruby official site](http://rubylang.com) or [rvm](rvm.io) to handle multiple versions of Ruby.
+We recommend to use the latest stable version (2.4.2). If you need more information please check on [ruby official site](http://rubylang.com) or [rvm](rvm.io) to handle multiple versions of Ruby.
 
 Also, for **Bundler**, run `gem install bundler` when `Ruby` is already installed and running.
 
@@ -36,8 +36,6 @@ $ yo pixel2html
 ```
 The **Pixel2HTML Boilerplate** will ask you questions about this points. Answering with the desired options will generate the code.
 
-* Client ID?
-* Project ID?
 * Project Name?
 * Quantity of screens?
 * Markup Language? _Options: HTML/Pug_
@@ -51,8 +49,6 @@ The **Pixel2HTML Boilerplate** will ask you questions about this points. Answeri
 
 You also can answer this questions passing parameters to the generator command.
 
-* ```--clientId``` (*int*)
-* ```--projectId``` (*int*)
 * ```--projectName``` (*string*)
 * ```--qtyScreens``` (*int*)
 * ```--markupLanguage``` (*string*) [html, pug]
@@ -64,7 +60,7 @@ You also can answer this questions passing parameters to the generator command.
 Example:
 
 ```
-$ yo pixel2html --clientId=1234 --markupLanguage='html'
+$ yo pixel2html --projectName=Floyd --markupLanguage='html'
 ```
 
 ### Option 3: Using the config file
@@ -74,8 +70,6 @@ Here an example of it's structure:
 
 ```
 {
-  "clientId": XXX,
-  "projectId": XXX,
   "projectName": 'XXX',
   "qtyScreens": 4,
   "markupLanguage": 'html',

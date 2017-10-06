@@ -42,15 +42,9 @@ class PixelGenerator extends Generator {
       }
     }
 
-    this.option('projectId', {
-      desc: 'Sets the project id i.e.: 3845',
-      type: Number,
-      required: false
-    })
-
-    this.option('clientId', {
-      desc: 'Sets the client id i.e.: 3845',
-      type: Number,
+    this.option('projectName', {
+      desc: 'Sets the Project Name',
+      type: String,
       required: false
     })
 
@@ -98,8 +92,6 @@ class PixelGenerator extends Generator {
   readConfigFile () {
     return fs.readJson('./.project.conf')
       .then(config => {
-        this.options.clientId = config.clientId
-        this.options.projectId = config.projectId
         this.options.projectName = config.projectName
         this.options.qtyScreens = config.qtyScreens
         this.options.markupLanguage = config.markupLanguage
@@ -125,38 +117,6 @@ class PixelGenerator extends Generator {
       this.log(chalk.white('  A Yeoman generator for scaffolding web projects') + '\n')
       this.log(chalk.cyan(' ****************************************************') + '\n')
     }
-  }
-
-  askForClientId () {
-    return this.options.clientId
-      ? true
-      : this.prompt(
-        [{
-          type: 'input',
-          name: 'clientId',
-          required: true,
-          message: 'Give me the Client ID!'
-        }]
-      )
-      .then(answers => {
-        this.options.clientId = answers.clientId
-      })
-  }
-
-  askForProjectId () {
-    return this.options.projectId
-      ? true
-      : this.prompt(
-        [{
-          type: 'input',
-          name: 'projectId',
-          required: true,
-          message: 'Give me the Project ID!'
-        }]
-      )
-      .then(props => {
-        this.options.projectId = props.projectId
-      })
   }
 
   askForProjectName () {
@@ -683,8 +643,6 @@ class PixelGenerator extends Generator {
     // overwrite the default .project.conf file or create the new one.
 
     var configJson = {
-      'clientId': this.options.clientId,
-      'projectId': this.options.projectId,
       'projectName': this.options.projectName,
       'qtyScreens': this.options.qtyScreens,
       'markupLanguage': this.options.markupLanguage,
