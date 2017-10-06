@@ -32,9 +32,6 @@
     <% if(frontEndFramework === 'foundation'){ -%>
     "foundation-sites": "^6.4.3",
     <% } -%>
-    <% if(frontEndFramework === 'basscss'){ -%>
-    "basscss-sass": "^4.0.0",
-    <% } -%>
     <% if(jQuery){ -%>
     "jquery": "^3.2.1",
     <% } -%>

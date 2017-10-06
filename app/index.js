@@ -62,7 +62,7 @@ class PixelGenerator extends Generator {
     })
 
     this.option('frontEndFramework', {
-      desc: 'Sets the framework of choice [basscss, bootstrap, foundation]',
+      desc: 'Sets the framework of choice [bootstrap, foundation]',
       type: String,
       required: false
     })
@@ -202,9 +202,6 @@ class PixelGenerator extends Generator {
           }, {
             name: 'Foundation',
             value: 'foundation'
-          }, {
-            name: 'BassCss',
-            value: 'basscss'
           }]
       }])
       .then(props => {
