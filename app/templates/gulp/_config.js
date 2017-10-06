@@ -32,7 +32,7 @@ module.exports = {
     }
   },
   project: {
-    cssMainFile: '<%= cssMainFile %>',
+    cssMainFile: 'src/assets/styles/main.scss',
     cssVendorFile: 'src/assets/styles/vendor.scss',
     jsMainFile: 'src/assets/js/main.js',
     fontFiles: [

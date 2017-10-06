@@ -39,19 +39,19 @@ This boilerplate will create a set of files and folders
 │    │    ├──  js/
 │    │    ├──  styles/
 │    │    │    ├──  components/
-│    │    │    │    ├──  _buttons.<%= cssProcessor %>
-│    │    │    │    ├──  _footer.<%= cssProcessor %>
-│    │    │    │    ├──  _forms.<%= cssProcessor %>
-│    │    │    │    ├──  _header.<%= cssProcessor %>
-│    │    │    │    └──  _nav.<%= cssProcessor %>
+│    │    │    │    ├──  _buttons.scss
+│    │    │    │    ├──  _footer.scss
+│    │    │    │    ├──  _forms.scss
+│    │    │    │    ├──  _header.scss
+│    │    │    │    └──  _nav.scss
 │    │    │    ├──  screens/
-│    │    │    │    ├──  _base.<%= cssProcessor %>
-<% for(var i=1; i<=qtyScreens; i++) {%>│    │    │    │    └──  screen_<%=i%>.<%= cssProcessor %>
-<% } %>│    │    │    ├──  _variables.<%= cssProcessor %>
-│    │    │    ├──  _reset.<%= cssProcessor %>
-│    │    │    ├──  _mixins.<%= cssProcessor %>
+│    │    │    │    ├──  _base.scss
+<% for(var i=1; i<=qtyScreens; i++) {%>│    │    │    │    └──  screen_<%=i%>.scss
+<% } %>│    │    │    ├──  _variables.scss
+│    │    │    ├──  _reset.scss
+│    │    │    ├──  _mixins.scss
 <% if (frontEndFramework) { -%>│    │    │    ├──  vendors.scss<% } %>
-│    │    │    └──  main.<%= cssProcessor %>
+│    │    │    └──  main.scss
 │    │    └──  vendor/
 <% for(var i=1; i<=qtyScreens; i++) {%>│    └──  screen_<%=i%>.<%=markupLanguage%>
 <% } %>├── .editorcofig
@@ -120,7 +120,7 @@ You can point to specific files or complete directories using wildcards (`**/*`)
 ```
 fontFiles: [
   './path/to/bootstrap/fonts/**/*',
-  './shine/on/crazy/font.ttf'
+  './node_modules/library/font/font.ttf'
 ]
 ```
 
