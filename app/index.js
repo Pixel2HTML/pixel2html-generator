@@ -91,7 +91,6 @@ class PixelGenerator extends Generator {
         this.options.qtyScreens = config.qtyScreens
         this.options.markupLanguage = config.markupLanguage
         this.options.markupIntegration = config.markupIntegration
-        this.options.cssProcessor = config.cssProcessor
         this.options.frontEndFramework = config.frontEndFramework
         this.options.jQuery = config.jQuery
       })
@@ -189,29 +188,6 @@ class PixelGenerator extends Generator {
       }])
       .then(props => {
         this.options.markupIntegration = props.markupIntegration
-      })
-  }
-
-  askForCssProcessor () {
-    return this.options.cssProcessor
-      ? true
-      : this.prompt([{
-        type: 'list',
-        name: 'cssProcessor',
-        message: 'What preprocessor would you like to use? Pick one',
-        choices: [{
-          name: 'Sass',
-          value: 'scss'
-        }, {
-          name: 'Less',
-          value: 'less'
-        }, {
-          name: 'Stylus',
-          value: 'styl'
-        }]
-      }])
-      .then(props => {
-        this.options.cssProcessor = props.cssProcessor
       })
   }
 
@@ -714,7 +690,6 @@ class PixelGenerator extends Generator {
       'qtyScreens': this.options.qtyScreens,
       'markupLanguage': this.options.markupLanguage,
       'markupIntegration': this.options.markupIntegration,
-      'cssProcessor': this.options.cssProcessor,
       'frontEndFramework': this.options.frontEndFramework,
       'jQuery': this.options.jQuery,
       'generatedBy': 'Pixel2HTML',
