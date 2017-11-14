@@ -10,7 +10,9 @@ gulp.task('main:styles', () =>
     .pipe(when(!production, $.sourcemaps.init()))
     .pipe($.sass({importer: moduleImporter()}))
     .on('error', $.sass.logError)
-    .pipe($.autoprefixer())
+    .pipe($.autoprefixer({
+      browsers: config.browsers
+    }))
     .pipe(when(production, $.groupCssMediaQueries()))
     .pipe(when(production, $.csscomb()))
     .pipe(when(!production, $.sourcemaps.write('./')))
@@ -27,7 +29,9 @@ gulp.task('vendor:styles', () =>
   .pipe(when(!production, $.sourcemaps.init()))
   .pipe($.sass({importer: moduleImporter()}))
   .on('error', $.sass.logError)
-  .pipe($.autoprefixer())
+  .pipe($.autoprefixer({
+    browsers: config.browsers
+  }))
   .pipe(when(production, $.groupCssMediaQueries()))
   .pipe(when(production, $.csscomb()))
   .pipe(when(!production, $.sourcemaps.write('./')))
