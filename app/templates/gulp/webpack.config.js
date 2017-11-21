@@ -4,7 +4,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const config = require('./config')
 const {cwd} = require('process')
 
-const production = process.env.NODE_ENV === 'production'
+const production = config.production
 const debug = process.env.NODE_ENV === 'debug'
 
 // When you really want to make the relationship work...
