@@ -49,11 +49,11 @@
     "gulp-zip": "^4.0.0",
     "require-dir": "^0.3.2",
     "sass-module-importer": "^1.4.0",
-    "uglifyjs-webpack-plugin": "^0.4.6",
+    "uglifyjs-webpack-plugin": "^1.1.0",
     "vinyl-ftp": "^0.6.0",
     "webpack": "^3.6.0",
     "webpack-stream": "^4.0.0",
-    "yargs": "^9.0.1"
+    "yargs": "^10.0.3"
   },
   "stylelint": {
     "extends": "stylelint-config-recommended-scss",
