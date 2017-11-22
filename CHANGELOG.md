@@ -5,7 +5,7 @@
 - Unified fonts task
 - Deploy via FTP
 - Jekyll and HTML both are now Environment aware 💅
-- No more support to LESS & Stylus css preprocessors.
+- No more support to LESS & Stylus css preprocessors. (Help: https://github.com/Pixel2HTML/pixel2html-generator/wiki/Using-other-styles-preprocessor-language)
 - No more support to BassCss framework
 
 ### 1.3.5

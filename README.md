@@ -27,7 +27,6 @@ Also, for **Bundler**, run `gem install bundler` when `Ruby` is already installe
 
 ## Running the generator
 
-### Option 1: Answer questions
 To generate the **Pixel2HTML Boilerplate** go to your project folder and run this command in your shell
 
 ```
@@ -40,47 +39,11 @@ The **Pixel2HTML Boilerplate** will ask you questions about this points. Answeri
 * Quantity of screens?
 * Markup Language? _Options: HTML/Pug_
 * Markup Integration? _Options: None/Jekyll_
-* Frontend Framework _Options: None/Bootstrap/Foundation/BassCss_
+* Frontend Framework _Options: None/Bootstrap/Foundation_
 * jQuery? _Options: true/false_
 
+There are also two more way to generate your files, you can find the instructions in the (Wiki)[https://github.com/Pixel2HTML/pixel2html-generator/wiki/Running-the-Pixel2HTML-Generator]
 
-### Option 2: Using available parameters
-
-You also can answer this questions passing parameters to the generator command.
-
-* ```--projectName``` (*string*)
-* ```--qtyScreens``` (*int*)
-* ```--markupLanguage``` (*string*) [html, pug]
-* ```--markupIntegration``` (*string*) [jekyll, none]
-* ```--frontEndFramework``` (*string*) [basscss, bootstrap, foundation, none]
-* ```--jQuery``` (*bool*)
-
-Example:
-
-```
-$ yo pixel2html --projectName=Floyd --markupLanguage='html'
-```
-
-### Option 3: Using the config file
-
-You can create a `.json` file in the root directory of your project.
-Here an example of it's structure:
-
-```
-{
-  "projectName": 'XXX',
-  "qtyScreens": 4,
-  "markupLanguage": 'html',
-  "markupIntegration": 'jekyll',
-  "frontEndFramework": "bootstrap",
-  "jQuery": true
-}
-```
-
-Once you created this file, run
-```
-$ yo pixel2html
-```
 
 ## Installing dependencies & running up
 To work, the **Pixel2HTML Boilerplate** needs to install some dependencies to run the options you select.
@@ -90,7 +53,7 @@ For this job, run this command in your shell
 $ npm run start
 ```
 
-## File Structure
+## Generated file structure
 
 This boilerplate will create a set of files and folders
 
@@ -128,6 +91,28 @@ This boilerplate will create a set of files and folders
 ├──  package.json
 └──  README.md
 ```
+
+## How to work with script files
+
+We are using [WebpackJS](https://webpack.js.org/) to bundle our script files. There's also ES6 on-demand transpilation and polyfills.
+
+Learn more about Javascript Modules here [Wes Bos Article About Modules](http://wesbos.com/javascript-modules/)
+
+### Example
+
+```js
+import $ from 'jquery'
+import 'bootstrap-sass'
+
+```
+
+We also included the amazing `webpack-bundle-analyzer` you can fine tweak you JS bundle size if you wish to. Fire it up running this command:
+
+```
+$ npm run debug
+```
+
+
 
 ## Available script commands.
 

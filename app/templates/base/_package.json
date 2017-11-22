@@ -12,7 +12,7 @@
     "lint:scss": "stylelint ./src/styles/**/*.scss",
     "lint": "npm run lint:js; npm run lint:scss",
     "debug": "NODE_ENV=debug webpack --config gulp/webpack.config.js",
-    "prod": "NODE_ENV=production gulp build"
+    "prod": "gulp build --prod"
   },
   "dependencies": {
     "babel-core": "^6.26.0",
@@ -49,11 +49,11 @@
     "gulp-zip": "^4.0.0",
     "require-dir": "^0.3.2",
     "sass-module-importer": "^1.4.0",
-    "uglifyjs-webpack-plugin": "^0.4.6",
+    "uglifyjs-webpack-plugin": "^1.1.0",
     "vinyl-ftp": "^0.6.0",
     "webpack": "^3.6.0",
     "webpack-stream": "^4.0.0",
-    "yargs": "^9.0.1"
+    "yargs": "^10.0.3"
   },
   "stylelint": {
     "extends": "stylelint-config-recommended-scss",
@@ -64,6 +64,16 @@
       "plugin/no-unsupported-browser-features": [
         true,
         {
+          "browsers": [
+            "last 2 Chrome versions",
+            "last 2 ChromeAndroid versions",
+            "last 2 Firefox versions",
+            "last 2 Safari versions",
+            "last 2 ios versions",
+            "last 2 edge versions",
+            "last 2 ie versions",
+            "last 2 Opera versions"
+          ],
           "ignore": ["rem"],
           "severity": "warning"
         }

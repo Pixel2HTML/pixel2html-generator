@@ -152,6 +152,9 @@ fontFiles: [
 
 ### Delivery
  * `$ gulp build` Execute all the gulp directives and makes a `.zip` file with the latest code.
+ 
+### FTP Upload
+* `$ gulp ftp` will upload your dist folder via FTP you must specify the credentials on the `config.deploy.ftp` object. It's powered by: [Vinyl-FTP](https://www.npmjs.com/package/vinyl-ftp)
 
 ### EditorConfig Please note we use
 [EditorConfig](http://editorconfig.org/) to help us try to standarize
