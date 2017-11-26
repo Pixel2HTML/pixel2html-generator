@@ -6,8 +6,8 @@
   "version": "1.0.0",
   "scripts": {
     "start": "npm install <% if (markupIntegration=='jekyll'){%>&& bundle install<%}%>",
-    "code": "gulp",
-    "build": "gulp release --prod",
+    "code": "NODE_ENV=development gulp",
+    "build": "NODE_ENV=production gulp release --prod",
     "lint:js": "standard",
     "lint:scss": "stylelint ./src/styles/**/*.scss",
     "lint": "npm run lint:js; npm run lint:scss",
