@@ -4,6 +4,7 @@ const argv = require('yargs').argv
 const { env } = require('process')
 // Add your conditions here 💅
 const production = !!argv.prod || !!argv.production || env.NODE_ENV === 'production'
+const debug = !!argv.debug || env.NODE_ENV === 'debug'
 
 module.exports = {
   directories: {
@@ -45,6 +46,7 @@ module.exports = {
     this.emit('end')
   },
   production,
+  debug,
   // Stuff for PurifyCss
   purify: ['./dist/**/*.js', './dist/**/*.html'],
   deploy: {

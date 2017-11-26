@@ -5,7 +5,7 @@ const config = require('./config')
 const {cwd} = require('process')
 
 const production = config.production
-const debug = process.env.NODE_ENV === 'debug'
+const debug = config.debug
 
 // When you really want to make the relationship work...
 const ENTRY_PATH = cwd() + '/' + config.project.jsMainFile
@@ -37,7 +37,12 @@ const CONFIG = {
     rules: [{
       test: /\.js$/,
       exclude: /node_modules/,
-      use: { loader: 'babel-loader' }
+      use: {
+        loader: 'babel-loader',
+        options: {
+          presets: ['timmy']
+        }
+      }
     }]},
   output: {
     filename: production ? '[name].min.js' : '[name].js',

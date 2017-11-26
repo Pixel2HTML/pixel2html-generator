@@ -242,18 +242,6 @@ class PixelGenerator extends Generator {
       this.destinationPath('.editorconfig')
     )
 
-    this.log(chalk.yellow('Copying babelrc file'))
-    this.fs.copy(
-      this.templatePath('base/babelrc'),
-      this.destinationPath('.babelrc')
-    )
-
-    this.log(chalk.yellow('Copying browserlistrc file'))
-    this.fs.copy(
-      this.templatePath('base/browserlistrc'),
-      this.destinationPath('.browserlistrc')
-    )
-
     this.log(chalk.yellow('Copying MIT License'))
     this.fs.copy(
       this.templatePath('base/LICENSE'),
