@@ -18,8 +18,7 @@ describe('Bootstrap features', function () {
   })
 
   it('Should list dependencies in package.json', function () {
-    assert.fileContent('package.json', /"gulp-sass"/)
-    assert.fileContent('package.json', /"bootstrap-sass"/)
+    assert.fileContent('package.json', /"bootstrap"/)
   })
 
   it('should exists a gulp routine', function () {
@@ -37,11 +36,7 @@ describe('Bootstrap features', function () {
   })
 
   it('should include bootstrap include', function () {
-    assert.fileContent('src/assets/styles/vendor.scss', /import "bootstrap-sass";/)
+    assert.fileContent('src/assets/styles/vendor.scss', /import "bootstrap";/)
     assert.fileContent('src/assets/js/general/index.js', /import '.\/bootstrap'/)
-  })
-
-  it('should include correct paths on config file', function () {
-    assert.fileContent('gulp/config.js', './node_modules/bootstrap-sass/assets/fonts/**/*')
   })
 })
