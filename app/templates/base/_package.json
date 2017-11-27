@@ -11,7 +11,8 @@
     "lint:js": "standard",
     "lint:scss": "stylelint ./src/styles/**/*.scss",
     "lint": "npm run lint:js; npm run lint:scss",
-    "debug": "NODE_ENV=production webpack --config gulp/webpack.config.js --debug",
+    "debug": "NODE_ENV=development webpack --config gulp/webpack.config.js --debug",
+    "debug:prod": "NODE_ENV=production webpack --config gulp/webpack.config.js --debug",
     "prod": "NODE_ENV=production gulp build --prod",
     "js": "NODE_ENV=development gulp scripts"
   },
