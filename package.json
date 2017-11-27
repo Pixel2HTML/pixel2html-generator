@@ -18,7 +18,8 @@
     "yeoman-generator"
   ],
   "scripts": {
-    "test": "mocha --require babel-register"
+    "test": "mocha --require babel-register",
+    "postversion": "git push; git push --tags"
   },
   "main": "app/index.js",
   "dependencies": {
