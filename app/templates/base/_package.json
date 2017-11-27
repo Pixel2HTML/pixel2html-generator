@@ -29,6 +29,7 @@
     "gulp-group-css-media-queries": "^1.2.0",
     "gulp-if": "^2.0.2",
     "gulp-load-plugins": "^1.5.0",
+    "gulp-plumber": "^1.1.0",
     <% if(frontEndFramework === 'bootstrap'){ -%>
     "bootstrap": "^4.0.0-alpha.6",
     "popper.js": "^1.12.9",
