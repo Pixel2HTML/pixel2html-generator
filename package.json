@@ -11,7 +11,28 @@
   "contributors": [
     {
       "name": "Miguel Palau",
-      "email": "miguel@pixel2html.com"
+      "email": "miguel@pixel2html.com",
+      "url": "https://www.mpz.im/"
+    },
+    {
+      "name": "Diego Peralta",
+      "url": "https://diego.earth/"
+    },
+    {
+      "name": "Bruno Belcastro",
+      "url": "https://github.com/argen"
+    },
+    {
+      "name": "Matt Ginn",
+      "url": "http://matt.codes/"
+    },
+    {
+      "name": "Juan Di Nella",
+      "url": "https://github.com/juandinella"
+    },
+    {
+      "name": "Tomas Peralta",
+      "url": "https://github.com/peraltatomas"
     }
   ],
   "keywords": [
