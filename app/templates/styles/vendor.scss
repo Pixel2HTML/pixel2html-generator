@@ -2,7 +2,7 @@
 // <%=projectName%>
 //
 <% if(frontEndFramework == 'bootstrap'){ %>
-@import "bootstrap";
+@import "bootstrap/scss/bootstrap.scss";
 <% } %>
 <% if(frontEndFramework == 'foundation'){ %>
 @import "foundation-sites/scss/foundation";

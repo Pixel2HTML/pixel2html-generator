@@ -36,7 +36,7 @@ describe('Bootstrap features', function () {
   })
 
   it('should include bootstrap include', function () {
-    assert.fileContent('src/assets/styles/vendor.scss', /import "bootstrap";/)
+    assert.fileContent('src/assets/styles/vendor.scss', /import "bootstrap\/scss\/bootstrap.scss";/)
     assert.fileContent('src/assets/js/general/index.js', /import '.\/bootstrap'/)
   })
 })
