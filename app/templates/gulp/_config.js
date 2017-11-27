@@ -41,7 +41,7 @@ module.exports = {
       <% if(frontEndFramework == 'bootstrap'){ %>'./node_modules/bootstrap-sass/assets/fonts/**/*',<% } %>
     ]
   },
-  onError: error => {
+  onError: function (error) {
     console.log(error.toString())
     this.emit('end')
   },
