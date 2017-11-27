@@ -12,7 +12,7 @@ describe('Markup Features', function () {
         .withPrompts({
           projectName: 'Pixel2HTML',
           qtyScreens: 6,
-          markupLanguage: 'html',
+          markupLanguage: 'html'
         })
         .toPromise()
     })

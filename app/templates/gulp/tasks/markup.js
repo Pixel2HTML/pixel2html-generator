@@ -29,6 +29,7 @@ const css = [
 
 gulp.task('markup', () =>
   gulp.src(config.directories.src.markup+'/*.<%=markupLanguage%>')
+    .pipe($.plumber())
 <% if (markupLanguage === 'pug') { -%>
     .pipe($.pug({
       baseDir: config.directories.src.markup,
@@ -36,7 +37,7 @@ gulp.task('markup', () =>
         icon: name => fs.readFileSync(`./src/assets/icons/${name}.svg`),
         production
       }
-    })).on('error', config.onError)
+    }))
     .pipe($.htmlPrettify())
 <% } -%>
 <% if (markupLanguage === 'html') { -%>
