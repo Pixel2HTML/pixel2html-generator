@@ -217,7 +217,7 @@ class PixelGenerator extends Generator {
   }
 
   askForjQuery () {
-    return this.options.jQuery
+    return this.options.jQuery || this.options.frontEndFramework
       ? true
       : this.prompt([{
         type: 'confirm',
