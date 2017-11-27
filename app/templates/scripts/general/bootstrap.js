@@ -1,1 +1,1 @@
-require('bootstrap-sass')
+import 'bootstrap'

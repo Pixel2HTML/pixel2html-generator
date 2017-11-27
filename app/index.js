@@ -535,7 +535,9 @@ class PixelGenerator extends Generator {
     this.log(chalk.yellow('Copying webpack config file.'))
     this.fs.copyTpl(
       this.templatePath('gulp/webpack.config.js'),
-      this.destinationPath(this.paths.src.gulp + '/webpack.config.js')
+      this.destinationPath(this.paths.src.gulp + '/webpack.config.js'), {
+        frontEndFramework: this.options.frontEndFramework
+      }
     )
 
     // fonts

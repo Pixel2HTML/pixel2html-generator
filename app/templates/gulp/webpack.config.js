@@ -13,6 +13,15 @@ const ENTRY_PATH = cwd() + '/' + config.project.jsMainFile
 const OUTPUT_PATH = cwd() + '/' + config.directories.dist.scripts
 
 let plugins = [
+  // Allow everyone to use jQuery like it was global
+  new webpack.ProvidePlugin({
+    $: 'jquery',
+    jQuery: 'jquery',
+    'window.jQuery': 'jquery'
+    <% if(frontEndFramework === 'bootstrap'){ -%>
+    ,Popper: ['popper.js', 'default']
+    <% } -%>
+  }),
   new webpack.optimize.CommonsChunkPlugin({
     name: 'vendor',
     minChunks: module => /node_modules/.test(module.resource)
