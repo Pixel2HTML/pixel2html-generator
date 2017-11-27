@@ -68,7 +68,13 @@ class PixelGenerator extends Generator {
     })
 
     this.option('jQuery', {
-      desc: 'Sets de the usage of jQuery',
+      desc: 'Sets the usage of jQuery',
+      type: String,
+      required: false
+    })
+
+    this.option('yarn', {
+      desc: 'Sets the usage of yarn',
       type: String,
       required: false
     })
@@ -87,6 +93,7 @@ class PixelGenerator extends Generator {
         this.options.markupIntegration = config.markupIntegration
         this.options.frontEndFramework = config.frontEndFramework
         this.options.jQuery = config.jQuery
+        this.options.yarn = config.yarn
       })
       .catch(err => {
         let okayError = err.toString() !== "Error: ENOENT: no such file or directory, open './.project.conf'"
@@ -220,6 +227,20 @@ class PixelGenerator extends Generator {
       }])
       .then(props => {
         this.options.jQuery = props.jQuery
+      })
+  }
+
+  askForYarnInstall () {
+    return this.options.yarn
+      ? true
+      : this.prompt([{
+        type: 'confirm',
+        name: 'yarn',
+        message: 'Should I install extra dependencies needed with Yarn?',
+        default: true
+      }])
+      .then(props => {
+        this.options.yarn = props.yarn
       })
   }
 
@@ -664,6 +685,12 @@ class PixelGenerator extends Generator {
     }
 
     this.fs.writeJSON('./.project.conf', configJson)
+  }
+
+  installDependencies () {
+    this.options.yarn
+      ? this.yarnInstall()
+      : this.log('Skipping yarn install')
   }
 }
 
