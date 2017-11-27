@@ -25,7 +25,8 @@ const productionPlugins = [
   new UglifyJSPlugin({sourceMap: true}),
   new webpack.DefinePlugin({
     'process.env': { 'NODE_ENV': JSON.stringify('production') }
-  })
+  }),
+  new webpack.optimize.ModuleConcatenationPlugin()
 ]
 const debugPlugins = [
   new BundleAnalyzerPlugin(),
