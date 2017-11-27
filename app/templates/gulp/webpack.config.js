@@ -6,6 +6,7 @@ const {cwd} = require('process')
 
 const production = config.production
 const debug = config.debug
+const WebpackMonitor = require('webpack-monitor')
 
 // When you really want to make the relationship work...
 const ENTRY_PATH = cwd() + '/' + config.project.jsMainFile
@@ -15,6 +16,9 @@ let plugins = [
   new webpack.optimize.CommonsChunkPlugin({
     name: 'vendor',
     minChunks: module => /node_modules/.test(module.resource)
+  }),
+  new WebpackMonitor({
+    target: cwd() + '/gulp/stats.json'
   })
 ]
 const productionPlugins = [
@@ -24,7 +28,12 @@ const productionPlugins = [
   })
 ]
 const debugPlugins = [
-  new BundleAnalyzerPlugin()
+  new BundleAnalyzerPlugin(),
+  new WebpackMonitor({
+    target: cwd() + '/gulp/stats.json',
+    launch: true,
+    port: 5000
+  })
 ]
 
 if (production) plugins = [...plugins, ...productionPlugins]

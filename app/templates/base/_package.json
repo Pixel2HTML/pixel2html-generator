@@ -29,7 +29,9 @@
     "gulp-group-css-media-queries": "^1.2.0",
     "gulp-if": "^2.0.2",
     "gulp-load-plugins": "^1.5.0",
+    <% if(frontEndFramework === 'bootstrap'){ -%>
     "bootstrap-sass": "^3.3.7",
+    <% } -%>
     <% if(frontEndFramework === 'foundation'){ -%>
     "foundation-sites": "^6.4.3",
     <% } -%>
@@ -52,7 +54,7 @@
     "sass-module-importer": "^1.4.0",
     "uglifyjs-webpack-plugin": "^1.1.0",
     "vinyl-ftp": "^0.6.0",
-    "webpack": "^3.6.0",
+    "webpack": "^3.8.1",
     "webpack-stream": "^4.0.0",
     "yargs": "^10.0.3"
   },
@@ -63,6 +65,7 @@
     "standard": "^10.0.3",
     "stylelint": "^8.3.0",
     "stylelint-config-timmy-scss": "^0.1.1",
-    "webpack-bundle-analyzer": "^2.9.1"
+    "webpack-bundle-analyzer": "^2.9.1",
+    "webpack-monitor": "^1.0.13"
   }
 }
