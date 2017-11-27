@@ -22,11 +22,11 @@ let plugins = [
   })
 ]
 const productionPlugins = [
-  new UglifyJSPlugin({sourceMap: true}),
+  new webpack.optimize.ModuleConcatenationPlugin(),
   new webpack.DefinePlugin({
     'process.env': { 'NODE_ENV': JSON.stringify('production') }
   }),
-  new webpack.optimize.ModuleConcatenationPlugin()
+  new UglifyJSPlugin({sourceMap: true})
 ]
 const debugPlugins = [
   new BundleAnalyzerPlugin(),
