@@ -28,7 +28,10 @@ let plugins = [
   }),
   new WebpackMonitor({
     target: cwd() + '/gulp/stats.json'
-  })
+  }),
+  // Do NOT import the BLOAT from moment.js
+  // thanks create-react-app
+  new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
 ]
 const productionPlugins = [
   new webpack.optimize.ModuleConcatenationPlugin(),
