@@ -204,8 +204,11 @@ class PixelGenerator extends Generator {
             name: 'None',
             value: false
           }, {
-            name: 'Bootstrap',
-            value: 'bootstrap'
+            name: 'Bootstrap 3',
+            value: 'bootstrap-3'
+          }, {
+            name: 'Bootstrap 4',
+            value: 'bootstrap-4'
           }, {
             name: 'Foundation',
             value: 'foundation'
@@ -485,7 +488,7 @@ class PixelGenerator extends Generator {
       )
     }
 
-    if (this.options.frontEndFramework === 'bootstrap') {
+    if (this.options.frontEndFramework === 'bootstrap-3' || this.options.frontEndFramework === 'bootstrap-4') {
       this.fs.copyTpl(
         this.templatePath('scripts/general/bootstrap.js'),
         this.destinationPath(this.paths.src.scripts + '/general/bootstrap.js'), {
