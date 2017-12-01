@@ -16,14 +16,12 @@ const CSS_DIR = config.directories.dist.styles.split(`${BASE}/`)[1]
 const JS_EXT = production ? '.min.js' : '.js'
 const CSS_EXT = production ? '.min.css' : '.css'
 
-const js = production ? [
-  '//code.jquery.com/jquery-3.2.1.min.js',
-  `${JS_DIR}/vendor${JS_EXT}`,
-  `${JS_DIR}/main${JS_EXT}`
-] : [
+const js = [
   `${JS_DIR}/vendor${JS_EXT}`,
   `${JS_DIR}/main${JS_EXT}`
 ]
+
+if (production) js.unshift('//code.jquery.com/jquery-3.2.1.min.js')
 
 const css = [
   `${CSS_DIR}/vendor${CSS_EXT}`,
