@@ -12,7 +12,7 @@ describe('Script features', function () {
         projectName: 'Pixel2HTML',
         qtyScreens: 3,
         markupLanguage: 'html',
-        frontEndFramework: 'bootstrap',
+        frontEndFramework: 'bootstrap-4',
         jQuery: true
       })
       .toPromise()
