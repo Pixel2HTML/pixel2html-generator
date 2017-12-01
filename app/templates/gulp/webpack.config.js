@@ -31,7 +31,7 @@ let plugins = [
   }),
   // Do NOT import the BLOAT from moment.js
   // thanks create-react-app
-  new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+  new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
 ]
 const productionPlugins = [
   new webpack.optimize.ModuleConcatenationPlugin(),
@@ -70,7 +70,10 @@ const CONFIG = {
     filename: production ? '[name].min.js' : '[name].js',
     path: OUTPUT_PATH
   },
-  plugins
+  plugins,
+  externals: production ? {
+    jquery: 'jQuery'
+  } : {}
 }
 
 module.exports = CONFIG
