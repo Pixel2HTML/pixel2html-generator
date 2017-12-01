@@ -222,7 +222,7 @@ class PixelGenerator extends Generator {
       : this.prompt([{
         type: 'confirm',
         name: 'jQuery',
-        message: 'Would you like to use jQuery? \n http://youmightnotneedjquery.com/ \n http://youmightnotneedjqueryplugins.com/',
+        message: 'Would you like to use jQuery? \n http://youmightnotneedjquery.com/ \n http://youmightnotneedjqueryplugins.com/ \n',
         default: false
       }])
       .then(props => {
@@ -474,7 +474,7 @@ class PixelGenerator extends Generator {
       }
     )
 
-    if (this.options.jQuery) {
+    if (this.options.jQuery || this.options.frontEndFramework) {
       this.fs.copyTpl(
         this.templatePath('scripts/general/jquery.js'),
         this.destinationPath(this.paths.src.scripts + '/general/jquery.js'), {
