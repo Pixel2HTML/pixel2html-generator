@@ -38,7 +38,7 @@ module.exports = {
     jsMainFile: 'src/assets/js/main.js',
     fontFiles: [
       '<%= paths.src.fonts %>/**/*',
-      <% if(frontEndFramework == 'bootstrap'){ %>'./node_modules/bootstrap-sass/assets/fonts/**/*',<% } %>
+      <% if(frontEndFramework == 'bootstrap-3'){ %>'./node_modules/bootstrap-sass/assets/fonts/**/*',<% } %>
     ]
   },
   onError: function (error) {
