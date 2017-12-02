@@ -99,6 +99,8 @@ We are using [WebpackJS](https://webpack.js.org/) to bundle our script files. Th
 
 Learn more about Javascript Modules here [Wesbos Article About Modules](http://wesbos.com/javascript-modules/)
 
+Also learn more about ES6 here: [Babel Overview of ES2015](https://babeljs.io/learn-es2015/)
+
 #### Example
 ```js
 import $ from 'jquery'
