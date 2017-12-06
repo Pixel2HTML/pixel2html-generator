@@ -12,10 +12,10 @@ The **Pixel2HTML Boilerplate** will ask you questions about this points. Answeri
 
 * Project Name?
 * Quantity of screens?
-* Markup Language? _Options: HTML/Pug_
-* Markup Integration? _Options: None/Jekyll_
-* Frontend Framework _Options: None/Bootstrap/Foundation_
-* jQuery? _Options: true/false_
+* Markup Language? _Options: HTML / Pug_
+* Markup Integration? _Options: None / Jekyll_
+* Frontend Framework _Options: None / Bootstrap 3.*/ Bootstrap 4 Beta / Foundation_
+* jQuery? _Options: true / false_
 
 
 ### Option 2: Using available parameters
@@ -28,7 +28,7 @@ Here there are the available questions:
 * ```--qtyScreens``` (*int*)
 * ```--markupLanguage``` (*string*) [html, pug]
 * ```--markupIntegration``` (*string*) [jekyll, none]
-* ```--frontEndFramework``` (*string*) [bootstrap, foundation, none]
+* ```--frontEndFramework``` (*string*) [bootstrap, bootstrap-4, foundation, none]
 * ```--jQuery``` (*bool*)
 
 Example:

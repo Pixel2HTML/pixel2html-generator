@@ -18,7 +18,7 @@ let plugins = [
     $: 'jquery',
     jQuery: 'jquery',
     'window.jQuery': 'jquery'
-    <% if(frontEndFramework === 'bootstrap'){ -%>
+    <% if(frontEndFramework === 'bootstrap-4'){ -%>
     ,Popper: ['popper.js', 'default']
     <% } -%>
   }),

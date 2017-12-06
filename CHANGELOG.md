@@ -1,3 +1,7 @@
+### 2.1.0
+- Add Bootstrap 4 Beta as an Frontend Framework option
+
+
 ### 2.0.0
 - Reduced number of total dependencies
 - Webpack integration to handle JS files

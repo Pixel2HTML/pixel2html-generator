@@ -207,7 +207,7 @@ class PixelGenerator extends Generator {
             name: 'Bootstrap 3',
             value: 'bootstrap-3'
           }, {
-            name: 'Bootstrap 4',
+            name: 'Bootstrap 4 Beta',
             value: 'bootstrap-4'
           }, {
             name: 'Foundation',

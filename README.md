@@ -37,10 +37,10 @@ The **Pixel2HTML Boilerplate** will ask you questions about this points. Answeri
 
 * Project Name?
 * Quantity of screens?
-* Markup Language? _Options: HTML/Pug_
-* Markup Integration? _Options: None/Jekyll_
-* Frontend Framework _Options: None/Bootstrap/Foundation_
-* jQuery? _Options: true/false_
+* Markup Language? _Options: HTML / Pug_
+* Markup Integration? _Options: None / Jekyll_
+* Frontend Framework _Options: None / Bootstrap 3.*/ Bootstrap 4 Beta / Foundation_
+* jQuery? _Options: true / false_
 
 There are also two more way to generate your files, you can find the instructions in the [Wiki](https://github.com/Pixel2HTML/pixel2html-generator/wiki/Running-the-Pixel2HTML-Generator)
 
