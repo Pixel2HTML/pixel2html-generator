@@ -1,4 +1,4 @@
-# Pixel2HTML Boilerplate Generator 2.0.0
+# Pixel2HTML Boilerplate Generator 2.1.0
 
 [![Build Status](https://travis-ci.org/Pixel2HTML/pixel2html-generator.svg?branch=master)](https://travis-ci.org/Pixel2HTML/pixel2html-generator)
 
