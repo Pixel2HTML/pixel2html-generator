@@ -4,6 +4,7 @@ const argv = require('yargs').argv
 const { env } = require('process')
 // Add your conditions here 💅
 const production = !!argv.prod || !!argv.production || env.NODE_ENV === 'production'
+const debug = !!argv.debug || env.NODE_ENV === 'debug'
 
 module.exports = {
   directories: {
@@ -37,14 +38,15 @@ module.exports = {
     jsMainFile: 'src/assets/js/main.js',
     fontFiles: [
       '<%= paths.src.fonts %>/**/*',
-      <% if(frontEndFramework == 'bootstrap'){ %>'./node_modules/bootstrap-sass/assets/fonts/**/*',<% } %>
+      <% if(frontEndFramework == 'bootstrap-3'){ %>'./node_modules/bootstrap-sass/assets/fonts/**/*',<% } %>
     ]
   },
-  onError: error => {
+  onError: function (error) {
     console.log(error.toString())
     this.emit('end')
   },
   production,
+  debug,
   // Stuff for PurifyCss
   purify: ['./dist/**/*.js', './dist/**/*.html'],
   deploy: {

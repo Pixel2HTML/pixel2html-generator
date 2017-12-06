@@ -18,7 +18,6 @@ describe('General Assertions', function () {
 
   it('creates expected base files', function () {
     assert.file([
-      '.browserlistrc',
       '.gitignore',
       '.gitattributes',
       'package.json',

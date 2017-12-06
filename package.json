@@ -1,7 +1,7 @@
 {
   "name": "generator-pixel2html",
   "description": "Pixel2HTML Boilerplate Generator",
-  "version": "2.0.0",
+  "version": "2.1.0-beta.15",
   "repository": "https://github.com/Pixel2HTML/pixel2html-generator",
   "license": "MIT",
   "author": {
@@ -11,14 +11,36 @@
   "contributors": [
     {
       "name": "Miguel Palau",
-      "email": "miguel@pixel2html.com"
+      "email": "miguel@pixel2html.com",
+      "url": "https://www.mpz.im/"
+    },
+    {
+      "name": "Diego Peralta",
+      "url": "https://diego.earth/"
+    },
+    {
+      "name": "Bruno Belcastro",
+      "url": "https://github.com/argen"
+    },
+    {
+      "name": "Matt Ginn",
+      "url": "http://matt.codes/"
+    },
+    {
+      "name": "Juan Di Nella",
+      "url": "https://github.com/juandinella"
+    },
+    {
+      "name": "Tomas Peralta",
+      "url": "https://github.com/peraltatomas"
     }
   ],
   "keywords": [
     "yeoman-generator"
   ],
   "scripts": {
-    "test": "mocha --require babel-register"
+    "test": "mocha --require babel-register",
+    "postversion": "git push; git push --tags"
   },
   "main": "app/index.js",
   "dependencies": {

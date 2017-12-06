@@ -68,7 +68,13 @@ class PixelGenerator extends Generator {
     })
 
     this.option('jQuery', {
-      desc: 'Sets de the usage of jQuery',
+      desc: 'Sets the usage of jQuery',
+      type: String,
+      required: false
+    })
+
+    this.option('yarn', {
+      desc: 'Sets the usage of yarn',
       type: String,
       required: false
     })
@@ -87,6 +93,7 @@ class PixelGenerator extends Generator {
         this.options.markupIntegration = config.markupIntegration
         this.options.frontEndFramework = config.frontEndFramework
         this.options.jQuery = config.jQuery
+        this.options.yarn = config.yarn
       })
       .catch(err => {
         let okayError = err.toString() !== "Error: ENOENT: no such file or directory, open './.project.conf'"
@@ -197,8 +204,11 @@ class PixelGenerator extends Generator {
             name: 'None',
             value: false
           }, {
-            name: 'Bootstrap',
-            value: 'bootstrap'
+            name: 'Bootstrap 3',
+            value: 'bootstrap-3'
+          }, {
+            name: 'Bootstrap 4',
+            value: 'bootstrap-4'
           }, {
             name: 'Foundation',
             value: 'foundation'
@@ -210,16 +220,30 @@ class PixelGenerator extends Generator {
   }
 
   askForjQuery () {
-    return this.options.jQuery
+    return this.options.jQuery || this.options.frontEndFramework
       ? true
       : this.prompt([{
         type: 'confirm',
         name: 'jQuery',
-        message: 'Would you like to use jQuery? \n http://youmightnotneedjquery.com/ \n http://youmightnotneedjqueryplugins.com/',
+        message: 'Would you like to use jQuery? \n http://youmightnotneedjquery.com/ \n http://youmightnotneedjqueryplugins.com/ \n',
         default: false
       }])
       .then(props => {
         this.options.jQuery = props.jQuery
+      })
+  }
+
+  askForYarnInstall () {
+    return this.options.yarn
+      ? true
+      : this.prompt([{
+        type: 'confirm',
+        name: 'yarn',
+        message: 'Should I install extra dependencies needed with Yarn?',
+        default: true
+      }])
+      .then(props => {
+        this.options.yarn = props.yarn
       })
   }
 
@@ -240,18 +264,6 @@ class PixelGenerator extends Generator {
     this.fs.copy(
       this.templatePath('base/editorconfig'),
       this.destinationPath('.editorconfig')
-    )
-
-    this.log(chalk.yellow('Copying babelrc file'))
-    this.fs.copy(
-      this.templatePath('base/babelrc'),
-      this.destinationPath('.babelrc')
-    )
-
-    this.log(chalk.yellow('Copying browserlistrc file'))
-    this.fs.copy(
-      this.templatePath('base/browserlistrc'),
-      this.destinationPath('.browserlistrc')
     )
 
     this.log(chalk.yellow('Copying MIT License'))
@@ -465,7 +477,7 @@ class PixelGenerator extends Generator {
       }
     )
 
-    if (this.options.jQuery) {
+    if (this.options.jQuery || this.options.frontEndFramework) {
       this.fs.copyTpl(
         this.templatePath('scripts/general/jquery.js'),
         this.destinationPath(this.paths.src.scripts + '/general/jquery.js'), {
@@ -476,7 +488,7 @@ class PixelGenerator extends Generator {
       )
     }
 
-    if (this.options.frontEndFramework === 'bootstrap') {
+    if (this.options.frontEndFramework === 'bootstrap-3' || this.options.frontEndFramework === 'bootstrap-4') {
       this.fs.copyTpl(
         this.templatePath('scripts/general/bootstrap.js'),
         this.destinationPath(this.paths.src.scripts + '/general/bootstrap.js'), {
@@ -526,7 +538,9 @@ class PixelGenerator extends Generator {
     this.log(chalk.yellow('Copying webpack config file.'))
     this.fs.copyTpl(
       this.templatePath('gulp/webpack.config.js'),
-      this.destinationPath(this.paths.src.gulp + '/webpack.config.js')
+      this.destinationPath(this.paths.src.gulp + '/webpack.config.js'), {
+        frontEndFramework: this.options.frontEndFramework
+      }
     )
 
     // fonts
@@ -676,6 +690,12 @@ class PixelGenerator extends Generator {
     }
 
     this.fs.writeJSON('./.project.conf', configJson)
+  }
+
+  installDependencies () {
+    this.options.yarn
+      ? this.yarnInstall()
+      : this.log('Skipping yarn install')
   }
 }
 

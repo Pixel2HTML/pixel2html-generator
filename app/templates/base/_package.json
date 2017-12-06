@@ -6,20 +6,21 @@
   "version": "1.0.0",
   "scripts": {
     "start": "npm install <% if (markupIntegration=='jekyll'){%>&& bundle install<%}%>",
-    "code": "gulp",
-    "build": "gulp release --prod",
+    "code": "NODE_ENV=development gulp",
+    "build": "NODE_ENV=production gulp release --prod",
     "lint:js": "standard",
     "lint:scss": "stylelint ./src/styles/**/*.scss",
     "lint": "npm run lint:js; npm run lint:scss",
-    "debug": "NODE_ENV=debug webpack --config gulp/webpack.config.js",
-    "prod": "gulp build --prod"
+    "debug": "NODE_ENV=development webpack --config gulp/webpack.config.js --debug",
+    "debug:prod": "NODE_ENV=production webpack --config gulp/webpack.config.js --debug",
+    "prod": "NODE_ENV=production gulp build --prod",
+    "js": "NODE_ENV=development gulp scripts"
   },
   "dependencies": {
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.2",
-    "babel-polyfill": "^6.26.0",
-    "babel-preset-env": "^1.6.0",
-    "browser-sync": "^2.18.12",
+    "@babel/core": "^7.0.0-beta.32",
+    "@babel/runtime": "^7.0.0-beta.32",
+    "babel-loader": "8.0.0-beta.0",
+    "babel-preset-timmy": "^0.3.0",
     "del": "^3.0.0",
     "gulp": "github:gulpjs/gulp#4.0",
     "gulp-autoprefixer": "^4.0.0",
@@ -28,11 +29,17 @@
     "gulp-group-css-media-queries": "^1.2.0",
     "gulp-if": "^2.0.2",
     "gulp-load-plugins": "^1.5.0",
+    <% if(frontEndFramework === 'bootstrap-4'){ -%>
+    "bootstrap": "^4.0.0-alpha.6",
+    "popper.js": "^1.12.9",
+    <% } -%>
+    <% if(frontEndFramework === 'bootstrap-3'){ -%>
     "bootstrap-sass": "^3.3.7",
+    <% } -%>
     <% if(frontEndFramework === 'foundation'){ -%>
     "foundation-sites": "^6.4.3",
     <% } -%>
-    <% if(jQuery){ -%>
+    <% if(jQuery || frontEndFramework){ -%>
     "jquery": "^3.2.1",
     <% } -%>
     <% if (markupLanguage === 'pug') { -%>
@@ -51,42 +58,20 @@
     "sass-module-importer": "^1.4.0",
     "uglifyjs-webpack-plugin": "^1.1.0",
     "vinyl-ftp": "^0.6.0",
-    "webpack": "^3.6.0",
+    "webpack": "^3.8.1",
     "webpack-stream": "^4.0.0",
     "yargs": "^10.0.3"
   },
   "stylelint": {
-    "extends": "stylelint-config-recommended-scss",
-    "plugins": [
-      "stylelint-no-unsupported-browser-features"
-    ],
-    "rules": {
-      "plugin/no-unsupported-browser-features": [
-        true,
-        {
-          "browsers": [
-            "last 2 Chrome versions",
-            "last 2 ChromeAndroid versions",
-            "last 2 Firefox versions",
-            "last 2 Safari versions",
-            "last 2 ios versions",
-            "last 2 edge versions",
-            "last 2 ie versions",
-            "last 2 Opera versions"
-          ],
-          "ignore": ["rem"],
-          "severity": "warning"
-        }
-      ],
-      "no-empty-source": null
-    }
+    "extends": "stylelint-config-timmy-scss"
   },
   "devDependencies": {
-    "standard": "^10.0.2",
-    "stylelint": "^8.1.1",
-    "stylelint-config-recommended-scss": "^2.0.0",
-    "stylelint-no-unsupported-browser-features": "^1.0.0",
-    "stylelint-scss": "^2.1.0",
-    "webpack-bundle-analyzer": "^2.9.0"
+    "browser-sync": "^2.18.12",
+    "react-dev-utils": "^4.2.1",
+    "standard": "^10.0.3",
+    "stylelint": "^8.3.0",
+    "stylelint-config-timmy-scss": "^0.1.1",
+    "webpack-bundle-analyzer": "^2.9.1",
+    "webpack-monitor": "^1.0.13"
   }
 }

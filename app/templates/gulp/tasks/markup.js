@@ -21,6 +21,8 @@ const js = [
   `${JS_DIR}/main${JS_EXT}`
 ]
 
+if (production) js.unshift('//code.jquery.com/jquery-3.2.1.min.js')
+
 const css = [
   `${CSS_DIR}/vendor${CSS_EXT}`,
   `${CSS_DIR}/main${CSS_EXT}`

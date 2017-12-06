@@ -12,7 +12,7 @@ describe('Script features', function () {
         projectName: 'Pixel2HTML',
         qtyScreens: 3,
         markupLanguage: 'html',
-        frontEndFramework: 'bootstrap',
+        frontEndFramework: 'bootstrap-4',
         jQuery: true
       })
       .toPromise()
@@ -22,8 +22,7 @@ describe('Script features', function () {
     assert.file([
       'src/assets/js',
       'src/assets/js/main.js',
-      'src/assets/js/general/index.js',
-      '.babelrc'
+      'src/assets/js/general/index.js'
     ])
   })
 
