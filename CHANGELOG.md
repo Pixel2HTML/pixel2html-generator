@@ -1,5 +1,8 @@
 ### 2.1.0
 - Add Bootstrap 4 Beta as an Frontend Framework option
+- Decouple jQuery from bundle on production mode.
+- Keep alive the opened browser tab when you hit `npm run code`. Thanks Facebook!
+
 
 
 ### 2.0.0
