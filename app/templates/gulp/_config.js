@@ -10,12 +10,10 @@ module.exports = {
   directories: {
     src: {
       base: '<%= paths.src.base %>',
-      <% if(markupLanguage == 'html'){ -%>
-      markup: '<%= paths.src.markup %>',
-      <% } -%>
-      <% if(markupLanguage == 'pug'){ -%>
-      markup: '<%= paths.src.markup %>/pug',
-      <% } -%>
+<% if(markupLanguage == 'html'){ -%>      markup: '<%= paths.src.markup %>',
+<% } -%>
+<% if(markupLanguage == 'pug'){ -%>       markup: '<%= paths.src.markup %>/pug',
+<% } -%>
       fonts: '<%= paths.src.fonts %>',
       icons: '<%= paths.src.icons %>',
       images: '<%= paths.src.images %>',
@@ -38,7 +36,7 @@ module.exports = {
     jsMainFile: 'src/assets/js/main.js',
     fontFiles: [
       '<%= paths.src.fonts %>/**/*',
-      <% if(frontEndFramework == 'bootstrap-3'){ %>'./node_modules/bootstrap-sass/assets/fonts/**/*',<% } %>
+<% if(frontEndFramework == 'bootstrap-3'){ %>     './node_modules/bootstrap-sass/assets/fonts/**/*',<% } %>
     ]
   },
   onError: function (error) {
