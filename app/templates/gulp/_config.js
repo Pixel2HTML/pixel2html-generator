@@ -40,8 +40,12 @@ module.exports = {
     ]
   },
   onError: function (error) {
-    console.log(error.toString())
-    this.emit('end')
+    if (production) {
+      process.exit(1)
+    } else {
+      console.log(error.toString())
+      this.emit('end')
+    }
   },
   production,
   debug,
