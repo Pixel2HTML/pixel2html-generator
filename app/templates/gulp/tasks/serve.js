@@ -7,7 +7,8 @@ const {prepareUrls, choosePort} = WebpackDevServerUtils
 
 const DEFAULT_PORT = 3000
 const HOST = '0.0.0.0'
-const protocol = 'http'
+const protocol = 'https'
+const fakeCert = require('create-cert-files')()
 
 gulp.task('browser-sync', done => {
   choosePort(HOST, DEFAULT_PORT)
@@ -26,7 +27,11 @@ gulp.task('browser-sync', done => {
         },
         open: false,
         logConnections: true,
-        logPrefix: 'Pixel2Html'
+        logPrefix: 'Pixel2Html',
+        https: {
+          key: fakeCert.key,
+          cert: fakeCert.cert
+        }
       })
       openBrowser(urls.localUrlForBrowser)
       done()
