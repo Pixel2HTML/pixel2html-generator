@@ -62,16 +62,21 @@
     "webpack-stream": "^4.0.0",
     "yargs": "^10.0.3"
   },
-  "stylelint": {
-    "extends": "stylelint-config-timmy-scss"
-  },
   "devDependencies": {
     "browser-sync": "^2.18.12",
+    "create-cert-files": "^1.0.2",
+    "eslint": "^4.13.1",
+    "eslint-config-pixel2html": "^1.0.0",
     "react-dev-utils": "^4.2.1",
-    "standard": "^10.0.3",
-    "stylelint": "^8.3.0",
-    "stylelint-config-timmy-scss": "^0.1.1",
+    "stylelint": "^8.4.0",
+    "stylelint-config-pixel2html": "^1.0.0",
     "webpack-bundle-analyzer": "^2.9.1",
-    "webpack-monitor": "^1.0.13"
+    "webpack-monitor": "^1.0.14"
+  },
+  "stylelint": {
+    "extends": "stylelint-config-pixel2html"
+  },
+  "eslintConfig": {
+    "extends": "pixel2html"
   }
 }
