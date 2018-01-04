@@ -35,6 +35,8 @@ describe('General Assertions', function () {
       'gulp/config.js',
       'gulp/tasks',
       'gulp/tasks/styles.js',
+      'gulp/tasks/watch.js',
+      'gulp/tasks/serve.js',
       'gulp/tasks/scripts.js',
       'gulp/tasks/fonts.js',
       'gulp/tasks/static.js',

@@ -592,6 +592,18 @@ class PixelGenerator extends Generator {
       }
     )
 
+    // watch
+    this.fs.copyTpl(
+      this.templatePath('gulp/tasks/watch.js'),
+      this.destinationPath(this.paths.src.gulp_tasks + '/watch.js'), {
+        paths: this.paths,
+        frontEndFramework: this.options.frontEndFramework,
+        jQuery: this.options.jQuery,
+        markupLanguage: this.options.markupLanguage,
+        markupIntegration: this.options.markupIntegration
+      }
+    )
+
     // static
     this.fs.copyTpl(
       this.templatePath('gulp/tasks/static.js'),
