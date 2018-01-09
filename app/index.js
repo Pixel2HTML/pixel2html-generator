@@ -250,11 +250,29 @@ class PixelGenerator extends Generator {
   writeProjectFiles () {
     this.log(chalk.yellow('Copying package.json file and adding dependencies.'))
     this.fs.copyTpl(
-      this.templatePath('base/_package.json'),
+      this.templatePath('base/package.json'),
       this.destinationPath('package.json'), {
         projectName: this.options.projectName,
         markupLanguage: this.options.markupLanguage,
         markupIntegration: this.options.markupIntegration,
+        frontEndFramework: this.options.frontEndFramework,
+        jQuery: this.options.jQuery
+      }
+    )
+
+    this.log(chalk.yellow('Copying webpack config file.'))
+    this.fs.copyTpl(
+      this.templatePath('base/webpack.config.js'),
+      this.destinationPath('webpack.config.js'), {
+        frontEndFramework: this.options.frontEndFramework,
+        jQuery: this.options.jQuery
+      }
+    )
+
+    this.log(chalk.yellow('Copying tern project file.'))
+    this.fs.copyTpl(
+      this.templatePath('base/tern-project.json'),
+      this.destinationPath('.tern-project'), {
         frontEndFramework: this.options.frontEndFramework,
         jQuery: this.options.jQuery
       }
@@ -532,14 +550,6 @@ class PixelGenerator extends Generator {
         markupLanguage: this.options.markupLanguage,
         frontEndFramework: this.options.frontEndFramework,
         jQuery: this.options.jQuery
-      }
-    )
-
-    this.log(chalk.yellow('Copying webpack config file.'))
-    this.fs.copyTpl(
-      this.templatePath('gulp/webpack.config.js'),
-      this.destinationPath(this.paths.src.gulp + '/webpack.config.js'), {
-        frontEndFramework: this.options.frontEndFramework
       }
     )
 

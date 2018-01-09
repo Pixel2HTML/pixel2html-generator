@@ -23,6 +23,8 @@ describe('General Assertions', function () {
       'package.json',
       'gulpfile.js',
       'package.json',
+      'webpack.config.js',
+      '.tern-project',
       '.editorconfig',
       'LICENSE',
       'src/screen-1.html',
