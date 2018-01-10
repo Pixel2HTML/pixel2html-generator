@@ -438,8 +438,8 @@ class PixelGenerator extends Generator {
       this.destinationPath(this.paths.src.styles + '/main/_mixins.scss')
     )
     this.fs.copy(
-      this.templatePath('styles/main/_reset.scss'),
-      this.destinationPath(this.paths.src.styles + '/main/_reset.scss')
+      this.templatePath('styles/vendor/_reset.scss'),
+      this.destinationPath(this.paths.src.styles + '/vendor/_reset.scss')
     )
     this.fs.copy(
       this.templatePath('styles/main/screens/_base.scss'),

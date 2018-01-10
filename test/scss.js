@@ -26,9 +26,9 @@ describe('SCSS features', function () {
       'src/assets/styles/main/components/_forms.scss',
       'src/assets/styles/main/screens/_base.scss',
       'src/assets/styles/main/_mixins.scss',
-      'src/assets/styles/main/_reset.scss',
       'src/assets/styles/main/_variables.scss',
       'src/assets/styles/main/main.scss',
+      'src/assets/styles/vendor/_reset.scss',
       'src/assets/styles/vendor/vendor.scss'
     ])
   })
