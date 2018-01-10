@@ -19,6 +19,7 @@ let plugins = [
     $: 'jquery',
     jQuery: 'jquery',
     'window.jQuery': 'jquery',
+    // Popper is for Bootstrap 4 mainly
     Popper: ['popper.js', 'default']
   }),
   new webpack.optimize.CommonsChunkPlugin({
