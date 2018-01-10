@@ -1,4 +1,4 @@
-# Pixel2HTML Boilerplate Generator 2.1.0
+# Pixel2HTML Boilerplate Generator 2.2.0
 
 [![Build Status](https://travis-ci.org/Pixel2HTML/pixel2html-generator.svg?branch=master)](https://travis-ci.org/Pixel2HTML/pixel2html-generator)
 
@@ -12,7 +12,7 @@ You will need `node` installed in your machine. In case you don't have it (you c
 
 We also need to install **Yeoman**, and the **Pixel2HTML Generator**, so run this command in your terminal. The `-g` parameter is to install them globally so can use it in every project.
 ```shell
-$ npm install -g yo generator-pixel2html
+$ npm install -g yo @pixel2html/generator-frontend
 ```
 
 #### Ruby
@@ -31,7 +31,7 @@ To generate the **Pixel2HTML Boilerplate** go to your project folder and run thi
 
 ```
 $ cd ~/your/project/folder
-$ yo pixel2html
+$ yo @pixel2html/frontend
 ```
 The **Pixel2HTML Boilerplate** will ask you questions about this points. Answering with the desired options will generate the code.
 
@@ -70,9 +70,7 @@ This boilerplate will create a set of files and folders
 │    │    ├──  styles/
 │    │    │    ├──  components/
 │    │    │    │    ├──  _buttons.scss
-│    │    │    │    ├──  _footer.scss
 │    │    │    │    ├──  _forms.scss
-│    │    │    │    ├──  _header.scss
 │    │    │    │    └──  _nav.scss
 │    │    │    ├──  screens/
 │    │    │    │    ├──  _base.scss

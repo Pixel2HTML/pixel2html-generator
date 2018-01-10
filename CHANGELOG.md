@@ -1,3 +1,9 @@
+# 2.2.0
+- HMR
+- CSS HMR
+- PurifyCSS
+- CriticalCSS
+
 ### 2.1.0
 - Add Bootstrap 4 Beta as an Frontend Framework option
 - Decouple jQuery from bundle on production mode.
