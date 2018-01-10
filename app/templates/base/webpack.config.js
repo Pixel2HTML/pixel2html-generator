@@ -11,6 +11,7 @@ const WebpackMonitor = require('webpack-monitor')
 // When you really want to make the relationship work...
 const ENTRY_PATH = cwd() + '/' + config.project.jsMainFile
 const OUTPUT_PATH = cwd() + '/' + config.directories.dist.scripts
+const SRC = cwd() + '/src'
 const styles = cwd() + '/' + config.directories.src.cssModules
 
 let plugins = [
@@ -68,13 +69,14 @@ const CONFIG = {
   module: {
     rules: [{
       test: /\.js$/,
-      exclude: /node_modules/,
+      include: SRC
       use: {
         loader: 'babel-loader',
         options: {
           presets: [
             require.resolve('@pixel2html/babel-preset')
-          ]
+          ],
+          cacheDirectory: true
         }
       }
     }]},
