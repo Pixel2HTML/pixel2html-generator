@@ -9,6 +9,6 @@ require('bootstrap-sass')
 <% if (frontEndFramework === 'foundation') { -%>
 // Start foundation
 import $ from 'jquery'
-import 'foundation-sites'
+import 'foundation-sites/dist/js/foundation.js'
 $(document).foundation()
 <% } -%>
