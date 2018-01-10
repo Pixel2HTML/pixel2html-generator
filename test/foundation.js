@@ -37,6 +37,6 @@ describe('Foundation features', function () {
 
   it('should include foundation include', function () {
     assert.fileContent('src/assets/styles/vendor/vendor.scss', /import "foundation-sites\/scss\/foundation";/)
-    assert.fileContent('src/assets/js/framework.js', /import 'foundation-sites'/)
+    assert.fileContent('src/assets/js/framework.js', /import 'foundation-sites\/dist\/js\/foundation.js'/)
   })
 })
