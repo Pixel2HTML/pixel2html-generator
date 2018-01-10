@@ -12,7 +12,7 @@ gulp.task('ftp', () => {
   return gulp.src(config.directories.dist.base + '/**/*', {
     buffer: false
   })
-  .pipe(conn.dest(config.deploy.ftp.remotePath))
+    .pipe(conn.dest(config.deploy.ftp.remotePath))
 })
 
 gulp.task('deploy', gulp.series('ftp'))

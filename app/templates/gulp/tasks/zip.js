@@ -10,5 +10,5 @@ gulp.task('zip', () => {
 
   return gulp.src(distFiles, {base: '.'})
     .pipe(zip('latest.zip')).on('error', config.onError)
-    .pipe(gulp.dest('<%= paths.releases.base %>'))
+    .pipe(gulp.dest('dist/releases'))
 })

@@ -21,8 +21,8 @@ describe('Script features', function () {
   it('creates expected base files', function () {
     assert.file([
       'src/assets/js',
-      'src/assets/js/main.js',
-      'src/assets/js/general/index.js'
+      'src/assets/js/index.js',
+      'src/assets/js/app.js'
     ])
   })
 
@@ -33,6 +33,6 @@ describe('Script features', function () {
   })
 
   it('should have the project name on package.json', function () {
-    assert.fileContent('src/assets/js/main.js', /Pixel2HTML/)
+    assert.fileContent('src/assets/js/app.js', /Pixel2HTML/)
   })
 })

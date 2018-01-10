@@ -414,62 +414,50 @@ class PixelGenerator extends Generator {
 
   writeBaseStyles () {
     this.fs.copyTpl(
-      this.templatePath('styles/main.scss'),
-      this.destinationPath(this.paths.src.styles + '/main.scss'), {
+      this.templatePath('styles/main/main.scss'),
+      this.destinationPath(this.paths.src.styles + '/main/main.scss'), {
         projectName: this.options.projectName,
         qtyScreens: this.options.qtyScreens
       }
     )
 
     this.fs.copyTpl(
-      this.templatePath('styles/vendor.scss'),
-      this.destinationPath(this.paths.src.styles + '/vendor.scss'), {
+      this.templatePath('styles/vendor/vendor.scss'),
+      this.destinationPath(this.paths.src.styles + '/vendor/vendor.scss'), {
         projectName: this.options.projectName,
         frontEndFramework: this.options.frontEndFramework
       }
     )
 
     this.fs.copy(
-      this.templatePath('styles/_variables.scss'),
-      this.destinationPath(this.paths.src.styles + '/_variables.scss')
+      this.templatePath('styles/main/_variables.scss'),
+      this.destinationPath(this.paths.src.styles + '/main/_variables.scss')
     )
     this.fs.copy(
-      this.templatePath('styles/_mixins.scss'),
-      this.destinationPath(this.paths.src.styles + '/_mixins.scss')
+      this.templatePath('styles/main/_mixins.scss'),
+      this.destinationPath(this.paths.src.styles + '/main/_mixins.scss')
     )
     this.fs.copy(
-      this.templatePath('styles/_reset.scss'),
-      this.destinationPath(this.paths.src.styles + '/_reset.scss')
+      this.templatePath('styles/main/_reset.scss'),
+      this.destinationPath(this.paths.src.styles + '/main/_reset.scss')
     )
     this.fs.copy(
-      this.templatePath('styles/screens/_base.scss'),
-      this.destinationPath(this.paths.src.styles + '/screens/_base.scss')
+      this.templatePath('styles/main/screens/_base.scss'),
+      this.destinationPath(this.paths.src.styles + '/main/screens/_base.scss')
     )
     this.fs.copy(
-      this.templatePath('styles/components/_header.scss'),
-      this.destinationPath(this.paths.src.styles + '/components/_header.scss')
+      this.templatePath('styles/main/components/_forms.scss'),
+      this.destinationPath(this.paths.src.styles + '/main/components/_forms.scss')
     )
     this.fs.copy(
-      this.templatePath('styles/components/_footer.scss'),
-      this.destinationPath(this.paths.src.styles + '/components/_footer.scss')
-    )
-    this.fs.copy(
-      this.templatePath('styles/components/_nav.scss'),
-      this.destinationPath(this.paths.src.styles + '/components/_nav.scss')
-    )
-    this.fs.copy(
-      this.templatePath('styles/components/_forms.scss'),
-      this.destinationPath(this.paths.src.styles + '/components/_forms.scss')
-    )
-    this.fs.copy(
-      this.templatePath('styles/components/_buttons.scss'),
-      this.destinationPath(this.paths.src.styles + '/components/_buttons.scss')
+      this.templatePath('styles/main/components/_buttons.scss'),
+      this.destinationPath(this.paths.src.styles + '/main/components/_buttons.scss')
     )
 
     for (var i = 1; i < this.options.qtyScreens + 1; i++) {
       this.fs.copyTpl(
-        this.templatePath('styles/screens/_screen.scss'),
-        this.destinationPath(this.paths.src.styles + '/screens/screen_' + i + '.scss'), {
+        this.templatePath('styles/main/screens/_screen.scss'),
+        this.destinationPath(this.paths.src.styles + '/main/screens/screen_' + i + '.scss'), {
           screenNumber: i,
           projectName: this.options.projectName
         }
@@ -480,47 +468,25 @@ class PixelGenerator extends Generator {
   writeBaseScriptsFiles () {
     this.log(chalk.yellow('Copying js main file.'))
     this.fs.copyTpl(
-      this.templatePath('scripts/main.js'),
-      this.destinationPath(this.paths.src.scripts + '/main.js'), {
+      this.templatePath('scripts/app.js'),
+      this.destinationPath(this.paths.src.scripts + '/app.js'), {
         projectName: this.options.projectName,
         frontEndFramework: this.options.frontEndFramework
       }
     )
     this.fs.copyTpl(
-      this.templatePath('scripts/general/index.js'),
-      this.destinationPath(this.paths.src.scripts + '/general/index.js'), {
+      this.templatePath('scripts/index.js'),
+      this.destinationPath(this.paths.src.scripts + '/index.js'), {
         projectName: this.options.projectName,
         frontEndFramework: this.options.frontEndFramework,
         jQuery: this.options.jQuery
       }
     )
 
-    if (this.options.jQuery || this.options.frontEndFramework) {
+    if (this.options.frontEndFramework) {
       this.fs.copyTpl(
-        this.templatePath('scripts/general/jquery.js'),
-        this.destinationPath(this.paths.src.scripts + '/general/jquery.js'), {
-          projectName: this.options.projectName,
-          frontEndFramework: this.options.frontEndFramework,
-          jQuery: this.options.jQuery
-        }
-      )
-    }
-
-    if (this.options.frontEndFramework === 'bootstrap-3' || this.options.frontEndFramework === 'bootstrap-4') {
-      this.fs.copyTpl(
-        this.templatePath('scripts/general/bootstrap.js'),
-        this.destinationPath(this.paths.src.scripts + '/general/bootstrap.js'), {
-          projectName: this.options.projectName,
-          frontEndFramework: this.options.frontEndFramework,
-          jQuery: this.options.jQuery
-        }
-      )
-    }
-
-    if (this.options.frontEndFramework === 'foundation') {
-      this.fs.copyTpl(
-        this.templatePath('scripts/general/foundation.js'),
-        this.destinationPath(this.paths.src.scripts + '/general/foundation.js'), {
+        this.templatePath('scripts/framework.js'),
+        this.destinationPath(this.paths.src.scripts + '/framework.js'), {
           projectName: this.options.projectName,
           frontEndFramework: this.options.frontEndFramework,
           jQuery: this.options.jQuery
@@ -532,7 +498,7 @@ class PixelGenerator extends Generator {
   writeBaseGulpFiles () {
     this.log(chalk.yellow('Copying gulpfile.'))
     this.fs.copyTpl(
-      this.templatePath('gulp/_gulpfile.js'),
+      this.templatePath('gulp/gulpfile.js'),
       this.destinationPath('gulpfile.js'), {
         paths: this.paths,
         frontEndFramework: this.options.frontEndFramework,
@@ -544,7 +510,7 @@ class PixelGenerator extends Generator {
 
     this.log(chalk.yellow('Copying gulpfile config file.'))
     this.fs.copyTpl(
-      this.templatePath('gulp/_config.js'),
+      this.templatePath('gulp/config.js'),
       this.destinationPath(this.paths.src.gulp + '/config.js'), {
         paths: this.paths,
         markupLanguage: this.options.markupLanguage,
@@ -628,6 +594,38 @@ class PixelGenerator extends Generator {
     this.fs.copyTpl(
       this.templatePath('gulp/tasks/styles.js'),
       this.destinationPath(this.paths.src.gulp_tasks + '/styles.js'), {
+        frontEndFramework: this.options.frontEndFramework,
+        paths: this.paths
+      }
+    )
+
+    this.fs.copyTpl(
+      this.templatePath('gulp/tasks/critical.js'),
+      this.destinationPath(this.paths.src.gulp_tasks + '/critical.js'), {
+        frontEndFramework: this.options.frontEndFramework,
+        paths: this.paths
+      }
+    )
+
+    this.fs.copyTpl(
+      this.templatePath('gulp/tasks/minifyStyles.js'),
+      this.destinationPath(this.paths.src.gulp_tasks + '/minifyStyles.js'), {
+        frontEndFramework: this.options.frontEndFramework,
+        paths: this.paths
+      }
+    )
+
+    this.fs.copyTpl(
+      this.templatePath('gulp/tasks/postCssPlugins.js'),
+      this.destinationPath(this.paths.src.gulp_tasks + '/postCssPlugins.js'), {
+        frontEndFramework: this.options.frontEndFramework,
+        paths: this.paths
+      }
+    )
+
+    this.fs.copyTpl(
+      this.templatePath('gulp/tasks/purify.js'),
+      this.destinationPath(this.paths.src.gulp_tasks + '/purify.js'), {
         frontEndFramework: this.options.frontEndFramework,
         paths: this.paths
       }

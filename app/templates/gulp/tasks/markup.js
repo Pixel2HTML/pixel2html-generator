@@ -1,11 +1,12 @@
-const gulp    = require('gulp')
-const config  = require('../config')
+const gulp = require('gulp')
+const config = require('../config')
 const $ = require('gulp-load-plugins')()
 const production = config.production
+const cssModules = require('posthtml-css-modules')
+const imgAutosize = require('posthtml-img-autosize')
 <% if (markupLanguage === 'pug') { -%>
 const fs = require('fs')
 <% } -%>
-
 <% if (markupLanguage === 'html') { -%>
 const BASE = config.directories.dist.base
 
@@ -29,6 +30,14 @@ const css = [
 ]
 <% } -%>
 
+const POSTHTML_PLUGINS = [
+  cssModules(`./${config.directories.src.cssModules}`),
+  imgAutosize({
+    root: `./${config.directories.dist.base}`,
+    processEmptySize: true
+  })
+]
+
 gulp.task('markup', () =>
   gulp.src(config.directories.src.markup+'/*.<%=markupLanguage%>')
 <% if (markupLanguage === 'pug') { -%>
@@ -43,6 +52,7 @@ gulp.task('markup', () =>
 <% } -%>
 <% if (markupLanguage === 'html') { -%>
     .pipe($.htmlReplace({ js, css }))
+    .pipe($.posthtml(POSTHTML_PLUGINS))
 <% } -%>
     .pipe(gulp.dest(config.directories.dist.markup))
 )

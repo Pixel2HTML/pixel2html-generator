@@ -4,10 +4,16 @@ const browserSync = require('browser-sync')
 const openBrowser = require('react-dev-utils/openBrowser')
 const WebpackDevServerUtils = require('react-dev-utils/WebpackDevServerUtils')
 const {prepareUrls, choosePort} = WebpackDevServerUtils
+const webpack = require('webpack')
+const webpackConfig = require('../../webpack.config')
+const webpackDevMiddleware = require('webpack-dev-middleware')
+const webpackHotMiddleware = require('webpack-hot-middleware')
 
 const DEFAULT_PORT = 3000
 const HOST = '0.0.0.0'
-const protocol = 'http'
+const protocol = 'https'
+const fakeCert = require('create-cert-files')()
+const bundler = webpack(webpackConfig)
 
 gulp.task('browser-sync', done => {
   choosePort(HOST, DEFAULT_PORT)
@@ -27,6 +33,17 @@ gulp.task('browser-sync', done => {
         open: false,
         logConnections: true,
         logPrefix: 'Pixel2Html',
+        https: {
+          key: fakeCert.key,
+          cert: fakeCert.cert
+        },
+        middleware: [
+          webpackDevMiddleware(bundler, {
+            publicPath: webpackConfig.output.publicPath,
+            stats: { colors: true }
+          }),
+          webpackHotMiddleware(bundler)
+        ],
         files: [
           '**/*.css'
         ]
