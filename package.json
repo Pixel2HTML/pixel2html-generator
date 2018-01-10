@@ -56,23 +56,15 @@
     "yeoman-generator": "^1.1.1"
   },
   "devDependencies": {
+    "@pixel2html/eslint-config": "^1.0.0",
     "babel-preset-env": "^1.6.0",
     "babel-register": "^6.24.1",
     "mocha": "^3.4.2",
-    "standard": "^10.0.2",
+    "eslint": "^4.15.0",
     "yeoman-assert": "^3.0.0",
     "yeoman-test": "^1.6.0"
   },
-  "standard": {
-    "globals": [
-      "describe",
-      "it",
-      "before",
-      "beforeEach",
-      "after",
-      "afterEach",
-      "xdescribe",
-      "xit"
-    ]
+  "eslintConfig": {
+    "extends": "@pixel2html/eslint-config"
   }
 }
