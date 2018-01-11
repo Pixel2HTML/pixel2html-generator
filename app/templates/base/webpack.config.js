@@ -3,6 +3,7 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const config = require('./gulp/config')
 const {cwd} = require('process')
+const WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin')
 
 const production = config.production
 const debug = config.debug
@@ -33,7 +34,8 @@ let plugins = [
 ]
 const devPlugins = [
   new webpack.NamedModulesPlugin(),
-  new webpack.HotModuleReplacementPlugin()
+  new webpack.HotModuleReplacementPlugin(),
+  new WatchMissingNodeModulesPlugin(path.resolve('node_modules'))
 ]
 const productionPlugins = [
   new webpack.optimize.ModuleConcatenationPlugin(),
@@ -69,7 +71,7 @@ const CONFIG = {
   module: {
     rules: [{
       test: /\.js$/,
-      include: SRC
+      include: SRC,
       use: {
         loader: 'babel-loader',
         options: {

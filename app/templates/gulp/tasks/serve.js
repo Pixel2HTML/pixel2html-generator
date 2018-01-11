@@ -16,9 +16,7 @@ gulp.task('browser-sync', done => {
   const bundler = webpack(webpackConfig)
   choosePort(HOST, DEFAULT_PORT)
     .then(port => {
-      if (port === null) {
-        return
-      }
+      if (port === null) return
       const urls = prepareUrls(protocol, HOST, port)
       browserSync.init({
         port,
