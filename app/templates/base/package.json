@@ -18,8 +18,8 @@
     "js:prod": "NODE_ENV=production webpack"
   },
   "dependencies": {
-    "@babel/core": "^7.0.0-beta.36",
-    "@babel/runtime": "^7.0.0-beta.36",
+    "@babel/core": "^7.0.0-beta.37",
+    "@babel/runtime": "^7.0.0-beta.37",
     "@pixel2html/babel-preset": "^0.6.0",
     "autoprefixer": "^7.2.4",
     "babel-loader": "8.0.0-beta.0",
@@ -71,18 +71,18 @@
     "uglifyjs-webpack-plugin": "^1.1.6",
     "vinyl-ftp": "^0.6.0",
     "webpack": "^3.10.0",
-    "yargs": "^10.0.3"
+    "yargs": "^10.1.1"
   },
   "devDependencies": {
     "@pixel2html/eslint-config": "^1.0.0",
     "@pixel2html/stylelint-config": "^1.2.0",
-    "browser-sync": "^2.23.3",
+    "browser-sync": "^2.23.5",
     "create-cert-files": "^1.0.2",
     "eslint": "^4.15.0",
     "react-dev-utils": "^4.2.1",
     "stylelint": "^8.4.0",
-    "webpack-bundle-analyzer": "^2.9.1",
-    "webpack-dev-middleware": "^2.0.3",
+    "webpack-bundle-analyzer": "^2.9.2",
+    "webpack-dev-middleware": "^2.0.4",
     "webpack-hot-middleware": "^2.21.0",
     "webpack-monitor": "^1.0.14"
   },
