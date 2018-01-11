@@ -1,6 +1,6 @@
 const path = require('path')
 const config = require('../config')
-const _ = require('lodash')
+const set = require('lodash.set')
 
 let cssModules = {}
 
@@ -13,7 +13,7 @@ const plugins = [
       const exploded = pathWithoutExtension.split(path.sep)
       const mainIndex = exploded.indexOf('main')
       const dirs = exploded.slice(mainIndex + 1)
-      _.set(cssModules, dirs, json)
+      set(cssModules, dirs, json)
     }
   })
 ]
