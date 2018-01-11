@@ -61,8 +61,9 @@
     "@pixel2html/eslint-config": "^1.0.0",
     "babel-preset-env": "^1.6.0",
     "babel-register": "^6.24.1",
-    "mocha": "^3.4.2",
     "eslint": "^4.15.0",
+    "eslint-plugin-import": "^2.8.0",
+    "mocha": "^3.4.2",
     "yeoman-assert": "^3.0.0",
     "yeoman-test": "^1.6.0"
   },
