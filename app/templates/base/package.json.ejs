@@ -5,7 +5,7 @@
   "repository": "http://www.pixel2html.com",
   "version": "1.0.0",
   "scripts": {
-    "start": "npm install <% if (markupIntegration=='jekyll'){-%>&& bundle install<%}-%>",
+    "start": "npm install<% if (markupIntegration=='jekyll'){-%> && bundle install<%}-%>",
     "code": "NODE_ENV=development gulp",
     "build": "NODE_ENV=production gulp build",
     "release": "NODE_ENV=production gulp release",

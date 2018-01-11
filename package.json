@@ -39,6 +39,8 @@
     "yeoman-generator"
   ],
   "scripts": {
+    "lint": "eslint 'src/**/*.js' 'test/**/*.js'",
+    "pretest": "npm run lint",
     "test": "mocha --require babel-register",
     "postversion": "git push; git push --tags"
   },
@@ -65,6 +67,11 @@
     "yeoman-test": "^1.6.0"
   },
   "eslintConfig": {
-    "extends": "@pixel2html/eslint-config"
+    "extends": "@pixel2html/eslint-config",
+    "env": {
+      "browser": true,
+      "node": true,
+      "mocha": true
+    }
   }
 }
