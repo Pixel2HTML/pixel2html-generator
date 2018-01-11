@@ -3,6 +3,8 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const config = require('./gulp/config')
 const {cwd} = require('process')
+const WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin')
+const path = require('path')
 
 const production = config.production
 const debug = config.debug
@@ -11,6 +13,7 @@ const WebpackMonitor = require('webpack-monitor')
 // When you really want to make the relationship work...
 const ENTRY_PATH = cwd() + '/' + config.project.jsMainFile
 const OUTPUT_PATH = cwd() + '/' + config.directories.dist.scripts
+const SRC = cwd() + '/src'
 const styles = cwd() + '/' + config.directories.src.cssModules
 
 let plugins = [
@@ -32,7 +35,8 @@ let plugins = [
 ]
 const devPlugins = [
   new webpack.NamedModulesPlugin(),
-  new webpack.HotModuleReplacementPlugin()
+  new webpack.HotModuleReplacementPlugin(),
+  new WatchMissingNodeModulesPlugin(path.resolve('node_modules'))
 ]
 const productionPlugins = [
   new webpack.optimize.ModuleConcatenationPlugin(),
@@ -68,13 +72,14 @@ const CONFIG = {
   module: {
     rules: [{
       test: /\.js$/,
-      exclude: /node_modules/,
+      include: SRC,
       use: {
         loader: 'babel-loader',
         options: {
           presets: [
             require.resolve('@pixel2html/babel-preset')
-          ]
+          ],
+          cacheDirectory: true
         }
       }
     }]},

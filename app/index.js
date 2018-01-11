@@ -250,7 +250,7 @@ class PixelGenerator extends Generator {
   writeProjectFiles () {
     this.log(chalk.yellow('Copying package.json file and adding dependencies.'))
     this.fs.copyTpl(
-      this.templatePath('base/package.json'),
+      this.templatePath('base/package.json.ejs'),
       this.destinationPath('package.json'), {
         projectName: this.options.projectName,
         markupLanguage: this.options.markupLanguage,
@@ -271,7 +271,7 @@ class PixelGenerator extends Generator {
 
     this.log(chalk.yellow('Copying tern project file.'))
     this.fs.copyTpl(
-      this.templatePath('base/tern-project.json'),
+      this.templatePath('base/tern-project.json.ejs'),
       this.destinationPath('.tern-project'), {
         frontEndFramework: this.options.frontEndFramework,
         jQuery: this.options.jQuery
@@ -305,7 +305,7 @@ class PixelGenerator extends Generator {
 
     this.log(chalk.yellow('Copying README file.'))
     this.fs.copyTpl(
-      this.templatePath('base/README.md'),
+      this.templatePath('base/README.md.ejs'),
       this.destinationPath('README.md'), {
         paths: this.paths,
         projectName: this.options.projectName,
@@ -475,7 +475,7 @@ class PixelGenerator extends Generator {
       }
     )
     this.fs.copyTpl(
-      this.templatePath('scripts/index.js'),
+      this.templatePath('scripts/index.js.ejs'),
       this.destinationPath(this.paths.src.scripts + '/index.js'), {
         projectName: this.options.projectName,
         frontEndFramework: this.options.frontEndFramework,
@@ -485,7 +485,7 @@ class PixelGenerator extends Generator {
 
     if (this.options.frontEndFramework) {
       this.fs.copyTpl(
-        this.templatePath('scripts/framework.js'),
+        this.templatePath('scripts/framework.js.ejs'),
         this.destinationPath(this.paths.src.scripts + '/framework.js'), {
           projectName: this.options.projectName,
           frontEndFramework: this.options.frontEndFramework,
@@ -498,7 +498,7 @@ class PixelGenerator extends Generator {
   writeBaseGulpFiles () {
     this.log(chalk.yellow('Copying gulpfile.'))
     this.fs.copyTpl(
-      this.templatePath('gulp/gulpfile.js'),
+      this.templatePath('gulp/gulpfile.js.ejs'),
       this.destinationPath('gulpfile.js'), {
         paths: this.paths,
         frontEndFramework: this.options.frontEndFramework,
@@ -510,7 +510,7 @@ class PixelGenerator extends Generator {
 
     this.log(chalk.yellow('Copying gulpfile config file.'))
     this.fs.copyTpl(
-      this.templatePath('gulp/config.js'),
+      this.templatePath('gulp/config.js.ejs'),
       this.destinationPath(this.paths.src.gulp + '/config.js'), {
         paths: this.paths,
         markupLanguage: this.options.markupLanguage,
@@ -538,7 +538,7 @@ class PixelGenerator extends Generator {
     // markup
     if (!this.options.markupIntegration) {
       this.fs.copyTpl(
-        this.templatePath('gulp/tasks/markup.js'),
+        this.templatePath('gulp/tasks/markup.js.ejs'),
         this.destinationPath(this.paths.src.gulp_tasks + '/markup.js'), {
           paths: this.paths,
           markupLanguage: this.options.markupLanguage,
@@ -570,7 +570,7 @@ class PixelGenerator extends Generator {
 
     // watch
     this.fs.copyTpl(
-      this.templatePath('gulp/tasks/watch.js'),
+      this.templatePath('gulp/tasks/watch.js.ejs'),
       this.destinationPath(this.paths.src.gulp_tasks + '/watch.js'), {
         paths: this.paths,
         frontEndFramework: this.options.frontEndFramework,
@@ -582,7 +582,7 @@ class PixelGenerator extends Generator {
 
     // static
     this.fs.copyTpl(
-      this.templatePath('gulp/tasks/static.js'),
+      this.templatePath('gulp/tasks/static.js.ejs'),
       this.destinationPath(this.paths.src.gulp_tasks + '/static.js'), {
         paths: this.paths,
         markupLanguage: this.options.markupLanguage,

@@ -9,18 +9,14 @@ const webpackConfig = require('../../webpack.config')
 const webpackDevMiddleware = require('webpack-dev-middleware')
 const webpackHotMiddleware = require('webpack-hot-middleware')
 
-const DEFAULT_PORT = 3000
-const HOST = '0.0.0.0'
-const protocol = 'https'
-const fakeCert = require('create-cert-files')()
-const bundler = webpack(webpackConfig)
-
 gulp.task('browser-sync', done => {
+  const DEFAULT_PORT = 3000
+  const HOST = '0.0.0.0'
+  const protocol = 'http'
+  const bundler = webpack(webpackConfig)
   choosePort(HOST, DEFAULT_PORT)
     .then(port => {
-      if (port === null) {
-        return
-      }
+      if (port === null) return
       const urls = prepareUrls(protocol, HOST, port)
       browserSync.init({
         port,
@@ -33,10 +29,6 @@ gulp.task('browser-sync', done => {
         open: false,
         logConnections: true,
         logPrefix: 'Pixel2Html',
-        https: {
-          key: fakeCert.key,
-          cert: fakeCert.cert
-        },
         middleware: [
           webpackDevMiddleware(bundler, {
             publicPath: webpackConfig.output.publicPath,
