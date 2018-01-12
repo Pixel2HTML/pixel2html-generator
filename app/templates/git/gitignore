@@ -4,6 +4,9 @@ dist
 bower_components
 node_modules
 
+# Ignore CSS Modules JSON files
+src/assets/cssModules
+
 _gh_pages
 _site
 *.diff
