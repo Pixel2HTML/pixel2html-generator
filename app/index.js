@@ -527,14 +527,6 @@ class PixelGenerator extends Generator {
       }
     )
 
-    // FTP
-    this.fs.copyTpl(
-      this.templatePath('gulp/tasks/ftp.js'),
-      this.destinationPath(this.paths.src.gulp_tasks + '/ftp.js'), {
-        paths: this.paths
-      }
-    )
-
     // markup
     if (!this.options.markupIntegration) {
       this.fs.copyTpl(
@@ -616,8 +608,16 @@ class PixelGenerator extends Generator {
     )
 
     this.fs.copyTpl(
-      this.templatePath('gulp/tasks/postCssPlugins.js'),
-      this.destinationPath(this.paths.src.gulp_tasks + '/postCssPlugins.js'), {
+      this.templatePath('gulp/tasks/cssModulesWrite.js'),
+      this.destinationPath(this.paths.src.gulp_tasks + '/cssModulesWrite.js'), {
+        frontEndFramework: this.options.frontEndFramework,
+        paths: this.paths
+      }
+    )
+
+    this.fs.copyTpl(
+      this.templatePath('gulp/tasks/styles-production.js'),
+      this.destinationPath(this.paths.src.gulp_tasks + '/styles-production.js'), {
         frontEndFramework: this.options.frontEndFramework,
         paths: this.paths
       }

@@ -18,7 +18,6 @@ describe('Foundation features', function () {
   })
 
   it('Should exists dependencies in package.json', function () {
-    assert.fileContent('package.json', /"gulp-sass"/)
     assert.fileContent('package.json', /"foundation-sites"/)
   })
 

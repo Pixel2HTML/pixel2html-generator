@@ -16,10 +16,6 @@ describe('SCSS features', function () {
       .toPromise()
   })
 
-  it('sould list dependencies on package.json', function () {
-    assert.fileContent('package.json', /"gulp-sass"/)
-  })
-
   it('should exists base SCSS file', function () {
     assert.file([
       'src/assets/styles/main/components/_buttons.scss',
@@ -57,13 +53,14 @@ describe('SCSS features', function () {
     assert.file([
       'gulp/tasks/critical.js',
       'gulp/tasks/minifyStyles.js',
-      'gulp/tasks/postCssPlugins.js',
       'gulp/tasks/purify.js',
-      'gulp/tasks/styles.js'
+      'gulp/tasks/styles.js',
+      'gulp/tasks/cssModulesWrite.js',
+      'gulp/tasks/styles-production.js'
     ])
   })
 
   it('should exists a pipe in the main:styles routing', function () {
-    assert.fileContent('gulp/tasks/styles.js', /\$\.sass/)
+    assert.fileContent('gulp/tasks/styles.js', /styles/)
   })
 })
