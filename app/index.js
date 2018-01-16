@@ -68,7 +68,13 @@ class PixelGenerator extends Generator {
     })
 
     this.option('jQuery', {
-      desc: 'Sets de the usage of jQuery',
+      desc: 'Sets the usage of jQuery',
+      type: String,
+      required: false
+    })
+
+    this.option('yarn', {
+      desc: 'Sets the usage of yarn',
       type: String,
       required: false
     })
@@ -87,6 +93,7 @@ class PixelGenerator extends Generator {
         this.options.markupIntegration = config.markupIntegration
         this.options.frontEndFramework = config.frontEndFramework
         this.options.jQuery = config.jQuery
+        this.options.yarn = config.yarn
       })
       .catch(err => {
         let okayError = err.toString() !== "Error: ENOENT: no such file or directory, open './.project.conf'"
@@ -197,8 +204,11 @@ class PixelGenerator extends Generator {
             name: 'None',
             value: false
           }, {
-            name: 'Bootstrap',
-            value: 'bootstrap'
+            name: 'Bootstrap 3',
+            value: 'bootstrap-3'
+          }, {
+            name: 'Bootstrap 4 Beta',
+            value: 'bootstrap-4'
           }, {
             name: 'Foundation',
             value: 'foundation'
@@ -210,12 +220,12 @@ class PixelGenerator extends Generator {
   }
 
   askForjQuery () {
-    return this.options.jQuery
+    return this.options.jQuery || this.options.frontEndFramework
       ? true
       : this.prompt([{
         type: 'confirm',
         name: 'jQuery',
-        message: 'Would you like to use jQuery? \n http://youmightnotneedjquery.com/ \n http://youmightnotneedjqueryplugins.com/',
+        message: 'Would you like to use jQuery? \n http://youmightnotneedjquery.com/ \n http://youmightnotneedjqueryplugins.com/ \n',
         default: false
       }])
       .then(props => {
@@ -223,10 +233,24 @@ class PixelGenerator extends Generator {
       })
   }
 
+  askForYarnInstall () {
+    return this.options.yarn
+      ? true
+      : this.prompt([{
+        type: 'confirm',
+        name: 'yarn',
+        message: 'Should I install extra dependencies needed with Yarn?',
+        default: true
+      }])
+      .then(props => {
+        this.options.yarn = props.yarn
+      })
+  }
+
   writeProjectFiles () {
     this.log(chalk.yellow('Copying package.json file and adding dependencies.'))
     this.fs.copyTpl(
-      this.templatePath('base/_package.json'),
+      this.templatePath('base/package.json.ejs'),
       this.destinationPath('package.json'), {
         projectName: this.options.projectName,
         markupLanguage: this.options.markupLanguage,
@@ -236,22 +260,28 @@ class PixelGenerator extends Generator {
       }
     )
 
+    this.log(chalk.yellow('Copying webpack config file.'))
+    this.fs.copyTpl(
+      this.templatePath('base/webpack.config.js'),
+      this.destinationPath('webpack.config.js'), {
+        frontEndFramework: this.options.frontEndFramework,
+        jQuery: this.options.jQuery
+      }
+    )
+
+    this.log(chalk.yellow('Copying tern project file.'))
+    this.fs.copyTpl(
+      this.templatePath('base/tern-project.json.ejs'),
+      this.destinationPath('.tern-project'), {
+        frontEndFramework: this.options.frontEndFramework,
+        jQuery: this.options.jQuery
+      }
+    )
+
     this.log(chalk.yellow('Copying editorconfig file.'))
     this.fs.copy(
       this.templatePath('base/editorconfig'),
       this.destinationPath('.editorconfig')
-    )
-
-    this.log(chalk.yellow('Copying babelrc file'))
-    this.fs.copy(
-      this.templatePath('base/babelrc'),
-      this.destinationPath('.babelrc')
-    )
-
-    this.log(chalk.yellow('Copying browserlistrc file'))
-    this.fs.copy(
-      this.templatePath('base/browserlistrc'),
-      this.destinationPath('.browserlistrc')
     )
 
     this.log(chalk.yellow('Copying MIT License'))
@@ -275,7 +305,7 @@ class PixelGenerator extends Generator {
 
     this.log(chalk.yellow('Copying README file.'))
     this.fs.copyTpl(
-      this.templatePath('base/README.md'),
+      this.templatePath('base/README.md.ejs'),
       this.destinationPath('README.md'), {
         paths: this.paths,
         projectName: this.options.projectName,
@@ -384,62 +414,50 @@ class PixelGenerator extends Generator {
 
   writeBaseStyles () {
     this.fs.copyTpl(
-      this.templatePath('styles/main.scss'),
-      this.destinationPath(this.paths.src.styles + '/main.scss'), {
+      this.templatePath('styles/main/main.scss'),
+      this.destinationPath(this.paths.src.styles + '/main/main.scss'), {
         projectName: this.options.projectName,
         qtyScreens: this.options.qtyScreens
       }
     )
 
     this.fs.copyTpl(
-      this.templatePath('styles/vendor.scss'),
-      this.destinationPath(this.paths.src.styles + '/vendor.scss'), {
+      this.templatePath('styles/vendor/vendor.scss'),
+      this.destinationPath(this.paths.src.styles + '/vendor/vendor.scss'), {
         projectName: this.options.projectName,
         frontEndFramework: this.options.frontEndFramework
       }
     )
 
     this.fs.copy(
-      this.templatePath('styles/_variables.scss'),
-      this.destinationPath(this.paths.src.styles + '/_variables.scss')
+      this.templatePath('styles/main/_variables.scss'),
+      this.destinationPath(this.paths.src.styles + '/main/_variables.scss')
     )
     this.fs.copy(
-      this.templatePath('styles/_mixins.scss'),
-      this.destinationPath(this.paths.src.styles + '/_mixins.scss')
+      this.templatePath('styles/main/_mixins.scss'),
+      this.destinationPath(this.paths.src.styles + '/main/_mixins.scss')
     )
     this.fs.copy(
-      this.templatePath('styles/_reset.scss'),
-      this.destinationPath(this.paths.src.styles + '/_reset.scss')
+      this.templatePath('styles/vendor/_reset.scss'),
+      this.destinationPath(this.paths.src.styles + '/vendor/_reset.scss')
     )
     this.fs.copy(
-      this.templatePath('styles/screens/_base.scss'),
-      this.destinationPath(this.paths.src.styles + '/screens/_base.scss')
+      this.templatePath('styles/main/screens/_base.scss'),
+      this.destinationPath(this.paths.src.styles + '/main/screens/_base.scss')
     )
     this.fs.copy(
-      this.templatePath('styles/components/_header.scss'),
-      this.destinationPath(this.paths.src.styles + '/components/_header.scss')
+      this.templatePath('styles/main/components/_forms.scss'),
+      this.destinationPath(this.paths.src.styles + '/main/components/_forms.scss')
     )
     this.fs.copy(
-      this.templatePath('styles/components/_footer.scss'),
-      this.destinationPath(this.paths.src.styles + '/components/_footer.scss')
-    )
-    this.fs.copy(
-      this.templatePath('styles/components/_nav.scss'),
-      this.destinationPath(this.paths.src.styles + '/components/_nav.scss')
-    )
-    this.fs.copy(
-      this.templatePath('styles/components/_forms.scss'),
-      this.destinationPath(this.paths.src.styles + '/components/_forms.scss')
-    )
-    this.fs.copy(
-      this.templatePath('styles/components/_buttons.scss'),
-      this.destinationPath(this.paths.src.styles + '/components/_buttons.scss')
+      this.templatePath('styles/main/components/_buttons.scss'),
+      this.destinationPath(this.paths.src.styles + '/main/components/_buttons.scss')
     )
 
     for (var i = 1; i < this.options.qtyScreens + 1; i++) {
       this.fs.copyTpl(
-        this.templatePath('styles/screens/_screen.scss'),
-        this.destinationPath(this.paths.src.styles + '/screens/screen_' + i + '.scss'), {
+        this.templatePath('styles/main/screens/_screen.scss'),
+        this.destinationPath(this.paths.src.styles + '/main/screens/screen_' + i + '.scss'), {
           screenNumber: i,
           projectName: this.options.projectName
         }
@@ -450,47 +468,25 @@ class PixelGenerator extends Generator {
   writeBaseScriptsFiles () {
     this.log(chalk.yellow('Copying js main file.'))
     this.fs.copyTpl(
-      this.templatePath('scripts/main.js'),
-      this.destinationPath(this.paths.src.scripts + '/main.js'), {
+      this.templatePath('scripts/app.js'),
+      this.destinationPath(this.paths.src.scripts + '/app.js'), {
         projectName: this.options.projectName,
         frontEndFramework: this.options.frontEndFramework
       }
     )
     this.fs.copyTpl(
-      this.templatePath('scripts/general/index.js'),
-      this.destinationPath(this.paths.src.scripts + '/general/index.js'), {
+      this.templatePath('scripts/index.js.ejs'),
+      this.destinationPath(this.paths.src.scripts + '/index.js'), {
         projectName: this.options.projectName,
         frontEndFramework: this.options.frontEndFramework,
         jQuery: this.options.jQuery
       }
     )
 
-    if (this.options.jQuery) {
+    if (this.options.frontEndFramework) {
       this.fs.copyTpl(
-        this.templatePath('scripts/general/jquery.js'),
-        this.destinationPath(this.paths.src.scripts + '/general/jquery.js'), {
-          projectName: this.options.projectName,
-          frontEndFramework: this.options.frontEndFramework,
-          jQuery: this.options.jQuery
-        }
-      )
-    }
-
-    if (this.options.frontEndFramework === 'bootstrap') {
-      this.fs.copyTpl(
-        this.templatePath('scripts/general/bootstrap.js'),
-        this.destinationPath(this.paths.src.scripts + '/general/bootstrap.js'), {
-          projectName: this.options.projectName,
-          frontEndFramework: this.options.frontEndFramework,
-          jQuery: this.options.jQuery
-        }
-      )
-    }
-
-    if (this.options.frontEndFramework === 'foundation') {
-      this.fs.copyTpl(
-        this.templatePath('scripts/general/foundation.js'),
-        this.destinationPath(this.paths.src.scripts + '/general/foundation.js'), {
+        this.templatePath('scripts/framework.js.ejs'),
+        this.destinationPath(this.paths.src.scripts + '/framework.js'), {
           projectName: this.options.projectName,
           frontEndFramework: this.options.frontEndFramework,
           jQuery: this.options.jQuery
@@ -502,7 +498,7 @@ class PixelGenerator extends Generator {
   writeBaseGulpFiles () {
     this.log(chalk.yellow('Copying gulpfile.'))
     this.fs.copyTpl(
-      this.templatePath('gulp/_gulpfile.js'),
+      this.templatePath('gulp/gulpfile.js.ejs'),
       this.destinationPath('gulpfile.js'), {
         paths: this.paths,
         frontEndFramework: this.options.frontEndFramework,
@@ -514,19 +510,13 @@ class PixelGenerator extends Generator {
 
     this.log(chalk.yellow('Copying gulpfile config file.'))
     this.fs.copyTpl(
-      this.templatePath('gulp/_config.js'),
+      this.templatePath('gulp/config.js.ejs'),
       this.destinationPath(this.paths.src.gulp + '/config.js'), {
         paths: this.paths,
         markupLanguage: this.options.markupLanguage,
         frontEndFramework: this.options.frontEndFramework,
         jQuery: this.options.jQuery
       }
-    )
-
-    this.log(chalk.yellow('Copying webpack config file.'))
-    this.fs.copyTpl(
-      this.templatePath('gulp/webpack.config.js'),
-      this.destinationPath(this.paths.src.gulp + '/webpack.config.js')
     )
 
     // fonts
@@ -537,18 +527,10 @@ class PixelGenerator extends Generator {
       }
     )
 
-    // FTP
-    this.fs.copyTpl(
-      this.templatePath('gulp/tasks/ftp.js'),
-      this.destinationPath(this.paths.src.gulp_tasks + '/ftp.js'), {
-        paths: this.paths
-      }
-    )
-
     // markup
     if (!this.options.markupIntegration) {
       this.fs.copyTpl(
-        this.templatePath('gulp/tasks/markup.js'),
+        this.templatePath('gulp/tasks/markup.js.ejs'),
         this.destinationPath(this.paths.src.gulp_tasks + '/markup.js'), {
           paths: this.paths,
           markupLanguage: this.options.markupLanguage,
@@ -578,9 +560,21 @@ class PixelGenerator extends Generator {
       }
     )
 
+    // watch
+    this.fs.copyTpl(
+      this.templatePath('gulp/tasks/watch.js.ejs'),
+      this.destinationPath(this.paths.src.gulp_tasks + '/watch.js'), {
+        paths: this.paths,
+        frontEndFramework: this.options.frontEndFramework,
+        jQuery: this.options.jQuery,
+        markupLanguage: this.options.markupLanguage,
+        markupIntegration: this.options.markupIntegration
+      }
+    )
+
     // static
     this.fs.copyTpl(
-      this.templatePath('gulp/tasks/static.js'),
+      this.templatePath('gulp/tasks/static.js.ejs'),
       this.destinationPath(this.paths.src.gulp_tasks + '/static.js'), {
         paths: this.paths,
         markupLanguage: this.options.markupLanguage,
@@ -592,6 +586,46 @@ class PixelGenerator extends Generator {
     this.fs.copyTpl(
       this.templatePath('gulp/tasks/styles.js'),
       this.destinationPath(this.paths.src.gulp_tasks + '/styles.js'), {
+        frontEndFramework: this.options.frontEndFramework,
+        paths: this.paths
+      }
+    )
+
+    this.fs.copyTpl(
+      this.templatePath('gulp/tasks/critical.js'),
+      this.destinationPath(this.paths.src.gulp_tasks + '/critical.js'), {
+        frontEndFramework: this.options.frontEndFramework,
+        paths: this.paths
+      }
+    )
+
+    this.fs.copyTpl(
+      this.templatePath('gulp/tasks/minifyStyles.js'),
+      this.destinationPath(this.paths.src.gulp_tasks + '/minifyStyles.js'), {
+        frontEndFramework: this.options.frontEndFramework,
+        paths: this.paths
+      }
+    )
+
+    this.fs.copyTpl(
+      this.templatePath('gulp/tasks/cssModulesWrite.js'),
+      this.destinationPath(this.paths.src.gulp_tasks + '/cssModulesWrite.js'), {
+        frontEndFramework: this.options.frontEndFramework,
+        paths: this.paths
+      }
+    )
+
+    this.fs.copyTpl(
+      this.templatePath('gulp/tasks/styles-production.js'),
+      this.destinationPath(this.paths.src.gulp_tasks + '/styles-production.js'), {
+        frontEndFramework: this.options.frontEndFramework,
+        paths: this.paths
+      }
+    )
+
+    this.fs.copyTpl(
+      this.templatePath('gulp/tasks/purify.js'),
+      this.destinationPath(this.paths.src.gulp_tasks + '/purify.js'), {
         frontEndFramework: this.options.frontEndFramework,
         paths: this.paths
       }
@@ -676,6 +710,12 @@ class PixelGenerator extends Generator {
     }
 
     this.fs.writeJSON('./.project.conf', configJson)
+  }
+
+  installDependencies () {
+    this.options.yarn
+      ? this.yarnInstall()
+      : this.log('Skipping yarn install')
   }
 }
 

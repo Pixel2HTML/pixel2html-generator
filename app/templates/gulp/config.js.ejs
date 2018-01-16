@@ -4,6 +4,7 @@ const argv = require('yargs').argv
 const { env } = require('process')
 // Add your conditions here 💅
 const production = !!argv.prod || !!argv.production || env.NODE_ENV === 'production'
+const debug = !!argv.debug || env.NODE_ENV === 'debug'
 
 module.exports = {
   directories: {
@@ -19,7 +20,8 @@ module.exports = {
       icons: '<%= paths.src.icons %>',
       images: '<%= paths.src.images %>',
       scripts: '<%= paths.src.scripts %>',
-      styles: '<%= paths.src.styles %>'
+      styles: '<%= paths.src.styles %>',
+      cssModules: 'src/assets/cssModules/css.json'
     },
     dist: {
       base: '<%= paths.dist.base %>',
@@ -32,19 +34,28 @@ module.exports = {
     }
   },
   project: {
-    cssMainFile: 'src/assets/styles/main.scss',
-    cssVendorFile: 'src/assets/styles/vendor.scss',
-    jsMainFile: 'src/assets/js/main.js',
+    cssFiles: 'src/assets/styles/main/**/!(_)*.scss',
+    cssVendorFile: 'src/assets/styles/vendor/vendor.scss',
+    jsMainFile: 'src/assets/js/index.js',
     fontFiles: [
       '<%= paths.src.fonts %>/**/*',
-      <% if(frontEndFramework == 'bootstrap'){ %>'./node_modules/bootstrap-sass/assets/fonts/**/*',<% } %>
+      <% if(frontEndFramework == 'bootstrap-3'){ -%>
+      './node_modules/bootstrap-sass/assets/fonts/**/*'
+      <% } -%>
     ]
   },
+<<<<<<< HEAD:app/templates/gulp/_config.js
   onError: function(error) {
+=======
+  onError: function (error) {
+>>>>>>> develop:app/templates/gulp/config.js.ejs
     console.log(error.toString())
-    this.emit('end')
+    production
+      ? process.exit(1)
+      : this.emit('end')
   },
   production,
+  debug,
   // Stuff for PurifyCss
   purify: ['./dist/**/*.js', './dist/**/*.html'],
   deploy: {

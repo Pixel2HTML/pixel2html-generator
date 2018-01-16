@@ -1,54 +1,46 @@
 const gulp = require('gulp')
 const config = require('../config')
 const browserSync = require('browser-sync')
-
-const reload = done => {
-  browserSync.reload()
-  done()
-}
+const openBrowser = require('react-dev-utils/openBrowser')
+const WebpackDevServerUtils = require('react-dev-utils/WebpackDevServerUtils')
+const {prepareUrls, choosePort} = WebpackDevServerUtils
+const webpack = require('webpack')
+const webpackConfig = require('../../webpack.config')
+const webpackDevMiddleware = require('webpack-dev-middleware')
+const webpackHotMiddleware = require('webpack-hot-middleware')
 
 gulp.task('browser-sync', done => {
-  browserSync.init({
-    server: {
-      baseDir: config.directories.dist.base,
-      serveStaticOptions: {
-        extensions: ['html']
-      }
-    },
-    open: false,
-    logConnections: true,
-    logPrefix: 'Pixel2Html'
-  })
-  done()
+  const DEFAULT_PORT = 3000
+  const HOST = '0.0.0.0'
+  const protocol = 'http'
+  const bundler = webpack(webpackConfig)
+  choosePort(HOST, DEFAULT_PORT)
+    .then(port => {
+      if (port === null) return
+      const urls = prepareUrls(protocol, HOST, port)
+      browserSync.init({
+        port,
+        server: {
+          baseDir: config.directories.dist.base,
+          serveStaticOptions: {
+            extensions: ['html']
+          }
+        },
+        open: false,
+        logConnections: true,
+        logPrefix: 'Pixel2Html',
+        middleware: [
+          webpackDevMiddleware(bundler, {
+            publicPath: webpackConfig.output.publicPath,
+            stats: { colors: true }
+          }),
+          webpackHotMiddleware(bundler)
+        ],
+        files: [
+          '**/*.css'
+        ]
+      })
+      openBrowser(urls.localUrlForBrowser)
+      done()
+    })
 })
-
-gulp.task('watch', done => {
-  //static files
-  <% if(markupIntegration === 'jekyll'){ %>
-    gulp.watch(config.directories.src.markup+'/**/*.html', gulp.series('jekyll:rebuild', reload))
-    gulp.watch(config.directories.src.icons+'/**/*.svg', gulp.series( 'icons', reload ))
-  <% } else if (markupLanguage === 'pug') { %>
-    gulp.watch(config.directories.src.markup+'/**/*.<%=markupLanguage%>', gulp.series( 'markup', reload ))
-    gulp.watch(config.directories.src.icons+'/**/*.svg', gulp.series( 'markup', reload ))
-  <% } else { %>
-    gulp.watch(config.directories.src.markup+'/**/*.<%=markupLanguage%>', gulp.series( 'markup', reload ))
-    gulp.watch(config.directories.src.icons+'/**/*.svg', gulp.series( 'icons', reload ))
-  <% } %>
-
-  gulp.watch(config.directories.src.images+'/**/*', gulp.series( 'images', reload ))
-
-  //scripts
-  gulp.watch(config.directories.src.scripts+'/**/*.js', gulp.series( 'scripts', reload ))
-
-  // Fonts
-  gulp.watch(config.project.fontFiles, gulp.series('fonts', reload))
-
-  //styles
-  gulp.watch(config.directories.src.styles + '/**/*.scss', gulp.series('styles', reload))
-
-  done()
-})
-
-<% if(markupIntegration=='jekyll'){ -%>
-gulp.task('jekyll:rebuild', gulp.series('jekyll', reload))
-<% } %>

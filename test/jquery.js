@@ -12,7 +12,7 @@ describe('jQuery features', function () {
         projectName: 'Pixel2HTML',
         qtyScreens: 3,
         markupLanguage: 'html',
-        frontEndFramework: 'bootstrap',
+        frontEndFramework: 'bootstrap-4',
         jQuery: true
       })
       .toPromise()
@@ -20,16 +20,6 @@ describe('jQuery features', function () {
 
   it('should list dependencies in package.json', function () {
     assert.fileContent('package.json', /"jquery"/)
-  })
-
-  it('should import jQuery', function () {
-    assert.fileContent('src/assets/js/general/index.js', /import '.\/jquery'/)
-  })
-
-  it('should be a jquery file', function () {
-    assert.file([
-      'src/assets/js/general/jquery.js'
-    ])
   })
 
   it('should exists a gulp routine', function () {
