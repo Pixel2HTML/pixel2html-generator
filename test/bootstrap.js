@@ -30,14 +30,14 @@ describe('Bootstrap 4 features', function () {
 
   it('should exists vendor files', function () {
     assert.file([
-      'src/assets/styles/vendor.scss',
-      'src/assets/js/general/bootstrap.js'
+      'src/assets/styles/vendor/vendor.scss',
+      'src/assets/js/index.js'
     ])
   })
 
   it('should include bootstrap include', function () {
-    assert.fileContent('src/assets/styles/vendor.scss', /import "bootstrap\/scss\/bootstrap.scss";/)
-    assert.fileContent('src/assets/js/general/index.js', /import '.\/bootstrap'/)
+    assert.fileContent('src/assets/styles/vendor/vendor.scss', /import "bootstrap\/scss\/bootstrap.scss";/)
+    assert.fileContent('src/assets/js/framework.js', /import 'bootstrap'/)
   })
 })
 
@@ -69,14 +69,14 @@ describe('Bootstrap 3 features', function () {
 
   it('should exists vendor files', function () {
     assert.file([
-      'src/assets/styles/vendor.scss',
-      'src/assets/js/general/bootstrap.js'
+      'src/assets/styles/vendor/vendor.scss',
+      'src/assets/js/index.js'
     ])
   })
 
   it('should include bootstrap include', function () {
-    assert.fileContent('src/assets/styles/vendor.scss', /import "bootstrap-sass";/)
-    assert.fileContent('src/assets/js/general/index.js', /import '.\/bootstrap'/)
+    assert.fileContent('src/assets/styles/vendor/vendor.scss', /import "bootstrap-sass";/)
+    assert.fileContent('src/assets/js/framework.js', /require\('bootstrap-sass'\)/)
   })
 
   it('should include correct paths on config file', function () {

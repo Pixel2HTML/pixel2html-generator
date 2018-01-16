@@ -3,7 +3,10 @@ const config = require('../config')
 const del = require('del')
 
 gulp.task('clean', () =>
-  del([config.directories.dist.base])
+  del([
+    config.directories.dist.base,
+    config.directories.src.cssModules
+  ])
 )
 
 gulp.task('images', () =>

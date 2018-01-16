@@ -1,7 +1,7 @@
 {
-  "name": "generator-pixel2html",
+  "name": "@pixel2html/generator-frontend",
   "description": "Pixel2HTML Boilerplate Generator",
-  "version": "2.2.0-beta.1",
+  "version": "2.2.1",
   "repository": "https://github.com/Pixel2HTML/pixel2html-generator",
   "license": "MIT",
   "author": {
@@ -39,6 +39,8 @@
     "yeoman-generator"
   ],
   "scripts": {
+    "lint": "eslint 'src/**/*.js' 'test/**/*.js'",
+    "pretest": "npm run lint",
     "test": "mocha --require babel-register",
     "postversion": "git push; git push --tags"
   },
@@ -56,23 +58,23 @@
     "yeoman-generator": "^1.1.1"
   },
   "devDependencies": {
+    "@pixel2html/eslint-config": "^1.0.0",
     "babel-preset-env": "^1.6.0",
     "babel-register": "^6.24.1",
+    "eslint": "^4.15.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-node": "^5.2.1",
+    "eslint-plugin-promise": "^3.6.0",
     "mocha": "^3.4.2",
-    "standard": "^10.0.2",
     "yeoman-assert": "^3.0.0",
     "yeoman-test": "^1.6.0"
   },
-  "standard": {
-    "globals": [
-      "describe",
-      "it",
-      "before",
-      "beforeEach",
-      "after",
-      "afterEach",
-      "xdescribe",
-      "xit"
-    ]
+  "eslintConfig": {
+    "extends": "@pixel2html/eslint-config",
+    "env": {
+      "browser": true,
+      "node": true,
+      "mocha": true
+    }
   }
 }

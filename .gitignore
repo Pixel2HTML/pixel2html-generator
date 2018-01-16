@@ -4,3 +4,5 @@ dist
 bower_components
 demo
 test/temp
+yarn.lock
+package-lock.json

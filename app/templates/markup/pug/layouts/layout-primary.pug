@@ -27,7 +27,9 @@ html(lang='en')
       //- If extra footer content is necessary per page, it can be added per screen
 
     if production
+    <% if(jQuery || frontEndFramework){ %>
       script(src='//code.jquery.com/jquery-3.2.1.min.js')
+    <% } %>
       script(src='assets/js/vendor.min.js')
       script(src='assets/js/main.min.js')
     else

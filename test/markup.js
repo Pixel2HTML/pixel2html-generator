@@ -73,10 +73,6 @@ describe('Markup Features', function () {
         .toPromise()
     })
 
-    it('sould list dependencies on package.json', function () {
-      assert.fileContent('package.json', /"gulp-pug"/)
-    })
-
     it('creates expected base files', function () {
       assert.file([
         '.gitignore',
@@ -113,7 +109,7 @@ describe('Markup Features', function () {
       assert.file([
         'gulp/tasks/markup.js'
       ])
-      assert.fileContent('gulp/tasks/markup.js', /\$\.pug/)
+      assert.fileContent('gulp/tasks/markup.js', /pug/)
     })
 
     it('should exists a pipe in the main:markup', function () {
