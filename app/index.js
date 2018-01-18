@@ -381,16 +381,29 @@ class PixelGenerator extends Generator {
     let usingHtml = this.options.markupLanguage === 'html'
     if (!this.options.markupIntegration && usingHtml) {
       for (var i = 1; i < this.options.qtyScreens + 1; i++) {
-        this.fs.copyTpl(
-          this.templatePath('markup/_screen.' + this.options.markupLanguage + '.ejs'),
-          this.destinationPath(this.paths.src.markup + '/screen-' + i + '.' + this.options.markupLanguage),
-          {
-            screenNumber: i,
-            projectName: this.options.projectName,
-            frontEndFramework: this.options.frontEndFramework,
-            jQuery: this.options.jQuery
-          }
-        )
+        if (i === 1) {
+          this.fs.copyTpl(
+            this.templatePath('markup/_screen.' + this.options.markupLanguage + '.ejs'),
+            this.destinationPath(this.paths.src.markup + '/index.html'),
+            {
+              screenNumber: i,
+              projectName: this.options.projectName,
+              frontEndFramework: this.options.frontEndFramework,
+              jQuery: this.options.jQuery
+            }
+          )
+        } else {
+          this.fs.copyTpl(
+            this.templatePath('markup/_screen.' + this.options.markupLanguage + '.ejs'),
+            this.destinationPath(this.paths.src.markup + '/screen-' + i + '.' + this.options.markupLanguage),
+            {
+              screenNumber: i,
+              projectName: this.options.projectName,
+              frontEndFramework: this.options.frontEndFramework,
+              jQuery: this.options.jQuery
+            }
+          )
+        }
       }
     }
   }
@@ -399,16 +412,33 @@ class PixelGenerator extends Generator {
     let usingPug = this.options.markupLanguage === 'pug'
     if (!this.options.markupIntegration && usingPug) {
       for (var i = 1; i < this.options.qtyScreens + 1; i++) {
-        this.fs.copyTpl(
-          this.templatePath('markup/pug/_screen.' + this.options.markupLanguage),
-          this.destinationPath(this.paths.src.markup + '/pug/screen-' + i + '.' + this.options.markupLanguage),
-          {
-            screenNumber: i,
-            projectName: this.options.projectName,
-            frontEndFramework: this.options.frontEndFramework,
-            jQuery: this.options.jQuery
-          }
-        )
+        if (i === 1) {
+          this.fs.copyTpl(
+            this.templatePath('markup/pug/_screen.' + this.options.markupLanguage),
+            this.destinationPath(this.paths.src.markup + '/pug/index.pug'),
+            {
+              screenNumber: i,
+              projectName: this.options.projectName,
+              clientId: this.options.clientId,
+              projectId: this.options.projectId,
+              frontEndFramework: this.options.frontEndFramework,
+              jQuery: this.options.jQuery
+            }
+          )
+        } else {
+          this.fs.copyTpl(
+            this.templatePath('markup/pug/_screen.' + this.options.markupLanguage),
+            this.destinationPath(this.paths.src.markup + '/pug/screen-' + i + '.' + this.options.markupLanguage),
+            {
+              screenNumber: i,
+              projectName: this.options.projectName,
+              clientId: this.options.clientId,
+              projectId: this.options.projectId,
+              frontEndFramework: this.options.frontEndFramework,
+              jQuery: this.options.jQuery
+            }
+          )
+        }
       }
       this.fs.copyTpl(
         this.templatePath('markup/pug/layouts/layout-primary.pug.ejs'),

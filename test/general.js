@@ -27,7 +27,7 @@ describe('General Assertions', function () {
       '.tern-project',
       '.editorconfig',
       'LICENSE',
-      'src/screen-1.html',
+      'src/index.html',
       'src/screen-2.html',
       'src/screen-3.html',
       'src/screen-4.html',

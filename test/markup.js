@@ -25,7 +25,7 @@ describe('Markup Features', function () {
         'gulpfile.js',
         'package.json',
         '.editorconfig',
-        'src/screen-1.html',
+        'src/index.html',
         'src/screen-2.html',
         'src/screen-3.html',
         'src/screen-4.html',
@@ -55,7 +55,7 @@ describe('Markup Features', function () {
     })
 
     it('should have the projectName in the title tag', function () {
-      assert.fileContent('src/screen-1.html', /<title>Pixel2HTML - Screen 1<\/title>/)
+      assert.fileContent('src/index.html', /<title>Pixel2HTML - Screen 1<\/title>/)
     })
   })
 
@@ -81,7 +81,7 @@ describe('Markup Features', function () {
         'gulpfile.js',
         'package.json',
         '.editorconfig',
-        'src/pug/screen-1.pug',
+        'src/pug/index.pug',
         'src/pug/screen-2.pug',
         'src/pug/screen-3.pug',
         'src/pug/screen-4.pug',
