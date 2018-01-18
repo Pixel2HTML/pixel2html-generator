@@ -51,6 +51,9 @@ describe('General Assertions', function () {
       'src/assets/icons',
       'src/assets/images',
       'src/assets/js',
+      'src/assets/head/favico.ico',
+      'src/assets/head/favicon.png',
+      'src/assets/head/manifest.json',
       'src/assets/styles'
     ])
   })
