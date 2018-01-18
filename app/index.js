@@ -363,7 +363,7 @@ class PixelGenerator extends Generator {
     if (!this.options.markupIntegration && usingHtml) {
       for (var i = 1; i < this.options.qtyScreens + 1; i++) {
         this.fs.copyTpl(
-          this.templatePath('markup/_screen.' + this.options.markupLanguage),
+          this.templatePath('markup/_screen.' + this.options.markupLanguage + '.ejs'),
           this.destinationPath(this.paths.src.markup + '/screen-' + i + '.' + this.options.markupLanguage),
           {
             screenNumber: i,
@@ -392,7 +392,7 @@ class PixelGenerator extends Generator {
         )
       }
       this.fs.copyTpl(
-        this.templatePath('markup/pug/layouts/layout-primary.pug'),
+        this.templatePath('markup/pug/layouts/layout-primary.pug.ejs'),
         this.destinationPath(this.paths.src.markup + '/pug/layouts/layout-primary.pug'),
         {
           screenNumber: i,
