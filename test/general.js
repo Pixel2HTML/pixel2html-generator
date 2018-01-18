@@ -27,7 +27,7 @@ describe('General Assertions', function () {
       '.tern-project',
       '.editorconfig',
       'LICENSE',
-      'src/screen-1.html',
+      'src/index.html',
       'src/screen-2.html',
       'src/screen-3.html',
       'src/screen-4.html',
@@ -51,6 +51,9 @@ describe('General Assertions', function () {
       'src/assets/icons',
       'src/assets/images',
       'src/assets/js',
+      'src/assets/head/favico.ico',
+      'src/assets/head/favicon.png',
+      'src/assets/head/manifest.json',
       'src/assets/styles'
     ])
   })

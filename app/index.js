@@ -19,6 +19,7 @@ class PixelGenerator extends Generator {
         images: 'src/assets/images',
         scripts: 'src/assets/js',
         styles: 'src/assets/styles',
+        head: 'src/assets/head',
         markup: 'src',
         base: 'src'
       },
@@ -125,9 +126,9 @@ class PixelGenerator extends Generator {
           message: 'Give me the Project Name!'
         }]
       )
-      .then(props => {
-        this.options.projectName = props.projectName
-      })
+        .then(props => {
+          this.options.projectName = props.projectName
+        })
   }
 
   askForQtyScreens () {
@@ -141,9 +142,9 @@ class PixelGenerator extends Generator {
           default: 1
         }]
       )
-      .then(props => {
-        this.options.qtyScreens = parseInt(props.qtyScreens)
-      })
+        .then(props => {
+          this.options.qtyScreens = parseInt(props.qtyScreens)
+        })
   }
 
   askForMarkupLanguage () {
@@ -166,9 +167,9 @@ class PixelGenerator extends Generator {
           ]
         }]
       )
-      .then(props => {
-        this.options.markupLanguage = props.markupLanguage
-      })
+        .then(props => {
+          this.options.markupLanguage = props.markupLanguage
+        })
   }
 
   askForMarkupIntegration () {
@@ -187,9 +188,9 @@ class PixelGenerator extends Generator {
             value: 'jekyll'
           }]
       }])
-      .then(props => {
-        this.options.markupIntegration = props.markupIntegration
-      })
+        .then(props => {
+          this.options.markupIntegration = props.markupIntegration
+        })
   }
 
   askForFrontEndFramework () {
@@ -214,9 +215,9 @@ class PixelGenerator extends Generator {
             value: 'foundation'
           }]
       }])
-      .then(props => {
-        this.options.frontEndFramework = props.frontEndFramework
-      })
+        .then(props => {
+          this.options.frontEndFramework = props.frontEndFramework
+        })
   }
 
   askForjQuery () {
@@ -228,9 +229,9 @@ class PixelGenerator extends Generator {
         message: 'Would you like to use jQuery? \n http://youmightnotneedjquery.com/ \n http://youmightnotneedjqueryplugins.com/ \n',
         default: false
       }])
-      .then(props => {
-        this.options.jQuery = props.jQuery
-      })
+        .then(props => {
+          this.options.jQuery = props.jQuery
+        })
   }
 
   askForYarnInstall () {
@@ -242,9 +243,9 @@ class PixelGenerator extends Generator {
         message: 'Should I install extra dependencies needed with Yarn?',
         default: true
       }])
-      .then(props => {
-        this.options.yarn = props.yarn
-      })
+        .then(props => {
+          this.options.yarn = props.yarn
+        })
   }
 
   writeProjectFiles () {
@@ -358,20 +359,51 @@ class PixelGenerator extends Generator {
     )
   }
 
+  copyHeadFiles () {
+    this.fs.copy(
+      this.templatePath('assets/head/favico.ico'),
+      this.destinationPath(this.paths.src.head + '/favico.ico')
+    )
+    this.fs.copy(
+      this.templatePath('assets/head/favicon.png'),
+      this.destinationPath(this.paths.src.head + '/favicon.png')
+    )
+    this.fs.copyTpl(
+      this.templatePath('assets/head/manifest.json.ejs'),
+      this.destinationPath(this.paths.src.head + '/manifest.json'),
+      {
+        projectName: this.options.projectName
+      }
+    )
+  }
+
   writeHtmlFiles () {
     let usingHtml = this.options.markupLanguage === 'html'
     if (!this.options.markupIntegration && usingHtml) {
       for (var i = 1; i < this.options.qtyScreens + 1; i++) {
-        this.fs.copyTpl(
-          this.templatePath('markup/_screen.' + this.options.markupLanguage),
-          this.destinationPath(this.paths.src.markup + '/screen-' + i + '.' + this.options.markupLanguage),
-          {
-            screenNumber: i,
-            projectName: this.options.projectName,
-            frontEndFramework: this.options.frontEndFramework,
-            jQuery: this.options.jQuery
-          }
-        )
+        if (i === 1) {
+          this.fs.copyTpl(
+            this.templatePath('markup/_screen.' + this.options.markupLanguage + '.ejs'),
+            this.destinationPath(this.paths.src.markup + '/index.html'),
+            {
+              screenNumber: i,
+              projectName: this.options.projectName,
+              frontEndFramework: this.options.frontEndFramework,
+              jQuery: this.options.jQuery
+            }
+          )
+        } else {
+          this.fs.copyTpl(
+            this.templatePath('markup/_screen.' + this.options.markupLanguage + '.ejs'),
+            this.destinationPath(this.paths.src.markup + '/screen-' + i + '.' + this.options.markupLanguage),
+            {
+              screenNumber: i,
+              projectName: this.options.projectName,
+              frontEndFramework: this.options.frontEndFramework,
+              jQuery: this.options.jQuery
+            }
+          )
+        }
       }
     }
   }
@@ -380,19 +412,36 @@ class PixelGenerator extends Generator {
     let usingPug = this.options.markupLanguage === 'pug'
     if (!this.options.markupIntegration && usingPug) {
       for (var i = 1; i < this.options.qtyScreens + 1; i++) {
-        this.fs.copyTpl(
-          this.templatePath('markup/pug/_screen.' + this.options.markupLanguage),
-          this.destinationPath(this.paths.src.markup + '/pug/screen-' + i + '.' + this.options.markupLanguage),
-          {
-            screenNumber: i,
-            projectName: this.options.projectName,
-            frontEndFramework: this.options.frontEndFramework,
-            jQuery: this.options.jQuery
-          }
-        )
+        if (i === 1) {
+          this.fs.copyTpl(
+            this.templatePath('markup/pug/_screen.' + this.options.markupLanguage),
+            this.destinationPath(this.paths.src.markup + '/pug/index.pug'),
+            {
+              screenNumber: i,
+              projectName: this.options.projectName,
+              clientId: this.options.clientId,
+              projectId: this.options.projectId,
+              frontEndFramework: this.options.frontEndFramework,
+              jQuery: this.options.jQuery
+            }
+          )
+        } else {
+          this.fs.copyTpl(
+            this.templatePath('markup/pug/_screen.' + this.options.markupLanguage),
+            this.destinationPath(this.paths.src.markup + '/pug/screen-' + i + '.' + this.options.markupLanguage),
+            {
+              screenNumber: i,
+              projectName: this.options.projectName,
+              clientId: this.options.clientId,
+              projectId: this.options.projectId,
+              frontEndFramework: this.options.frontEndFramework,
+              jQuery: this.options.jQuery
+            }
+          )
+        }
       }
       this.fs.copyTpl(
-        this.templatePath('markup/pug/layouts/layout-primary.pug'),
+        this.templatePath('markup/pug/layouts/layout-primary.pug.ejs'),
         this.destinationPath(this.paths.src.markup + '/pug/layouts/layout-primary.pug'),
         {
           screenNumber: i,
