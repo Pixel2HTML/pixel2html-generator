@@ -1,3 +1,10 @@
+# 2.3.3
+- Removed jekyll
+- 100/100 lighthouse and google pagespeed insights
+- Bootstrap 4 out of beta
+- Fewer dependencies
+- Decouple gulp tasks from this package
+
 # 2.2.0
 - HMR
 - CSS HMR

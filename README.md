@@ -15,16 +15,6 @@ We also need to install **Yeoman**, and the **Pixel2HTML Generator**, so run thi
 $ npm install -g yo @pixel2html/generator-frontend
 ```
 
-#### Ruby
-
-If you plan is generate a site with **Jekyll** you also need `Ruby` and `Bundler` up & running.
-
-You can check if **Ruby** is installed running `ruby --version`
-We recommend to use the latest stable version (2.4.2). If you need more information please check on [ruby official site](http://rubylang.com) or [rvm](rvm.io) to handle multiple versions of Ruby.
-
-Also, for **Bundler**, run `gem install bundler` when `Ruby` is already installed and running.
-
-
 ## Running the generator
 
 To generate the **Pixel2HTML Boilerplate** go to your project folder and run this command in your shell
@@ -38,7 +28,6 @@ The **Pixel2HTML Boilerplate** will ask you questions about this points. Answeri
 * Project Name?
 * Quantity of screens?
 * Markup Language? _Options: HTML / Pug_
-* Markup Integration? _Options: None / Jekyll_
 * Frontend Framework _Options: None / Bootstrap 3.*/ Bootstrap 4 Beta / Foundation_
 * jQuery? _Options: true / false_
 
@@ -142,9 +131,6 @@ $ npm run debug
 ### Styles
 * `$ gulp main:styles` Compile, concat, autoprefix and move [SCSS, Less, Stylus] project files
 * `$ gulp vendor:styles` Compile, concat, autoprefix and move [SCSS, Less, Stylus] vendor files
-
-### Integration
-* `$ gulp jekyll:build` Compile markup with Jekyll's partials and layouts files.
 
 ### Delivery
  * `$ gulp build` Execute all the gulp directives and makes a `.zip` file with the latest code.
