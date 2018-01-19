@@ -9,13 +9,9 @@ const debug = !!argv.debug || env.NODE_ENV === 'debug'
 module.exports = {
   directories: {
     src: {
-      base: '<%= paths.src.base %>',
-      <% if(markupLanguage == 'html'){ -%>
-      markup: '<%= paths.src.markup %>',
-      <% } -%>
-      <% if(markupLanguage == 'pug'){ -%>
-      markup: '<%= paths.src.markup %>/pug',
-      <% } -%>
+      base: '<%= paths.src.base %>',<% if(markupLanguage == 'html'){ %>
+      markup: '<%= paths.src.markup %>',<% } %><% if(markupLanguage == 'pug'){ %>
+      markup: '<%= paths.src.markup %>/pug',<% } %>
       fonts: '<%= paths.src.fonts %>',
       icons: '<%= paths.src.icons %>',
       images: '<%= paths.src.images %>',
@@ -38,10 +34,8 @@ module.exports = {
     cssVendorFile: 'src/assets/styles/vendor/vendor.scss',
     jsMainFile: 'src/assets/js/index.js',
     fontFiles: [
-      '<%= paths.src.fonts %>/**/*',
-      <% if(frontEndFramework == 'bootstrap-3'){ -%>
-      './node_modules/bootstrap-sass/assets/fonts/**/*'
-      <% } -%>
+      '<%= paths.src.fonts %>/**/*'<% if(frontEndFramework == 'bootstrap-3'){ %>,
+      './node_modules/bootstrap-sass/assets/fonts/**/*'<% } %>
     ]
   },
   onError: function(error) {

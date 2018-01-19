@@ -23,12 +23,7 @@ This boilerplate will create a set of files and folders
 
 ├── dist/
 ├── src/
-<% if (markupIntegration=='jekyll'){%>│    ├── _layouts/
-│    │    └── default.html
-│    ├── _includes/
-│    │    ├── shared/
-│    │    │    ├──  head.html
-│    │    │    └──  foot.html<%}%>│    ├──  assets/
+│    ├──  assets/
 │    │    ├──  gulp/
 │    │    │    ├── tasks/
 │    │    │    ├── config.js
@@ -59,9 +54,7 @@ This boilerplate will create a set of files and folders
 ├── .gitignore
 ├── .browserlistrc
 ├── .babelrc
-├── .project.conf<% if (markupIntegration=='jekyll'){%>
-├── Gemfile<%}%><% if (markupIntegration=='jekyll'){%>
-├── _config.yml<%}%>
+├── .project.conf
 ├── gulpfile.js
 ├── LICENSE
 ├── package.json
@@ -143,18 +136,13 @@ fontFiles: [
 ### Styles
 * `$ gulp styles` Compile, concat, autoprefix, minify and move [SCSS, Less, Stylus] project files
 
-<% if (markupIntegration=='jekyll'){%>
-### Integration
-* `$ gulp jekyll` Compile markup with Jekyll's partials and layouts files.
-<%}%>
-
 ### Daemons
 * `$ gulp watch` **Watch** your files and autoexecute gulp directives
 * `$ gulp serve` **Watch** your files and **serve** with an HTTP server and **Sync** with your prefered browser _awesome!_
 
 ### Delivery
  * `$ gulp build` Execute all the gulp directives and makes a `.zip` file with the latest code.
- 
+
 ### FTP Upload
 * `$ gulp ftp` will upload your dist folder via FTP you must specify the credentials on the `config.deploy.ftp` object. It's powered by: [Vinyl-FTP](https://www.npmjs.com/package/vinyl-ftp)
 

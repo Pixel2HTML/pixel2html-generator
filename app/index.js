@@ -56,12 +56,6 @@ class PixelGenerator extends Generator {
       required: false
     })
 
-    this.option('markupIntegration', {
-      desc: 'Sets the Markup Integration',
-      type: String,
-      required: false
-    })
-
     this.option('frontEndFramework', {
       desc: 'Sets the framework of choice [bootstrap, foundation]',
       type: String,
@@ -91,7 +85,6 @@ class PixelGenerator extends Generator {
         this.options.projectName = config.projectName
         this.options.qtyScreens = config.qtyScreens
         this.options.markupLanguage = config.markupLanguage
-        this.options.markupIntegration = config.markupIntegration
         this.options.frontEndFramework = config.frontEndFramework
         this.options.jQuery = config.jQuery
         this.options.yarn = config.yarn
@@ -172,27 +165,6 @@ class PixelGenerator extends Generator {
         })
   }
 
-  askForMarkupIntegration () {
-    return this.options.markupIntegration
-      ? true
-      : this.prompt([{
-        type: 'list',
-        name: 'markupIntegration',
-        message: 'What Markup Integration do you like to use?',
-        choices: [
-          {
-            name: 'None',
-            value: false
-          }, {
-            name: 'Jekyll',
-            value: 'jekyll'
-          }]
-      }])
-        .then(props => {
-          this.options.markupIntegration = props.markupIntegration
-        })
-  }
-
   askForFrontEndFramework () {
     return this.options.frontEndFramework
       ? true
@@ -255,7 +227,6 @@ class PixelGenerator extends Generator {
       this.destinationPath('package.json'), {
         projectName: this.options.projectName,
         markupLanguage: this.options.markupLanguage,
-        markupIntegration: this.options.markupIntegration,
         frontEndFramework: this.options.frontEndFramework,
         jQuery: this.options.jQuery
       }
@@ -311,7 +282,6 @@ class PixelGenerator extends Generator {
         paths: this.paths,
         projectName: this.options.projectName,
         frontEndFramework: this.options.frontEndFramework,
-        markupIntegration: this.options.markupIntegration,
         jQuery: this.options.jQuery,
         qtyScreens: this.options.qtyScreens,
         markupLanguage: this.options.markupLanguage,
@@ -378,8 +348,7 @@ class PixelGenerator extends Generator {
   }
 
   writeHtmlFiles () {
-    let usingHtml = this.options.markupLanguage === 'html'
-    if (!this.options.markupIntegration && usingHtml) {
+    if (this.options.markupLanguage === 'html') {
       for (var i = 1; i < this.options.qtyScreens + 1; i++) {
         if (i === 1) {
           this.fs.copyTpl(
@@ -409,8 +378,7 @@ class PixelGenerator extends Generator {
   }
 
   writePugFiles () {
-    let usingPug = this.options.markupLanguage === 'pug'
-    if (!this.options.markupIntegration && usingPug) {
+    if (this.options.markupLanguage === 'pug') {
       for (var i = 1; i < this.options.qtyScreens + 1; i++) {
         if (i === 1) {
           this.fs.copyTpl(
@@ -552,8 +520,7 @@ class PixelGenerator extends Generator {
         paths: this.paths,
         frontEndFramework: this.options.frontEndFramework,
         jQuery: this.options.jQuery,
-        markupLanguage: this.options.markupLanguage,
-        markupIntegration: this.options.markupIntegration
+        markupLanguage: this.options.markupLanguage
       }
     )
 
@@ -577,17 +544,15 @@ class PixelGenerator extends Generator {
     )
 
     // markup
-    if (!this.options.markupIntegration) {
-      this.fs.copyTpl(
-        this.templatePath('gulp/tasks/markup.js.ejs'),
-        this.destinationPath(this.paths.src.gulp_tasks + '/markup.js'), {
-          paths: this.paths,
-          markupLanguage: this.options.markupLanguage,
-          clientId: this.options.clientId,
-          projectId: this.options.projectId
-        }
-      )
-    }
+    this.fs.copyTpl(
+      this.templatePath('gulp/tasks/markup.js.ejs'),
+      this.destinationPath(this.paths.src.gulp_tasks + '/markup.js'), {
+        paths: this.paths,
+        markupLanguage: this.options.markupLanguage,
+        clientId: this.options.clientId,
+        projectId: this.options.projectId
+      }
+    )
 
     // scripts
     this.fs.copyTpl(
@@ -598,15 +563,9 @@ class PixelGenerator extends Generator {
     )
 
     // Serve
-    this.fs.copyTpl(
+    this.fs.copy(
       this.templatePath('gulp/tasks/serve.js'),
-      this.destinationPath(this.paths.src.gulp_tasks + '/serve.js'), {
-        paths: this.paths,
-        frontEndFramework: this.options.frontEndFramework,
-        jQuery: this.options.jQuery,
-        markupLanguage: this.options.markupLanguage,
-        markupIntegration: this.options.markupIntegration
-      }
+      this.destinationPath(this.paths.src.gulp_tasks + '/serve.js')
     )
 
     // watch
@@ -616,8 +575,7 @@ class PixelGenerator extends Generator {
         paths: this.paths,
         frontEndFramework: this.options.frontEndFramework,
         jQuery: this.options.jQuery,
-        markupLanguage: this.options.markupLanguage,
-        markupIntegration: this.options.markupIntegration
+        markupLanguage: this.options.markupLanguage
       }
     )
 
@@ -626,8 +584,7 @@ class PixelGenerator extends Generator {
       this.templatePath('gulp/tasks/static.js.ejs'),
       this.destinationPath(this.paths.src.gulp_tasks + '/static.js'), {
         paths: this.paths,
-        markupLanguage: this.options.markupLanguage,
-        markupIntegration: this.options.markupIntegration
+        markupLanguage: this.options.markupLanguage
       }
     )
 
@@ -689,68 +646,11 @@ class PixelGenerator extends Generator {
     )
   }
 
-  writeMarkupIntegrationFiles () {
-    if (this.options.markupIntegration === 'jekyll') {
-      this.log(chalk.yellow('Copying Jekyll main files.'))
-      this.fs.copyTpl(
-        this.templatePath('markup/jekyll/_Gemfile'),
-        this.destinationPath('Gemfile'), {
-        }
-      )
-
-      this.fs.copyTpl(
-        this.templatePath('markup/jekyll/_config.yml'),
-        this.destinationPath('_config.yml'), {
-          projectName: this.options.projectName
-        }
-      )
-
-      this.fs.copyTpl(
-        this.templatePath('gulp/tasks/jekyll.js'),
-        this.destinationPath(this.paths.src.gulp_tasks + '/jekyll.js'), {
-          paths: this.paths
-        }
-      )
-
-      for (var i = 1; i < this.options.qtyScreens + 1; i++) {
-        this.fs.copyTpl(
-          this.templatePath('markup/jekyll/_screen.html'),
-          this.destinationPath(this.paths.src.markup + '/screen-' + i + '.html'), {
-            screenNumber: i,
-            projectName: this.options.projectName,
-            frontEndFramework: this.options.frontEndFramework,
-            jQuery: this.options.jQuery
-          }
-        )
-      }
-
-      this.fs.copyTpl(
-        this.templatePath('markup/jekyll/_includes/shared/head.html'),
-        this.destinationPath(this.paths.src.markup + '/_includes/shared/head.html'), {
-          frontEndFramework: this.options.frontEndFramework
-        }
-      )
-      this.fs.copyTpl(
-        this.templatePath('markup/jekyll/_includes/shared/foot.html'),
-        this.destinationPath(this.paths.src.markup + '/_includes/shared/foot.html'), {
-          frontEndFramework: this.options.frontEndFramework,
-          jQuery: this.options.jQuery
-        }
-      )
-      this.fs.copyTpl(
-        this.templatePath('markup/jekyll/_layouts/default.html'),
-        this.destinationPath(this.paths.src.markup + '/_layouts/default.html'), {
-        }
-      )
-    }
-  }
-
   writeProjectConfigFile () {
     var configJson = {
       'projectName': this.options.projectName,
       'qtyScreens': this.options.qtyScreens,
       'markupLanguage': this.options.markupLanguage,
-      'markupIntegration': this.options.markupIntegration,
       'frontEndFramework': this.options.frontEndFramework,
       'jQuery': this.options.jQuery,
       'generatedBy': 'Pixel2HTML',
