@@ -1,4 +1,4 @@
-# 2.3.3
+# 2.3.2
 - Removed jekyll
 - 100/100 lighthouse and google pagespeed insights
 - Bootstrap 4 out of beta
