@@ -10,15 +10,10 @@ let tasks = [
   'images',
   'head',
   'scripts',
-  'fonts',
-  <% if(markupIntegration === 'jekyll'){ -%>
-  'jekyll'
-  <% } else if (markupLanguage === 'pug') { -%>
-  'markup'
-  <% } else { -%>
+  'fonts',<% if (markupLanguage === 'pug') { -%>
+  'markup'<% } else { -%>
   'markup',
-  'icons'
-  <% }  -%>
+  'icons'<% }  -%>
 ]
 
 if (config.production) {
