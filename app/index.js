@@ -7,6 +7,9 @@ const moment = require('moment')
 const updateNotifier = require('update-notifier')
 const pkg = require('../package.json')
 
+const filter = require('gulp-filter')
+const prettify = require('gulp-jsbeautifier')
+
 class PixelGenerator extends Generator {
   constructor (args, options) {
     super(args, options)
@@ -180,7 +183,7 @@ class PixelGenerator extends Generator {
             name: 'Bootstrap 3',
             value: 'bootstrap-3'
           }, {
-            name: 'Bootstrap 4 Beta',
+            name: 'Bootstrap 4',
             value: 'bootstrap-4'
           }, {
             name: 'Foundation',
@@ -665,6 +668,17 @@ class PixelGenerator extends Generator {
     this.options.yarn
       ? this.yarnInstall()
       : this.log('Skipping yarn install')
+  }
+
+  eslintJs () {
+    const jsFilter = filter(['**/*.js', '**/*.json'], { restore: true })
+    this.registerTransformStream([
+      jsFilter,
+      prettify({
+        indent_size: 2
+      }),
+      jsFilter.restore
+    ])
   }
 }
 
