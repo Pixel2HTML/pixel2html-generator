@@ -664,6 +664,24 @@ class PixelGenerator extends Generator {
     this.fs.writeJSON('./.project.conf', configJson)
   }
 
+  installWebpackSituations () {
+    const webpackFiles = [
+      'commonPlugins.js',
+      'debugPlugins.js',
+      'developmentPlugins.js',
+      'paths.js',
+      'productionPlugins.js'
+    ]
+
+    // Work smart not hard
+    webpackFiles.map(file => {
+      this.fs.copy(
+        this.templatePath(`webpack/${file}`),
+        this.destinationPath(`webpack/${file}`)
+      )
+    })
+  }
+
   installDependencies () {
     this.options.yarn
       ? this.yarnInstall()

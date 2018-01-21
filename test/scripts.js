@@ -22,7 +22,13 @@ describe('Script features', function () {
     assert.file([
       'src/assets/js',
       'src/assets/js/index.js',
-      'src/assets/js/app.js'
+      'src/assets/js/app.js',
+      'webpack.config.js',
+      'webpack/commonPlugins.js',
+      'webpack/debugPlugins.js',
+      'webpack/developmentPlugins.js',
+      'webpack/paths.js',
+      'webpack/productionPlugins.js'
     ])
   })
 
