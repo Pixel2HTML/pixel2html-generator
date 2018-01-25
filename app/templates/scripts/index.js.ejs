@@ -17,9 +17,4 @@ import App from './app'
 App()
 
 // Get HMR on Development
-if (module.hot) {
-  module.hot.accept('./app', () => {
-    const NextApp = require('./app').default
-    NextApp()
-  })
-}
+if (module.hot) module.hot.accept('./app', () => App())
