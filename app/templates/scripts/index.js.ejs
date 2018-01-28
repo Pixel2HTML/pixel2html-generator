@@ -2,7 +2,6 @@
 // Start frontEndFramework
 import './framework'
 <% } -%>
-
 // 🤔🤔🤔 If you DON'T want to try Hot Module HotModuleReplacement 🤔🤔🤔
 // then delete everything below and go to gulp/tasks/watch.js
 // and uncomment to reload the browser normally again
@@ -12,6 +11,13 @@ import './framework'
 // read more about modules here:
 // http://wesbos.com/javascript-modules/
 import App from './app'
+
+// Service worker for app to work offline
+// We're using Workbox:
+// https://developers.google.com/web/tools/workbox/
+// Guide here:
+// https://developers.google.com/web/tools/workbox/get-started/webpack
+import registerServiceWorker from './registerServiceWorker'
 
 // Run our app code once
 App()

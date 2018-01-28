@@ -23,6 +23,7 @@ describe('Script features', function () {
       'src/assets/js',
       'src/assets/js/index.js',
       'src/assets/js/app.js',
+      'src/assets/js/registerServiceWorker.js',
       'webpack.config.js',
       'webpack/commonPlugins.js',
       'webpack/debugPlugins.js',
