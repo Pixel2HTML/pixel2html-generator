@@ -29,19 +29,39 @@ module.exports = {
   entry: paths.entry,
   devtool: shouldBeDebugMode ? 'source-map' : 'inline-source-map',
   module: {
-    rules: [{
-      test: /\.js$/,
-      include: paths.src,
-      use: {
-        loader: 'babel-loader',
-        options: {
-          presets: [
-            require.resolve('@pixel2html/babel-preset')
-          ],
-          cacheDirectory: true
+    rules: [
+      {
+        test: /\.(js|jsx|mjs)$/,
+        enforce: 'pre',
+        use: [
+          {
+            options: {
+              eslintPath: require.resolve('eslint'),
+              baseConfig: {
+                extends: [require.resolve('@pixel2html/eslint-config')]
+              },
+              ignore: false,
+              useEslintrc: false
+            },
+            loader: require.resolve('eslint-loader')
+          }
+        ],
+        include: paths.src
+      },
+      {
+        test: /\.(js|jsx|mjs)$/,
+        include: paths.src,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              require.resolve('@pixel2html/babel-preset')
+            ],
+            cacheDirectory: true
+          }
         }
       }
-    }]},
+    ]},
   output: {
     filename: shouldBeDebugMode ? '[name].min.js' : '[name].js',
     chunkFilename: shouldBeDebugMode ? '[name].chunk.min.js' : '[name].chunk.js',
