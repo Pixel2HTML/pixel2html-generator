@@ -23,8 +23,8 @@ describe('Foundation features', function () {
 
   it('should exists a gulp routine', function () {
     assert.file([
-      'gulp/tasks/styles.js',
-      'gulp/tasks/scripts.js'
+      'gulp/common/styles.js',
+      'gulp/common/scripts.js'
     ])
   })
   it('should exists vendor files', function () {
