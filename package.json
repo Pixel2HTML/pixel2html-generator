@@ -61,7 +61,7 @@
     "yeoman-generator": "^2.0.2"
   },
   "devDependencies": {
-    "@pixel2html/eslint-config": "^1.1.1",
+    "@pixel2html/eslint-config": "^1.2.0",
     "babel-preset-env": "^1.6.1",
     "babel-register": "^6.26.0",
     "eslint": "^4.17.0",
