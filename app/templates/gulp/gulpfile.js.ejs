@@ -27,7 +27,7 @@ common.forEach(file => require(`./gulp/common/${file}`))
 
 let tasks = [
   'clean',
-  'styles',
+  config.production ? 'styles:prod' : 'styles',
   'images',
   'head',
   'scripts',
@@ -38,18 +38,20 @@ let tasks = [
 ]
 
 if (config.production) {
-  production.forEach(file => require(`./gulp/production/${file}`))
-  tasks[1] = 'styles:prod'
   tasks.push(
     'minifyStyles',
     'purify',
     'critical'
   )
-  gulp.task('build', gulp.series(...tasks))
+}
+
+gulp.task('build', gulp.series(...tasks))
+
+if (config.production) {
+  production.forEach(file => require(`./gulp/production/${file}`))
   gulp.task('release', gulp.series('build', 'zip'))
 } else {
   development.forEach(file => require(`./gulp/development/${file}`))
   gulp.task('serve', gulp.parallel('browser-sync', 'watch'))
   gulp.task('default', gulp.series('build', 'serve'))
 }
-
