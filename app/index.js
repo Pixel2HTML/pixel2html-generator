@@ -9,6 +9,7 @@ const pkg = require('../package.json')
 
 const filter = require('gulp-filter')
 const prettify = require('gulp-jsbeautifier')
+const eslint = require('gulp-eslint')
 
 class PixelGenerator extends Generator {
   constructor (args, options) {
@@ -698,12 +699,21 @@ class PixelGenerator extends Generator {
   }
 
   eslintJs () {
-    const jsFilter = filter(['**/*.js', '**/*.json'], { restore: true })
+    const jsFilter = filter(['**/*.js'], { restore: true })
+    const jsonFilter = filter(['**/*.json'], { restore: true })
     this.registerTransformStream([
-      jsFilter,
+      jsonFilter,
       prettify({
         indent_size: 2
       }),
+      jsonFilter.restore
+    ])
+    this.registerTransformStream([
+      jsFilter,
+      eslint({
+        fix: true
+      }),
+      eslint.format(),
       jsFilter.restore
     ])
   }
