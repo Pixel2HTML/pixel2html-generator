@@ -4,10 +4,15 @@ const paths = require('./webpack/paths')
 const commonPlugins = require('./webpack/commonPlugins')
 const devPlugins = require('./webpack/developmentPlugins')
 const productionPlugins = require('./webpack/productionPlugins')
-const debugPlugins = require('./webpack/debugPlugins')
 
 const production = config.production
 const debug = config.debug
+
+let debugPlugins = []
+
+if (debug) {
+  debugPlugins = require('./webpack/debugPlugins')
+}
 
 let plugins = [ ...commonPlugins ]
 
