@@ -54,8 +54,6 @@
     "mkdirp": "^0.5.1",
     "moment": "^2.20.1",
     "path": "^0.12.7",
-    "underscore": "^1.8.3",
-    "underscore.string": "^3.3.4",
     "update-notifier": "^2.3.0",
     "wiredep": "^4.0.0",
     "yeoman-generator": "^2.0.2"
