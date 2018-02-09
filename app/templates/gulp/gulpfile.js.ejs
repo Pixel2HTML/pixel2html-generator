@@ -1,31 +1,48 @@
 const config = require('./gulp/config')
-const requireDir = require('require-dir')
 const gulp = require('gulp')
+const prod = config.production
 
-requireDir('./gulp/tasks', {recurse: true})
+const common = [
+  'cssModulesWrite',
+  'fonts', 'markup',
+  'scripts', 'static',
+  'styles'
+]
+const development = [
+  'serve', 'watch'
+]
+const production = [
+  'critical', 'minifyStyles',
+  'purify', 'styles-production',
+  'zip'
+]
+
+common.forEach(file => require(`./gulp/common/${file}`))
+prod
+  ? production.forEach(file => require(`./gulp/production/${file}`))
+  : development.forEach(file => require(`./gulp/development/${file}`))
+
+const prodTasks = [
+  'minifyStyles',
+  'purify',
+  'critical'
+]
 
 let tasks = [
   'clean',
-  'styles',
-  'images',
-  'head',
-  'scripts',
-  'fonts',<% if (markupLanguage === 'pug') { -%>
-  'markup'<% } else { -%>
-  'markup',
-  'icons'<% }  -%>
+  config.production ? 'styles:prod' : 'styles',
+  'images', 'head',
+  'scripts', 'fonts',
+  'markup',<% if (markupLanguage === 'pug') { %> 'icons',<% }  %>
+  prod && [...prodTasks]
 ]
 
-if (config.production) {
-  tasks[1] = 'styles:prod'
-  tasks.push(
-    'minifyStyles',
-    'purify',
-    'critical'
-  )
-}
+const filteredTasks = tasks.filter(task => !!task)
+gulp.task('build', gulp.series(...filteredTasks))
 
-gulp.task('build', gulp.series(...tasks))
-gulp.task('serve', gulp.parallel('browser-sync', 'watch'))
-gulp.task('release', gulp.series('build', 'zip'))
-gulp.task('default', gulp.series('build', 'serve'))
+if (prod) {
+  gulp.task('release', gulp.series('build', 'zip'))
+} else {
+  gulp.task('serve', gulp.parallel('browser-sync', 'watch'))
+  gulp.task('default', gulp.series('build', 'serve'))
+}

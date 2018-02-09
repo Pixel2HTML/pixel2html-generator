@@ -8,7 +8,7 @@ const reload = done => {
 }
 
 gulp.task('watch', done => {
-  //static files
+  // static files
   gulp.watch(config.directories.src.markup+'/**/*.<%=markupLanguage%>', gulp.series( 'markup', reload ))
   <% if (markupLanguage === 'pug') { -%>
   gulp.watch(config.directories.src.icons+'/**/*.svg', gulp.series( 'markup', reload ))
@@ -21,7 +21,7 @@ gulp.task('watch', done => {
   gulp.watch(config.project.fontFiles, gulp.series('fonts', reload))
   //styles
   gulp.watch(config.directories.src.styles + '/**/*.scss', gulp.series('styles'))
-  // Scripts Uncomment if Hot Module Reload is not working for you
-  // gulp.watch(config.directories.src.scripts + '/**/*.js', gulp.series('scripts', reload))
+  // Scripts
+  gulp.watch(config.directories.src.scripts + '/**/*.js', gulp.series('scripts', reload))
   done()
 })

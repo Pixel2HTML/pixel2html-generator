@@ -23,8 +23,8 @@ describe('Bootstrap 4 features', function () {
 
   it('should exists a gulp routine', function () {
     assert.file([
-      'gulp/tasks/styles.js',
-      'gulp/tasks/scripts.js'
+      'gulp/common/styles.js',
+      'gulp/common/scripts.js'
     ])
   })
 
@@ -62,8 +62,8 @@ describe('Bootstrap 3 features', function () {
 
   it('should exists a gulp routine', function () {
     assert.file([
-      'gulp/tasks/styles.js',
-      'gulp/tasks/scripts.js'
+      'gulp/common/styles.js',
+      'gulp/common/scripts.js'
     ])
   })
 

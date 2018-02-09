@@ -51,16 +51,16 @@ describe('SCSS features', function () {
 
   it('should exists a gulp routine', function () {
     assert.file([
-      'gulp/tasks/critical.js',
-      'gulp/tasks/minifyStyles.js',
-      'gulp/tasks/purify.js',
-      'gulp/tasks/styles.js',
-      'gulp/tasks/cssModulesWrite.js',
-      'gulp/tasks/styles-production.js'
+      'gulp/common/styles.js',
+      'gulp/common/cssModulesWrite.js',
+      'gulp/production/critical.js',
+      'gulp/production/minifyStyles.js',
+      'gulp/production/purify.js',
+      'gulp/production/styles-production.js'
     ])
   })
 
   it('should exists a pipe in the main:styles routing', function () {
-    assert.fileContent('gulp/tasks/styles.js', /styles/)
+    assert.fileContent('gulp/common/styles.js', /styles/)
   })
 })
