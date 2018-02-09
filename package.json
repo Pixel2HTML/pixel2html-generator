@@ -41,7 +41,7 @@
   "scripts": {
     "lint": "eslint 'src/**/*.js' 'test/**/*.js'",
     "pretest": "npm run lint",
-    "test": "mocha --require babel-register",
+    "test": "mocha --require babel-register --timeout 5000",
     "postversion": "git push; git push --tags"
   },
   "main": "app/index.js",
