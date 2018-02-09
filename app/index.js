@@ -1,7 +1,6 @@
 const Generator = require('yeoman-generator')
 const chalk = require('chalk')
 const mkdirp = require('mkdirp')
-const _ = require('underscore')
 const fs = require('fs-extra')
 const moment = require('moment')
 const updateNotifier = require('update-notifier')
@@ -298,13 +297,10 @@ class PixelGenerator extends Generator {
   createFolders () {
     this.log(chalk.yellow('Creating directories.'))
 
-    // make src paths
-    _.each(this.paths.src, function (path) {
-      mkdirp(path)
-    })
-    _.each(this.paths.releases, function (path) {
-      mkdirp(path)
-    })
+    const srcPaths = Object.keys(this.paths.src)
+    srcPaths.forEach(path => mkdirp(path))
+    const releasesPaths = Object.keys(this.paths.releases)
+    releasesPaths.forEach(path => mkdirp(path))
   }
 
   copyGitKeepFiles () {
