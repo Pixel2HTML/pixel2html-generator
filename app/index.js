@@ -500,15 +500,6 @@ class PixelGenerator extends Generator {
       }
     )
 
-    this.fs.copyTpl(
-      this.templatePath('scripts/registerServiceWorker.js'),
-      this.destinationPath(this.paths.src.scripts + '/registerServiceWorker.js'), {
-        projectName: this.options.projectName,
-        frontEndFramework: this.options.frontEndFramework,
-        jQuery: this.options.jQuery
-      }
-    )
-
     if (this.options.frontEndFramework) {
       this.fs.copyTpl(
         this.templatePath('scripts/framework.js.ejs'),
