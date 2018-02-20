@@ -33,7 +33,7 @@ let tasks = [
   config.production ? 'styles:prod' : 'styles',
   'images', 'head',
   'scripts', 'fonts',
-  'markup',<% if (markupLanguage === 'pug') { %> 'icons',<% }  %>
+  'markup',<% if (markupLanguage === 'html') { %> 'icons',<% }  %>
   prod && [...prodTasks]
 ]
 
