@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/Pixel2HTML/pixel2html-generator.svg?branch=master)](https://travis-ci.org/Pixel2HTML/pixel2html-generator)
 
+![Cool Demo](tour.svg)
+
 We aim to generate a boilerplate code for projects when we know the specs. 💕
 
 ## How to install
