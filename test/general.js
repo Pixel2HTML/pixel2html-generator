@@ -41,7 +41,6 @@ describe('General Assertions', function () {
       'gulp/common/fonts.js',
       'gulp/common/static.js',
       'gulp/common/markup.js',
-      'gulp/production/critical.js',
       'gulp/production/minifyStyles.js',
       'gulp/production/styles-production.js',
       'gulp/production/purify.js',

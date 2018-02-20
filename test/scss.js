@@ -53,7 +53,6 @@ describe('SCSS features', function () {
     assert.file([
       'gulp/common/styles.js',
       'gulp/common/cssModulesWrite.js',
-      'gulp/production/critical.js',
       'gulp/production/minifyStyles.js',
       'gulp/production/purify.js',
       'gulp/production/styles-production.js'

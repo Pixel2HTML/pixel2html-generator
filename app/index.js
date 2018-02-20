@@ -541,7 +541,6 @@ class PixelGenerator extends Generator {
       'common/scripts',
       'common/styles',
       'development/serve',
-      'production/critical',
       'production/minifyStyles',
       'production/purify',
       'production/styles-production',
