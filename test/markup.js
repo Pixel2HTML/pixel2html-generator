@@ -30,13 +30,7 @@ describe('Markup Features', function () {
         'src/screen-3.html',
         'src/screen-4.html',
         'src/screen-5.html',
-        'src/screen-6.html',
-        'gulp',
-        'src/assets/fonts',
-        'src/assets/icons',
-        'src/assets/images',
-        'src/assets/js',
-        'src/assets/styles'
+        'src/screen-6.html'
       ])
     })
 
@@ -50,6 +44,7 @@ describe('Markup Features', function () {
 
     it('should have the gulp routine in gulp default\'s task', function () {
       assert.fileContent('gulpfile.js', /'markup'/)
+      assert.fileContent('gulpfile.js', /'icons'/)
       assert.noFileContent('gulpfile.js', /'jekyll'/)
     })
 
@@ -117,6 +112,7 @@ describe('Markup Features', function () {
     it('should have the gulp routine in gulp default\'s task', function () {
       assert.fileContent('gulpfile.js', /'markup'/)
       assert.noFileContent('gulpfile.js', /'jekyll'/)
+      assert.noFileContent('gulpfile.js', /'icons'/)
     })
   })
 })

@@ -20,7 +20,6 @@ describe('Script features', function () {
 
   it('creates expected base files', function () {
     assert.file([
-      'src/assets/js',
       'src/assets/js/index.js',
       'src/assets/js/app.js',
       'webpack.config.js',

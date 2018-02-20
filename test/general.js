@@ -33,7 +33,6 @@ describe('General Assertions', function () {
       'src/screen-4.html',
       'src/screen-5.html',
       'src/screen-6.html',
-      'gulp',
       'gulp/config.js',
       'gulp/common/styles.js',
       'gulp/development/watch.js',
@@ -46,14 +45,9 @@ describe('General Assertions', function () {
       'gulp/production/minifyStyles.js',
       'gulp/production/styles-production.js',
       'gulp/production/purify.js',
-      'src/assets/fonts',
-      'src/assets/icons',
-      'src/assets/images',
-      'src/assets/js',
       'src/assets/head/favico.ico',
       'src/assets/head/favicon.png',
-      'src/assets/head/manifest.json',
-      'src/assets/styles'
+      'src/assets/head/manifest.json'
     ])
   })
 
