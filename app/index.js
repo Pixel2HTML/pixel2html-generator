@@ -300,9 +300,9 @@ class PixelGenerator extends Generator {
     this.log(chalk.yellow('Creating directories.'))
 
     const srcPaths = Object.keys(this.paths.src)
-    srcPaths.forEach(path => mkdirp(path))
+    srcPaths.forEach(path => mkdirp(this.paths.src[path]))
     const releasesPaths = Object.keys(this.paths.releases)
-    releasesPaths.forEach(path => mkdirp(path))
+    releasesPaths.forEach(path => mkdirp(this.paths.releases[path]))
   }
 
   copyGitKeepFiles () {
