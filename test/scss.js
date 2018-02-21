@@ -2,6 +2,8 @@ import helpers from 'yeoman-test'
 import assert from 'yeoman-assert'
 import path from 'path'
 
+import { scss } from '../app/filesToAssert'
+
 describe('SCSS features', function () {
   beforeEach(function () {
     return helpers.run(path.join(__dirname, '../app'))
@@ -17,16 +19,8 @@ describe('SCSS features', function () {
   })
 
   it('should exists base SCSS file', function () {
-    assert.file([
-      'src/assets/styles/main/components/_buttons.scss',
-      'src/assets/styles/main/components/_forms.scss',
-      'src/assets/styles/main/screens/_base.scss',
-      'src/assets/styles/main/_mixins.scss',
-      'src/assets/styles/main/_variables.scss',
-      'src/assets/styles/main/main.scss',
-      'src/assets/styles/vendor/_reset.scss',
-      'src/assets/styles/vendor/vendor.scss'
-    ])
+    const styles = scss.map(file => `src/assets/${file}`)
+    assert.file(styles)
   })
 
   it('should exists screens SCSS files', function () {
@@ -53,7 +47,6 @@ describe('SCSS features', function () {
     assert.file([
       'gulp/common/styles.js',
       'gulp/common/cssModulesWrite.js',
-      'gulp/production/critical.js',
       'gulp/production/minifyStyles.js',
       'gulp/production/purify.js',
       'gulp/production/styles-production.js'

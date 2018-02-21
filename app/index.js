@@ -10,6 +10,8 @@ const filter = require('gulp-filter')
 const prettify = require('gulp-jsbeautifier')
 const eslint = require('gulp-eslint')
 
+const filesToAssert = require('./filesToAssert')
+
 class PixelGenerator extends Generator {
   constructor (args, options) {
     super(args, options)
@@ -298,9 +300,9 @@ class PixelGenerator extends Generator {
     this.log(chalk.yellow('Creating directories.'))
 
     const srcPaths = Object.keys(this.paths.src)
-    srcPaths.forEach(path => mkdirp(path))
+    srcPaths.forEach(path => mkdirp(this.paths.src[path]))
     const releasesPaths = Object.keys(this.paths.releases)
-    releasesPaths.forEach(path => mkdirp(path))
+    releasesPaths.forEach(path => mkdirp(this.paths.releases[path]))
   }
 
   copyGitKeepFiles () {
@@ -430,46 +432,14 @@ class PixelGenerator extends Generator {
   }
 
   writeBaseStyles () {
-    this.fs.copyTpl(
-      this.templatePath('styles/main/main.scss'),
-      this.destinationPath(this.paths.src.styles + '/main/main.scss'), {
-        projectName: this.options.projectName,
-        qtyScreens: this.options.qtyScreens
-      }
-    )
+    const styles = filesToAssert.scss
 
-    this.fs.copyTpl(
-      this.templatePath('styles/vendor/vendor.scss'),
-      this.destinationPath(this.paths.src.styles + '/vendor/vendor.scss'), {
-        projectName: this.options.projectName,
-        frontEndFramework: this.options.frontEndFramework
-      }
-    )
-
-    this.fs.copy(
-      this.templatePath('styles/main/_variables.scss'),
-      this.destinationPath(this.paths.src.styles + '/main/_variables.scss')
-    )
-    this.fs.copy(
-      this.templatePath('styles/main/_mixins.scss'),
-      this.destinationPath(this.paths.src.styles + '/main/_mixins.scss')
-    )
-    this.fs.copy(
-      this.templatePath('styles/vendor/_reset.scss'),
-      this.destinationPath(this.paths.src.styles + '/vendor/_reset.scss')
-    )
-    this.fs.copy(
-      this.templatePath('styles/main/screens/_base.scss'),
-      this.destinationPath(this.paths.src.styles + '/main/screens/_base.scss')
-    )
-    this.fs.copy(
-      this.templatePath('styles/main/components/_forms.scss'),
-      this.destinationPath(this.paths.src.styles + '/main/components/_forms.scss')
-    )
-    this.fs.copy(
-      this.templatePath('styles/main/components/_buttons.scss'),
-      this.destinationPath(this.paths.src.styles + '/main/components/_buttons.scss')
-    )
+    styles.forEach(file => {
+      this.fs.copy(
+        this.templatePath(file),
+        this.destinationPath(`src/assets/${file}`)
+      )
+    })
 
     for (var i = 1; i < this.options.qtyScreens + 1; i++) {
       this.fs.copyTpl(
@@ -494,15 +464,6 @@ class PixelGenerator extends Generator {
     this.fs.copyTpl(
       this.templatePath('scripts/index.js.ejs'),
       this.destinationPath(this.paths.src.scripts + '/index.js'), {
-        projectName: this.options.projectName,
-        frontEndFramework: this.options.frontEndFramework,
-        jQuery: this.options.jQuery
-      }
-    )
-
-    this.fs.copyTpl(
-      this.templatePath('scripts/registerServiceWorker.js'),
-      this.destinationPath(this.paths.src.scripts + '/registerServiceWorker.js'), {
         projectName: this.options.projectName,
         frontEndFramework: this.options.frontEndFramework,
         jQuery: this.options.jQuery
@@ -550,7 +511,6 @@ class PixelGenerator extends Generator {
       'common/scripts',
       'common/styles',
       'development/serve',
-      'production/critical',
       'production/minifyStyles',
       'production/purify',
       'production/styles-production',
