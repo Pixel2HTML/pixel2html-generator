@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/Pixel2HTML/pixel2html-generator.svg?branch=master)](https://travis-ci.org/Pixel2HTML/pixel2html-generator)
 
-![Cool Demo](tour.svg)
+<img src="./tour.svg" alt="Cool demo" />
 
 We aim to generate a boilerplate code for projects when we know the specs. 💕
 
