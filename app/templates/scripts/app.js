@@ -8,14 +8,10 @@
 // just like app.init()
 // from the good ol'days
 
-function sayColors () {
-  const colors = [ 'pink', 'red', 'blue' ]
-  const moColors = ['yellow', 'papayawhip']
+const colors = [ 'pink', 'red', 'blue' ]
+const moColors = ['yellow', 'papayawhip']
 
-  const allTheColors = [ ...colors, ...moColors ]
-  return allTheColors.map(color => console.log(`The color is ${color}`))
-}
-
-export default sayColors
+const allTheColors = [ ...colors, ...moColors ]
+allTheColors.map(color => console.log(`The color is ${color}`))
 
 // Happy coding from Pixel2HTML

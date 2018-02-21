@@ -1,95 +1,80 @@
-const webpack = require('webpack')
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const config = require('./gulp/config')
-const {cwd} = require('process')
-const WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin')
-const path = require('path')
+const paths = require('./webpack/paths')
+
+const commonPlugins = require('./webpack/commonPlugins')
+const devPlugins = require('./webpack/developmentPlugins')
+const productionPlugins = require('./webpack/productionPlugins')
 
 const production = config.production
 const debug = config.debug
-const WebpackMonitor = require('webpack-monitor')
 
-// When you really want to make the relationship work...
-const ENTRY_PATH = cwd() + '/' + config.project.jsMainFile
-const OUTPUT_PATH = cwd() + '/' + config.directories.dist.scripts
-const SRC = cwd() + '/src'
-const styles = cwd() + '/' + config.directories.src.cssModules
+let debugPlugins = []
 
-let plugins = [
-  // Allow everyone to use jQuery like it was global
-  new webpack.ProvidePlugin({
-    $: 'jquery',
-    jQuery: 'jquery',
-    'window.jQuery': 'jquery',
-    // Popper is for Bootstrap 4 mainly
-    Popper: ['popper.js', 'default']
-  }),
-  new webpack.optimize.CommonsChunkPlugin({
-    name: 'vendor',
-    minChunks: module => /node_modules/.test(module.resource)
-  }),
-  // Do NOT import the BLOAT from moment.js
-  // thanks create-react-app
-  new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
-]
-const devPlugins = [
-  new webpack.NamedModulesPlugin(),
-  new webpack.HotModuleReplacementPlugin(),
-  new WatchMissingNodeModulesPlugin(path.resolve('node_modules'))
-]
-const productionPlugins = [
-  new webpack.optimize.ModuleConcatenationPlugin(),
-  new webpack.DefinePlugin({
-    'process.env': { 'NODE_ENV': JSON.stringify('production') }
-  }),
-  new UglifyJSPlugin({sourceMap: true})
-]
-const debugPlugins = [
-  new BundleAnalyzerPlugin(),
-  new WebpackMonitor({
-    target: cwd() + '/gulp/stats.json',
-    launch: true,
-    port: 5000
-  })
-]
+if (debug) {
+  debugPlugins = require('./webpack/debugPlugins')
+}
 
-if (!production) plugins = [...plugins, ...devPlugins]
-if (production) plugins = [...plugins, ...productionPlugins]
+let plugins = [ ...commonPlugins ]
+
+const shouldBeDebugMode = production || debug
+
+if (!shouldBeDebugMode) plugins = [...plugins, ...devPlugins]
+if (shouldBeDebugMode) plugins = [...plugins, ...productionPlugins]
 if (debug) plugins = [...plugins, ...debugPlugins]
 
-const CONFIG = {
-  entry: production ? {
-    main: ENTRY_PATH
-  } : {
-    main: [
-      require.resolve('webpack-hot-middleware/client') + '?/',
-      require.resolve('webpack/hot/dev-server'),
-      ENTRY_PATH
-    ]
-  },
-  devtool: production ? 'source-map' : 'inline-source-map',
+process.env.NODE_ENV = 'development'
+process.env.BABEL_ENV = 'development'
+
+if (shouldBeDebugMode) {
+  process.env.NODE_ENV = 'production'
+  process.env.BABEL_ENV = 'production'
+}
+
+module.exports = {
+  entry: paths.entry,
+  devtool: shouldBeDebugMode ? 'source-map' : 'inline-source-map',
   module: {
-    rules: [{
-      test: /\.js$/,
-      include: SRC,
-      use: {
-        loader: 'babel-loader',
-        options: {
-          presets: [
-            require.resolve('@pixel2html/babel-preset')
-          ],
-          cacheDirectory: true
+    rules: [
+      {
+        test: /\.(js|jsx|mjs)$/,
+        enforce: 'pre',
+        use: [
+          {
+            options: {
+              eslintPath: require.resolve('eslint'),
+              baseConfig: {
+                extends: [require.resolve('@pixel2html/eslint-config')]
+              },
+              ignore: false,
+              useEslintrc: false
+            },
+            loader: require.resolve('eslint-loader')
+          }
+        ],
+        include: paths.src
+      },
+      {
+        test: /\.(js|jsx|mjs)$/,
+        include: paths.src,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              require.resolve('@pixel2html/babel-preset')
+            ],
+            cacheDirectory: true
+          }
         }
       }
-    }]},
+    ]},
   output: {
-    filename: production ? '[name].min.js' : '[name].js',
-    path: OUTPUT_PATH,
+    filename: shouldBeDebugMode ? '[name].min.js' : '[name].js',
+    chunkFilename: shouldBeDebugMode ? '[name].chunk.min.js' : '[name].chunk.js',
+    path: paths.output,
     publicPath: '/'
   },
   plugins,
-  externals: production ? {
+  externals: shouldBeDebugMode ? {
     jquery: 'jQuery'
   } : {},
   // Some libraries import Node modules but don't use them in the browser.
@@ -103,9 +88,8 @@ const CONFIG = {
   },
   resolve: {
     alias: {
-      styles
+      styles: paths.styles
     }
-  }
+  },
+  bail: shouldBeDebugMode
 }
-
-module.exports = CONFIG

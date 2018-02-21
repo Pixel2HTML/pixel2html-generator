@@ -24,12 +24,12 @@ You also can answer this questions passing parameters to the generator command.
 
 Here there are the available questions:
 
-* ```--projectName``` (*string*)
-* ```--qtyScreens``` (*int*)
-* ```--markupLanguage``` (*string*) [html, pug]
-* ```--markupIntegration``` (*string*) [jekyll, none]
-* ```--frontEndFramework``` (*string*) [bootstrap, bootstrap-4, foundation, none]
-* ```--jQuery``` (*bool*)
+* `--projectName` (*string*)
+* `--qtyScreens` (*int*)
+* `--markupLanguage` (*string*) [html, pug]
+* `--markupIntegration` (*string*) [jekyll, none]
+* `--frontEndFramework` (*string*) [bootstrap, bootstrap-4, foundation, none]
+* `--jQuery` (*bool*)
 
 Example:
 

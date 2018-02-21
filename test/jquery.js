@@ -24,7 +24,7 @@ describe('jQuery features', function () {
 
   it('should exists a gulp routine', function () {
     assert.file([
-      'gulp/tasks/scripts.js'
+      'gulp/common/scripts.js'
     ])
   })
 })

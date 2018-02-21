@@ -2,6 +2,8 @@ import helpers from 'yeoman-test'
 import assert from 'yeoman-assert'
 import path from 'path'
 
+import { scss } from '../app/filesToAssert'
+
 describe('SCSS features', function () {
   beforeEach(function () {
     return helpers.run(path.join(__dirname, '../app'))
@@ -17,16 +19,8 @@ describe('SCSS features', function () {
   })
 
   it('should exists base SCSS file', function () {
-    assert.file([
-      'src/assets/styles/main/components/_buttons.scss',
-      'src/assets/styles/main/components/_forms.scss',
-      'src/assets/styles/main/screens/_base.scss',
-      'src/assets/styles/main/_mixins.scss',
-      'src/assets/styles/main/_variables.scss',
-      'src/assets/styles/main/main.scss',
-      'src/assets/styles/vendor/_reset.scss',
-      'src/assets/styles/vendor/vendor.scss'
-    ])
+    const styles = scss.map(file => `src/assets/${file}`)
+    assert.file(styles)
   })
 
   it('should exists screens SCSS files', function () {
@@ -51,16 +45,15 @@ describe('SCSS features', function () {
 
   it('should exists a gulp routine', function () {
     assert.file([
-      'gulp/tasks/critical.js',
-      'gulp/tasks/minifyStyles.js',
-      'gulp/tasks/purify.js',
-      'gulp/tasks/styles.js',
-      'gulp/tasks/cssModulesWrite.js',
-      'gulp/tasks/styles-production.js'
+      'gulp/common/styles.js',
+      'gulp/common/cssModulesWrite.js',
+      'gulp/production/minifyStyles.js',
+      'gulp/production/purify.js',
+      'gulp/production/styles-production.js'
     ])
   })
 
   it('should exists a pipe in the main:styles routing', function () {
-    assert.fileContent('gulp/tasks/styles.js', /styles/)
+    assert.fileContent('gulp/common/styles.js', /styles/)
   })
 })

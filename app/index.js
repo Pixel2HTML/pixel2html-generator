@@ -1,7 +1,6 @@
 const Generator = require('yeoman-generator')
 const chalk = require('chalk')
 const mkdirp = require('mkdirp')
-const _ = require('underscore')
 const fs = require('fs-extra')
 const moment = require('moment')
 const updateNotifier = require('update-notifier')
@@ -9,6 +8,9 @@ const pkg = require('../package.json')
 
 const filter = require('gulp-filter')
 const prettify = require('gulp-jsbeautifier')
+const eslint = require('gulp-eslint')
+
+const filesToAssert = require('./filesToAssert')
 
 class PixelGenerator extends Generator {
   constructor (args, options) {
@@ -297,13 +299,10 @@ class PixelGenerator extends Generator {
   createFolders () {
     this.log(chalk.yellow('Creating directories.'))
 
-    // make src paths
-    _.each(this.paths.src, function (path) {
-      mkdirp(path)
-    })
-    _.each(this.paths.releases, function (path) {
-      mkdirp(path)
-    })
+    const srcPaths = Object.keys(this.paths.src)
+    srcPaths.forEach(path => mkdirp(this.paths.src[path]))
+    const releasesPaths = Object.keys(this.paths.releases)
+    releasesPaths.forEach(path => mkdirp(this.paths.releases[path]))
   }
 
   copyGitKeepFiles () {
@@ -433,46 +432,14 @@ class PixelGenerator extends Generator {
   }
 
   writeBaseStyles () {
-    this.fs.copyTpl(
-      this.templatePath('styles/main/main.scss'),
-      this.destinationPath(this.paths.src.styles + '/main/main.scss'), {
-        projectName: this.options.projectName,
-        qtyScreens: this.options.qtyScreens
-      }
-    )
+    const styles = filesToAssert.scss
 
-    this.fs.copyTpl(
-      this.templatePath('styles/vendor/vendor.scss'),
-      this.destinationPath(this.paths.src.styles + '/vendor/vendor.scss'), {
-        projectName: this.options.projectName,
-        frontEndFramework: this.options.frontEndFramework
-      }
-    )
-
-    this.fs.copy(
-      this.templatePath('styles/main/_variables.scss'),
-      this.destinationPath(this.paths.src.styles + '/main/_variables.scss')
-    )
-    this.fs.copy(
-      this.templatePath('styles/main/_mixins.scss'),
-      this.destinationPath(this.paths.src.styles + '/main/_mixins.scss')
-    )
-    this.fs.copy(
-      this.templatePath('styles/vendor/_reset.scss'),
-      this.destinationPath(this.paths.src.styles + '/vendor/_reset.scss')
-    )
-    this.fs.copy(
-      this.templatePath('styles/main/screens/_base.scss'),
-      this.destinationPath(this.paths.src.styles + '/main/screens/_base.scss')
-    )
-    this.fs.copy(
-      this.templatePath('styles/main/components/_forms.scss'),
-      this.destinationPath(this.paths.src.styles + '/main/components/_forms.scss')
-    )
-    this.fs.copy(
-      this.templatePath('styles/main/components/_buttons.scss'),
-      this.destinationPath(this.paths.src.styles + '/main/components/_buttons.scss')
-    )
+    styles.forEach(file => {
+      this.fs.copy(
+        this.templatePath(file),
+        this.destinationPath(`src/assets/${file}`)
+      )
+    })
 
     for (var i = 1; i < this.options.qtyScreens + 1; i++) {
       this.fs.copyTpl(
@@ -538,114 +505,43 @@ class PixelGenerator extends Generator {
       }
     )
 
-    // fonts
-    this.fs.copyTpl(
-      this.templatePath('gulp/tasks/fonts.js'),
-      this.destinationPath(this.paths.src.gulp_tasks + '/fonts.js'), {
-        paths: this.paths
-      }
+    const tasks = [
+      'common/cssModulesWrite',
+      'common/fonts',
+      'common/scripts',
+      'common/styles',
+      'development/serve',
+      'production/minifyStyles',
+      'production/purify',
+      'production/styles-production',
+      'production/zip'
+    ]
+
+    const templateTasks = [
+      'common/markup',
+      'common/static',
+      'development/watch'
+    ]
+
+    tasks.forEach(file =>
+      this.fs.copy(
+        this.templatePath(`gulp/${file}.js`),
+        this.destinationPath(`gulp/${file}.js`)
+      )
     )
 
-    // markup
-    this.fs.copyTpl(
-      this.templatePath('gulp/tasks/markup.js.ejs'),
-      this.destinationPath(this.paths.src.gulp_tasks + '/markup.js'), {
-        paths: this.paths,
-        markupLanguage: this.options.markupLanguage,
-        clientId: this.options.clientId,
-        projectId: this.options.projectId
-      }
-    )
-
-    // scripts
-    this.fs.copyTpl(
-      this.templatePath('gulp/tasks/scripts.js'),
-      this.destinationPath(this.paths.src.gulp_tasks + '/scripts.js'), {
-        paths: this.paths
-      }
-    )
-
-    // Serve
-    this.fs.copy(
-      this.templatePath('gulp/tasks/serve.js'),
-      this.destinationPath(this.paths.src.gulp_tasks + '/serve.js')
-    )
-
-    // watch
-    this.fs.copyTpl(
-      this.templatePath('gulp/tasks/watch.js.ejs'),
-      this.destinationPath(this.paths.src.gulp_tasks + '/watch.js'), {
-        paths: this.paths,
-        frontEndFramework: this.options.frontEndFramework,
-        jQuery: this.options.jQuery,
-        markupLanguage: this.options.markupLanguage
-      }
-    )
-
-    // static
-    this.fs.copyTpl(
-      this.templatePath('gulp/tasks/static.js.ejs'),
-      this.destinationPath(this.paths.src.gulp_tasks + '/static.js'), {
-        paths: this.paths,
-        markupLanguage: this.options.markupLanguage
-      }
-    )
-
-    // styles
-    this.fs.copyTpl(
-      this.templatePath('gulp/tasks/styles.js'),
-      this.destinationPath(this.paths.src.gulp_tasks + '/styles.js'), {
-        frontEndFramework: this.options.frontEndFramework,
-        paths: this.paths
-      }
-    )
-
-    this.fs.copyTpl(
-      this.templatePath('gulp/tasks/critical.js'),
-      this.destinationPath(this.paths.src.gulp_tasks + '/critical.js'), {
-        frontEndFramework: this.options.frontEndFramework,
-        paths: this.paths
-      }
-    )
-
-    this.fs.copyTpl(
-      this.templatePath('gulp/tasks/minifyStyles.js'),
-      this.destinationPath(this.paths.src.gulp_tasks + '/minifyStyles.js'), {
-        frontEndFramework: this.options.frontEndFramework,
-        paths: this.paths
-      }
-    )
-
-    this.fs.copyTpl(
-      this.templatePath('gulp/tasks/cssModulesWrite.js'),
-      this.destinationPath(this.paths.src.gulp_tasks + '/cssModulesWrite.js'), {
-        frontEndFramework: this.options.frontEndFramework,
-        paths: this.paths
-      }
-    )
-
-    this.fs.copyTpl(
-      this.templatePath('gulp/tasks/styles-production.js'),
-      this.destinationPath(this.paths.src.gulp_tasks + '/styles-production.js'), {
-        frontEndFramework: this.options.frontEndFramework,
-        paths: this.paths
-      }
-    )
-
-    this.fs.copyTpl(
-      this.templatePath('gulp/tasks/purify.js'),
-      this.destinationPath(this.paths.src.gulp_tasks + '/purify.js'), {
-        frontEndFramework: this.options.frontEndFramework,
-        paths: this.paths
-      }
-    )
-
-    // zip
-    this.fs.copyTpl(
-      this.templatePath('gulp/tasks/zip.js'),
-      this.destinationPath(this.paths.src.gulp_tasks + '/zip.js'), {
-        paths: this.paths
-      }
+    templateTasks.forEach(file =>
+      this.fs.copyTpl(
+        this.templatePath(`gulp/${file}.js.ejs`),
+        this.destinationPath(`gulp/${file}.js`), {
+          paths: this.paths,
+          markupLanguage: this.options.markupLanguage,
+          clientId: this.options.clientId,
+          projectId: this.options.projectId,
+          frontEndFramework: this.options.frontEndFramework,
+          jQuery: this.options.jQuery
+        }
+      )
     )
   }
 
@@ -664,6 +560,24 @@ class PixelGenerator extends Generator {
     this.fs.writeJSON('./.project.conf', configJson)
   }
 
+  installWebpackSituations () {
+    const webpackFiles = [
+      'commonPlugins.js',
+      'debugPlugins.js',
+      'developmentPlugins.js',
+      'paths.js',
+      'productionPlugins.js'
+    ]
+
+    // Work smart not hard
+    webpackFiles.map(file => {
+      this.fs.copy(
+        this.templatePath(`webpack/${file}`),
+        this.destinationPath(`webpack/${file}`)
+      )
+    })
+  }
+
   installDependencies () {
     this.options.yarn
       ? this.yarnInstall()
@@ -671,12 +585,21 @@ class PixelGenerator extends Generator {
   }
 
   eslintJs () {
-    const jsFilter = filter(['**/*.js', '**/*.json'], { restore: true })
+    const jsFilter = filter(['**/*.js'], { restore: true })
+    const jsonFilter = filter(['**/*.json'], { restore: true })
     this.registerTransformStream([
-      jsFilter,
+      jsonFilter,
       prettify({
         indent_size: 2
       }),
+      jsonFilter.restore
+    ])
+    this.registerTransformStream([
+      jsFilter,
+      eslint({
+        fix: true
+      }),
+      eslint.format(),
       jsFilter.restore
     ])
   }
